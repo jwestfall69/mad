@@ -12,7 +12,7 @@
 
 auto_work_ram_tests_dsub:
 		lea	WORK_RAM_START, a0
-		move.w	#WORK_RAM_SIZE, d0
+		move.l	#WORK_RAM_SIZE, d0
 		DSUB	memory_output_test
 		tst.b	d0
 		bne	.test_failed_output
@@ -23,7 +23,7 @@ auto_work_ram_tests_dsub:
 		bne	.test_failed_write
 
 		lea	WORK_RAM_START, a0
-		move.w	#WORK_RAM_SIZE, d0
+		move.l	#WORK_RAM_SIZE, d0
 		DSUB	memory_data_test
 		tst.b	d0
 		bne	.test_failed_data
@@ -59,7 +59,7 @@ auto_work_ram_tests_dsub:
 
 manual_work_ram_tests:
 
-		TXT_XY	3, 10
+		SEEK_XY	3, 10
 		lea	STR_PASSES, a0
 		RSUB	print_string
 
@@ -68,7 +68,7 @@ manual_work_ram_tests:
 
 	.loop_next_pass:
 
-		TXT_XY	12, 10
+		SEEK_XY	12, 10
 		move.l	d6, d0
 		PSUB	print_hex_long
 
@@ -77,7 +77,7 @@ manual_work_ram_tests:
 		tst.b	d0
 		bne	.test_failed
 
-;		btst	#BUTTON_B, REG_P1_INPUT
+		btst	#P1_B2_BIT, REG_P1_INPUT
 		beq	.test_exit
 
 		addq.l	#1, d6

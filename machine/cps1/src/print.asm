@@ -4,6 +4,8 @@
 	include "diag_rom.inc"
 	include "machine.inc"
 
+	global print_bits_byte_dsub
+	global print_char_dsub
 	global print_char_repeat_dsub
 	global print_clear_line_dsub
 	global print_hex_3_bytes_dsub
@@ -15,6 +17,20 @@
 
 	section code
 
+; params:
+;  d0 = byte
+;  a6 = address in fg ram to start printing at
+print_bits_byte_dsub:
+		DSUB_RETURN
+
+; params:
+;  d0 = char
+;  a6 = address in fg ram to start printing at
+print_char_dsub:
+		and.l	#$ff, d0
+		or.w	#(ROMSET_TEXT_TILE_GROUP << 8), d0
+		move.w	d0, (a6)
+		DSUB_RETURN
 ; params:
 ;  d0 = char
 ;  d1 = number of times

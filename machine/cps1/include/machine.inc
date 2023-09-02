@@ -24,6 +24,10 @@ ROW_SCROLL_RAM_SIZE		equ $4000
 PALETTE_RAM_START		equ $900000
 PALETTE_RAM_SIZE		equ $4000
 
+WORK_RAM_START			equ $ff0000
+WORK_RAM_SIZE			equ $10000
+WORK_RAM_ADDRESS_LINES		equ 15
+
 	macro SEEK_XY
 		lea	(SCROLL1_RAM_START + $8 + (\1 * $80)) + (\2 * 4), a6
 	endm
@@ -32,4 +36,22 @@ PALETTE_RAM_SIZE		equ $4000
 		lea	(SCROLL1_RAM_START + $8 + (\1 * 4)), a6
 	endm
 
-REG_P1_INPUT			equ $800000
+REG_P1_INPUT			equ $800001
+
+P1_RIGHT_BIT			equ $0
+P1_LEFT_BIT			equ $1
+P1_DOWN_BIT			equ $2
+P1_UP_BIT			equ $3
+P1_B1_BIT			equ $4
+P1_B2_BIT			equ $5
+P1_B3_BIT			equ $6
+
+P1_RIGHT			equ $01
+P1_LEFT				equ $02
+P1_DOWN				equ $04
+P1_UP				equ $08
+P1_B1				equ $10
+P1_B2				equ $20
+P1_B3				equ $40
+
+

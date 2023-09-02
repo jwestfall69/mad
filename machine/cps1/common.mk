@@ -28,10 +28,11 @@ OBJS += $(OBJ_DIR)/auto_test_table.o \
         $(OBJ_DIR)/error_table.o \
         $(OBJ_DIR)/footer.o \
         $(OBJ_DIR)/main_menu.o \
-        $(OBJ_DIR)/main_menu_table.o \
         $(OBJ_DIR)/print.o \
+        $(OBJ_DIR)/screen.o \
         $(OBJ_DIR)/util.o \
         $(OBJ_DIR)/vector_table.o \
+        $(OBJ_DIR)/work_ram.o \
         $(OBJ_DIR)/$(DIAG).o
 
 INCS = $(wildcard include/*.inc) \
