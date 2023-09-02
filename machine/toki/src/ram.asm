@@ -78,10 +78,10 @@ manual_ram_tests:
 
 		addq.l	#1, d6
 
-		btst	#P1_B2, REG_INPUT_P1
+		btst	#P1_B2_BIT, REG_INPUT_P1
 		beq	.test_exit
 
-		btst	#P1_B1, REG_INPUT_P1
+		btst	#P1_B1_BIT, REG_INPUT_P1
 		beq	.test_pause
 
 		bra	.loop_next_pass
@@ -107,12 +107,13 @@ manual_ram_tests:
 		PSUB	print_hex_long
 
 	.loop_paused:
-		btst	#P1_B1, REG_INPUT_P1
+		btst	#P1_B1_BIT, REG_INPUT_P1
 		beq	.loop_paused
 		bra	.loop_next_pass
 
 	.test_exit:
 		RSUB_INIT
+		clr.b	MAIN_MENU_CURSOR
 		bra	main_menu
 
 
