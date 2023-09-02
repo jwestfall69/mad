@@ -91,4 +91,5 @@ manual_work_ram_tests:
 
 	.test_exit:
 		RSUB_INIT
+		clr.b	MAIN_MENU_CURSOR
 		bra	main_menu
