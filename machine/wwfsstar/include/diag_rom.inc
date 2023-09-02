@@ -1,0 +1,4 @@
+
+SP_INIT_ADDR		equ $1c3ff0
+
+DIAG_ROM_SIZE		equ $8000

@@ -1,0 +1,8 @@
+ROMSET=ghouls
+ROMSET_CFLAGS=-D_ROMSET_GHOULS_ -D_CPS_B_01_
+ROM_SIZE=262144
+ROMA=dme_29.10h
+ROMB=dme_30.10j
+
+
+include common.mk

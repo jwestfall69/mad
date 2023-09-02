@@ -1,0 +1,6 @@
+ROMSET=baddudes
+ROMSET_CFLAGS=-D_ROMSET_BADDUDES_
+ROMA=ei04-1.3c
+ROMB=ei01-1.3a
+
+include common.mk

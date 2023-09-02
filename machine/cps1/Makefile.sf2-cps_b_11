@@ -1,0 +1,7 @@
+ROMSET=sf2
+ROMSET_CFLAGS=-D_ROMSET_SF2_ -D_CPS_B_11_
+ROM_SIZE=262144
+ROMA=sf2e_30g.11e
+ROMB=sf2e_37g.11f
+
+include common.mk
