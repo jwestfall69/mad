@@ -15,7 +15,7 @@
 	section code
 
 p1_input_update:
-		move.b	REG_P1_INPUT, d0
+		move.b	REG_INPUT_P1, d0
 		not.b	d0
 		move.b	P1_INPUT_RAW, d1
 		eor.b	d0, d1

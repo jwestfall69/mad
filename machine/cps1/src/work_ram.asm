@@ -77,7 +77,7 @@ manual_work_ram_tests:
 		tst.b	d0
 		bne	.test_failed
 
-		btst	#P1_B2_BIT, REG_P1_INPUT
+		btst	#P1_B2_BIT, REG_INPUT_P1
 		beq	.test_exit
 
 		addq.l	#1, d6

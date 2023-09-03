@@ -21,6 +21,26 @@
 ;  d0 = byte
 ;  a6 = address in fg ram to start printing at
 print_bits_byte_dsub:
+		; printing backwards to need to shift over
+		add.l	#$7*$80, a6
+		moveq	#7, d2
+	.loop_next_bit:
+		btst	#0, d0
+
+		beq	.print_zero
+
+		move.w	#'1', d1
+		bra	.do_print
+
+	.print_zero:
+		move.w	#'0', d1
+
+	.do_print:
+		or.w	#(ROMSET_TEXT_TILE_GROUP << 8), d1
+		move.w	d1, (a6)
+		sub.l	#$80, a6
+		lsr.b	#1, d0
+		dbra	d2, .loop_next_bit
 		DSUB_RETURN
 
 ; params:

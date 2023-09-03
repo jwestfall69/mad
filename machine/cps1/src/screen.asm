@@ -8,7 +8,6 @@
 
 	global cps_a_init_dsub
 	global palette_init_dsub
-	global print_header_dsub
 	global screen_init_dsub
 	global screen_clear_dsub
 	global screen_seek_xy_dsub

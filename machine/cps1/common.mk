@@ -27,6 +27,7 @@ OBJS += $(OBJ_DIR)/auto_test_table.o \
         $(OBJ_DIR)/diag_rom.o \
         $(OBJ_DIR)/error_table.o \
         $(OBJ_DIR)/footer.o \
+        $(OBJ_DIR)/input_test.o \
         $(OBJ_DIR)/main_menu.o \
         $(OBJ_DIR)/print.o \
         $(OBJ_DIR)/screen.o \

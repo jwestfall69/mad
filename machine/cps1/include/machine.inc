@@ -36,7 +36,14 @@ WORK_RAM_ADDRESS_LINES		equ 15
 		lea	(SCROLL1_RAM_START + $8 + (\1 * 4)), a6
 	endm
 
-REG_P1_INPUT			equ $800001
+REG_INPUT_DSW1			equ $80001a
+REG_INPUT_DSW2			equ $80001c
+REG_INPUT_DSW3			equ $80001e
+REG_INPUT_P1			equ $800001
+REG_INPUT_P2			equ $800000
+REG_INPUT_P3			equ $800003
+REG_INPUT_P4			equ $800002
+REG_INPUT_SYSTEM		equ $800018
 
 P1_RIGHT_BIT			equ $0
 P1_LEFT_BIT			equ $1
@@ -54,4 +61,5 @@ P1_B1				equ $10
 P1_B2				equ $20
 P1_B3				equ $40
 
+SYS_START1			equ $10
 
