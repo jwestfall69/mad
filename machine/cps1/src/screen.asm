@@ -24,29 +24,24 @@ palette_init_dsub:
 		move.w  #ROMSET_VIDEO_CTRL, REGA_VIDEO_CONTROL
 		DSUB_RETURN
 
-
-screen_init2_dsub:
-		lea	SCROLL1_RAM_START, a0
-		move.w	#(SCROLL1_RAM_SIZE / 2), d0
-		moveq	#$0, d1
-		DSUB	memory_fill
-
-		SEEK_XY	5, 0
-		lea	STR_HEADER, a0
-		DSUB	print_string
-
-		SEEK_LN	1
-		move.l	#'-', d0
-		moveq	#32, d1
-		DSUB	print_char_repeat
-
-
-		DSUB_RETURN
-
+; The ram block we use for palette data is suppose to get copied to
+; the palette ram whenever we write to REGA_PALETTE_RAM_BASE, however
+; this doesn't seem to be the case 100% of the time.  It appears a
+; number of game write to REGA_PALETTE_RAM_BASE within the vblank
+; interrupt handler to get around this issue? Using an interrupt
+; handler isn't something we can do since ram maybe bad.  From testing
+; it appears we can trigger the copy just by looping over clearing ram
+; and writing to REGA_PALETTE_RAM_BASE a 3+ times.
 screen_clear_dsub:
 screen_init_dsub:
+
+		moveq	#2, d5
+	.loop:
+
 		lea	MEMORY_FILL_LIST, a0
 		DSUB	memory_fill_list
+		DSUB	palette_init
+		dbra	d5, .loop
 
 		SEEK_XY	5, 0
 		lea	STR_HEADER, a0
@@ -56,11 +51,7 @@ screen_init_dsub:
 		move.l	#'-', d0
 		moveq	#32, d1
 		DSUB	print_char_repeat
-
-		DSUB	palette_init
-
 		DSUB_RETURN
-
 
 cps_a_init_dsub:
 		move.w	#OBJECT_RAM_START / 256, REGA_OBJECT_RAM_BASE
@@ -68,10 +59,8 @@ cps_a_init_dsub:
 		move.w	#SCROLL2_RAM_START / 256, REGA_SCROLL2_RAM_BASE
 		move.w	#SCROLL3_RAM_START / 256, REGA_SCROLL3_RAM_BASE
 		move.w	#ROW_SCROLL_RAM_START / 256, REGA_ROW_SCROLL_RAM_BASE
-		move.w	#(PALETTE_RAM_START / 256), REGA_PALETTE_RAM_BASE
-
+		move.w	#PALETTE_RAM_START / 256, REGA_PALETTE_RAM_BASE
 		DSUB_RETURN
-
 
 ; in cases where we need to goto x, y location at runtime
 ; params:
