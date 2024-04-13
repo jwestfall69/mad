@@ -6,7 +6,8 @@
 	global memory_data_test_dsub
 	global memory_fill_dsub
 	global memory_fill_list_dsub
-        global memory_fill_long_dsub
+	global memory_fill_long_dsub
+	global memory_march_test_dsub
 	global memory_output_test_dsub
 	global memory_rewrite_word_dsub
 	global memory_write_test_dsub
@@ -164,6 +165,71 @@ memory_fill_long_dsub:
 	.loop_next_address:
 		move.l	d1, (a0)+
 		dbra	d0, .loop_next_address
+		DSUB_RETURN
+
+; Do a march test
+; params:
+;  a0 = start address
+;  d0 = number of bytes
+memory_march_test_dsub:
+
+		; adjust length since we are writing in words
+		ror.l	#1, d0
+		subq.w	#1, d0
+
+		; backup params
+		move.l	d0, d4
+		movea.l	a0, a2
+
+		moveq	#0, d1
+	.loop_fill_zero:
+		move.w	d1, (a0)+
+		dbra d0, .loop_fill_zero
+
+		movea.l	a2, a0
+		move.l	d4, d0
+
+	.loop_up_test:
+		move.w	(a0), d2
+		cmp.w	d1, d2
+		bne	.test_failed_up
+		move.w	#$ffff, (a0)+
+		dbra	d0, .loop_up_test
+
+		suba.l	#2, a0
+		move.l	d4, d0
+
+		move.w	#$ffff, d1
+	.loop_down_test:
+		move.w	(a0), d2
+		cmp.w	d1, d2
+		bne	.test_failed_down
+		move.w	#0, (a0)
+		suba.l	#2, a0
+		dbra	d0, .loop_down_test
+
+		moveq	#0, d0
+		DSUB_RETURN
+
+	.test_failed_up:
+		subq.l	#2, a0
+
+	.test_failed_down:
+		moveq	#0, d0
+		cmp.b	d1, d2
+		beq	.check_upper
+		moveq	#1, d0
+
+	.check_upper:
+		ror.l	#8, d1
+		ror.l	#8, d2
+		cmp.b	d1, d2
+		beq	.check_done
+		or.b	#2, d0
+
+	.check_done:
+		rol.l	#8, d1
+		rol.l	#8, d2
 		DSUB_RETURN
 
 ; Tests both lower and upper bytes for each output
