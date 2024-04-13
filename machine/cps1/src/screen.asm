@@ -43,13 +43,13 @@ screen_init_dsub:
 		DSUB	palette_init
 		dbra	d5, .loop
 
-		SEEK_XY	5, 0
+		SEEK_XY	14, 0
 		lea	STR_HEADER, a0
 		DSUB	print_string
 
 		SEEK_LN	1
 		move.l	#'-', d0
-		moveq	#32, d1
+		moveq	#48, d1
 		DSUB	print_char_repeat
 		DSUB_RETURN
 

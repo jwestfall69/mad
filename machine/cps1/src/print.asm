@@ -69,7 +69,7 @@ print_char_repeat_dsub:
 ;  a6 = address in fg ram to start clearing from
 print_clear_line_dsub:
 		moveq	#' ', d0
-		moveq	#32, d1
+		moveq	#48, d1
 		bra	print_char_repeat_dsub
 
 ; called by error_handler
