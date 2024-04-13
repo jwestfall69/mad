@@ -16,9 +16,9 @@ vblank_interrupt:
 _start:
 		PSUB_INIT
 
-		move.b  #$80, $800030
-		move.b  #$0, $800030
-		move.b  #$f0, $800181
+		; init the sound latch or random sounds
+		; can play on powerup
+		move.b  #$f0, REG_SOUND1
 
 		move.w	#$ffc0, REGA_SCROLL1_X
 		move.w	#$0, REGA_SCROLL1_Y

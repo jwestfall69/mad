@@ -54,6 +54,12 @@ screen_init_dsub:
 		DSUB_RETURN
 
 cps_a_init_dsub:
+
+		; games seem to do this, mame hints this might trigger
+		; a reset of the CPS A chip
+		move.b	#$80, REG_COIN_CTRL
+		move.b	#0, REG_COIN_CTRL
+
 		move.w	#OBJECT_RAM_START / 256, REGA_OBJECT_RAM_BASE
 		move.w	#SCROLL1_RAM_START / 256, REGA_SCROLL1_RAM_BASE
 		move.w	#SCROLL2_RAM_START / 256, REGA_SCROLL2_RAM_BASE
