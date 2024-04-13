@@ -29,6 +29,7 @@ _start:
 		PSUB	auto_dsub_tests
 
 		RSUB_INIT
+		bsr	auto_func_tests
 		bsr	main_menu
 
 		STALL
