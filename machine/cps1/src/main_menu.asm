@@ -13,7 +13,7 @@ main_menu:
 		RSUB	screen_init
 		lea	MAIN_MENU_LIST, a0
 		lea	main_menu_get_input, a1
-		moveq	#'*', d0
+		moveq	#ROMSET_MENU_CURSOR, d0
 		moveq	#' ', d1
 		jsr	main_menu_handler
 
