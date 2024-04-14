@@ -38,6 +38,8 @@ OBJS += $(OBJ_DIR)/auto_test_table.o \
         $(OBJ_DIR)/$(DIAG).o
 
 INCS = $(wildcard include/*.inc) \
+       $(wildcard include/cps_b/*.inc) \
+       $(wildcard include/romset/*.inc) \
        $(wildcard ../../common/include/cpu/68000/*.inc)
 
 $(WORK_DIR)/$(DIAG).bin: $(WORK_DIR) $(OBJ_DIR) $(BUILD_DIR) $(OBJS)
