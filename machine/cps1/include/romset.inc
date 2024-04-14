@@ -1,4 +1,8 @@
 
+	ifd _ROMSET_3WONDERS_
+		include "romset/3wonders.inc"
+	endif
+
 	ifd _ROMSET_CAPTCOMM_
 		include "romset/captcomm.inc"
 	endif
