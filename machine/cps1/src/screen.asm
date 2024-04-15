@@ -96,8 +96,3 @@ MEMORY_FILL_LIST
 STR_HEADER:	STRING "CPS1 DIAG 0.01 - ACK"
 
 	section bss
-
-P1_INPUT_EDGE:	dc.w $0
-P1_INPUT_RAW:	dc.w $0
-P2_INPUT_EDGE:	dc.w $0
-P2_INPUT_RAW:	dc.w $0

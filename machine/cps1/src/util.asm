@@ -5,28 +5,28 @@
 	include "diag_rom.inc"
 	include "machine.inc"
 
-	global p1_input_update
+	global input_p1_update
 
-	global P1_INPUT_EDGE
-	global P1_INPUT_RAW
-	global P2_INPUT_EDGE
-	global P2_INPUT_RAW
+	global INPUT_P1_EDGE
+	global INPUT_P1_RAW
+	global INPUT_P2_EDGE
+	global INPUT_P2_RAW
 
 	section code
 
-p1_input_update:
+input_p1_update:
 		move.b	REG_INPUT_P1, d0
 		not.b	d0
-		move.b	P1_INPUT_RAW, d1
+		move.b	INPUT_P1_RAW, d1
 		eor.b	d0, d1
 		and.b	d0, d1
-		move.b	d1, P1_INPUT_EDGE
-		move.b	d0, P1_INPUT_RAW
+		move.b	d1, INPUT_P1_EDGE
+		move.b	d0, INPUT_P1_RAW
                 rts
 
 	section bss
 
-P1_INPUT_EDGE:	dc.b $0
-P1_INPUT_RAW:	dc.b $0
-P2_INPUT_EDGE:	dc.b $0
-P2_INPUT_RAW:	dc.b $0
+INPUT_P1_EDGE:	dc.b $0
+INPUT_P1_RAW:	dc.b $0
+INPUT_P2_EDGE:	dc.b $0
+INPUT_P2_RAW:	dc.b $0

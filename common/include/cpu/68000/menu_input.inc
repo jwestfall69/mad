@@ -1,0 +1,6 @@
+MENU_UP_BIT		equ $0
+MENU_DOWN_BIT		equ $1
+MENU_LEFT_BIT		equ $2
+MENU_RIGHT_BIT		equ $3
+MENU_BUTTON_BIT		equ $4
+MENU_EXIT_BIT		equ $5

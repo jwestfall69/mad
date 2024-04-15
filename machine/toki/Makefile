@@ -21,6 +21,7 @@ OBJS = $(OBJ_DIR)/cpu/68000/auto_test.o \
        $(OBJ_DIR)/cpu/68000/input.o \
        $(OBJ_DIR)/cpu/68000/main_menu_handler.o \
        $(OBJ_DIR)/cpu/68000/memory.o \
+       $(OBJ_DIR)/cpu/68000/menu_input_generic.o \
        $(OBJ_DIR)/cpu/68000/print_error.o \
        $(OBJ_DIR)/cpu/68000/util.o \
        $(OBJ_DIR)/cpu/68000/xy_string.o

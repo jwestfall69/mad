@@ -1,5 +1,6 @@
 	include "cpu/68000/dsub.inc"
 	include "cpu/68000/macros.inc"
+	include "cpu/68000/menu_input.inc"
 	include "cpu/68000/main_menu_handler.inc"
 
 	include "machine.inc"
@@ -38,10 +39,10 @@ main_menu_handler:
 		jsr	(a2)			; input callback
 
 	.check_button_pressed:
-		btst	#MAIN_MENU_BUTTON_BIT, d0
+		btst	#MENU_BUTTON_BIT, d0
 		bne	.menu_entry_run
 
-		btst	#MAIN_MENU_UP_BIT, d0
+		btst	#MENU_UP_BIT, d0
 		beq	.up_not_pressed
 
 		move.b	d4, d5
@@ -51,7 +52,7 @@ main_menu_handler:
 		bra	.update_cursor
 
 	.up_not_pressed:
-		btst	#MAIN_MENU_DOWN_BIT, d0
+		btst	#MENU_DOWN_BIT, d0
 		beq	.loop_menu_input
 
 		move.b	d4, d5
