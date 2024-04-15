@@ -1,9 +1,3 @@
-	; global includes
-	include "cpu/68000/dsub.inc"
-	include "cpu/68000/macros.inc"
-
-	; machine includes
-	include "diag_rom.inc"
 	include "machine.inc"
 
 	global input_p1_update
@@ -11,8 +5,6 @@
 
 	global INPUT_P1_EDGE
 	global INPUT_P1_RAW
-	global INPUT_P2_EDGE
-	global INPUT_P2_RAW
 	global INPUT_SYSTEM_EDGE
 	global INPUT_SYSTEM_RAW
 
@@ -42,7 +34,5 @@ input_system_update:
 
 INPUT_P1_EDGE:		dc.b $0
 INPUT_P1_RAW:		dc.b $0
-INPUT_P2_EDGE:		dc.b $0
-INPUT_P2_RAW:		dc.b $0
 INPUT_SYSTEM_EDGE: 	dc.b $0
 INPUT_SYSTEM_RAW:	dc.b $0

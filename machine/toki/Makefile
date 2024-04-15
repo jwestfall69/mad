@@ -19,6 +19,7 @@ OBJS = $(OBJ_DIR)/cpu/68000/auto_test.o \
        $(OBJ_DIR)/cpu/68000/dsub.o \
        $(OBJ_DIR)/cpu/68000/error_handler.o \
        $(OBJ_DIR)/cpu/68000/input.o \
+       $(OBJ_DIR)/cpu/68000/input_update.o \
        $(OBJ_DIR)/cpu/68000/main_menu_handler.o \
        $(OBJ_DIR)/cpu/68000/memory.o \
        $(OBJ_DIR)/cpu/68000/menu_input_generic.o \
@@ -37,7 +38,6 @@ OBJS += $(OBJ_DIR)/auto_test_table.o \
         $(OBJ_DIR)/print_error.o \
         $(OBJ_DIR)/ram.o \
 	$(OBJ_DIR)/screen.o \
-        $(OBJ_DIR)/util.o \
         $(OBJ_DIR)/vector_table.o \
         $(OBJ_DIR)/$(DIAG).o
 

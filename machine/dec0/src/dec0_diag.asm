@@ -20,8 +20,6 @@ _start:
 
 		clr.b	INPUT_P1_EDGE
 		clr.b	INPUT_P1_RAW
-		clr.b	INPUT_P2_EDGE
-		clr.b	INPUT_P2_RAW
 		clr.b	INPUT_SYSTEM_EDGE
 		clr.b	INPUT_SYSTEM_RAW
 		clr.b	MAIN_MENU_CURSOR
