@@ -10,15 +10,17 @@
 	section code
 
 main_menu:
-		RSUB	screen_init
+		move.b	#0, MAIN_MENU_CURSOR
 
+	.loop_main_menu:
+		RSUB	screen_init
 		lea	MAIN_MENU_LIST, a0
 		lea	menu_input_generic, a1
 		moveq	#'*', d0
 		moveq	#0, d1
 		jsr	main_menu_handler
 
-		bra	main_menu
+		bra	.loop_main_menu
 
 MAIN_MENU_LIST:
 	MAIN_MENU_ENTRY manual_work_ram_tests, STR_RAM_TEST
