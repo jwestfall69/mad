@@ -26,10 +26,11 @@ memory_fill_list_dsub:
 
 	.loop_next_entry:
 		move.l	(a1)+, a0
-		cmp.l	#0, a0
+		move.w	(a1)+, d0		; size
+
+		cmp.w	#0, d0
 		beq	.fills_done
 
-		move.w	(a1)+, d0		; size
 		move.w	(a1)+, d1		; value to write
 
 		subq.w	#1, d0

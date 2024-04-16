@@ -10,4 +10,5 @@
 
 	macro MEMORY_FILL_ENTRY_LIST_END
 		dc.l $0
+		dc.w $0
 	endm
