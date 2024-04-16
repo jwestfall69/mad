@@ -63,6 +63,7 @@ manual_ram_tests:
 		RSUB	print_string
 
 		moveq	#0, d6		; passes, memory tests don't touch it
+		DISABLE_INTS
 		PSUB_INIT
 
 	.loop_next_pass:
@@ -113,6 +114,7 @@ manual_ram_tests:
 
 	.test_exit:
 		RSUB_INIT
+		ENABLE_INTS
 		clr.b	MAIN_MENU_CURSOR
 		bra	main_menu
 

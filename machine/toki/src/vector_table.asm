@@ -1,3 +1,4 @@
+	include "cpu/68000/macros.inc"
 	include "diag_rom.inc"
 	include "machine.inc"
 
@@ -12,5 +13,5 @@
 	section code
 
 interrupt_vblank:
-		RENDER_FRAME
+		SCREEN_UPDATE
 		rte

@@ -22,6 +22,7 @@ _start:
 		PSUB	auto_dsub_tests
 
 		RSUB_INIT
+		ENABLE_INTS
 
 		RSUB	screen_init
 		bsr	auto_func_tests

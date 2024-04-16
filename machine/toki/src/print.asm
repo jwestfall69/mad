@@ -41,7 +41,7 @@ print_bits_byte_dsub:
 		subq.l  #2, a6
 		lsr.b   #1, d0
 		dbra    d2, .loop_next_bit
-		DSUB_RETURN
+		bra	screen_update_dsub
 
 ; params:
 ;  d0 = char
@@ -49,7 +49,7 @@ print_bits_byte_dsub:
 print_char_dsub:
 		and.l	#$ff, d0
 		move.w	d0, (a6)+
-		DSUB_RETURN
+		bra	screen_update_dsub
 
 ; params:
 ;  d0 = char
@@ -61,7 +61,7 @@ print_char_repeat_dsub:
 	.loop_next_address:
 		move.w	d0, (a6)+
 		dbra	d1, .loop_next_address
-		DSUB_RETURN
+		bra	screen_update_dsub
 
 ; params:
 ;  a6 = address in fg ram to start clearing from
@@ -112,7 +112,7 @@ print_hex_dsub:
 		move.w	d2, -(a6)
 		lsr.l	#4, d0
 		dbra	d1, .loop_next_hex
-		DSUB_RETURN
+		bra	screen_update_dsub
 
 HEX_LOOKUP:	dc.b	"0123456789ABCDEF"
 
@@ -126,4 +126,4 @@ print_string_dsub:
 		move.w	d0, (a6)+
 		move.b	(a0)+, d0
 		bne	.loop_next_char
-		DSUB_RETURN
+		bra	screen_update_dsub

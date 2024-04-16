@@ -26,7 +26,7 @@ ROM_SIZE		equ $40000
 
 ; the hardware doesn't seem to update video output
 ; unless a write happens to this address
-MMIO_RENDER_FRAME	equ $0a0040
+MMIO_SCREEN_UPDATE	equ $0a0040
 MMIO_SCREEN_FLIP	equ $0a0050
 
 REG_INPUT_DSW1		equ $0c0001
@@ -74,8 +74,8 @@ SYS_START2		equ $10
 DSW1_FLIP_SCREEN_BIT	equ $7
 DSW1_FLIP_SCREEN	equ $80
 
-	macro RENDER_FRAME
-		move.w	d0, MMIO_RENDER_FRAME
+	macro SCREEN_UPDATE
+		move.w	d0, MMIO_SCREEN_UPDATE
 	endm
 
 	macro SEEK_XY
@@ -84,4 +84,12 @@ DSW1_FLIP_SCREEN	equ $80
 
 	macro SEEK_LN
 		lea	(FG_RAM_START + 128  + (\1 * 64)), a6
+	endm
+
+	macro ENABLE_INTS
+		move.w	#$2000, sr
+	endm
+
+	macro DISABLE_INTS
+		move.w	#$2700, sr
 	endm

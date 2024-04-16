@@ -8,6 +8,7 @@
 	global screen_clear_dsub
 	global screen_init_dsub
 	global screen_seek_xy_dsub
+	global screen_update_dsub
 
 	section code
 
@@ -56,6 +57,18 @@ screen_seek_xy_dsub:
 		lsl.w	#6, d1
 		adda.l	d0, a6
 		adda.l	d1, a6
+		DSUB_RETURN
+
+
+; toki only updates the screen when MMIO_UPDATE_SCREEN
+; is written to.
+screen_update_dsub:
+		move.w	sr, d0
+		btst	#8, d0
+		beq	.skip_update
+		SCREEN_UPDATE
+
+	.skip_update:
 		DSUB_RETURN
 
 	section data
