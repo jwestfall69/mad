@@ -1,5 +1,5 @@
-	include "cpu/68000/auto_test_handler.inc"
 	include "cpu/68000/macros.inc"
+	include "cpu/68000/tests/auto.inc"
 
 	global AUTO_DSUB_TEST_TABLE
 	global AUTO_FUNC_TEST_TABLE

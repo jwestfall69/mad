@@ -11,16 +11,17 @@ VLINK_FLAGS = -brawbin1 -Tdiag_rom.ld
 MKDIR = mkdir
 DD = dd
 
-OBJS = $(OBJ_DIR)/cpu/68000/auto_test.o \
-       $(OBJ_DIR)/cpu/68000/crc32.o \
+OBJS = $(OBJ_DIR)/cpu/68000/crc32.o \
        $(OBJ_DIR)/cpu/68000/dsub.o \
        $(OBJ_DIR)/cpu/68000/error_handler.o \
-       $(OBJ_DIR)/cpu/68000/input.o \
        $(OBJ_DIR)/cpu/68000/input_update.o \
        $(OBJ_DIR)/cpu/68000/main_menu_handler.o \
-       $(OBJ_DIR)/cpu/68000/memory.o \
+       $(OBJ_DIR)/cpu/68000/memory_fill.o \
        $(OBJ_DIR)/cpu/68000/menu_input_generic.o \
        $(OBJ_DIR)/cpu/68000/print_error.o \
+       $(OBJ_DIR)/cpu/68000/tests/auto.o \
+       $(OBJ_DIR)/cpu/68000/tests/input.o \
+       $(OBJ_DIR)/cpu/68000/tests/memory.o \
        $(OBJ_DIR)/cpu/68000/util.o \
        $(OBJ_DIR)/cpu/68000/xy_string.o
 
@@ -41,7 +42,8 @@ OBJS += $(OBJ_DIR)/auto_test_table.o \
 INCS = $(wildcard include/*.inc) \
        $(wildcard include/cps_b/*.inc) \
        $(wildcard include/romset/*.inc) \
-       $(wildcard ../../common/include/cpu/68000/*.inc)
+       $(wildcard ../../common/include/cpu/68000/*.inc) \
+       $(wildcard ../../common/include/cpu/68000/tests/*.inc)
 
 $(WORK_DIR)/$(DIAG).bin: $(WORK_DIR) $(OBJ_DIR) $(BUILD_DIR) $(OBJS)
 	$(VLINK) $(VLINK_FLAGS) -o $(WORK_DIR)/$(DIAG).bin $(OBJS)
@@ -60,11 +62,15 @@ $(OBJ_DIR)/%.o: src/%.asm $(INCS)
 $(OBJ_DIR)/cpu/68000/%.o: ../../common/src/cpu/68000/%.asm $(INCS)
 	 $(VASM) $(VASM_FLAGS) $(ROMSET_CFLAGS) -o $@ $<
 
+
+$(OBJ_DIR)/cpu/68000/tests/%.o: ../../common/src/cpu/68000/tests/%.asm $(INCS)
+	 $(VASM) $(VASM_FLAGS) $(ROMSET_CFLAGS) -o $@ $<
+
 $(WORK_DIR):
 	$(MKDIR) -p $(WORK_DIR)
 
 $(OBJ_DIR):
-	$(MKDIR) -p $(OBJ_DIR)/cpu/68000
+	$(MKDIR) -p $(OBJ_DIR)/cpu/68000/tests
 
 clean:
 	rm -fr $(BUILD_DIR)/

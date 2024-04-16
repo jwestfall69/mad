@@ -4,9 +4,6 @@
 
 	global memory_address_test_dsub
 	global memory_data_test_dsub
-	global memory_fill_dsub
-	global memory_fill_list_dsub
-	global memory_fill_long_dsub
 	global memory_march_test_dsub
 	global memory_output_test_dsub
 	global memory_rewrite_word_dsub
@@ -120,51 +117,6 @@ memory_data_test_dsub:
 	.check_done:
 		rol.l	#8, d1
 		rol.l	#8, d2
-		DSUB_RETURN
-
-; params:
-;  a0 = start address
-;  d0 = number of words
-;  d1 = value
-memory_fill_dsub:
-		subq.w	#1, d0
-	.loop_next_address:
-		move.w	d1, (a0)+
-		dbra	d0, .loop_next_address
-		DSUB_RETURN
-
-; params:
-;  a0 = start of list of MEMORY_FILL_ENTRY's
-memory_fill_list_dsub:
-		move.l	a0, a1
-
-	.loop_next_entry:
-		move.l	(a1)+, a0
-		cmp.l	#0, a0
-		beq	.fills_done
-
-		move.w	(a1)+, d0		; size
-		move.w	(a1)+, d1		; value to write
-
-		subq.w	#1, d0
-	.loop_next_address:
-		move.w	d1, (a0)+
-		dbra	d0, .loop_next_address
-		bra	.loop_next_entry
-
-	.fills_done:
-
-		DSUB_RETURN
-
-; params:
-;  a0 = start address
-;  d0 = number of words
-;  d1 = value
-memory_fill_long_dsub:
-		subq.w	#1, d0
-	.loop_next_address:
-		move.l	d1, (a0)+
-		dbra	d0, .loop_next_address
 		DSUB_RETURN
 
 ; Do a march test
