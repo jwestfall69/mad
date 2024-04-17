@@ -62,8 +62,10 @@ screen_init_dsub:
 		; text corner color
 		; - showing a color will make the corners square
 		; - not showing a color will make them round
-		move.w	#$ffff, PALETTE_RAM_START + ROMSET_PAL_TEXT_CORNER_OFFSET
-		move.w	#$ff, PALETTE_EXT_RAM_START + ROMSET_PAL_TEXT_CORNER_OFFSET
+		move.w	#$ffff, PALETTE_RAM_START + ROMSET_PAL_TEXT_CORNER1_OFFSET
+		move.w	#$ff, PALETTE_EXT_RAM_START + ROMSET_PAL_TEXT_CORNER1_OFFSET
+		move.w	#$ffff, PALETTE_RAM_START + ROMSET_PAL_TEXT_CORNER2_OFFSET
+		move.w	#$ff, PALETTE_EXT_RAM_START + ROMSET_PAL_TEXT_CORNER2_OFFSET
 	endif
 
 		; background color
