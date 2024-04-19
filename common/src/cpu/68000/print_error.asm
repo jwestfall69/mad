@@ -4,6 +4,7 @@
 
 	include "machine.inc"
 
+	global print_error_address_dsub
 	global print_error_crc32_dsub
 	global print_error_hex_byte_dsub
 	global print_error_invalid_dsub
@@ -12,6 +13,26 @@
 
 	section code
 ; these are print_error functions that get called by error_handler
+
+; params:
+;  a0 = address
+;  a1 = error description
+print_error_address_dsub:
+		; address value
+		SEEK_XY	14, 8
+		move.l	a0, d0
+		DSUB	print_hex_3_bytes
+
+		; error description
+		SEEK_XY	4, 5
+		movea.l	a1, a0
+		DSUB	print_string
+
+		SEEK_XY	4, 8
+		lea	STR_ADDRESS, a0
+		DSUB	print_string
+
+		DSUB_RETURN
 
 ; params:
 ;  d0 = error
