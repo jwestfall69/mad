@@ -1,6 +1,5 @@
 	include "cpu/68000/dsub.inc"
 	include "cpu/68000/macros.inc"
-	include "cpu/68000/ssa3.inc"
 
 	global memory_fill_dsub
 	global memory_fill_list_dsub

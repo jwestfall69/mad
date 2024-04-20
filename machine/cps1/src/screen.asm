@@ -1,7 +1,6 @@
 	include "cpu/68000/dsub.inc"
 	include "cpu/68000/macros.inc"
 	include "cpu/68000/memory_fill.inc"
-	include "cpu/68000/ssa3.inc"
 
 	include "diag_rom.inc"
 	include "machine.inc"

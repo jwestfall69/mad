@@ -1,6 +1,5 @@
 	include "cpu/68000/dsub.inc"
 	include "cpu/68000/macros.inc"
-	include "cpu/68000/ssa3.inc"
 
 	global memory_address_test_dsub
 	global memory_data_test_dsub
@@ -195,14 +194,14 @@ memory_output_test_dsub:
 		moveq	#0, d4		; return value
 
 		moveq	#0, d0
-		SSA3	memory_output_byte_test
+		DSUB	memory_output_byte_test
 		tst.b	d0
 		beq	.test_lower
 		moveq	#2, d4
 
 	.test_lower:
 		moveq	#1, d0
-		SSA3	memory_output_byte_test
+		DSUB	memory_output_byte_test
 		sub.l	#1, a0		; revert a0 back to what was passed in
 		tst.b	d0
 		beq	.lower_passed
@@ -278,7 +277,7 @@ memory_rewrite_word_dsub:
 ;  d0 = 0 (upper chip) or 1 (lower chip)
 ; return:
 ;  d0 = $00 (pass) or 1 (fail)
-memory_output_byte_test_ssa3:
+memory_output_byte_test_dsub:
 		adda.w  d0, a0
 		moveq   #$31, d2
 
@@ -300,11 +299,11 @@ memory_output_byte_test_ssa3:
 		dbeq	d2, .loop_test_again
 		beq	.test_failed
 		moveq	#0, d0
-		SSA3_RETURN
+		DSUB_RETURN
 
 	.test_failed:
 		moveq	#1, d0
-		SSA3_RETURN
+		DSUB_RETURN
 
 
 ; params:
