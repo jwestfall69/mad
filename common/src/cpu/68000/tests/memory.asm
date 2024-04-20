@@ -6,8 +6,10 @@
 	global memory_data_test_dsub
 	global memory_march_test_dsub
 	global memory_output_test_dsub
+	global memory_output_list_test_dsub
 	global memory_rewrite_word_dsub
 	global memory_write_test_dsub
+	global memory_write_list_test_dsub
 
 	section code
 ; Write an incrementing value at each address line, then
@@ -201,12 +203,54 @@ memory_output_test_dsub:
 	.test_lower:
 		moveq	#1, d0
 		SSA3	memory_output_byte_test
+		sub.l	#1, a0		; revert a0 back to what was passed in
 		tst.b	d0
 		beq	.lower_passed
 		or.b	#1, d4
 
 	.lower_passed:
 		move.b	d4, d0
+		DSUB_RETURN
+
+; Tests both lower and upper bytes for each output
+; params:
+;  a0 = address list
+; return:
+;  d0 = 0 (pass), 1 (lower bad), 2 (upper bad), 3 (both bad)
+;  a0 = address (if failure)
+; note: not able to call memory_output_test_dsub because we would
+; nest to deep
+memory_output_list_test_dsub:
+		movea.l	a0, a1
+
+	.loop_next_address:
+
+		moveq	#0, d4
+		move.l	(a1)+, a0
+		cmpa.l	#1, a0		; an address of 0x1 is our end of list
+		beq	.tests_passed
+
+		moveq	#1, d0
+		DSUB	memory_output_byte_test
+		tst.b	d0
+		beq	.test_lower
+		moveq	#2, d4
+
+	.test_lower:
+		moveq	#1, d0
+		DSUB	memory_output_byte_test
+		sub.l	#1, a0		; revert a0 back to what was passed in
+		tst.b	d0
+		beq	.lower_passed
+		or.b	#1, d4
+
+	.lower_passed:
+		move.b	d4, d0
+		tst.b	d0
+		beq	.loop_next_address
+		DSUB_RETURN
+
+	.tests_passed:
 		DSUB_RETURN
 
 ; writes a region of memory (mainly just used to force
@@ -222,6 +266,7 @@ memory_rewrite_word_dsub:
 		move.w	d1, (a0)+
 		dbra	d0, .loop_next_address
 		DSUB_RETURN
+
 ; Attempts to read from the memory location.  If the chip never
 ; gets enabled d1 will be filled with the next data on the data
 ; bus, which would be the next instruction because of prefetching.
@@ -292,6 +337,31 @@ memory_write_test_dsub:
 		or.b	#2, d0
 
 	.check_done:
+		DSUB_RETURN
+
+; params:
+;  a0 = address list
+; returns:
+;  d0 = 0 (pass), 1 (lower unwritable), 2 (upper unwritable), 3 (both unwritable)
+;  a0 = address (if failure)
+; - reads a word value from the memory address
+; - writes !value to memory address
+; - re-reads memory address
+; - compare re-read with original
+memory_write_list_test_dsub:
+		movea.l	a0, a1
+
+	.loop_next_address:
+		move.l	(a1)+, a0
+		cmpa.l	#1, a0		; an address of 0x1 is our end of list
+		beq	.tests_passed
+
+		DSUB	memory_write_test
+		tst.b	d0
+		beq	.loop_next_address
+		DSUB_RETURN
+
+	.tests_passed:
 		DSUB_RETURN
 
 
