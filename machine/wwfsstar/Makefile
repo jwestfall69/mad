@@ -32,7 +32,7 @@ OBJS = $(OBJ_DIR)/cpu/68000/crc32.o \
 
 # code from this machine
 OBJS += $(OBJ_DIR)/auto_test_table.o \
-        $(OBJ_DIR)/error_table.o \
+        $(OBJ_DIR)/errors.o \
         $(OBJ_DIR)/fg_ram.o \
         $(OBJ_DIR)/footer.o \
         $(OBJ_DIR)/input_test.o \

@@ -10,6 +10,7 @@
 	global print_error_invalid_dsub
 	global print_error_memory_dsub
 	global print_error_string_dsub
+	global EC_PRINT_LIST
 
 	section code
 ; these are print_error functions that get called by error_handler
@@ -196,6 +197,14 @@ print_error_string_dsub:
 		DSUB_RETURN
 
 	section data
+
+EC_PRINT_LIST:
+	EC_PRINT_ENTRY PRINT_ERROR_ADDRESS, print_error_address_dsub
+	EC_PRINT_ENTRY PRINT_ERROR_CRC32, print_error_crc32_dsub
+	EC_PRINT_ENTRY PRINT_ERROR_HEX_BYTE, print_error_hex_byte_dsub
+	EC_PRINT_ENTRY PRINT_ERROR_MEMORY, print_error_memory_dsub
+	EC_PRINT_ENTRY PRINT_ERROR_STRING, print_error_string_dsub
+	EC_PRINT_LIST_END
 
 STR_ADDRESS:		STRING "ADDRESS:"
 STR_ACTUAL:		STRING "ACTUAL:"

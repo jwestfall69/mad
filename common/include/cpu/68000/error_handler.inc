@@ -8,21 +8,7 @@
 		dc.l STR_\1
 	endm
 
-	macro EC_ENTRY_NULL
-		dc.b $0, $0
-		dc.l $0
-	endm
-
-	; struct EC_PRINT_ENTRY {
-	;   byte padding;
-	;   byte dsub_id;
-	;   long dsub_address
-	macro EC_PRINT_ENTRY
-		dc.b $0, \1
-		dc.l \2
-	endm
-
-	macro EC_PRINT_ENTRY_NULL
+	macro EC_LIST_END
 		dc.b $0, $0
 		dc.l $0
 	endm
