@@ -1,6 +1,7 @@
 	include "cpu/68000/dsub.inc"
 	include "cpu/68000/macros.inc"
 	include "cpu/68000/xy_string.inc"
+	include "cpu/68000/tests/memory.inc"
 
 	include "diag_rom.inc"
 	include "error_codes.inc"
@@ -12,14 +13,13 @@
 	section code
 
 auto_work_ram_tests_dsub:
-		lea	WORK_RAM_START, a0
-		move.w	#WORK_RAM_SIZE, d0
-		DSUB	memory_output_test
+		lea	MEMORY_ADDRESS_LIST, a0
+		DSUB	memory_output_list_test
 		tst.b	d0
 		bne	.test_failed_output
 
-		lea	WORK_RAM_START, a0
-		DSUB	memory_write_test
+		lea	MEMORY_ADDRESS_LIST, a0
+		DSUB	memory_write_list_test
 		tst.b	d0
 		bne	.test_failed_write
 
@@ -94,8 +94,14 @@ manual_work_ram_tests:
 		clr.b	MAIN_MENU_CURSOR
 		bra	main_menu
 
+	section data
 
-WORK_RAM_XYS_LIST
+WORK_RAM_XYS_LIST:
 	XY_STRING	3, 10, "PASSES"
 	XY_STRING	3, 20, "B2 - RETURN TO MENU"
 	XY_STRING_LIST_END
+
+; fix me based on ram chips
+MEMORY_ADDRESS_LIST:
+        MEMORY_ADDRESS_ENTRY WORK_RAM_START
+        MEMORY_ADDRESS_ENTRY_LIST_END

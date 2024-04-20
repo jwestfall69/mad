@@ -1,5 +1,6 @@
 	include "cpu/68000/dsub.inc"
 	include "cpu/68000/macros.inc"
+	include "cpu/68000/tests/memory.inc"
 
 	include "diag_rom.inc"
 	include "error_codes.inc"
@@ -11,14 +12,13 @@
 	section code
 
 auto_ram_tests_dsub:
-		lea	RAM_START, a0
-		move.l	#RAM_SIZE, d0
-		DSUB	memory_output_test
+		lea	MEMORY_ADDRESS_LIST, a0
+		DSUB	memory_output_list_test
 		tst.b	d0
 		bne	.test_failed_output
 
-		lea	RAM_START, a0
-		DSUB	memory_write_test
+		lea	MEMORY_ADDRESS_LIST, a0
+		DSUB	memory_write_list_test
 		tst.b	d0
 		bne	.test_failed_write
 
@@ -119,4 +119,12 @@ manual_ram_tests:
 		bra	main_menu
 
 
+
+	section data
+
 STR_RAM_TEST:		STRING "RAM TEST"
+
+; fix me based on ram chips
+MEMORY_ADDRESS_LIST:
+        MEMORY_ADDRESS_ENTRY RAM_START
+        MEMORY_ADDRESS_ENTRY_LIST_END
