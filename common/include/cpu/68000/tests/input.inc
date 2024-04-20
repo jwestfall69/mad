@@ -7,6 +7,6 @@
 		dc.l \2
 	endm
 
-	macro INPUT_ENTRY_LIST_END
+	macro INPUT_LIST_END
 		dc.w $0
 	endm

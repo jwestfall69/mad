@@ -104,4 +104,4 @@ manual_gfx_ram_tests:
 ; fix me based on ram chips
 MEMORY_ADDRESS_LIST:
         MEMORY_ADDRESS_ENTRY GFX_RAM_START
-        MEMORY_ADDRESS_ENTRY_LIST_END
+        MEMORY_ADDRESS_LIST_END

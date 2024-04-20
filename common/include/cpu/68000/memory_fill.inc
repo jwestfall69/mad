@@ -8,7 +8,7 @@
 		dc.w \2, \3	; size, value
 	endm
 
-	macro MEMORY_FILL_ENTRY_LIST_END
+	macro MEMORY_FILL_LIST_END
 		dc.l $0
 		dc.w $0
 	endm

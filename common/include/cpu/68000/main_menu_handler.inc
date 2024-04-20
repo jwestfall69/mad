@@ -6,6 +6,6 @@
 		dc.l \1, \2
 	endm
 
-	macro MAIN_MENU_ENTRY_LIST_END
+	macro MAIN_MENU_LIST_END
 		dc.l $0
 	endm

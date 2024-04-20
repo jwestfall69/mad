@@ -99,4 +99,4 @@ manual_work_ram_tests:
 ; fix me based on ram chips
 MEMORY_ADDRESS_LIST:
         MEMORY_ADDRESS_ENTRY WORK_RAM_START
-        MEMORY_ADDRESS_ENTRY_LIST_END
+        MEMORY_ADDRESS_LIST_END
