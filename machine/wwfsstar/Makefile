@@ -23,6 +23,7 @@ OBJS = $(OBJ_DIR)/cpu/68000/crc32.o \
        $(OBJ_DIR)/cpu/68000/menu_input_generic.o \
        $(OBJ_DIR)/cpu/68000/print_error.o \
        $(OBJ_DIR)/cpu/68000/tests/auto.o \
+       $(OBJ_DIR)/cpu/68000/tests/diag_rom.o \
        $(OBJ_DIR)/cpu/68000/tests/input.o \
        $(OBJ_DIR)/cpu/68000/tests/memory.o \
        $(OBJ_DIR)/cpu/68000/tests/sound.o \
@@ -31,7 +32,6 @@ OBJS = $(OBJ_DIR)/cpu/68000/crc32.o \
 
 # code from this machine
 OBJS += $(OBJ_DIR)/auto_test_table.o \
-        $(OBJ_DIR)/diag_rom.o \
         $(OBJ_DIR)/error_table.o \
         $(OBJ_DIR)/fg_ram.o \
         $(OBJ_DIR)/footer.o \
