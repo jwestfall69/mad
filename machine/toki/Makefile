@@ -32,13 +32,13 @@ OBJS = $(OBJ_DIR)/cpu/68000/crc32.o \
 # code from this machine
 OBJS += $(OBJ_DIR)/errors.o \
         $(OBJ_DIR)/footer.o \
-        $(OBJ_DIR)/input_test.o \
         $(OBJ_DIR)/main_menu.o \
         $(OBJ_DIR)/print.o \
         $(OBJ_DIR)/print_error.o \
-        $(OBJ_DIR)/ram.o \
 	$(OBJ_DIR)/screen.o \
 	$(OBJ_DIR)/tests/auto.o \
+        $(OBJ_DIR)/tests/input.o \
+        $(OBJ_DIR)/tests/ram.o \
         $(OBJ_DIR)/vector_table.o \
         $(OBJ_DIR)/$(DIAG).o
 

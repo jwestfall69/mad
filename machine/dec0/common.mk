@@ -31,14 +31,14 @@ OBJS = $(OBJ_DIR)/cpu/68000/crc32.o \
 # code from this machine
 OBJS += $(OBJ_DIR)/errors.o \
         $(OBJ_DIR)/footer.o \
-        $(OBJ_DIR)/input_test.o \
         $(OBJ_DIR)/main_menu.o \
         $(OBJ_DIR)/print.o \
         $(OBJ_DIR)/screen.o \
-        $(OBJ_DIR)/sound_test.o \
         $(OBJ_DIR)/tests/auto.o \
+        $(OBJ_DIR)/tests/input.o \
+        $(OBJ_DIR)/tests/sound.o \
+        $(OBJ_DIR)/tests/work_ram.o \
         $(OBJ_DIR)/vector_table.o \
-	$(OBJ_DIR)/work_ram.o \
         $(OBJ_DIR)/$(DIAG).o
 
 INCS = $(wildcard include/*.inc) \
