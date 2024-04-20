@@ -1,7 +1,6 @@
 	include "cpu/68000/dsub.inc"
 	include "cpu/68000/macros.inc"
 
-	; machine includes
 	include "machine.inc"
 
 	global auto_dsub_tests_dsub
@@ -15,7 +14,7 @@ auto_dsub_tests_dsub:
 	.loop_next_test:
 		; doing it this way because the only thing that we
 		; know will presist across test functions is d6
-		lea	AUTO_DSUB_TEST_TABLE + 4, a0	; string offset
+		lea	AUTO_DSUB_LIST + 4, a0		; string offset
 		move.l	(a0, d6), a0			; jump to index in the table
 
 		cmp.l	#0, a0				; table is null terminated
@@ -27,7 +26,7 @@ auto_dsub_tests_dsub:
 		SEEK_XY	4,5
 		DSUB	print_string
 
-		lea	AUTO_DSUB_TEST_TABLE, a2	; test dsub offset
+		lea	AUTO_DSUB_LIST, a2		; test dsub offset
 		move.l	(a2, d6), a2			; jump to index in the table
 
 		; this is manually setting up a dsub call and return point
@@ -49,7 +48,7 @@ auto_dsub_tests_dsub:
 		DSUB_RETURN
 
 auto_func_tests:
-		lea	(AUTO_FUNC_TEST_TABLE), a1
+		lea	(AUTO_FUNC_LIST), a1
 
 	.loop_next_test:
 		tst.l	(a1)			; table is null terminated

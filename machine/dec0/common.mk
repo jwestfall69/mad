@@ -29,14 +29,14 @@ OBJS = $(OBJ_DIR)/cpu/68000/crc32.o \
        $(OBJ_DIR)/cpu/68000/xy_string.o
 
 # code from this machine
-OBJS += $(OBJ_DIR)/auto_test_table.o \
-        $(OBJ_DIR)/errors.o \
+OBJS += $(OBJ_DIR)/errors.o \
         $(OBJ_DIR)/footer.o \
         $(OBJ_DIR)/input_test.o \
         $(OBJ_DIR)/main_menu.o \
         $(OBJ_DIR)/print.o \
         $(OBJ_DIR)/screen.o \
         $(OBJ_DIR)/sound_test.o \
+        $(OBJ_DIR)/tests/auto.o \
         $(OBJ_DIR)/vector_table.o \
 	$(OBJ_DIR)/work_ram.o \
         $(OBJ_DIR)/$(DIAG).o
@@ -51,7 +51,10 @@ $(WORK_DIR)/$(DIAG).bin: $(WORK_DIR) $(OBJ_DIR) $(BUILD_DIR) $(OBJS)
 	../../util/rom-byte-split $(WORK_DIR)/$(DIAG).bin $(BUILD_DIR)/$(ROMA) $(BUILD_DIR)/$(ROMB)
 
 $(OBJ_DIR)/%.o: src/%.asm $(INCS)
-	$(VASM) $(VASM_FLAGS) $(ROMSET_CFLAGS) -o $@ $< 
+	$(VASM) $(VASM_FLAGS) $(ROMSET_CFLAGS) -o $@ $<
+
+$(OBJ_DIR)/%.o: src/%.asm $(INCS)
+	$(VASM) $(VASM_FLAGS) $(ROMSET_CFLAGS) -o $@ $<
 
 $(OBJ_DIR)/cpu/68000/%.o: ../../common/src/cpu/68000/%.asm $(INCS)
 	 $(VASM) $(VASM_FLAGS) $(ROMSET_CFLAGS) -o $@ $<
@@ -63,7 +66,7 @@ $(WORK_DIR):
 	$(MKDIR) -p $(WORK_DIR)
 
 $(OBJ_DIR):
-	$(MKDIR) -p $(OBJ_DIR)/cpu/68000/tests
+	$(MKDIR) -p $(OBJ_DIR)/tests $(OBJ_DIR)/cpu/68000/tests
 
 clean:
 	rm -fr $(BUILD_DIR)/
