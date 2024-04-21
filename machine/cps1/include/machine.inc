@@ -71,3 +71,4 @@ P1_B3				equ $40
 
 SYS_START1			equ $10
 
+SOUND_STOP			equ $f0

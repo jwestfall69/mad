@@ -105,3 +105,5 @@ SYS_COIN1			equ $10
 SYS_COIN2			equ $20
 SYS_SERVICE			equ $40
 SYS_VBLANK			equ $80
+
+SOUND_STOP			equ $01

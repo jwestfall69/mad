@@ -8,20 +8,18 @@
 
 ; params:
 ;  d0 = start value
-;  a0 = address of sound register
-;  a1 = menu get input function
+;  a0 = menu get input function
 sound_test_handler:
 		move.b	d0, d4
-		movea.l	a0, a3
-		movea.l	a1, a4
+		movea.l	a0, a1
 
 	.update_byte:
 		SEEK_XY	14, 10
 		move.b	d4, d0
-		RSUB	print_hex_byte
+		DSUB	print_hex_byte
 
 	.loop_input:
-		jsr	(a4)
+		jsr	(a1)
 
 		btst	#MENU_DOWN_BIT, d0
 		beq	.down_not_pressed
@@ -49,16 +47,13 @@ sound_test_handler:
 	.right_not_pressed:
 		btst	#MENU_BUTTON_BIT, d0
 		beq	.button_not_pressed
-;		move.b	#$f0, (a3)
-;		move.w	#$fff, d0
-;		RSUB	delay
-		move.b	d4, (a3)
-		move.b	#0, (2,a3)
-		move.b	#0, ($c,a3)
-		move.b	#0, (8,a3)
+		move.b	d4, d0
+		DSUB	sound_play
 		bra	.loop_input
 
 	.button_not_pressed:
 		btst	#MENU_EXIT_BIT, d0
 		beq	.loop_input
+
+		DSUB	sound_stop
 		rts

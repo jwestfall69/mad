@@ -13,8 +13,7 @@ sound_test:
 		lea	SOUND_XYS_LIST, a0
 		RSUB	print_xy_string_list
 
-		lea	REG_SOUND, a0
-		lea	menu_input_generic, a1
+		lea	menu_input_generic, a0
 		moveq	#$22, d0
 		jsr	sound_test_handler
 		rts

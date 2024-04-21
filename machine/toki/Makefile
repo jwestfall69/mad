@@ -26,6 +26,7 @@ OBJS = $(OBJ_DIR)/cpu/68000/crc32.o \
        $(OBJ_DIR)/cpu/68000/tests/diag_rom.o \
        $(OBJ_DIR)/cpu/68000/tests/input.o \
        $(OBJ_DIR)/cpu/68000/tests/memory.o \
+       $(OBJ_DIR)/cpu/68000/tests/sound.o \
        $(OBJ_DIR)/cpu/68000/util.o \
        $(OBJ_DIR)/cpu/68000/xy_string.o
 
@@ -35,10 +36,12 @@ OBJS += $(OBJ_DIR)/errors.o \
         $(OBJ_DIR)/main_menu.o \
         $(OBJ_DIR)/print.o \
         $(OBJ_DIR)/print_error.o \
-	$(OBJ_DIR)/screen.o \
-	$(OBJ_DIR)/tests/auto.o \
+        $(OBJ_DIR)/screen.o \
+        $(OBJ_DIR)/sound.o \
+        $(OBJ_DIR)/tests/auto.o \
         $(OBJ_DIR)/tests/input.o \
         $(OBJ_DIR)/tests/ram.o \
+        $(OBJ_DIR)/tests/sound.o \
         $(OBJ_DIR)/vector_table.o \
         $(OBJ_DIR)/$(DIAG).o
 

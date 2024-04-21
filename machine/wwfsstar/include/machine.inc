@@ -33,7 +33,7 @@ P1_UP_BIT		equ $2
 P1_DOWN_BIT		equ $3
 P1_B1_BIT		equ $4
 P1_B2_BIT		equ $5
-P1_A_BIT		equ $7 		; Button A (1P VS CPU - Power Up)
+P1_A_BIT		equ $7		; Button A (1P VS CPU - Power Up)
 
 P1_RIGHT		equ $01
 P1_LEFT			equ $02
@@ -73,6 +73,8 @@ SYS_SERVICE		equ $08
 
 DSW1_FLIP_SCREEN_BIT	equ $7
 DSW1_FLIP_SCREEN	equ $80
+
+SOUND_STOP		equ $00
 
 	; goto the correct fg memory location before printing text
 	; to the screen
