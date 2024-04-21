@@ -1,4 +1,5 @@
 	macro MEMORY_ADDRESS_ENTRY
+		align 2
 		dc.l \1
 	endm
 
