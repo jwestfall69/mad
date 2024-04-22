@@ -1,3 +1,5 @@
 SP_INIT_ADDR		equ $ffbffc
-
 DIAG_ROM_SIZE		equ $8000
+
+CURSOR_CHAR		equ '*'
+CURSOR_CLEAR_CHAR	equ $0

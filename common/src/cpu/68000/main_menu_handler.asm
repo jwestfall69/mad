@@ -3,6 +3,7 @@
 	include "cpu/68000/menu_input.inc"
 	include "cpu/68000/main_menu_handler.inc"
 
+	include "diag_rom.inc"
 	include "machine.inc"
 
 	global main_menu_handler
@@ -14,22 +15,18 @@ MAIN_MENU_Y_OFFSET		equ $2
 	section code
 
 ; params:
-;  d0 = cursor char
-;  d1 = clear cursor char
 ;  a0 = main menu struct list
 ;  a1 = input callback function
 main_menu_handler:
 
 		move.l	a0, MAIN_MENU_LIST
 		move.l	a1, a2
-		move.b	d0, MAIN_MENU_CURSOR_CHAR
-		move.b	d1, MAIN_MENU_CURSOR_CLEAR_CHAR
 
 		jsr	print_main_menu_list
 		move.b	d0, d6			; max menu entries
 		subq.b	#1, d6
 
-		move.b	MAIN_MENU_CURSOR, d4		; current menu entry
+		move.b	MAIN_MENU_CURSOR, d4	; current menu entry
 		move.b	d4, d5			; previous menu entry
 
 		; force an initial draw of the cursor
@@ -68,7 +65,7 @@ main_menu_handler:
 		add.b	d5, d1
 		RSUB	screen_seek_xy
 
-		move.b	MAIN_MENU_CURSOR_CLEAR_CHAR, d0
+		move.b	#CURSOR_CLEAR_CHAR, d0
 		RSUB	print_char
 
 		; draw new
@@ -77,7 +74,7 @@ main_menu_handler:
 		add.b	d4, d1
 		RSUB	screen_seek_xy
 
-		move.b	MAIN_MENU_CURSOR_CHAR, d0
+		move.b	#CURSOR_CHAR, d0
 		RSUB	print_char
 
 		bra	.loop_menu_input
@@ -138,5 +135,3 @@ print_main_menu_list:
 
 MAIN_MENU_LIST:			dc.l	$0
 MAIN_MENU_CURSOR:		dc.b	$0
-MAIN_MENU_CURSOR_CHAR:		dc.b	$0
-MAIN_MENU_CURSOR_CLEAR_CHAR:	dc.b	$0

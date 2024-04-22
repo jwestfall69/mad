@@ -1,2 +1,5 @@
 SP_INIT_ADDR		equ $06c000
 DIAG_ROM_SIZE		equ $8000
+
+CURSOR_CHAR		equ '*'
+CURSOR_CLEAR_CHAR	equ ' '

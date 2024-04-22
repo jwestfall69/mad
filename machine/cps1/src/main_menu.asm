@@ -14,10 +14,9 @@ main_menu:
 
 	.loop_main_menu:
 		RSUB	screen_init
+
 		lea	MAIN_MENU_LIST, a0
 		lea	menu_input_generic, a1
-		moveq	#ROMSET_MENU_CURSOR, d0
-		moveq	#' ', d1
 		jsr	main_menu_handler
 
 		bra	.loop_main_menu
