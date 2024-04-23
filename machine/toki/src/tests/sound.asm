@@ -10,7 +10,7 @@
 	section code
 
 sound_test:
-		lea	SOUND_XYS_LIST, a0
+		lea	SCREEN_XYS_LIST, a0
 		RSUB	print_xy_string_list
 
 		lea	menu_input_generic, a0
@@ -20,7 +20,7 @@ sound_test:
 
 	section	data
 
-SOUND_XYS_LIST:
+SCREEN_XYS_LIST:
 	XY_STRING  3, 10, "SOUND NUM:"
 ;	XY_STRING  3, 19, "B1 - PLAY SOUND"
 	XY_STRING  3, 19, "SOUND NOT SETUP"

@@ -60,7 +60,7 @@ auto_work_ram_tests_dsub:
 
 manual_work_ram_tests:
 
-		lea	WORK_RAM_XYS_LIST, a0
+		lea	SCREEN_XYS_LIST, a0
 		RSUB	print_xy_string_list
 
 		moveq	#0, d6		; passes, memory tests don't touch it
@@ -96,9 +96,9 @@ manual_work_ram_tests:
 
 	section data
 
-WORK_RAM_XYS_LIST:
-	XY_STRING	3, 10, "PASSES"
-	XY_STRING	3, 20, "B2 - RETURN TO MENU"
+SCREEN_XYS_LIST:
+	XY_STRING  3, 10, "PASSES"
+	XY_STRING  3, 20, "B2 - RETURN TO MENU"
 	XY_STRING_LIST_END
 
 ; fix me based on ram chips

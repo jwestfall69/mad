@@ -1,6 +1,7 @@
 	include "cpu/68000/dsub.inc"
 	include "cpu/68000/macros.inc"
 	include "cpu/68000/tests/memory.inc"
+	include "cpu/68000/xy_string.inc"
 
 	include "diag_rom.inc"
 	include "error_codes.inc"
@@ -70,9 +71,8 @@ auto_work_ram_tests_dsub:
 
 manual_work_ram_tests:
 
-		SEEK_XY	3, 10
-		lea	STR_PASSES, a0
-		RSUB	print_string
+		lea	SCREEN_XYS_LIST, a0
+		RSUB	print_xy_string_list
 
 		moveq	#0, d6		; passes, memory tests don't touch it
 		PSUB_INIT
@@ -105,6 +105,11 @@ manual_work_ram_tests:
 		bra	main_menu
 
 	section data
+
+SCREEN_XYS_LIST:
+	XY_STRING  3, 10, "PASSES"
+	XY_STRING  3, 20, "B2 - RETURN TO MENU"
+	XY_STRING_LIST_END
 
 ; fix me based on ram chips
 MEMORY_ADDRESS_LIST:

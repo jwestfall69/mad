@@ -1,6 +1,7 @@
 	include "cpu/68000/dsub.inc"
 	include "cpu/68000/macros.inc"
 	include "cpu/68000/tests/memory.inc"
+	include "cpu/68000/xy_string.inc"
 
 	include "diag_rom.inc"
 	include "error_codes.inc"
@@ -58,11 +59,11 @@ auto_ram_tests_dsub:
 
 manual_ram_tests:
 
-		SEEK_XY	3, 10
-		lea	STR_PASSES, a0
-		RSUB	print_string
+		lea	SCREEN_XYS_LIST, a0
+		RSUB	print_xy_string_list
 
 		moveq	#0, d6		; passes, memory tests don't touch it
+
 		DISABLE_INTS
 		PSUB_INIT
 
@@ -95,13 +96,8 @@ manual_ram_tests:
 	.test_pause:
 		PSUB	screen_init
 
-		SEEK_XY	3, 10
-		lea	STR_PASSES, a0
-		PSUB	print_string
-
-		SEEK_XY	3, 3
-		lea	STR_RAM_TEST, a0
-		PSUB	print_string
+		lea	SCREEN_XYS_LIST, a0
+		PSUB	print_xy_string_list
 
 		SEEK_XY	12, 10
 		move.l	d6, d0
@@ -121,6 +117,13 @@ manual_ram_tests:
 
 
 	section data
+
+SCREEN_XYS_LIST:
+	XY_STRING 3,  4, "RAM TEST"
+	XY_STRING 3, 10, "PASSES"
+	XY_STRING 3, 19, "B1 - PAUSE"
+	XY_STRING 3, 20, "B2 - RETURN TO MENU"
+	XY_STRING_LIST_END
 
 STR_RAM_TEST:		STRING "RAM TEST"
 
