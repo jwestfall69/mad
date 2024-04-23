@@ -37,6 +37,13 @@ auto_fg_ram_tests:
 		bne	.test_failed_address
 		rts
 
+		lea	FG_RAM_START, a0
+		move.w	#FG_RAM_SIZE, d0
+		RSUB	memory_march_test
+		tst.b	d0
+		bne	.test_failed_march
+
+
 	.test_failed_address:
 		moveq	#EC_FG_RAM_ADDRESS, d0
 		rts
@@ -44,6 +51,11 @@ auto_fg_ram_tests:
 	.test_failed_data:
 		subq.b	#1, d0
 		add.b	#EC_FG_RAM_DATA_LOWER, d0
+		rts
+
+	.test_failed_march:
+		subq.b	#1, d0
+		add.b	#EC_FG_RAM_MARCH_LOWER, d0
 		rts
 
 	.test_failed_output:
