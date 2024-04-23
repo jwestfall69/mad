@@ -35,6 +35,11 @@ auto_ram_tests_dsub:
 		tst.b	d0
 		bne	.test_failed_address
 
+		lea	RAM_START, a0
+		move.l	#RAM_SIZE, d0
+		DSUB	memory_march_test
+		tst.b	d0
+		bne	.test_failed_march
 		DSUB_RETURN
 
 	.test_failed_address:
@@ -44,6 +49,11 @@ auto_ram_tests_dsub:
 	.test_failed_data:
 		subq.b	#1, d0
 		add.b	#EC_RAM_DATA_LOWER, d0
+		DSUB_RETURN
+
+	.test_failed_march:
+		subq.b	#1, d0
+		add.b	#EC_RAM_MARCH_LOWER, d0
 		DSUB_RETURN
 
 	.test_failed_output:
