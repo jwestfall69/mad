@@ -67,6 +67,7 @@ screen_seek_xy_dsub:
 
 	section data
 
+	align 2
 MEMORY_FILL_LIST:
 	MEMORY_FILL_ENTRY FG_RAM_START, FG_RAM_SIZE, $0
 	MEMORY_FILL_ENTRY BG_RAM_START, BG_RAM_SIZE, $0

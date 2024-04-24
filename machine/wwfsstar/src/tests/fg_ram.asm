@@ -71,6 +71,7 @@ auto_fg_ram_tests:
 	section data
 
 ; fix me based on ram chips
+	align 2
 MEMORY_ADDRESS_LIST:
         MEMORY_ADDRESS_ENTRY FG_RAM_START
         MEMORY_ADDRESS_LIST_END

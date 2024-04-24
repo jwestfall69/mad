@@ -91,6 +91,7 @@ screen_seek_xy_dsub:
 
 	section data
 
+	align 2
 MEMORY_FILL_LIST:
 		MEMORY_FILL_ENTRY REG_TILE1_CTRL2, $4, $0
 		MEMORY_FILL_ENTRY REG_TILE2_CTRL1, $4, $0
