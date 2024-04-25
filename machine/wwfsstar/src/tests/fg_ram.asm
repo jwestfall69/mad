@@ -15,23 +15,27 @@ auto_fg_ram_tests:
 		rts
 
 		lea	MEMORY_ADDRESS_LIST, a0
+		moveq	#0, d0
 		RSUB	memory_output_list_test
 		tst.b	d0
 		bne	.test_failed_output
 
 		lea	MEMORY_ADDRESS_LIST, a0
+		moveq	#0, d0
 		RSUB	memory_write_list_test
 		tst.b	d0
 		bne	.test_failed_write
 
 		lea	FG_RAM_START, a0
 		move.w	#FG_RAM_SIZE, d0
+		move.w	#$ffff, d
 		RSUB	memory_data_test
 		tst.b	d0
 		bne	.test_failed_data
 
 		lea	FG_RAM_START, a0
 		move.w	#FG_RAM_ADDRESS_LINES, d0
+		move.w	#$ffff, d
 		RSUB	memory_address_test
 		tst.b	d0
 		bne	.test_failed_address
@@ -39,6 +43,7 @@ auto_fg_ram_tests:
 
 		lea	FG_RAM_START, a0
 		move.w	#FG_RAM_SIZE, d0
+		move.w	#$ffff, d
 		RSUB	memory_march_test
 		tst.b	d0
 		bne	.test_failed_march

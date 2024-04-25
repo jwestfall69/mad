@@ -14,29 +14,34 @@
 
 auto_work_ram_tests_dsub:
 		lea	MEMORY_ADDRESS_LIST, a0
+		moveq	#0, d0
 		DSUB	memory_output_list_test
 		tst.b	d0
 		bne	.test_failed_output
 
 		lea	MEMORY_ADDRESS_LIST, a0
+		moveq	#0, d0
 		DSUB	memory_write_list_test
 		tst.b	d0
 		bne	.test_failed_write
 
 		lea	WORK_RAM_START, a0
 		move.w	#WORK_RAM_SIZE, d0
+		move.w	#$ffff, d1
 		DSUB	memory_data_test
 		tst.b	d0
 		bne	.test_failed_data
 
 		lea	WORK_RAM_START, a0
 		move.w	#WORK_RAM_ADDRESS_LINES, d0
+		move.w	#$ffff, d1
 		DSUB	memory_address_test
 		tst.b	d0
 		bne	.test_failed_address
 
 		lea	WORK_RAM_START, a0
 		move.w	#WORK_RAM_SIZE, d0
+		move.w	#$ffff, d1
 		DSUB	memory_march_test
 		tst.b	d0
 		bne	.test_failed_march

@@ -15,7 +15,8 @@
 ; read them back checking for any differences
 ; params:
 ;  a0 = start address
-;  d0 = address lines to test
+;  d0 = address lines to test (word)
+;  d1 = mask (word)
 ; returns
 ;  d0 = 0 (pass), 1 (fail)
 ;  a0 = fail address
@@ -24,13 +25,15 @@
 memory_address_test_dsub:
 
 		move.l	a0, a1
-		move.l	d0, d4
+		move.w	d0, d4
+		move.w	d1, d5
 
 		moveq	#0, d1		; value we are writing
 		moveq	#1, d3		; offset from address start
 
 	.loop_write_next_address:
 		add.w	#$101, d1
+		and.w	d5, d1
 		move.w	d1, (a0)
 		lsl.l	#1, d3
 		move.l	a1, a0
@@ -39,14 +42,16 @@ memory_address_test_dsub:
 
 
 		move.l	a1, a0
-		move.l	d4, d0
+		move.w	d4, d0
 
 		moveq	#0, d1
 		moveq	#1, d3
 
 	.loop_read_next_address:
 		add.w	#$101, d1
+		and.w	d5, d1
 		move.w	(a0), d2
+		and.w	d5, d2
 		cmp.w	d1, d2
 		bne	.test_failed
 
@@ -64,7 +69,8 @@ memory_address_test_dsub:
 
 ; params:
 ;  a0 = start address
-;  d0 = length in bytes
+;  d0 = length in bytes (word)
+;  d1 = mask (word)
 ; returns:
 ;  d0 = 0 (pass), 1 (lower bad), 2 (upper bad), 3 (both bad)
 ;  a0 = failed address
@@ -80,18 +86,21 @@ memory_data_test_dsub:
 		moveq	#(((DATA_PATTERNS_END - DATA_PATTERNS) / 2) - 1), d3
 
 		; backup params
-		move.l	d0, d4
+		move.w	d0, d4
+		move.w	d1, d5
 		movea.l	a0, a2
 
 	.loop_next_pattern:
 		movea.l	a2, a0
-		move.l	d4, d0
+		move.w	d4, d0
 
 		move.w	(a1)+, d1
+		and.w	d5, d1
 
 	.loop_next_address:
 		move.w	d1, (a0)
 		move.w	(a0)+, d2
+		and.w	d5, d2
 		cmp.w	d1, d2
 		dbne	d0, .loop_next_address
 		bne	.test_failed
@@ -123,7 +132,8 @@ memory_data_test_dsub:
 ; Do a march test
 ; params:
 ;  a0 = start address
-;  d0 = number of bytes
+;  d0 = number of bytes (word)
+;  d1 = mask (word)
 memory_march_test_dsub:
 
 		; adjust length since we are writing in words
@@ -131,7 +141,8 @@ memory_march_test_dsub:
 		subq.w	#1, d0
 
 		; backup params
-		move.l	d0, d4
+		move.w	d0, d4
+		move.w	d1, d5
 		movea.l	a0, a2
 
 		moveq	#0, d1
@@ -140,10 +151,11 @@ memory_march_test_dsub:
 		dbra d0, .loop_fill_zero
 
 		movea.l	a2, a0
-		move.l	d4, d0
+		move.w	d4, d0
 
 	.loop_up_test:
 		move.w	(a0), d2
+		and.w	d5, d2
 		cmp.w	d1, d2
 		bne	.test_failed_up
 		move.w	#$ffff, (a0)+
@@ -153,8 +165,10 @@ memory_march_test_dsub:
 		move.l	d4, d0
 
 		move.w	#$ffff, d1
+		and.w	d5, d1
 	.loop_down_test:
 		move.w	(a0), d2
+		and.w	d5, d2
 		cmp.w	d1, d2
 		bne	.test_failed_down
 		move.w	#0, (a0)
@@ -188,10 +202,14 @@ memory_march_test_dsub:
 ; Tests both lower and upper bytes for each output
 ; params:
 ;  a0 = address
+;  d0 = 0 test upper+low, !0 test lower only
 ; return:
 ;  d0 = 0 (pass), 1 (lower bad), 2 (upper bad), 3 (both bad)
 memory_output_test_dsub:
 		moveq	#0, d4		; return value
+
+		tst.b	d0
+		bne	.test_lower
 
 		moveq	#0, d0
 		DSUB	memory_output_byte_test
@@ -214,6 +232,7 @@ memory_output_test_dsub:
 ; Tests both lower and upper bytes for each output
 ; params:
 ;  a0 = address list
+;  d0 = 0 test upper+low, !0 test lower only
 ; return:
 ;  d0 = 0 (pass), 1 (lower bad), 2 (upper bad), 3 (both bad)
 ;  a0 = address (if failure)
@@ -221,6 +240,7 @@ memory_output_test_dsub:
 ; nest to deep
 memory_output_list_test_dsub:
 		movea.l	a0, a1
+		move.b	d0, d2
 
 	.loop_next_address:
 
@@ -228,6 +248,9 @@ memory_output_list_test_dsub:
 		move.l	(a1)+, a0
 		cmpa.l	#1, a0		; an address of 0x1 is our end of list
 		beq	.tests_passed
+
+		tst.b	d2
+		bne	.test_lower
 
 		moveq	#1, d0
 		DSUB	memory_output_byte_test
@@ -308,6 +331,7 @@ memory_output_byte_test_dsub:
 
 ; params:
 ;  a0 = memory address
+;  d0 = 0 test upper+low, !0 test lower only
 ; returns:
 ;  d0 = 0 (pass), 1 (lower unwritable), 2 (upper unwritable), 3 (both unwritable)
 ; - reads a word value from the memory address
@@ -316,6 +340,7 @@ memory_output_byte_test_dsub:
 ; - compare re-read with original
 memory_write_test_dsub:
 
+		move.b	d0, d3
 		move.w	(a0), d1
 		move.w	d1, d2
 		not.w	d1
@@ -329,6 +354,9 @@ memory_write_test_dsub:
 		moveq	#1, d0
 
 	.check_upper:
+		tst.b	d3
+		bne	.check_done
+
 		ror.l	#8, d1
 		ror.l	#8, d2
 		cmp.b	d1, d2
@@ -340,6 +368,7 @@ memory_write_test_dsub:
 
 ; params:
 ;  a0 = address list
+;  d0 = 0 test upper+low, !0 test lower only
 ; returns:
 ;  d0 = 0 (pass), 1 (lower unwritable), 2 (upper unwritable), 3 (both unwritable)
 ;  a0 = address (if failure)
@@ -349,12 +378,14 @@ memory_write_test_dsub:
 ; - compare re-read with original
 memory_write_list_test_dsub:
 		movea.l	a0, a1
+		move.w	d0, d4
 
 	.loop_next_address:
 		move.l	(a1)+, a0
 		cmpa.l	#1, a0		; an address of 0x1 is our end of list
 		beq	.tests_passed
 
+		move.w	d4, d0
 		DSUB	memory_write_test
 		tst.b	d0
 		beq	.loop_next_address
