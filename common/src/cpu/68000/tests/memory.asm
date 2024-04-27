@@ -80,7 +80,7 @@ memory_data_test_dsub:
 
 		; adjust length since we are writing in words
 		ror.l	#1, d0
-		subq.w	#1, d0
+		subq.w	#2, d0 		; sub 2 to make space for poisoning using the next word
 
 		lea	DATA_PATTERNS, a1
 		moveq	#(((DATA_PATTERNS_END - DATA_PATTERNS) / 2) - 1), d3
@@ -98,7 +98,17 @@ memory_data_test_dsub:
 		and.w	d5, d1
 
 	.loop_next_address:
+
+		; In some cases when you write then re-read right away
+		; you will just get back the last written data on the bus when
+		; the ram chip or IC before it aren't working right.  To try
+		; and avoid this situation we are writing out !pattern to
+		; the word after the current test address to try and poison
+		; the data bus before we re-read.
 		move.w	d1, (a0)
+		not.w	d1
+		move.w	d1, (2, a0)
+		not.w	d1
 		move.w	(a0)+, d2
 		and.w	d5, d2
 		cmp.w	d1, d2
