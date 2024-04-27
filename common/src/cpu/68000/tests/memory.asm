@@ -98,24 +98,38 @@ memory_data_test_dsub:
 		move.w	(a1)+, d1
 		and.w	d5, d1
 
-	.loop_next_address:
+	.loop_next_write_address:
+		move.w	d1, (a0)+
+		dbra	d0, .loop_next_write_address
 
 		; In some cases when you write then re-read right away
 		; you will just get back the last written data on the bus when
 		; the ram chip or IC before it aren't working right.  To try
 		; and avoid this situation we are writing out !pattern to
-		; the word after the current test address to try and poison
-		; the data bus before we re-read.
+		; last word of the testing range.
+		not.w	d1
 		move.w	d1, (a0)
 		not.w	d1
-		move.w	d1, (2, a0)
-		not.w	d1
+
+		; re-init for re-read
+		movea.l	a2, a0
+		move.w	d4, d0
+
+	.loop_next_read_address:
 		move.w	(a0)+, d2
 		and.w	d5, d2
-		cmp.w	d1, d2
-		dbne	d0, .loop_next_address
+		cmp.w	d1, d1
 		bne	.test_failed
-		dbne	d3, .loop_next_pattern
+		dbra	d0, .loop_next_read_address
+		dbra	d3, .loop_next_pattern
+
+		; verify the poison looks good too
+		move.w	(a0)+, d2
+		and.w	d5, d2
+		not.w	d1
+		and.w	d5, d1
+		cmp.w	d1, d2
+		bne	.test_failed
 
 		moveq	#0, d0
 		DSUB_RETURN
