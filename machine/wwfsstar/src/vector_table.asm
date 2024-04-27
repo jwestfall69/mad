@@ -1,4 +1,5 @@
 	include "diag_rom.inc"
+	include "machine.inc"
 
 	global INTERRUPT_TIMER_COUNT
 	global INTERRUPT_VBLANK_COUNT
@@ -9,19 +10,21 @@
 		dc.l	_start
 
 		rorg	$74, $ff
-		dc.l	interrupt_timer		; irq5
-		dc.l	interrupt_vblank	; irq6
+		dc.l	irq5_handler
+		dc.l	irq6_handler
 
 	section code
 
-interrupt_timer:
+; timer
+irq5_handler:
 		addq.l	#1, INTERRUPT_TIMER_COUNT
-		move.b	d0, $180002
+		move.w	d0, REG_IRQ5_ACK
 		rte
 
-interrupt_vblank:
+; vblank
+irq6_handler:
 		addq.l	#1, INTERRUPT_VBLANK_COUNT
-		move.b	d0, $180000
+		move.w	d0, REG_IRQ6_ACK
 		rte
 
 	section bss
