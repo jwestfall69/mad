@@ -1,8 +1,8 @@
 ; There are 2x 32kx8bit sram that everything
 ; uses on the 68k ram
 RAM_START		equ $060000
-RAM_SIZE		equ $010000
-RAM_ADDRESS_LINES	equ 15
+RAM_SIZE		equ $10000
+RAM_ADDRESS_LINES	equ 16
 
 NOT_WORK_RAM_START	equ $06d800
 NOT_WORK_RAM_SIZE	equ $2800

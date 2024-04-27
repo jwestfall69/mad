@@ -25,6 +25,7 @@
 memory_address_test_dsub:
 
 		move.l	a0, a1
+		sub.b	#1, d0		; adjust for loop
 		move.w	d0, d4
 		move.w	d1, d5
 
