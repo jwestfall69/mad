@@ -34,6 +34,7 @@ OBJS += $(OBJ_DIR)/errors.o \
         $(OBJ_DIR)/tests/input.o \
         $(OBJ_DIR)/tests/palette_ram.o \
         $(OBJ_DIR)/tests/sound.o \
+        $(OBJ_DIR)/tests/sprite_ram.o \
         $(OBJ_DIR)/tests/work_ram.o \
         $(OBJ_DIR)/vector_table.o \
         $(OBJ_DIR)/$(DIAG).o

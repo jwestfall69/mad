@@ -17,3 +17,8 @@
 * Address lines A9 and A10 are tied to ground
   * Making the addressable size be 1K instead of the 4K raw size
 * The high nibble in the upper byte is not wired to the CPU so it will have random bits set
+
+### sprite RAM (gfx board)
+* 1x MCM2018AN45 (2K x 8bit)
+* IC39
+* Address space only has the lower 8 bits wired to the ram (upper is floating?)
