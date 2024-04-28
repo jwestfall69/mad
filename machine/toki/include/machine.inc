@@ -83,7 +83,15 @@ DSW1_FLIP_SCREEN	equ $80
 	endm
 
 	macro SEEK_LN
-		lea	(FG_RAM_START + 128  + (\1 * 64)), a6
+		lea	(FG_RAM_START + 128 + (\1 * 64)), a6
+	endm
+
+	macro SOUND_PLAY
+		DSUB	sound_play
+	endm
+
+	macro SOUND_STOP
+		DSUB	sound_stop
 	endm
 
 	macro ENABLE_INTS

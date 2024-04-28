@@ -48,12 +48,12 @@ sound_test_handler:
 		btst	#MENU_BUTTON_BIT, d0
 		beq	.button_not_pressed
 		move.b	d4, d0
-		DSUB	sound_play
+		SOUND_PLAY
 		bra	.loop_input
 
 	.button_not_pressed:
 		btst	#MENU_EXIT_BIT, d0
 		beq	.loop_input
 
-		DSUB	sound_stop
+		SOUND_STOP
 		rts

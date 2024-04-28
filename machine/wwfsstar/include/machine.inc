@@ -88,7 +88,7 @@ SYS_SERVICE			equ $08
 DSW1_FLIP_SCREEN_BIT		equ $7
 DSW1_FLIP_SCREEN		equ $80
 
-SOUND_STOP			equ $00
+SOUND_NUM_STOP			equ $00
 
 	; goto the correct fg memory location before printing text
 	; to the screen
@@ -98,4 +98,12 @@ SOUND_STOP			equ $00
 
 	macro SEEK_LN
 		lea	(FG_RAM_START + $80 + (\1 * 32 * 4)), a6
+	endm
+
+	macro SOUND_PLAY
+		move.b	d0, REG_SOUND
+	endm
+
+	macro SOUND_STOP
+		move.b	#SOUND_NUM_STOP, REG_SOUND
 	endm

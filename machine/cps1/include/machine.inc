@@ -32,14 +32,6 @@ WORK_RAM_START			equ $ff0000
 WORK_RAM_SIZE			equ $10000
 WORK_RAM_ADDRESS_LINES		equ 16
 
-	macro SEEK_XY
-		lea	(SCROLL1_RAM_START + $8 + (\1 * $80)) + (\2 * 4), a6
-	endm
-
-	macro SEEK_LN
-		lea	(SCROLL1_RAM_START + $8 + (\1 * 4)), a6
-	endm
-
 REG_SOUND1			equ $800181
 REG_SOUND2			equ $800189
 REG_COIN_CTRL			equ $800030
@@ -71,4 +63,20 @@ P1_B3				equ $40
 
 SYS_START1			equ $10
 
-SOUND_STOP			equ $f0
+SOUND_NUM_STOP			equ $f0
+
+	macro SEEK_XY
+		lea	(SCROLL1_RAM_START + $8 + (\1 * $80)) + (\2 * 4), a6
+	endm
+
+	macro SEEK_LN
+		lea	(SCROLL1_RAM_START + $8 + (\1 * 4)), a6
+	endm
+
+	macro SOUND_PLAY
+		DSUB	sound_play
+	endm
+
+	macro SOUND_STOP
+		move.b	#SOUND_NUM_STOP, REG_SOUND1
+	endm

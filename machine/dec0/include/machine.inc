@@ -106,4 +106,13 @@ SYS_COIN2			equ $20
 SYS_SERVICE			equ $40
 SYS_VBLANK			equ $80
 
-SOUND_STOP			equ $01
+SOUND_NUM_STOP			equ $01
+
+
+	macro SOUND_PLAY
+		move.b	d0, REG_SOUND
+	endm
+
+	macro SOUND_STOP
+		move.b	#SOUND_NUM_STOP, REG_SOUND
+	endm
