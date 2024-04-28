@@ -74,14 +74,16 @@ auto_bg_ram_tests:
 
 manual_bg_ram_tests:
 
-		; no point in printing out the SCREEN_XY_LIST
-		; since it will be wiped out soon as testing
-		; starts.  Same with printing the number of
-		; passes before each test
+		lea	SCREEN_XYS_LIST, a0
+		RSUB	print_xy_string_list
 
 		moveq	#0, d6		; passes, memory tests don't touch it
 
 	.loop_next_pass:
+
+		SEEK_XY	12, 10
+		move.l	d6, d0
+		RSUB	print_hex_long
 
 		jsr	auto_bg_ram_tests
 		tst.b	d0
@@ -89,9 +91,6 @@ manual_bg_ram_tests:
 
 		btst	#P1_B2_BIT, REG_INPUT_P1
 		beq	.test_exit
-
-		btst	#P1_B1_BIT, REG_INPUT_P1
-		beq	.test_pause
 
 		addq.l	#1, d6
 
@@ -106,34 +105,17 @@ manual_bg_ram_tests:
 		RSUB	error_handler
                 STALL
 
-	.test_pause:
-		RSUB	screen_init
-
-		lea	SCREEN_XYS_LIST, a0
-		RSUB	print_xy_string_list
-
-		SEEK_XY	12, 10
-		move.l	d6, d0
-		RSUB	print_hex_long
-
-	.loop_paused:
-		btst	#P1_B1_BIT, REG_INPUT_P1
-		beq	.loop_paused
-		bra	.loop_next_pass
-
 	.test_exit:
 		bra	main_menu
 
-        section data
+	section data
 
 SCREEN_XYS_LIST:
-	XY_STRING 3,  4, "FG RAM TEST"
+	XY_STRING 3,  4, "BG RAM TEST"
 	XY_STRING 3, 10, "PASSES"
 	XY_STRING 3, 19, "B1 - PAUSE"
 	XY_STRING 3, 20, "B2 - RETURN TO MENU"
 	XY_STRING_LIST_END
-
-	section data
 
 ; fix me based on ram chips
 	align 2
