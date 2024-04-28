@@ -53,23 +53,19 @@ auto_fg_ram_tests:
 		rts
 
 	.test_failed_data:
-		subq.b	#1, d0
-		add.b	#EC_FG_RAM_DATA_LOWER, d0
+		moveq	#EC_FG_RAM_DATA, d0
 		rts
 
 	.test_failed_march:
-		subq.b	#1, d0
-		add.b	#EC_FG_RAM_MARCH_LOWER, d0
+		moveq	#EC_FG_RAM_MARCH, d0
 		rts
 
 	.test_failed_output:
-		subq.b	#1, d0
-		add.b	#EC_FG_RAM_OUTPUT_LOWER, d0
+		moveq	#EC_FG_RAM_OUTPUT, d0
 		rts
 
 	.test_failed_write:
-		subq.b	#1, d0
-		add.b	#EC_FG_RAM_WRITE_LOWER, d0
+		moveq	#EC_FG_RAM_WRITE, d0
 		rts
 
 manual_fg_ram_tests:
