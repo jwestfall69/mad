@@ -29,6 +29,7 @@ OBJS += $(OBJ_DIR)/errors.o \
         $(OBJ_DIR)/screen.o \
         $(OBJ_DIR)/sound.o \
         $(OBJ_DIR)/tests/auto.o \
+        $(OBJ_DIR)/tests/bg_ram.o \
         $(OBJ_DIR)/tests/fg_ram.o \
         $(OBJ_DIR)/tests/input.o \
         $(OBJ_DIR)/tests/palette_ram.o \

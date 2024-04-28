@@ -6,13 +6,13 @@
 	include "error_codes.inc"
 	include "machine.inc"
 
-	global auto_fg_ram_tests
-	global manual_fg_ram_tests
+	global auto_bg_ram_tests
+	global manual_bg_ram_tests
 
 	section code
 
-	; fg ram is only 8 bit
-auto_fg_ram_tests:
+	; bg ram is only 8 bit
+auto_bg_ram_tests:
 		lea	MEMORY_ADDRESS_LIST, a0
 		moveq	#1, d0
 		RSUB	memory_output_list_test
@@ -25,23 +25,23 @@ auto_fg_ram_tests:
 		tst.b	d0
 		bne	.test_failed_write
 
-		lea	FG_RAM_START, a0
-		move.w	#FG_RAM_SIZE, d0
+		lea	BG_RAM_START, a0
+		move.w	#BG_RAM_SIZE, d0
 		move.w	#$ff, d1
 		RSUB	memory_data_test
 		tst.b	d0
 		bne	.test_failed_data
 
-		lea	FG_RAM_START, a0
-		move.w	#FG_RAM_ADDRESS_LINES, d0
+		lea	BG_RAM_START, a0
+		move.w	#BG_RAM_ADDRESS_LINES, d0
 		move.w	#$ff, d1
 		RSUB	memory_address_test
 		tst.b	d0
 		bne	.test_failed_address
 		rts
 
-		lea	FG_RAM_START, a0
-		move.w	#FG_RAM_SIZE, d0
+		lea	BG_RAM_START, a0
+		move.w	#BG_RAM_SIZE, d0
 		move.w	#$ff, d1
 		RSUB	memory_march_test
 		tst.b	d0
@@ -49,30 +49,30 @@ auto_fg_ram_tests:
 
 
 	.test_failed_address:
-		moveq	#EC_FG_RAM_ADDRESS, d0
+		moveq	#EC_BG_RAM_ADDRESS, d0
 		rts
 
 	.test_failed_data:
 		subq.b	#1, d0
-		add.b	#EC_FG_RAM_DATA_LOWER, d0
+		add.b	#EC_BG_RAM_DATA_LOWER, d0
 		rts
 
 	.test_failed_march:
 		subq.b	#1, d0
-		add.b	#EC_FG_RAM_MARCH_LOWER, d0
+		add.b	#EC_BG_RAM_MARCH_LOWER, d0
 		rts
 
 	.test_failed_output:
 		subq.b	#1, d0
-		add.b	#EC_FG_RAM_OUTPUT_LOWER, d0
+		add.b	#EC_BG_RAM_OUTPUT_LOWER, d0
 		rts
 
 	.test_failed_write:
 		subq.b	#1, d0
-		add.b	#EC_FG_RAM_WRITE_LOWER, d0
+		add.b	#EC_BG_RAM_WRITE_LOWER, d0
 		rts
 
-manual_fg_ram_tests:
+manual_bg_ram_tests:
 
 		; no point in printing out the SCREEN_XY_LIST
 		; since it will be wiped out soon as testing
@@ -83,7 +83,7 @@ manual_fg_ram_tests:
 
 	.loop_next_pass:
 
-		jsr	auto_fg_ram_tests
+		jsr	auto_bg_ram_tests
 		tst.b	d0
 		bne	.test_failed
 
@@ -138,5 +138,5 @@ SCREEN_XYS_LIST:
 ; fix me based on ram chips
 	align 2
 MEMORY_ADDRESS_LIST:
-        MEMORY_ADDRESS_ENTRY FG_RAM_START
+        MEMORY_ADDRESS_ENTRY BG_RAM_START
         MEMORY_ADDRESS_LIST_END
