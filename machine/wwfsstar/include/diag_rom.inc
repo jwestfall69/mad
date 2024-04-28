@@ -5,3 +5,7 @@ DIAG_ROM_SIZE		equ $8000
 
 CURSOR_CHAR		equ '*'
 CURSOR_CLEAR_CHAR	equ ' '
+
+SOUND_SUCCESS		equ $1
+SOUND_EC_ZERO		equ $30
+SOUND_EC_ONE		equ $2f

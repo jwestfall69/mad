@@ -29,6 +29,9 @@ _start:
 
 		bsr	auto_func_tests
 
+		moveq	#SOUND_SUCCESS, d0
+		RSUB	sound_play
+
 		bsr	main_menu
 
 
