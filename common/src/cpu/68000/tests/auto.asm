@@ -64,9 +64,13 @@ auto_func_tests:
 
 		move.l	(a1), a0		; test function
 
-		move.l a1, -(a7)
+		movem.l a1, -(a7)
 		jsr	(a0)
-		move.l (a7)+, a1
+		movem.l (a7)+, a1
+
+		movem.l d0-d2/a0-a1, -(a7)
+		RSUB	screen_init
+		movem.l	(a7)+, d0-d2/a0-a1
 
 		tst.b	d0
 		bne	.test_failed
