@@ -118,7 +118,7 @@ manual_fg_ram_tests:
 		bra	.loop_next_pass
 
 	.test_exit:
-		bra	main_menu
+		rts
 
 	section data
 

@@ -102,17 +102,17 @@ manual_gfx_ram_tests:
 		RSUB	error_handler
 
 	.test_exit:
-		bra	main_menu
+		rts
 
 	section data
 
 SCREEN_XYS_LIST:
-	XY_STRING  3, 10, "PASSES"
-	XY_STRING  3, 20, "B2 - RETURN TO MENU"
+	XY_STRING 3, 10, "PASSES"
+	XY_STRING 3, 20, "B2 - RETURN TO MENU"
 	XY_STRING_LIST_END
 
 ; fix me based on ram chips
 	align 2
 MEMORY_ADDRESS_LIST:
-        MEMORY_ADDRESS_ENTRY GFX_RAM_START
-        MEMORY_ADDRESS_LIST_END
+	MEMORY_ADDRESS_ENTRY GFX_RAM_START
+	MEMORY_ADDRESS_LIST_END

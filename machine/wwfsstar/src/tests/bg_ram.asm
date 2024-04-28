@@ -102,7 +102,7 @@ manual_bg_ram_tests:
 		STALL
 
 	.test_exit:
-		bra	main_menu
+		rts
 
 	section data
 
