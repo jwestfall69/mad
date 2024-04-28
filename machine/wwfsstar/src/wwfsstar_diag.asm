@@ -27,7 +27,7 @@ _start:
 		clr.b	INPUT_SYSTEM_RAW
 		clr.b	MAIN_MENU_CURSOR
 
-		;bsr	auto_func_tests
+		bsr	auto_func_tests
 
 		bsr	main_menu
 
