@@ -13,15 +13,15 @@
 
 	; bg ram is only 8 bit
 auto_bg_ram_tests:
-		lea	MEMORY_ADDRESS_LIST, a0
+		lea	BG_RAM_START, a0
 		moveq	#1, d0
-		RSUB	memory_output_list_test
+		RSUB	memory_output_test
 		tst.b	d0
 		bne	.test_failed_output
 
-		lea	MEMORY_ADDRESS_LIST, a0
+		lea	BG_RAM_START, a0
 		moveq	#1, d0
-		RSUB	memory_write_list_test
+		RSUB	memory_write_test
 		tst.b	d0
 		bne	.test_failed_write
 
@@ -103,7 +103,7 @@ manual_bg_ram_tests:
 		movem.l	(a7)+, d0-d2/a0-a1
 
 		RSUB	error_handler
-                STALL
+		STALL
 
 	.test_exit:
 		bra	main_menu
@@ -115,9 +115,3 @@ SCREEN_XYS_LIST:
 	XY_STRING 3, 10, "PASSES"
 	XY_STRING 3, 20, "B2 - RETURN TO MENU"
 	XY_STRING_LIST_END
-
-; fix me based on ram chips
-	align 2
-MEMORY_ADDRESS_LIST:
-        MEMORY_ADDRESS_ENTRY BG_RAM_START
-        MEMORY_ADDRESS_LIST_END

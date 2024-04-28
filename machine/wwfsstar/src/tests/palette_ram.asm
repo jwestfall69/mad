@@ -21,15 +21,15 @@ auto_palette_ram_tests:
 		rts
 	endif
 
-		lea	MEMORY_ADDRESS_LIST, a0
+		lea	PALETTE_RAM_START, a0
 		moveq	#1, d0
-		DSUB	memory_output_list_test
+		DSUB	memory_output_test
 		tst.b	d0
 		bne	.test_failed_output
 
-		lea	MEMORY_ADDRESS_LIST, a0
+		lea	PALETTE_RAM_START, a0
 		moveq	#1, d0
-		DSUB	memory_write_list_test
+		DSUB	memory_write_test
 		tst.b	d0
 		bne	.test_failed_write
 
@@ -123,16 +123,11 @@ manual_palette_ram_tests:
 	section data
 
 SCREEN_XYS_LIST:
-	XY_STRING  3, 10, "PASSES"
+	XY_STRING 3, 10, "PASSES"
 	ifd _MAME_BUILD_
-	XY_STRING  3, 14, "MAME BUILD - TEST DISABLED"
+	XY_STRING 3, 14, "MAME BUILD - TEST DISABLED"
 	else
-	XY_STRING  3, 14, "EXPECT ROLLING COLORS"
+	XY_STRING 3, 14, "EXPECT ROLLING COLORS"
 	endif
-	XY_STRING  3, 20, "B2 - RETURN TO MENU"
+	XY_STRING 3, 20, "B2 - RETURN TO MENU"
 	XY_STRING_LIST_END
-
-	align 2
-MEMORY_ADDRESS_LIST:
-        MEMORY_ADDRESS_ENTRY PALETTE_RAM_START
-        MEMORY_ADDRESS_LIST_END

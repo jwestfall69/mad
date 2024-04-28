@@ -13,15 +13,15 @@
 	section code
 
 auto_work_ram_tests_dsub:
-		lea	MEMORY_ADDRESS_LIST, a0
+		lea	WORK_RAM_START, a0
 		moveq	#0, d0
-		DSUB	memory_output_list_test
+		DSUB	memory_output_test
 		tst.b	d0
 		bne	.test_failed_output
 
-		lea	MEMORY_ADDRESS_LIST, a0
+		lea	WORK_RAM_START, a0
 		moveq	#0, d0
-		DSUB	memory_write_list_test
+		DSUB	memory_write_test
 		tst.b	d0
 		bne	.test_failed_write
 
@@ -113,12 +113,6 @@ manual_work_ram_tests:
 	section data
 
 SCREEN_XYS_LIST:
-	XY_STRING  3, 10, "PASSES"
-	XY_STRING  3, 20, "B2 - RETURN TO MENU"
+	XY_STRING 3, 10, "PASSES"
+	XY_STRING 3, 20, "B2 - RETURN TO MENU"
 	XY_STRING_LIST_END
-
-; fix me based on ram chips
-	align 2
-MEMORY_ADDRESS_LIST:
-        MEMORY_ADDRESS_ENTRY WORK_RAM_START
-        MEMORY_ADDRESS_LIST_END

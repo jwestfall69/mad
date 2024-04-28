@@ -13,15 +13,15 @@
 
 	; fg ram is only 8 bit
 auto_fg_ram_tests:
-		lea	MEMORY_ADDRESS_LIST, a0
+		lea	FG_RAM_START, a0
 		moveq	#1, d0
-		RSUB	memory_output_list_test
+		RSUB	memory_output_test
 		tst.b	d0
 		bne	.test_failed_output
 
-		lea	MEMORY_ADDRESS_LIST, a0
+		lea	FG_RAM_START, a0
 		moveq	#1, d0
-		RSUB	memory_write_list_test
+		RSUB	memory_write_test
 		tst.b	d0
 		bne	.test_failed_write
 
@@ -76,7 +76,7 @@ manual_fg_ram_tests:
 
 		; no point in printing out the SCREEN_XY_LIST
 		; since it will be wiped out soon as testing
-		; starts.  Same with printing the number of
+		; starts. Same with printing the number of
 		; passes before each test
 
 		moveq	#0, d6		; passes, memory tests don't touch it
@@ -104,7 +104,7 @@ manual_fg_ram_tests:
 		movem.l	(a7)+, d0-d2/a0-a1
 
 		RSUB	error_handler
-                STALL
+		STALL
 
 	.test_pause:
 		RSUB	screen_init
@@ -124,7 +124,7 @@ manual_fg_ram_tests:
 	.test_exit:
 		bra	main_menu
 
-        section data
+	section data
 
 SCREEN_XYS_LIST:
 	XY_STRING 3,  4, "FG RAM TEST"
@@ -132,11 +132,3 @@ SCREEN_XYS_LIST:
 	XY_STRING 3, 19, "B1 - PAUSE"
 	XY_STRING 3, 20, "B2 - RETURN TO MENU"
 	XY_STRING_LIST_END
-
-	section data
-
-; fix me based on ram chips
-	align 2
-MEMORY_ADDRESS_LIST:
-        MEMORY_ADDRESS_ENTRY FG_RAM_START
-        MEMORY_ADDRESS_LIST_END
