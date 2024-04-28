@@ -53,6 +53,7 @@ input_test:
 		rts
 
 	section	data
+	align 2
 
 INPUT_LIST:
 	INPUT_ENTRY  7, REG_INPUT_P1
