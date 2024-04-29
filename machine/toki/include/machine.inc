@@ -29,6 +29,14 @@ ROM_SIZE		equ $40000
 MMIO_SCREEN_UPDATE	equ $0a0040
 MMIO_SCREEN_FLIP	equ $0a0050
 
+REG_SOUND1		equ $080000
+REG_SOUND2		equ $080002
+REG_SOUND3		equ $080004
+REG_SOUND4		equ $080006
+REG_SOUND5		equ $080008
+REG_SOUND6		equ $08000a
+REG_SOUND7		equ $08000c
+
 REG_INPUT_DSW1		equ $0c0001
 REG_INPUT_DSW2		equ $0c0000
 REG_INPUT_P1		equ $0c0003
@@ -74,6 +82,8 @@ SYS_START2		equ $10
 DSW1_FLIP_SCREEN_BIT	equ $7
 DSW1_FLIP_SCREEN	equ $80
 
+SOUND_NUM_STOP		equ $ff
+
 	macro SCREEN_UPDATE
 		move.w	d0, MMIO_SCREEN_UPDATE
 	endm
@@ -86,12 +96,20 @@ DSW1_FLIP_SCREEN	equ $80
 		lea	(FG_RAM_START + 128 + (\1 * 64)), a6
 	endm
 
+
+	; its unclear what sending #$80/$82 is doing
 	macro SOUND_PLAY
-		DSUB	sound_play
+		move.w	d0, REG_SOUND1
+		move.w	#$80, REG_SOUND2
+		move.w	#$80, REG_SOUND7
+		move.w	#$80, REG_SOUND5
 	endm
 
 	macro SOUND_STOP
-		DSUB	sound_stop
+		move.w	#SOUND_NUM_STOP, REG_SOUND1
+		move.w	#$82, REG_SOUND2
+		move.w	#$82, REG_SOUND7
+		move.w	#$82, REG_SOUND5
 	endm
 
 	macro ENABLE_INTS

@@ -11,6 +11,8 @@
 	section code
 
 _start:
+		SOUND_STOP
+
 		PSUB_INIT
 		PSUB	screen_init
 
@@ -26,6 +28,10 @@ _start:
 
 		RSUB	screen_init
 		bsr	auto_func_tests
+
+		move.w	#SOUND_NUM_SUCCESS, d0
+		SOUND_PLAY
+
 		bsr	main_menu
 		STALL
 
