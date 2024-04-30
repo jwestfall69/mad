@@ -1,32 +1,34 @@
 	include "cpu/68000/dsub.inc"
 	include "cpu/68000/macros.inc"
 	include "cpu/68000/menu_input.inc"
-	include "cpu/68000/main_menu_handler.inc"
+	include "cpu/68000/menu_handler.inc"
 
 	include "diag_rom.inc"
 	include "machine.inc"
 
-	global main_menu_handler
-	global MAIN_MENU_CURSOR
+	global menu_handler
+	global MENU_CURSOR
 
-MAIN_MENU_X_OFFSET		equ $2
-MAIN_MENU_Y_OFFSET		equ $2
+MENU_X_OFFSET		equ $2
+MENU_Y_OFFSET		equ $5
 
 	section code
 
 ; params:
-;  a0 = main menu struct list
+;  a0 = menu struct { menu_title_ptr, menu_entry's }
 ;  a1 = input callback function
-main_menu_handler:
+; returns:
+;  d0 = 0 (function ran) or 1 (menu exit)
+menu_handler:
 
-		move.l	a0, MAIN_MENU_LIST
+		move.l	a0, MENU_LIST
 		move.l	a1, a2
 
-		jsr	print_main_menu_list
+		jsr	print_menu_list
 		move.b	d0, d6			; max menu entries
 		subq.b	#1, d6
 
-		move.b	MAIN_MENU_CURSOR, d4	; current menu entry
+		move.b	MENU_CURSOR, d4		; current menu entry
 		move.b	d4, d5			; previous menu entry
 
 		; force an initial draw of the cursor
@@ -50,7 +52,7 @@ main_menu_handler:
 
 	.up_not_pressed:
 		btst	#MENU_DOWN_BIT, d0
-		beq	.loop_menu_input
+		beq	.down_not_pressed
 
 		move.b	d4, d5
 		addq.b	#1, d4
@@ -58,10 +60,16 @@ main_menu_handler:
 		bge	.update_cursor
 		moveq	#0, d4
 
+	.down_not_pressed:
+		btst	#MENU_EXIT_BIT, d0
+		beq	.loop_menu_input
+		moveq	#MENU_EXIT, d0
+		rts
+
 	.update_cursor:
 		; clear old
-		moveq	#MAIN_MENU_X_OFFSET, d0
-		moveq	#MAIN_MENU_Y_OFFSET, d1
+		moveq	#MENU_X_OFFSET, d0
+		moveq	#MENU_Y_OFFSET, d1
 		add.b	d5, d1
 		RSUB	screen_seek_xy
 
@@ -69,8 +77,8 @@ main_menu_handler:
 		RSUB	print_char
 
 		; draw new
-		moveq	#MAIN_MENU_X_OFFSET, d0
-		moveq	#MAIN_MENU_Y_OFFSET, d1
+		moveq	#MENU_X_OFFSET, d0
+		moveq	#MENU_Y_OFFSET, d1
 		add.b	d4, d1
 		RSUB	screen_seek_xy
 
@@ -81,11 +89,11 @@ main_menu_handler:
 
 	.menu_entry_run:
 
-		move.b	d4, MAIN_MENU_CURSOR
+		move.b	d4, MENU_CURSOR
 
 		RSUB	screen_clear
 
-		move.l	MAIN_MENU_LIST, a1
+		move.l	MENU_LIST, a1
 		move.l	d4, d0
 		mulu	#8, d0
 		add.l	d0, a1
@@ -95,17 +103,22 @@ main_menu_handler:
 		SEEK_XY	3, 4
 		RSUB	print_string
 
+		move.b	MENU_CURSOR, -(a7)
+
 		move.la	(a1), a1
 		jsr	(a1)			; menu entry's function
 
+		move.b	(a7)+, MENU_CURSOR
+
+		moveq	#MENU_CONTINUE, d0
 		rts
 
 
 ; params
-;  a0 = address of start of MAIN_MENU struct list
+;  a0 = address of start of MENU struct list
 ; returns
 ;  d0 = number of items printed
-print_main_menu_list:
+print_menu_list:
 		moveq	#0, d4		; number of entries
 		move.l	a0, a1
 
@@ -113,8 +126,8 @@ print_main_menu_list:
 		cmp.l	#0, (a1)
 		beq	.list_end
 
-		moveq	#(MAIN_MENU_X_OFFSET + 1), d0
-		moveq	#MAIN_MENU_Y_OFFSET, d1
+		moveq	#(MENU_X_OFFSET + 1), d0
+		moveq	#MENU_Y_OFFSET, d1
 		add.b	d4, d1
 		RSUB	screen_seek_xy
 
@@ -133,5 +146,5 @@ print_main_menu_list:
 
 	align 2
 
-MAIN_MENU_LIST:			dc.l	$0
-MAIN_MENU_CURSOR:		dc.b	$0
+MENU_LIST:		dc.l	$0
+MENU_CURSOR:		dc.b	$0

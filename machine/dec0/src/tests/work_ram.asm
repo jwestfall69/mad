@@ -106,7 +106,7 @@ manual_work_ram_tests:
 
 	.test_exit:
 		RSUB_INIT
-		clr.b	MAIN_MENU_CURSOR
+		clr.b	MENU_CURSOR
 		bra	main_menu
 
 	section data
@@ -119,5 +119,5 @@ SCREEN_XYS_LIST:
 ; fix me based on ram chips
 	align 2
 MEMORY_ADDRESS_LIST:
-        MEMORY_ADDRESS_ENTRY WORK_RAM_START
-        MEMORY_ADDRESS_LIST_END
+	MEMORY_ADDRESS_ENTRY WORK_RAM_START
+	MEMORY_ADDRESS_LIST_END

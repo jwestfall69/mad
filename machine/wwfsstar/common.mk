@@ -9,8 +9,9 @@ OBJS = $(OBJ_DIR)/cpu/68000/crc32.o \
        $(OBJ_DIR)/cpu/68000/dsub.o \
        $(OBJ_DIR)/cpu/68000/error_handler.o \
        $(OBJ_DIR)/cpu/68000/input_update.o \
-       $(OBJ_DIR)/cpu/68000/main_menu_handler.o \
        $(OBJ_DIR)/cpu/68000/memory_fill.o \
+       $(OBJ_DIR)/cpu/68000/memory_viewer_handler.o \
+       $(OBJ_DIR)/cpu/68000/menu_handler.o \
        $(OBJ_DIR)/cpu/68000/menu_input_generic.o \
        $(OBJ_DIR)/cpu/68000/print_error.o \
        $(OBJ_DIR)/cpu/68000/tests/auto.o \
@@ -25,6 +26,7 @@ OBJS = $(OBJ_DIR)/cpu/68000/crc32.o \
 OBJS += $(OBJ_DIR)/errors.o \
         $(OBJ_DIR)/footer.o \
         $(OBJ_DIR)/main_menu.o \
+        $(OBJ_DIR)/memory_viewer_menu.o \
         $(OBJ_DIR)/print.o \
         $(OBJ_DIR)/screen.o \
         $(OBJ_DIR)/tests/auto.o \

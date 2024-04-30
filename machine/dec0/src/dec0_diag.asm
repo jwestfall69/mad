@@ -22,18 +22,13 @@ _start:
 		clr.b	INPUT_P1_RAW
 		clr.b	INPUT_SYSTEM_EDGE
 		clr.b	INPUT_SYSTEM_RAW
-		clr.b	MAIN_MENU_CURSOR
+		clr.b	MENU_CURSOR
 
 		bsr	main_menu
 
 		SEEK_XY	10,11
 		lea	STR_PASSES, a0
 		RSUB	print_string
-;	.loop:
-;		lea	PALETTE_RAM_START, a0
-;		move.w	#(PALETTE_RAM_SIZE / 2), d0
-;		PSUB	memory_rewrite_word
-;		bra	.loop
 
 		STALL
 

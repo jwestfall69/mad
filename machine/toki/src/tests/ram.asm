@@ -126,10 +126,8 @@ manual_ram_tests:
 	.test_exit:
 		RSUB_INIT
 		ENABLE_INTS
-		clr.b	MAIN_MENU_CURSOR
+		clr.b	MENU_CURSOR
 		bra	main_menu
-
-
 
 	section data
 
@@ -145,5 +143,5 @@ STR_RAM_TEST:		STRING "RAM TEST"
 ; fix me based on ram chips
 	align 2
 MEMORY_ADDRESS_LIST:
-        MEMORY_ADDRESS_ENTRY RAM_START
-        MEMORY_ADDRESS_LIST_END
+	MEMORY_ADDRESS_ENTRY RAM_START
+	MEMORY_ADDRESS_LIST_END

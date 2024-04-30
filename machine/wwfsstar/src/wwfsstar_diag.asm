@@ -25,7 +25,7 @@ _start:
 		clr.b	INPUT_P1_RAW
 		clr.b	INPUT_SYSTEM_EDGE
 		clr.b	INPUT_SYSTEM_RAW
-		clr.b	MAIN_MENU_CURSOR
+		clr.b	MENU_CURSOR
 
 		bsr	auto_func_tests
 
