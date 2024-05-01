@@ -45,7 +45,7 @@ view_cps_b_reg:
 		bra	view_memory
 
 view_mmio:
-		lea	$180000, a0
+		lea	$800000, a0
 		bra	view_memory
 
 view_object_ram:
