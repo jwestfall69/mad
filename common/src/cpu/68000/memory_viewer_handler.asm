@@ -2,9 +2,14 @@
 	include "cpu/68000/menu_input.inc"
 	include "cpu/68000/macros.inc"
 
+	include "machine.inc"
+
 	global memory_viewer_handler
 
 	section code
+
+NUM_ROWS	equ 20
+START_ROW	equ 5
 
 ; a0 = start memory location
 ; a1 = input callback function
@@ -12,6 +17,10 @@ memory_viewer_handler:
 
 		movem.l	a0-a1, -(a7)
 		RSUB	screen_clear
+
+		SEEK_XY	9, 3
+		lea	STR_MEMORY_VIEWER, a0
+		RSUB	print_string
 		movem.l	(a7)+, a0-a1
 
 		movea.l	a1, a2
@@ -21,13 +30,13 @@ memory_viewer_handler:
 		jsr	(a2)		; input callback
 
 		btst	#MENU_UP_BIT, d0
-                beq	.up_not_pressed
+		beq	.up_not_pressed
 		suba.l	#4, a0
 		bra	.loop_next_input
 
 	.up_not_pressed:
 		btst	#MENU_DOWN_BIT, d0
-                beq	.down_not_pressed
+		beq	.down_not_pressed
 		adda.l	#4, a0
 		bra	.loop_next_input
 
@@ -54,8 +63,8 @@ memory_dump:
 
 		movem.l	d0-d6/a0, -(a7)
 
-		moveq	#4, d3		; offset
-		moveq	#24, d4		; lines to draw
+		moveq	#START_ROW, d3
+		moveq	#NUM_ROWS, d4
 
 		bra	.loop_start_address
 
@@ -92,8 +101,8 @@ memory_dump:
 		moveq	#3, d6
 
 	.loop_next_char:
-		move.w  d2, d0
-		move.w  d3, d1
+		move.w	d2, d0
+		move.w	d3, d1
 		RSUB	screen_seek_xy
 
 		move.l	d5, d0
@@ -111,3 +120,5 @@ memory_dump:
 
 		movem.l (a7)+, d0-d6/a0
 		rts
+
+STR_MEMORY_VIEWER:	STRING "MEMORY VIEWER"
