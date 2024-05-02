@@ -38,7 +38,6 @@ auto_fg_ram_tests:
 		RSUB	memory_address_test
 		tst.b	d0
 		bne	.test_failed_address
-		rts
 
 		lea	FG_RAM_START, a0
 		move.w	#FG_RAM_SIZE, d0
@@ -46,7 +45,7 @@ auto_fg_ram_tests:
 		RSUB	memory_march_test
 		tst.b	d0
 		bne	.test_failed_march
-
+		rts
 
 	.test_failed_address:
 		moveq	#EC_FG_RAM_ADDRESS, d0

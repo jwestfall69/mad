@@ -45,7 +45,6 @@ auto_work_ram_tests_dsub:
 		DSUB	memory_march_test
 		tst.b	d0
 		bne	.test_failed_march
-
 		DSUB_RETURN
 
 	.test_failed_address:
