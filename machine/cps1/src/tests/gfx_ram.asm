@@ -100,6 +100,7 @@ manual_gfx_ram_tests:
 
 	.test_failed:
 		RSUB	error_handler
+		STALL
 
 	.test_exit:
 		rts

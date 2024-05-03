@@ -3,6 +3,9 @@
 	include "cpu/68000/macros.inc"
 	include "cpu/68000/print_error.inc"
 
+	include "machine.inc"
+	include "diag_rom.inc"
+
 	global error_handler_dsub
 
 	section code
@@ -65,5 +68,4 @@ error_handler_dsub:
 
 	.pe_return:
 		move.b	d6, d0
-		; todo add play error
-		STALL
+		bra	sound_play_byte_dsub	; will DSUB_RETURN for us

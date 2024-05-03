@@ -7,5 +7,11 @@ CURSOR_CHAR		equ '*'
 CURSOR_CLEAR_CHAR	equ ' '
 
 SOUND_NUM_SUCCESS	equ $1
-SOUND_NUM_EC_ZERO	equ $30
-SOUND_NUM_EC_ONE	equ $2f
+SOUND_NUM_BIT_ZERO	equ $30	; slap sound
+SOUND_NUM_BIT_ONE	equ $2f	; punch sound
+
+	; when playing a byte, how long to delay between bits
+	macro SOUND_BIT_DELAY
+		move.l	#$7ffff, d0
+		DSUB	delay
+	endm
