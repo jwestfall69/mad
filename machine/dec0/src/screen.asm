@@ -49,27 +49,7 @@ screen_init_dsub:
 		moveq	#0, d1
 		DSUB	memory_fill
 
-		; text color
-		move.w	#$ffff, PALETTE_RAM_START + ROMSET_PAL_TEXT_OFFSET
-		move.w	#$ff, PALETTE_EXT_RAM_START + ROMSET_PAL_TEXT_OFFSET
-
-		; text shadow color
-		move.w	#$0, PALETTE_RAM_START + ROMSET_PAL_TEXT_SHADOW_OFFSET
-		move.w	#$0, PALETTE_EXT_RAM_START + ROMSET_PAL_TEXT_SHADOW_OFFSET
-
-	ifd _ROMSET_ROBOCOP_
-		; text corner color
-		; - showing a color will make the corners square
-		; - not showing a color will make them round
-		move.w	#$ffff, PALETTE_RAM_START + ROMSET_PAL_TEXT_CORNER1_OFFSET
-		move.w	#$ff, PALETTE_EXT_RAM_START + ROMSET_PAL_TEXT_CORNER1_OFFSET
-		move.w	#$ffff, PALETTE_RAM_START + ROMSET_PAL_TEXT_CORNER2_OFFSET
-		move.w	#$ff, PALETTE_EXT_RAM_START + ROMSET_PAL_TEXT_CORNER2_OFFSET
-	endif
-
-		; background color
-		move.w	#$0, PALETTE_RAM_START + ROMSET_PAL_BACKGROUND_OFFSET
-		move.w	#$0, PALETTE_EXT_RAM_START + ROMSET_PAL_BACKGROUND_OFFSET
+		ROMSET_PALETTE_SETUP
 
 		bra	screen_clear_dsub
 
