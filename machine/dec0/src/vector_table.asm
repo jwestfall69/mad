@@ -1,4 +1,5 @@
 	include "diag_rom.inc"
+	include "machine.inc"
 
 	global INTERRUPT_VBLANK_COUNT
 
