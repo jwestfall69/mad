@@ -1,7 +1,6 @@
 	include "cpu/68000/dsub.inc"
 	include "cpu/68000/macros.inc"
-	include "cpu/68000/memory_fill.inc"
-	include "cpu/68000/tests/memory.inc"
+	include "cpu/68000/memory_tests_handler.inc"
 	include "cpu/68000/xy_string.inc"
 
 	include "error_codes.inc"
@@ -17,76 +16,13 @@
 ; filled with random data.
 auto_palette_ram_tests:
 
-	ifd	_MAME_BUILD_
-		rts
+	; mame doesn't allow reading palette ram, so
+	; we have to skip testing it
+	ifnd _MAME_BUILD_
+		lea	MT_DATA, a0
+		DSUB	memory_tests_handler
 	endif
-
-		lea	PALETTE_RAM_START, a0
-		moveq	#1, d0
-		DSUB	memory_output_test
-		tst.b	d0
-		bne	.test_failed_output
-
-		lea	PALETTE_RAM_START, a0
-		moveq	#1, d0
-		DSUB	memory_write_test
-		tst.b	d0
-		bne	.test_failed_write
-
-		lea	PALETTE_RAM_START, a0
-		move.w	#PALETTE_RAM_SIZE, d0
-		move.w	#$fff, d1
-		DSUB	memory_data_test
-		tst.b	d0
-		bne	.test_failed_data
-
-		lea	PALETTE_RAM_START, a0
-		move.w	#PALETTE_RAM_SIZE, d0
-		move.w	#$fff, d1
-		DSUB	memory_march_test
-		tst.b	d0
-		bne	.test_failed_march
-
-		lea	PALETTE_RAM_START, a0
-		move.w	#PALETTE_RAM_ADDRESS_LINES, d0
-		move.w	#$ff, d1
-		RSUB	memory_address_test
-		tst.b	d0
-		bne	.test_failed_address
-		bra	.fix_palette
-
-
-	.test_failed_address:
-		moveq	#EC_PALETTE_RAM_ADDRESS, d0
-		bra	.fix_palette
-
-	.test_failed_data:
-		subq.b	#1, d0
-		add.b	#EC_PALETTE_RAM_DATA_LOWER, d0
-		bra	.fix_palette
-
-	.test_failed_march:
-		subq.b	#1, d0
-		add.b	#EC_PALETTE_RAM_MARCH_LOWER, d0
-		bra	.fix_palette
-
-	.test_failed_output:
-		subq.b	#1, d0
-		add.b	#EC_PALETTE_RAM_OUTPUT_LOWER, d0
-		bra	.fix_palette
-
-	.test_failed_write:
-		subq.b	#1, d0
-		add.b	#EC_PALETTE_RAM_WRITE_LOWER, d0
-		bra	.fix_palette
-
-	; do just enough to fix text on screen
-	.fix_palette:
-		move.w	#$0f00, PALETTE_RAM_START + $18 	; text
-		move.w	#$0111, PALETTE_RAM_START + $2		; text shadow
-		move.w	#$0000, PALETTE_RAM_START + $200	; background
 		rts
-
 
 manual_palette_ram_tests:
 
@@ -114,6 +50,10 @@ manual_palette_ram_tests:
 		bra	.loop_next_pass
 
 	.test_failed:
+		movem.l d0-d2/a0-a1, -(a7)
+		RSUB	screen_init
+		movem.l (a7)+, d0-d2/a0-a1
+
 		RSUB	error_handler
 		STALL
 
@@ -121,6 +61,10 @@ manual_palette_ram_tests:
 		rts
 
 	section data
+
+	align 2
+MT_DATA:
+	MT_PARAMS PALETTE_RAM_START, $0, PALETTE_RAM_SIZE, PALETTE_RAM_ADDRESS_LINES, PALETTE_RAM_MASK, $1, PALETTE_RAM_BASE_EC
 
 SCREEN_XYS_LIST:
 	XY_STRING 3, 10, "PASSES"

@@ -1,6 +1,6 @@
 	include "cpu/68000/dsub.inc"
 	include "cpu/68000/macros.inc"
-	include "cpu/68000/tests/memory.inc"
+	include "cpu/68000/memory_tests_handler.inc"
 	include "cpu/68000/xy_string.inc"
 
 	include "error_codes.inc"
@@ -11,60 +11,11 @@
 
 	section code
 
-	; fg ram is only 8 bit
+; fg ram is only 8 bit
 auto_fg_ram_tests:
-		lea	FG_RAM_START, a0
-		moveq	#1, d0
-		RSUB	memory_output_test
-		tst.b	d0
-		bne	.test_failed_output
 
-		lea	FG_RAM_START, a0
-		moveq	#1, d0
-		RSUB	memory_write_test
-		tst.b	d0
-		bne	.test_failed_write
-
-		lea	FG_RAM_START, a0
-		move.w	#FG_RAM_SIZE, d0
-		move.w	#$ff, d1
-		RSUB	memory_data_test
-		tst.b	d0
-		bne	.test_failed_data
-
-		lea	FG_RAM_START, a0
-		move.w	#FG_RAM_ADDRESS_LINES, d0
-		move.w	#$ff, d1
-		RSUB	memory_address_test
-		tst.b	d0
-		bne	.test_failed_address
-
-		lea	FG_RAM_START, a0
-		move.w	#FG_RAM_SIZE, d0
-		move.w	#$ff, d1
-		RSUB	memory_march_test
-		tst.b	d0
-		bne	.test_failed_march
-		rts
-
-	.test_failed_address:
-		moveq	#EC_FG_RAM_ADDRESS, d0
-		rts
-
-	.test_failed_data:
-		moveq	#EC_FG_RAM_DATA, d0
-		rts
-
-	.test_failed_march:
-		moveq	#EC_FG_RAM_MARCH, d0
-		rts
-
-	.test_failed_output:
-		moveq	#EC_FG_RAM_OUTPUT, d0
-		rts
-
-	.test_failed_write:
-		moveq	#EC_FG_RAM_WRITE, d0
+		lea	MT_DATA, a0
+		DSUB	memory_tests_handler
 		rts
 
 manual_fg_ram_tests:
@@ -120,6 +71,10 @@ manual_fg_ram_tests:
 		rts
 
 	section data
+
+	align 2
+MT_DATA:
+	MT_PARAMS FG_RAM_START, $0, FG_RAM_SIZE, FG_RAM_ADDRESS_LINES, FG_RAM_MASK, $1, FG_RAM_BASE_EC
 
 SCREEN_XYS_LIST:
 	XY_STRING 3,  4, "FG RAM TEST"

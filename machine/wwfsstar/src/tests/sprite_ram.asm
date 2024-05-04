@@ -1,5 +1,6 @@
 	include "cpu/68000/dsub.inc"
 	include "cpu/68000/macros.inc"
+	include "cpu/68000/memory_tests_handler.inc"
 	include "cpu/68000/tests/memory.inc"
 	include "cpu/68000/xy_string.inc"
 
@@ -11,60 +12,10 @@
 
 	section code
 
-	; sprite ram is only 8 bit
+; sprite ram is only 8 bit
 auto_sprite_ram_tests:
-		lea	SPRITE_RAM_START, a0
-		moveq	#1, d0
-		RSUB	memory_output_test
-		tst.b	d0
-		bne	.test_failed_output
-
-		lea	SPRITE_RAM_START, a0
-		moveq	#1, d0
-		RSUB	memory_write_test
-		tst.b	d0
-		bne	.test_failed_write
-
-		lea	SPRITE_RAM_START, a0
-		move.w	#SPRITE_RAM_SIZE, d0
-		move.w	#$ff, d1
-		RSUB	memory_data_test
-		tst.b	d0
-		bne	.test_failed_data
-
-		lea	SPRITE_RAM_START, a0
-		move.w	#SPRITE_RAM_ADDRESS_LINES, d0
-		move.w	#$ff, d1
-		RSUB	memory_address_test
-		tst.b	d0
-		bne	.test_failed_address
-
-		lea	SPRITE_RAM_START, a0
-		move.w	#SPRITE_RAM_SIZE, d0
-		move.w	#$ff, d1
-		RSUB	memory_march_test
-		tst.b	d0
-		bne	.test_failed_march
-		rts
-
-	.test_failed_address:
-		moveq	#EC_SPRITE_RAM_ADDRESS, d0
-		rts
-
-	.test_failed_data:
-		moveq	#EC_SPRITE_RAM_DATA, d0
-		rts
-
-	.test_failed_march:
-		moveq	#EC_SPRITE_RAM_MARCH, d0
-		rts
-
-	.test_failed_output:
-		moveq	#EC_SPRITE_RAM_OUTPUT, d0
-		rts
-
-	.test_failed_write:
-		moveq	#EC_SPRITE_RAM_WRITE, d0
+		lea	MT_DATA, a0
+		DSUB	memory_tests_handler
 		rts
 
 manual_sprite_ram_tests:
@@ -104,6 +55,11 @@ manual_sprite_ram_tests:
 		rts
 
 	section data
+
+	align 2
+
+MT_DATA:
+	MT_PARAMS SPRITE_RAM_START, $0, SPRITE_RAM_SIZE, SPRITE_RAM_ADDRESS_LINES, SPRITE_RAM_MASK, $1, SPRITE_RAM_BASE_EC
 
 SCREEN_XYS_LIST:
 	XY_STRING 3,  4, "SPRITE RAM TEST"

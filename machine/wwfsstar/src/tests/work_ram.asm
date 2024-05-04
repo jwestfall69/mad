@@ -1,7 +1,7 @@
 	include "cpu/68000/dsub.inc"
 	include "cpu/68000/macros.inc"
+	include "cpu/68000/memory_tests_handler.inc"
 	include "cpu/68000/xy_string.inc"
-	include "cpu/68000/tests/memory.inc"
 
 	include "diag_rom.inc"
 	include "error_codes.inc"
@@ -13,65 +13,11 @@
 	section code
 
 auto_work_ram_tests_dsub:
-		lea	WORK_RAM_START, a0
-		moveq	#0, d0
-		DSUB	memory_output_test
-		tst.b	d0
-		bne	.test_failed_output
 
-		lea	WORK_RAM_START, a0
-		moveq	#0, d0
-		DSUB	memory_write_test
-		tst.b	d0
-		bne	.test_failed_write
-
-		lea	WORK_RAM_START, a0
-		move.w	#WORK_RAM_SIZE, d0
-		move.w	#$ffff, d1
-		DSUB	memory_data_test
-		tst.b	d0
-		bne	.test_failed_data
-
-		lea	WORK_RAM_START, a0
-		move.w	#WORK_RAM_ADDRESS_LINES, d0
-		move.w	#$ffff, d1
-		DSUB	memory_address_test
-		tst.b	d0
-		bne	.test_failed_address
-
-		lea	WORK_RAM_START, a0
-		move.w	#WORK_RAM_SIZE, d0
-		move.w	#$ffff, d1
-		DSUB	memory_march_test
-		tst.b	d0
-		bne	.test_failed_march
-		DSUB_RETURN
-
-	.test_failed_address:
-		moveq	#EC_WORK_RAM_ADDRESS, d0
-		DSUB_RETURN
-
-	.test_failed_data:
-		subq.b	#1, d0
-		add.b	#EC_WORK_RAM_DATA_LOWER, d0
-		DSUB_RETURN
-
-	.test_failed_march:
-		subq.b	#1, d0
-		add.b	#EC_WORK_RAM_MARCH_LOWER, d0
-		DSUB_RETURN
-
-	.test_failed_output:
-		subq.b	#1, d0
-		add.b	#EC_WORK_RAM_OUTPUT_LOWER, d0
-		DSUB_RETURN
-
-	.test_failed_write:
-		subq.b	#1, d0
-		add.b	#EC_WORK_RAM_WRITE_LOWER, d0
-		DSUB_RETURN
-
-
+		; do to nesting depth issues we need to directly
+		; branch to the handler and let it do the DSUB_RETURN
+		lea	MT_DATA, a0
+		bra	memory_tests_handler_dsub
 
 manual_work_ram_tests:
 
@@ -110,6 +56,11 @@ manual_work_ram_tests:
 		bra	main_menu
 
 	section data
+
+	align 2
+
+MT_DATA:
+	MT_PARAMS WORK_RAM_START, $0, WORK_RAM_SIZE, WORK_RAM_ADDRESS_LINES, WORK_RAM_MASK, $0, WORK_RAM_BASE_EC
 
 SCREEN_XYS_LIST:
 	XY_STRING 3, 10, "PASSES"
