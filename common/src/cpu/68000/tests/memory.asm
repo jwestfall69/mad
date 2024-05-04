@@ -118,7 +118,7 @@ memory_data_test_dsub:
 	.loop_next_read_address:
 		move.w	(a0)+, d2
 		and.w	d5, d2
-		cmp.w	d1, d1
+		cmp.w	d1, d2
 		bne	.test_failed
 		dbra	d0, .loop_next_read_address
 		dbra	d3, .loop_next_pattern
