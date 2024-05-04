@@ -7,14 +7,15 @@
 		dc.l	SP_INIT_ADDR
 		dc.l	_start
 
-	rorg $78
-		dc.l	interrupt_vblank	; irq6
+		rorg $78, $ff
+		dc.l	irq6_handler
 
 	section code
 
-interrupt_vblank:
-		addq.l  #1, INTERRUPT_VBLANK_COUNT
-		move.b  d0, $30c018
+; vblank
+irq6_handler:
+		addq.l	#1, INTERRUPT_VBLANK_COUNT
+		move.b	d0, REG_IRQ6_ACK
 		rte
 
 	section bss

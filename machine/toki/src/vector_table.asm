@@ -8,10 +8,11 @@
 		dc.l	_start
 
 		rorg $64, $ff
-		dc.l	interrupt_vblank	; irq1
+		dc.l	irq1_handler
 
 	section code
 
-interrupt_vblank:
+; vblank
+irq1_handler:
 		SCREEN_UPDATE
 		rte

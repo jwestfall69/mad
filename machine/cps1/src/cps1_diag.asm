@@ -10,15 +10,12 @@
 
 	section code
 
-vblank_interrupt:
-		rte
-
 _start:
 		PSUB_INIT
 
 		; init the sound latch or random sounds
 		; can play on powerup
-		move.b  #$f0, REG_SOUND1
+		move.b	#$f0, REG_SOUND1
 
 		move.w	#$ffc0, REGA_SCROLL1_X
 		move.w	#$0, REGA_SCROLL1_Y
