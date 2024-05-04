@@ -5,7 +5,6 @@
 	include "machine.inc"
 
 	global _start
-	global	vblank_interrupt
 	global	STR_PASSES
 
 	section code
