@@ -15,13 +15,7 @@ AUTO_DSUB_LIST:
 AUTO_FUNC_LIST:
 	AUTO_ENTRY auto_bg_ram_tests, STR_TESTING_FG_RAM
 	AUTO_ENTRY auto_fg_ram_tests, STR_TESTING_FG_RAM
-; disabling palette tests for now.  Its 12bits with the upper nibble
-; of the high byte not wired up on the ram chip.  Seeing some weirdness
-; where the lower nibble of the high byte is failing the data ram
-; test, but all other tests pass (including march).  Need to see if
-; its some issue with my board or if there is some timing issue
-; because the rendering system is also accessing the palette data.
-;	AUTO_ENTRY auto_palette_ram_tests, STR_TESTING_PALETTE_RAM
+	AUTO_ENTRY auto_palette_ram_tests, STR_TESTING_PALETTE_RAM
 	AUTO_ENTRY auto_sprite_ram_tests, STR_TESTING_SPRITE_RAM
 	AUTO_LIST_END
 

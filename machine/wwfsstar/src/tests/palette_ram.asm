@@ -1,6 +1,7 @@
 	include "cpu/68000/dsub.inc"
 	include "cpu/68000/macros.inc"
-	include "cpu/68000/memory_tests_handler.inc"
+	include "cpu/68000/memory_fill.inc"
+	include "cpu/68000/tests/memory.inc"
 	include "cpu/68000/xy_string.inc"
 
 	include "error_codes.inc"
@@ -18,10 +19,67 @@ auto_palette_ram_tests:
 
 	; mame doesn't allow reading palette ram, so
 	; we have to skip testing it
-	ifnd _MAME_BUILD_
-		lea	MT_DATA, a0
-		DSUB	memory_tests_handler
+	ifd	_MAME_BUILD_
+		rts
 	endif
+
+		lea	PALETTE_RAM_START, a0
+		moveq	#1, d0
+		DSUB	memory_output_test
+		tst.b	d0
+		bne	.test_failed_output
+
+		lea	PALETTE_RAM_START, a0
+		moveq	#1, d0
+		DSUB	memory_write_test
+		tst.b	d0
+		bne	.test_failed_write
+
+		lea	PALETTE_RAM_START, a0
+		move.w	#PALETTE_RAM_SIZE, d0
+		move.w	#$fff, d1
+		DSUB	palette_ram_data_test
+		tst.b	d0
+		bne	.test_failed_data
+
+		lea	PALETTE_RAM_START, a0
+		move.w	#PALETTE_RAM_SIZE, d0
+		move.w	#$fff, d1
+		DSUB	memory_march_test
+		tst.b	d0
+		bne	.test_failed_march
+
+		lea	PALETTE_RAM_START, a0
+		move.w	#PALETTE_RAM_ADDRESS_LINES, d0
+		move.w	#$ff, d1
+		RSUB	memory_address_test
+		tst.b	d0
+		bne	.test_failed_address
+		rts
+
+
+	.test_failed_address:
+		moveq	#EC_PALETTE_RAM_ADDRESS, d0
+		rts
+
+	.test_failed_data:
+		subq.b	#1, d0
+		add.b	#EC_PALETTE_RAM_DATA_LOWER, d0
+		rts
+
+	.test_failed_march:
+		subq.b	#1, d0
+		add.b	#EC_PALETTE_RAM_MARCH_LOWER, d0
+		rts
+
+	.test_failed_output:
+		subq.b	#1, d0
+		add.b	#EC_PALETTE_RAM_OUTPUT_LOWER, d0
+		rts
+
+	.test_failed_write:
+		subq.b	#1, d0
+		add.b	#EC_PALETTE_RAM_WRITE_LOWER, d0
 		rts
 
 manual_palette_ram_tests:
@@ -50,9 +108,9 @@ manual_palette_ram_tests:
 		bra	.loop_next_pass
 
 	.test_failed:
-		movem.l d0-d2/a0-a1, -(a7)
+		movem.l	d0-d2/a0-a1, -(a7)
 		RSUB	screen_init
-		movem.l (a7)+, d0-d2/a0-a1
+		movem.l	(a7)+, d0-d2/a0-a1
 
 		RSUB	error_handler
 		STALL
@@ -60,11 +118,86 @@ manual_palette_ram_tests:
 	.test_exit:
 		rts
 
+
+; This palette ram specific version of data tests removes the
+; poison stuff.  It or the timing changes from it causes false
+; postives on the palette ram.
+; params:
+;  a0 = start address
+;  d0 = length in bytes (word)
+;  d1 = mask (word)
+; returns:
+;  d0 = 0 (pass), 1 (lower bad), 2 (upper bad), 3 (both bad)
+;  a0 = failed address
+;  d1 = expected value
+;  d2 = actual value
+palette_ram_data_test_dsub:
+
+		; adjust length since we are writing in words
+		ror.l	#1, d0
+		subq.w	#1, d0
+
+		lea	DATA_PATTERNS, a1
+		moveq	#(((DATA_PATTERNS_END - DATA_PATTERNS) / 2) - 1), d3
+
+		; backup params
+		move.w	d0, d4
+		move.w	d1, d5
+		movea.l	a0, a2
+
+	.loop_next_pattern:
+		movea.l	a2, a0
+		move.w	d4, d0
+
+		move.w	(a1)+, d1
+		and.w	d5, d1
+
+	.loop_next_write_address:
+		move.w	d1, (a0)+
+		dbra	d0, .loop_next_write_address
+
+		; re-init for re-read
+		movea.l	a2, a0
+		move.w	d4, d0
+
+	.loop_next_read_address:
+		move.w	(a0)+, d2
+		and.w	d5, d2
+		cmp.w	d1, d2
+		bne	.test_failed
+		dbra	d0, .loop_next_read_address
+		dbra	d3, .loop_next_pattern
+		moveq	#0, d0
+		DSUB_RETURN
+
+	.test_failed:
+		subq.l	#2, a0
+
+		moveq	#0, d0
+		cmp.b	d1, d2
+		beq	.check_upper
+		moveq	#1, d0
+
+	.check_upper:
+		ror.l	#8, d1
+		ror.l	#8, d2
+		cmp.b	d1, d2
+		beq	.check_done
+		or.b	#2, d0
+
+	.check_done:
+		rol.l	#8, d1
+		rol.l	#8, d2
+		DSUB_RETURN
+
+
 	section data
 
 	align 2
-MT_DATA:
-	MT_PARAMS PALETTE_RAM_START, $0, PALETTE_RAM_SIZE, PALETTE_RAM_ADDRESS_LINES, PALETTE_RAM_MASK, $1, PALETTE_RAM_BASE_EC
+
+DATA_PATTERNS:
+	dc.w	$0000, $5555, $aaaa, $ffff
+DATA_PATTERNS_END:
 
 SCREEN_XYS_LIST:
 	XY_STRING 3, 10, "PASSES"
