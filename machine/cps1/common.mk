@@ -63,17 +63,17 @@ else
 endif
 
 $(OBJ_DIR)/%.o: src/%.asm $(INCS)
-	$(VASM) $(VASM_FLAGS) $(ROMSET_CFLAGS) -o $@ $<
+	$(VASM) $(VASM_FLAGS) $(BUILD_FLAGS) -o $@ $<
 
 $(OBJ_DIR)/%.o: src/tests/%.asm $(INCS)
-	$(VASM) $(VASM_FLAGS) $(ROMSET_CFLAGS) -o $@ $<
+	$(VASM) $(VASM_FLAGS) $(BUILD_FLAGS) -o $@ $<
 
 $(OBJ_DIR)/cpu/68000/%.o: ../../common/src/cpu/68000/%.asm $(INCS)
-	 $(VASM) $(VASM_FLAGS) $(ROMSET_CFLAGS) -o $@ $<
+	 $(VASM) $(VASM_FLAGS) $(BUILD_FLAGS) -o $@ $<
 
 
 $(OBJ_DIR)/cpu/68000/tests/%.o: ../../common/src/cpu/68000/tests/%.asm $(INCS)
-	 $(VASM) $(VASM_FLAGS) $(ROMSET_CFLAGS) -o $@ $<
+	 $(VASM) $(VASM_FLAGS) $(BUILD_FLAGS) -o $@ $<
 
 $(WORK_DIR):
 	$(MKDIR) -p $(WORK_DIR)
