@@ -19,6 +19,7 @@ OBJS = $(OBJ_DIR)/cpu/68000/crc32.o \
        $(OBJ_DIR)/cpu/68000/error_handler.o \
        $(OBJ_DIR)/cpu/68000/input_update.o \
        $(OBJ_DIR)/cpu/68000/memory_fill.o \
+       $(OBJ_DIR)/cpu/68000/memory_tests_handler.o \
        $(OBJ_DIR)/cpu/68000/memory_viewer_handler.o \
        $(OBJ_DIR)/cpu/68000/menu_handler.o \
        $(OBJ_DIR)/cpu/68000/menu_input_generic.o \
