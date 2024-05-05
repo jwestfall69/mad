@@ -1,6 +1,6 @@
 MEMORY {
 	ROM: org=0x000000, len=0x8000
-	RAM: org=0xff8000, len=0x4000
+	RAM: org=0xff0000, len=0x4000
 }
 
 SECTIONS {
