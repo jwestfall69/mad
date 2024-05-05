@@ -26,13 +26,20 @@ screen_init_dsub:
 		; poison palette by making everything green
 		lea	PALETTE_RAM_START, a0
 		move.w	#(PALETTE_RAM_SIZE / 2), d0
-		move.w	#$0f00, d1
+		move.w	#$0f0, d1
 		DSUB	memory_fill
 
 		; text color
 		move.w	#$fff, PALETTE_RAM_START + $216
 
+		; text shadow color
+		move.w	#$222, PALETTE_RAM_START + $208
+
 		; background color
+		; mame and hardware dont agree on the offset for the
+		; background color.  The value below works in mame but
+		; not on hardware, need to poke once I fix joystick
+		; inputs on my toki board
 		move.w	#0, PALETTE_RAM_START + $61e
 
 		SEEK_XY	6, 0
