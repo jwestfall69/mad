@@ -43,13 +43,13 @@ memory_viewer_handler:
 	.down_not_pressed:
 		btst	#MENU_RIGHT_BIT, d0
 		beq	.right_not_pressed
-		adda.l	#$60, a0
+		adda.l	#$50, a0
 		bra	.loop_next_input
 
 	.right_not_pressed:
 		btst	#MENU_LEFT_BIT, d0
 		beq	.left_not_pressed
-		suba.l	#$60, a0
+		suba.l	#$50, a0
 		bra	.loop_next_input
 
 	.left_not_pressed:
@@ -64,7 +64,7 @@ memory_dump:
 		movem.l	d0-d6/a0, -(a7)
 
 		moveq	#START_ROW, d3
-		moveq	#NUM_ROWS, d4
+		moveq	#(NUM_ROWS - 1), d4
 
 		bra	.loop_start_address
 
