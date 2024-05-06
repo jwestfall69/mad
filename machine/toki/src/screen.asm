@@ -22,12 +22,22 @@ screen_init_dsub:
 		moveq	#0, d1
 		DSUB	memory_fill
 
+		; There is some render difference between
+		; hardware and mame such that hardware's
+		; background ends up green while mame is
+		; black.  It seems like something on the
+		; hardware side isn't fully initialized
+		; causing the background to point at a
+		; random palette entry for its color.  Until
+		; I can figure out wtf, I'm disabling the
+		; poison.
+
 		; bits are xxxx BBBB GGGG RRRR
 		; poison palette by making everything green
-		lea	PALETTE_RAM_START, a0
-		move.w	#(PALETTE_RAM_SIZE / 2), d0
-		move.w	#$0f0, d1
-		DSUB	memory_fill
+		;lea	PALETTE_RAM_START, a0
+		;move.w	#(PALETTE_RAM_SIZE / 2), d0
+		;move.w	#$0f0, d1
+		;DSUB	memory_fill
 
 		; text color
 		move.w	#$fff, PALETTE_RAM_START + $216
@@ -36,10 +46,6 @@ screen_init_dsub:
 		move.w	#$222, PALETTE_RAM_START + $208
 
 		; background color
-		; mame and hardware dont agree on the offset for the
-		; background color.  The value below works in mame but
-		; not on hardware, need to poke once I fix joystick
-		; inputs on my toki board
 		move.w	#0, PALETTE_RAM_START + $61e
 
 		SEEK_XY	6, 0
