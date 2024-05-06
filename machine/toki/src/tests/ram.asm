@@ -32,6 +32,8 @@ manual_ram_tests:
 		tst.b	d0
 		bne	.test_failed
 
+		SCREEN_UPDATE
+
 		addq.l	#1, d6
 
 		btst	#P1_B1_BIT, REG_INPUT_P1
