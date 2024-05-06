@@ -1,7 +1,7 @@
 	include "cpu/68000/error_codes.inc"
-	include "cpu/68000/error_handler.inc"
 	include "cpu/68000/macros.inc"
 	include "cpu/68000/print_error.inc"
+	include "cpu/68000/handlers/error.inc"
 
 	include "error_codes.inc"
 

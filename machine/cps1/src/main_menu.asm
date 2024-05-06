@@ -1,6 +1,6 @@
 	include "cpu/68000/dsub.inc"
 	include "cpu/68000/macros.inc"
-	include "cpu/68000/menu_handler.inc"
+	include "cpu/68000/handlers/menu.inc"
 
 	include "diag_rom.inc"
 	include "machine.inc"

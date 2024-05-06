@@ -1,7 +1,7 @@
 	include "cpu/68000/dsub.inc"
 	include "cpu/68000/macros.inc"
-	include "cpu/68000/tests/memory.inc"
 	include "cpu/68000/xy_string.inc"
+	include "cpu/68000/tests/memory.inc"
 
 	include "diag_rom.inc"
 	include "error_codes.inc"

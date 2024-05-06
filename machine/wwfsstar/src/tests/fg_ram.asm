@@ -1,7 +1,7 @@
 	include "cpu/68000/dsub.inc"
 	include "cpu/68000/macros.inc"
-	include "cpu/68000/memory_tests_handler.inc"
 	include "cpu/68000/xy_string.inc"
+	include "cpu/68000/handlers/memory_tests.inc"
 
 	include "error_codes.inc"
 	include "machine.inc"
