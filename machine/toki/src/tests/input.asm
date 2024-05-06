@@ -16,9 +16,47 @@ input_test:
 
 	.loop_test:
 
-		lea	INPUT_LIST, a0
-		jsr	print_input_list
+		; Input/dsw registers are a bit weird on hardware.
+		; You can do a byte read on odd address registers
+		; and get valid data, but if you do the same on even
+		; address registers you get garbage.  In order to get
+		; valid data from the even ones the read must be a word.
+		; So we can't use the common input display.
 
+
+		; p2 inputs will be in high byte, p1 in low
+		move.w	REG_INPUT_P2, d0
+		not.w	d0
+
+		SEEK_XY	6, 7
+		movem.w	d0, -(a7)
+		RSUB	print_bits_byte
+		movem.w	(a7)+, d0
+
+		SEEK_XY	6, 8
+		lsr.w	#$8, d0
+		RSUB	print_bits_byte
+
+		; dsw2 will be in high byte, dsw1 in low
+		move.w	REG_INPUT_DSW2, d0
+		not.w	d0
+
+		SEEK_XY	6, 9
+		movem.w	d0, -(a7)
+		RSUB	print_bits_byte
+		movem.w	(a7)+, d0
+
+		SEEK_XY	6, 10
+		lsr.w	#$8, d0
+		RSUB	print_bits_byte
+
+		; odd address, byte read is ok
+		move.b	REG_INPUT_SYSTEM, d0
+		not.b	d0
+		SEEK_XY	6, 11
+		RSUB	print_bits_byte
+
+		; p1/system are both odd addresses, byte read is ok
 		move.b	REG_INPUT_P1, d0
 		not.b	d0
 		and.b	#P1_B2, d0
@@ -32,15 +70,8 @@ input_test:
 		rts
 
 	section	data
-	align 2
 
-INPUT_LIST:
-	INPUT_ENTRY  7, REG_INPUT_P1
-	INPUT_ENTRY  8, REG_INPUT_P2
-	INPUT_ENTRY  9, REG_INPUT_DSW1
-	INPUT_ENTRY 10, REG_INPUT_DSW2
-	INPUT_ENTRY 11, REG_INPUT_SYSTEM
-	INPUT_LIST_END
+	align 2
 
 SCREEN_XYS_LIST:
 	XY_STRING  6,  6, "76543210"
