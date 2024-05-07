@@ -9,7 +9,7 @@
 	section code
 
 NUM_ROWS	equ 20
-START_ROW	equ 5
+START_ROW	equ 6
 
 ; a0 = start memory location
 ; a1 = input callback function
@@ -18,9 +18,20 @@ memory_viewer_handler:
 		movem.l	a0-a1, -(a7)
 		RSUB	screen_clear
 
+		clr.b	READ_MODE
+
 		SEEK_XY	9, 3
 		lea	STR_MEMORY_VIEWER, a0
 		RSUB	print_string
+
+		SEEK_XY 16, 4
+		lea	STR_READ_MODE, a0
+		RSUB	print_string
+
+		SEEK_XY	11, 4
+		lea	STR_READ_MODE_WORD, a0
+		RSUB	print_string
+
 		movem.l	(a7)+, a0-a1
 
 		movea.l	a1, a2
@@ -53,12 +64,36 @@ memory_viewer_handler:
 		bra	.loop_next_input
 
 	.left_not_pressed:
+		btst	#MENU_BUTTON_BIT, d0
+		beq	.button_not_pressed
+
+		movem.l	a0, -(a7)
+		move.b	READ_MODE, d0
+		add.b	#$1, d0
+		and.b	#$1, d0
+		move.b	d0, READ_MODE
+		tst.b	d0
+		beq	.read_mode_word
+		lea	STR_READ_MODE_BYTE, a0
+		bra	.print_read_mode
+
+	.read_mode_word:
+		lea	STR_READ_MODE_WORD, a0
+
+	.print_read_mode:
+		SEEK_XY	11, 4
+		RSUB	print_string
+		movem.l	(a7)+, a0
+
+	.button_not_pressed:
 		btst	#MENU_EXIT_BIT, d0
 		beq	.loop_next_input
 
 		rts
 
-; a0 = start adddress
+; params:
+;  a0 = start adddress
+;  READ_MODE = 0 (word reads), 1 (byte reads)
 memory_dump:
 
 		movem.l	d0-d6/a0, -(a7)
@@ -69,7 +104,7 @@ memory_dump:
 		bra	.loop_start_address
 
 	.loop_next_address:
-		add.b	#$1, d3
+		add.b	#$1, d3			; line number
 
 	.loop_start_address:
 
@@ -84,7 +119,23 @@ memory_dump:
 		move.w	d3, d1
 		RSUB	screen_seek_xy
 
-		move.l	(a0), d0
+		btst	#$0, READ_MODE
+		beq	.read_mode_word
+		move.b	(a0), d0
+		lsl.l	#8, d0
+		move.b	(1,a0), d0
+		lsl.l	#8, d0
+		move.b	(2,a0), d0
+		lsl.l	#8, d0
+		move.b	(3, a0), d0
+		bra	.read_done
+
+	.read_mode_word:
+		move.w	(a0), d0
+		swap	d0
+		move.w	(2, a0), d0
+
+	.read_done:
 		move.l	d0, d5
 		RSUB	print_hex_word		; lower word
 
@@ -96,9 +147,8 @@ memory_dump:
 		swap	d0
 		RSUB	print_hex_word		; upper word
 
-		moveq	#26, d2
-
-		moveq	#3, d6
+		moveq	#26, d2			; x offset
+		moveq	#3, d6			; num of chars
 
 	.loop_next_char:
 		move.w	d2, d0
@@ -121,4 +171,16 @@ memory_dump:
 		movem.l (a7)+, d0-d6/a0
 		rts
 
+
+	section data
+
 STR_MEMORY_VIEWER:	STRING "MEMORY VIEWER"
+STR_READ_MODE:		STRING "READ"
+STR_READ_MODE_BYTE:	STRING "BYTE"
+STR_READ_MODE_WORD:	STRING "WORD"
+
+	section bss
+
+; ran out of registers in memory_dump so
+; have to use ram for the read mode
+READ_MODE:	dc.b	$0
