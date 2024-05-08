@@ -22,6 +22,8 @@ _start:
 
 		RSUB_INIT
 
+		jsr	auto_func_tests
+
 		clr.b	INPUT_P1_EDGE
 		clr.b	INPUT_P1_RAW
 		clr.b	INPUT_SYSTEM_EDGE
