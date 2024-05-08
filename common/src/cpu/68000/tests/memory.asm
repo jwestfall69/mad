@@ -6,7 +6,6 @@
 	global memory_march_test_dsub
 	global memory_output_test_dsub
 	global memory_output_list_test_dsub
-	global memory_rewrite_word_dsub
 	global memory_write_test_dsub
 	global memory_write_list_test_dsub
 
@@ -298,20 +297,6 @@ memory_output_list_test_dsub:
 		DSUB_RETURN
 
 	.tests_passed:
-		DSUB_RETURN
-
-; writes a region of memory (mainly just used to force
-; mame to consider the memorry dirty, causing it to update
-; its state/redraw the screen)
-; params:
-;  a0 = start address
-;  d0 = number of words
-memory_rewrite_word_dsub:
-		subq.w #1, d0
-	.loop_next_address:
-		move.w	(a0), d1
-		move.w	d1, (a0)+
-		dbra	d0, .loop_next_address
 		DSUB_RETURN
 
 ; Attempts to read from the memory location.  If the chip never
