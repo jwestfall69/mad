@@ -22,6 +22,7 @@ OBJS = $(OBJ_DIR)/cpu/68000/crc32.o \
        $(OBJ_DIR)/cpu/68000/xy_string.o \
        $(OBJ_DIR)/cpu/68000/handlers/error.o \
        $(OBJ_DIR)/cpu/68000/handlers/memory_viewer.o \
+       $(OBJ_DIR)/cpu/68000/handlers/memory_tests.o \
        $(OBJ_DIR)/cpu/68000/handlers/menu.o \
        $(OBJ_DIR)/cpu/68000/tests/auto.o \
        $(OBJ_DIR)/cpu/68000/tests/diag_rom.o \
