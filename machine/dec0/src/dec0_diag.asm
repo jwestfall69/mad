@@ -10,6 +10,11 @@
 	section code
 
 _start:
+		move.b	#$0, $30c011 	; tile/sprite priority
+		move.b	#$3, $30c01f	; reset intel 8751?
+
+		SOUND_STOP
+
 		PSUB_INIT
 		PSUB	screen_init
 

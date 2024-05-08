@@ -113,6 +113,8 @@ SYS_COIN2			equ $20
 SYS_SERVICE			equ $40
 SYS_VBLANK			equ $80
 
+DSW1_SCREEN_FLIP		equ $40
+
 SOUND_NUM_STOP			equ $01
 
 

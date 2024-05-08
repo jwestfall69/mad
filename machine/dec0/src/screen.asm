@@ -18,7 +18,7 @@ screen_clear_dsub:
 		moveq	#0, d1
 		DSUB	memory_fill
 
-		SEEK_XY   0, 1
+		SEEK_XY	0, 1
 		move.l	#'-', d0
 		moveq	#32, d1
 		DSUB	print_char_repeat
@@ -29,19 +29,38 @@ screen_clear_dsub:
 		DSUB_RETURN
 
 screen_init_dsub:
-		lea	REG_TILE1_CTRL1, a0
-		move.w	#$3, (a0)+
-		move.w	#$3, (a0)+
-		move.w	#$0, (a0)+
-		move.w	#$1, (a0)+
 
 		lea	MEMORY_FILL_LIST, a0
 		DSUB	memory_fill_list
 
+		; mame and hardware don't seem to agree on screen flip
+		; setting (bit 7 on REG_TILE1_CTRL1).  The bit set to 1 on
+		; hardware is right side up, but mame is upside down and
+		; vice versa if set to 0.  To avoid having to have different
+		; hardware/mame build going to read the dsw bit normally used
+		; for screen flip and apply it.  The dsw1 read could be bad,
+		; but oh well.
+		move.b	REG_INPUT_DSW1, d0
+		not.b	d0
+		and.w	DSW1_SCREEN_FLIP, d0	; bit 6, also zero out upper nibble
+		lsl.b	#1, d0			; shift over to 7 to align with bit for REG_TILE1_CTRL1
+		or.b	#$3, d0			; 8x8 tiles, not flipped?
+		lea	REG_TILE1_CTRL1, a0
+		move.w	d0, (a0)+
+		move.w	#$3, (a0)+
+		move.w	#$0, (a0)+
+		move.w	#$1, (a0)+
+
 		; poison palette by making everything green
 		lea	PALETTE_RAM_START, a0
 		move.w	#(PALETTE_RAM_SIZE / 2), d0
-		move.w	#$ff00, d1
+		; Disabling poison for now. There is some issue on hardware
+		; where its drawing a number of tiles or sprites on screen in
+		; green.  They have a weird strobe effect to them too. Not sure
+		; where its coming from since I'm zero'ing out all tile/sprite
+		; data/ram.
+		;move.w	#$ff00, d1
+		move.w	#$0000, d1
 		DSUB	memory_fill
 
 		lea	PALETTE_EXT_RAM_START, a0
@@ -78,6 +97,9 @@ MEMORY_FILL_LIST:
 		MEMORY_FILL_ENTRY REG_TILE2_CTRL2, $4, $0
 		MEMORY_FILL_ENTRY REG_TILE3_CTRL1, $4, $0
 		MEMORY_FILL_ENTRY REG_TILE3_CTRL2, $4, $0
+		MEMORY_FILL_ENTRY REG_TILE1_COLUMN_SCROLL, $1000, $0
+		MEMORY_FILL_ENTRY REG_TILE2_COLUMN_SCROLL, $1000, $0
+		MEMORY_FILL_ENTRY REG_TILE3_COLUMN_SCROLL, $1000, $0
 		MEMORY_FILL_ENTRY TILE1_DATA_START, (TILE1_DATA_SIZE / 2), $0
 		MEMORY_FILL_ENTRY TILE2_DATA_START, (TILE2_DATA_SIZE / 2), $0
 		MEMORY_FILL_ENTRY TILE3_DATA_START, (TILE3_DATA_SIZE / 2), $0
