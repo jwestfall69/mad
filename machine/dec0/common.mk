@@ -44,6 +44,7 @@ OBJS += $(OBJ_DIR)/$(DIAG).o \
         $(OBJ_DIR)/tests/palette_ram.o \
         $(OBJ_DIR)/tests/palette_ext_ram.o \
         $(OBJ_DIR)/tests/sound.o \
+        $(OBJ_DIR)/tests/sprite_ram.o \
         $(OBJ_DIR)/tests/work_ram.o
 
 INCS = $(wildcard include/*.inc) \
