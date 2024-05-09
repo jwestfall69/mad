@@ -41,6 +41,18 @@ auto_dsub_tests_dsub:
 		bra	.loop_next_test
 
 	.test_failed:
+
+		; backup/restore the error data
+		move.l	d0, d3
+		move.l	d1, d4
+		move.l	d2, d5
+		move.l	a0, d6
+		DSUB	screen_clear
+		move.l	d3, d0
+		move.l	d4, d1
+		move.l	d5, d2
+		move.l	d6, a0
+
 		DSUB	error_handler
 		STALL
 

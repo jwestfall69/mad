@@ -34,13 +34,13 @@ palette_init_dsub:
 screen_clear_dsub:
 screen_init_dsub:
 
-		moveq	#2, d5
+		moveq	#2, d2
 	.loop:
 
 		lea	MEMORY_FILL_LIST, a0
 		DSUB	memory_fill_list
 		DSUB	palette_init
-		dbra	d5, .loop
+		dbra	d2, .loop
 
 		SEEK_XY	14, 0
 		lea	STR_HEADER, a0
