@@ -59,6 +59,7 @@ menu_handler:
 		cmp.b	d4, d6
 		bge	.update_cursor
 		moveq	#0, d4
+		bra	.update_cursor
 
 	.down_not_pressed:
 		btst	#MENU_EXIT_BIT, d0
