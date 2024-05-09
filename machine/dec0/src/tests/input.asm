@@ -17,7 +17,7 @@ input_test:
 		moveq	#0, d4		; vblank pulse counter
 		clr.l	INTERRUPT_VBLANK_COUNT
 
-		move.w	#$2400, sr
+		move.w	#$2500, sr
 
 	.loop_test:
 
