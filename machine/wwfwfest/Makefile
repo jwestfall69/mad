@@ -41,7 +41,11 @@ OBJS += $(OBJ_DIR)/$(DIAG).o \
         $(OBJ_DIR)/screen.o \
         $(OBJ_DIR)/vector_table.o \
         $(OBJ_DIR)/tests/auto.o \
+        $(OBJ_DIR)/tests/bg1_ram.o \
+        $(OBJ_DIR)/tests/bg2_ram.o \
+        $(OBJ_DIR)/tests/fg_ram.o \
         $(OBJ_DIR)/tests/input.o \
+        $(OBJ_DIR)/tests/sprite_ram.o \
         $(OBJ_DIR)/tests/work_ram.o
 
 INCS = $(wildcard include/*.inc) \
