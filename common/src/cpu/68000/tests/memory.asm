@@ -69,7 +69,7 @@ memory_address_test_dsub:
 
 ; params:
 ;  a0 = start address
-;  d0 = length in bytes (word)
+;  d0 = length in bytes (long)
 ;  d1 = mask (word)
 ; returns:
 ;  d0 = 0 (pass), 1 (lower bad), 2 (upper bad), 3 (both bad)
@@ -80,26 +80,27 @@ memory_data_test_dsub:
 
 		; adjust length since we are writing in words
 		ror.l	#1, d0
-		subq.w	#2, d0 		; sub 2 to make space for poisoning using the next word
+		subq.l	#1, d0 		; make space for poisoning using the next word
 
 		lea	DATA_PATTERNS, a1
 		moveq	#(((DATA_PATTERNS_END - DATA_PATTERNS) / 2) - 1), d3
 
 		; backup params
-		move.w	d0, d4
+		move.l	d0, d4
 		move.w	d1, d5
 		movea.l	a0, a2
 
 	.loop_next_pattern:
 		movea.l	a2, a0
-		move.w	d4, d0
+		move.l	d4, d0
 
 		move.w	(a1)+, d1
 		and.w	d5, d1
 
 	.loop_next_write_address:
 		move.w	d1, (a0)+
-		dbra	d0, .loop_next_write_address
+		subq.l	#1, d0
+		bne	.loop_next_write_address
 
 		; In some cases when you write then re-read right away
 		; you will just get back the last written data on the bus when
@@ -112,14 +113,15 @@ memory_data_test_dsub:
 
 		; re-init for re-read
 		movea.l	a2, a0
-		move.w	d4, d0
+		move.l	d4, d0
 
 	.loop_next_read_address:
 		move.w	(a0)+, d2
 		and.w	d5, d2
 		cmp.w	d1, d2
 		bne	.test_failed
-		dbra	d0, .loop_next_read_address
+		subq.l	#1, d0
+		bne	.loop_next_read_address
 		dbra	d3, .loop_next_pattern
 
 		; verify the poison looks good too
@@ -156,26 +158,26 @@ memory_data_test_dsub:
 ; Do a march test
 ; params:
 ;  a0 = start address
-;  d0 = number of bytes (word)
+;  d0 = number of bytes (long)
 ;  d1 = mask (word)
 memory_march_test_dsub:
 
 		; adjust length since we are writing in words
 		ror.l	#1, d0
-		subq.w	#1, d0
 
 		; backup params
-		move.w	d0, d4
+		move.l	d0, d4
 		move.w	d1, d5
 		movea.l	a0, a2
 
 		moveq	#0, d1
 	.loop_fill_zero:
 		move.w	d1, (a0)+
-		dbra d0, .loop_fill_zero
+		subq.l	#1, d0
+		bne	.loop_fill_zero
 
 		movea.l	a2, a0
-		move.w	d4, d0
+		move.l	d4, d0
 
 	.loop_up_test:
 		move.w	(a0), d2
@@ -183,7 +185,8 @@ memory_march_test_dsub:
 		cmp.w	d1, d2
 		bne	.test_failed_up
 		move.w	#$ffff, (a0)+
-		dbra	d0, .loop_up_test
+		subq.l	#1, d0
+		bne	.loop_up_test
 
 		suba.l	#2, a0
 		move.l	d4, d0
@@ -197,7 +200,8 @@ memory_march_test_dsub:
 		bne	.test_failed_down
 		move.w	#0, (a0)
 		suba.l	#2, a0
-		dbra	d0, .loop_down_test
+		subq.l	#1, d0
+		bne	.loop_down_test
 
 		moveq	#0, d0
 		DSUB_RETURN

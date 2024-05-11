@@ -36,14 +36,14 @@ auto_palette_ram_tests:
 		bne	.test_failed_write
 
 		lea	PALETTE_RAM_START, a0
-		move.w	#PALETTE_RAM_SIZE, d0
+		move.l	#PALETTE_RAM_SIZE, d0
 		move.w	#$fff, d1
 		DSUB	palette_ram_data_test
 		tst.b	d0
 		bne	.test_failed_data
 
 		lea	PALETTE_RAM_START, a0
-		move.w	#PALETTE_RAM_SIZE, d0
+		move.l	#PALETTE_RAM_SIZE, d0
 		move.w	#$fff, d1
 		DSUB	memory_march_test
 		tst.b	d0
@@ -124,7 +124,7 @@ manual_palette_ram_tests:
 ; postives on the palette ram.
 ; params:
 ;  a0 = start address
-;  d0 = length in bytes (word)
+;  d0 = length in bytes (long)
 ;  d1 = mask (word)
 ; returns:
 ;  d0 = 0 (pass), 1 (lower bad), 2 (upper bad), 3 (both bad)
@@ -135,13 +135,13 @@ palette_ram_data_test_dsub:
 
 		; adjust length since we are writing in words
 		ror.l	#1, d0
-		subq.w	#1, d0
+		subq.l	#1, d0
 
 		lea	DATA_PATTERNS, a1
 		moveq	#(((DATA_PATTERNS_END - DATA_PATTERNS) / 2) - 1), d3
 
 		; backup params
-		move.w	d0, d4
+		move.l	d0, d4
 		move.w	d1, d5
 		movea.l	a0, a2
 
@@ -154,18 +154,20 @@ palette_ram_data_test_dsub:
 
 	.loop_next_write_address:
 		move.w	d1, (a0)+
-		dbra	d0, .loop_next_write_address
+		subq.l	#1, d0
+		bne	.loop_next_write_address
 
 		; re-init for re-read
 		movea.l	a2, a0
-		move.w	d4, d0
+		move.l	d4, d0
 
 	.loop_next_read_address:
 		move.w	(a0)+, d2
 		and.w	d5, d2
 		cmp.w	d1, d2
 		bne	.test_failed
-		dbra	d0, .loop_next_read_address
+		subq.l	#1, d0
+		bne	.loop_next_read_address
 		dbra	d3, .loop_next_pattern
 		moveq	#0, d0
 		DSUB_RETURN
