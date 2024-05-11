@@ -33,7 +33,7 @@ view_bg1_ram:
 		bra	view_memory
 
 view_bg2_ram:
-		lea	BG1_RAM_START, a0
+		lea	BG2_RAM_START, a0
 		bra	view_memory
 
 view_fg_ram:
