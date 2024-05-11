@@ -18,7 +18,7 @@ screen_clear_dsub:
 screen_init_dsub:
 		; clear everything but work ram
 		lea	NOT_WORK_RAM_START, a0
-		move.w	#(NOT_WORK_RAM_SIZE / 2), d0
+		move.l	#NOT_WORK_RAM_SIZE, d0
 		moveq	#0, d1
 		DSUB	memory_fill
 
@@ -35,7 +35,7 @@ screen_init_dsub:
 		; bits are xxxx BBBB GGGG RRRR
 		; poison palette by making everything green
 		;lea	PALETTE_RAM_START, a0
-		;move.w	#(PALETTE_RAM_SIZE / 2), d0
+		;move.l	#PALETTE_RAM_SIZE, d0
 		;move.w	#$0f0, d1
 		;DSUB	memory_fill
 
