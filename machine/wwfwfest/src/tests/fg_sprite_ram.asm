@@ -6,19 +6,19 @@
 	include "error_codes.inc"
 	include "machine.inc"
 
-	global auto_fg_ram_tests
-	global manual_fg_ram_tests
+	global auto_fg_sprite_ram_tests
+	global manual_fg_sprite_ram_tests
 
 	section code
 
 ; fg ram is only 8 bit
-auto_fg_ram_tests:
+auto_fg_sprite_ram_tests:
 
 		lea	MT_DATA, a0
 		DSUB	memory_tests_handler
 		rts
 
-manual_fg_ram_tests:
+manual_fg_sprite_ram_tests:
 
 		; no point in printing out the SCREEN_XY_LIST
 		; since it will be wiped out soon as testing
@@ -29,7 +29,7 @@ manual_fg_ram_tests:
 
 	.loop_next_pass:
 
-		jsr	auto_fg_ram_tests
+		jsr	auto_fg_sprite_ram_tests
 		tst.b	d0
 		bne	.test_failed
 
@@ -74,10 +74,10 @@ manual_fg_ram_tests:
 
 	align 2
 MT_DATA:
-	MT_PARAMS FG_RAM_START, MT_NULL_ADDRESS_LIST, FG_RAM_SIZE, FG_RAM_ADDRESS_LINES, FG_RAM_MASK, MT_TEST_LOWER_ONLY, FG_RAM_BASE_EC
+	MT_PARAMS FG_SPRITE_RAM_START, MT_NULL_ADDRESS_LIST, FG_SPRITE_RAM_SIZE, FG_SPRITE_RAM_ADDRESS_LINES, FG_SPRITE_RAM_MASK, MT_TEST_LOWER_ONLY, FG_SPRITE_RAM_BASE_EC
 
 SCREEN_XYS_LIST:
-	XY_STRING 3,  4, "FG RAM TEST"
+	XY_STRING 3,  4, "FG/SPRITE RAM TEST"
 	XY_STRING 3, 10, "PASSES"
 	XY_STRING 3, 19, "B1 - PAUSE"
 	XY_STRING 3, 20, "B2 - RETURN TO MENU"

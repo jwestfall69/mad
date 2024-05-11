@@ -29,11 +29,11 @@ memory_viewer_menu:
 		rts
 
 view_bg1_ram:
-		lea	BG1_RAM_START, a0
+		lea	BG_RAM_START, a0
 		bra	view_memory
 
 view_bg2_ram:
-		lea	BG1_RAM_START, a0
+		lea	BG2_RAM_START, a0
 		bra	view_memory
 
 view_fg_ram:

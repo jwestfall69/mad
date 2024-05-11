@@ -6,18 +6,18 @@
 	include "error_codes.inc"
 	include "machine.inc"
 
-	global auto_bg1_ram_tests
-	global manual_bg1_ram_tests
+	global auto_bg_ram_tests
+	global manual_bg_ram_tests
 
 	section code
 
-auto_bg1_ram_tests:
+auto_bg_ram_tests:
 
 		lea	MT_DATA, a0
 		DSUB	memory_tests_handler
 		rts
 
-manual_bg1_ram_tests:
+manual_bg_ram_tests:
 
 		lea	SCREEN_XYS_LIST, a0
 		RSUB	print_xy_string_list
@@ -30,7 +30,7 @@ manual_bg1_ram_tests:
 		move.l	d6, d0
 		RSUB	print_hex_long
 
-		jsr	auto_bg1_ram_tests
+		jsr	auto_bg_ram_tests
 		tst.b	d0
 		bne	.test_failed
 
@@ -57,7 +57,7 @@ manual_bg1_ram_tests:
 
 	align 2
 MT_DATA:
-	MT_PARAMS BG1_RAM_START, MT_NULL_ADDRESS_LIST, BG1_RAM_SIZE, BG1_RAM_ADDRESS_LINES, BG1_RAM_MASK, MT_TEST_BOTH, BG1_RAM_BASE_EC
+	MT_PARAMS BG_RAM_START, MT_NULL_ADDRESS_LIST, BG_RAM_SIZE, BG_RAM_ADDRESS_LINES, BG_RAM_MASK, MT_TEST_BOTH, BG_RAM_BASE_EC
 
 SCREEN_XYS_LIST:
 	XY_STRING 3,  4, "BG RAM TEST"
