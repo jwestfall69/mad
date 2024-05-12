@@ -26,11 +26,11 @@ OBJS = $(OBJ_DIR)/cpu/68000/crc32.o \
        $(OBJ_DIR)/cpu/68000/handlers/memory_tests.o \
        $(OBJ_DIR)/cpu/68000/handlers/memory_viewer.o \
        $(OBJ_DIR)/cpu/68000/handlers/menu.o \
+       $(OBJ_DIR)/cpu/68000/handlers/sound.o \
        $(OBJ_DIR)/cpu/68000/tests/auto.o \
        $(OBJ_DIR)/cpu/68000/tests/diag_rom.o \
        $(OBJ_DIR)/cpu/68000/tests/input.o \
-       $(OBJ_DIR)/cpu/68000/tests/memory.o \
-       $(OBJ_DIR)/cpu/68000/tests/sound.o
+       $(OBJ_DIR)/cpu/68000/tests/memory.o
 
 # code from this machine
 OBJS += $(OBJ_DIR)/$(DIAG).o \
