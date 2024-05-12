@@ -1,0 +1,11 @@
+DIAG=wwfwfest_diag
+ROM_SIZE=524288
+ROMA=31e14-0.ic18
+ROMB=31e13-0.ic19
+
+BUILD_DIR=build/mame
+OBJ_DIR=$(BUILD_DIR)/obj
+WORK_DIR=$(BUILD_DIR)/work
+BUILD_FLAGS=-D_MAME_BUILD_
+
+include common.mk

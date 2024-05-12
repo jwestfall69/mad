@@ -13,6 +13,10 @@
 
 auto_bg_ram_tests:
 
+	ifd _MAME_BUILD_
+		rts
+	endif
+
 		lea	MT_DATA, a0
 		DSUB	memory_tests_handler
 		rts
@@ -57,5 +61,8 @@ MT_DATA:
 SCREEN_XYS_LIST:
 	XY_STRING 3,  4, "BG RAM TEST"
 	XY_STRING 3, 10, "PASSES"
+	ifd _MAME_BUILD_
+	XY_STRING 3, 14, "MAME BUILD - TEST DISABLED"
+	endif
 	XY_STRING 3, 20, "B2 - RETURN TO MENU"
 	XY_STRING_LIST_END

@@ -1,12 +1,3 @@
-DIAG=wwfwfest_diag
-ROM_SIZE=524288
-ROMA=31e14-0.ic18
-ROMB=31e13-0.ic19
-
-BUILD_DIR=build
-OBJ_DIR=$(BUILD_DIR)/obj
-WORK_DIR=$(BUILD_DIR)/work
-
 VASM = vasmm68k_mot
 VASM_FLAGS = -Fvobj -m68000 -spaces -chklabels -Iinclude -I../../common/include  -quiet
 VLINK = vlink
@@ -57,10 +48,10 @@ $(WORK_DIR)/$(DIAG).bin: $(WORK_DIR) $(OBJ_DIR) $(BUILD_DIR) $(OBJS)
 	../../util/rom-byte-split $(WORK_DIR)/$(DIAG).bin $(BUILD_DIR)/$(ROMA) $(BUILD_DIR)/$(ROMB)
 
 $(OBJ_DIR)/%.o: src/%.asm $(INCS)
-	$(VASM) $(VASM_FLAGS) -o $@ $<
+	$(VASM) $(VASM_FLAGS) $(BUILD_FLAGS) -o $@ $<
 
 $(OBJ_DIR)/cpu/68000/%.o: ../../common/src/cpu/68000/%.asm $(INCS)
-	 $(VASM) $(VASM_FLAGS) -o $@ $<
+	 $(VASM) $(VASM_FLAGS) $(BUILD_FLAGS) -o $@ $<
 
 $(WORK_DIR):
 	$(MKDIR) -p $(WORK_DIR)
