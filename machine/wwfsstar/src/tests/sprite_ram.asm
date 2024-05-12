@@ -42,11 +42,6 @@ manual_sprite_ram_tests:
 		bra	.loop_next_pass
 
 	.test_failed:
-
-		movem.l	d0-d2/a0-a1, -(a7)
-		RSUB	screen_init
-		movem.l	(a7)+, d0-d2/a0-a1
-
 		RSUB	error_handler
 		STALL
 

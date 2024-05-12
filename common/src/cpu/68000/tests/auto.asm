@@ -41,18 +41,6 @@ auto_dsub_tests_dsub:
 		bra	.loop_next_test
 
 	.test_failed:
-
-		; backup/restore the error data
-		move.l	d0, d3
-		move.l	d1, d4
-		move.l	d2, d5
-		move.l	a0, d6
-		DSUB	screen_clear
-		move.l	d3, d0
-		move.l	d4, d1
-		move.l	d5, d2
-		move.l	d6, a0
-
 		DSUB	error_handler
 		STALL
 
@@ -66,11 +54,10 @@ auto_func_tests:
 		tst.l	(a1)			; table is null terminated
 		beq	.all_tests_done
 
-		move.l (4, a1), a0
-
 		SEEK_LN	5
 		RSUB	print_clear_line
 
+		move.l (4, a1), a0
 		SEEK_XY	4,5
 		RSUB	print_string
 
@@ -80,16 +67,17 @@ auto_func_tests:
 		jsr	(a0)
 		movem.l (a7)+, a1
 
-		movem.l d0-d2/a0-a1, -(a7)
-		RSUB	screen_init
-		movem.l	(a7)+, d0-d2/a0-a1
-
 		tst.b	d0
 		bne	.test_failed
 
+		; re-init the screen since the test may have
+		; screwed it up
+		movem.l a1, -(a7)
+		RSUB	screen_init
+		movem.l	(a7)+, a1
+
 		addq.l	#8, a1
 		bra	.loop_next_test
-
 
 	.test_failed:
 		RSUB	error_handler

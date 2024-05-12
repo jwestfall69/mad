@@ -22,6 +22,19 @@
 ;  d0-d2, a0 are unmodified
 error_handler_dsub:
 
+		; The screen maybe in a screwed up state depending
+		; on what test was running.  So backup the error
+		; data then re-init the screen.
+		move.l	d0, d3
+		move.l	d1, d4
+		move.l	d2, d5
+		move.l	a0, d6
+		DSUB 	screen_clear
+		move.l	d3, d0
+		move.l	d4, d1
+		move.l	d5, d2
+		move.l	d6, a0
+
 		; use the error code to find the correct print error dsub id
 		lea	(EC_LIST), a1
 	.loop_ec_next_entry:
