@@ -46,8 +46,7 @@ manual_work_ram_tests:
 		bra	.loop_next_pass
 
 	.test_failed:
-		RSUB_INIT
-		RSUB	error_handler
+		PSUB	error_handler
 		STALL
 
 	.test_exit:
