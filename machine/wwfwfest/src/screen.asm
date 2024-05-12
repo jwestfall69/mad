@@ -56,7 +56,11 @@ screen_init_dsub:
 
 		; background color
 		lea	PALETTE_RAM_START, a0
-		move.w	#$0000, (a0)
+		move.w	#$0, (a0)
+		lea	PALETTE_RAM_START + $4000, a0
+		move.w	#$0, (a0)
+		lea	PALETTE_RAM_START + $6000, a0
+		move.w	#$0, (a0)
 
 		bra	screen_clear_dsub
 
