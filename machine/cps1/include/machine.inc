@@ -65,6 +65,8 @@ P1_B3				equ $40
 
 SYS_START1			equ $10
 
+CHAR_COLON			equ ':'
+
 SOUND_NUM_STOP			equ $f0
 
 	macro SEEK_XY

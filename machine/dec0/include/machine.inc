@@ -119,6 +119,8 @@ SYS_VBLANK			equ $80
 
 DSW1_SCREEN_FLIP		equ $40
 
+CHAR_COLON			equ ':'
+
 SOUND_NUM_STOP			equ $01
 
 

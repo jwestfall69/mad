@@ -93,6 +93,8 @@ SYS_SERVICE			equ $08
 DSW1_FLIP_SCREEN_BIT		equ $7
 DSW1_FLIP_SCREEN		equ $80
 
+CHAR_COLON			equ ':'
+
 SOUND_NUM_STOP			equ $00
 
 	; goto the correct fg memory location before printing text

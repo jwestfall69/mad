@@ -76,6 +76,8 @@ SYS_VBLANK_BIT			equ $2
 SYS_VBLANK			equ $04
 SYS_START1			equ $80
 
+CHAR_COLON			equ '@'
+
 SOUND_NUM_STOP			equ $00
 
 	; goto the correct fg memory location before printing text
