@@ -33,6 +33,10 @@ _start:
 		clr.b	MENU_CURSOR
 
 		bsr	auto_func_tests
+
+		moveq	#SOUND_NUM_SUCCESS, d0
+		SOUND_PLAY
+
 		bsr	main_menu
 
 	section data
