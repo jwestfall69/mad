@@ -42,7 +42,7 @@ Below is the list of boards that are currently be used for testing MAD.  These w
 ![wwfsstar](docs/images/wwfsstar.png)
 
 ### WWF Wrestlefest (wwfwfest)
-![wwfwfest](docs/images/wwfsstar.png)
+![wwfwfest](docs/images/wwfwfest.png)
 
 ## Building
 I've been doing most of my developemnt in window subsystem for linux (wsl).  This makes it easy to compile, test in mame, and then burn to an eprom for testing on hardware.
