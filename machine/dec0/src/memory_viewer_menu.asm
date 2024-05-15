@@ -49,16 +49,16 @@ view_sprite_ram:
 		lea	SPRITE_RAM_START, a0
 		bra	view_memory
 
-view_tile1_space:
-		lea	TILE1_DATA_START, a0
+view_tile1_ram:
+		lea	TILE1_RAM_START, a0
 		bra	view_memory
 
-view_tile2_space:
-		lea	TILE2_DATA_START, a0
+view_tile2_ram:
+		lea	TILE2_RAM_START, a0
 		bra	view_memory
 
-view_tile3_space:
-		lea	TILE3_DATA_START, a0
+view_tile3_ram:
+		lea	TILE3_RAM_START, a0
 		bra	view_memory
 
 view_work_ram:
@@ -82,9 +82,9 @@ MENU_LIST:
 	MENU_ENTRY view_palette_ext_ram, STR_PALETTE_EXT_RAM
 	MENU_ENTRY view_rom_space, STR_ROM_SPACE
 	MENU_ENTRY view_sprite_ram, STR_SPRITE_RAM
-	MENU_ENTRY view_tile1_space, STR_TILE1_SPACE
-	MENU_ENTRY view_tile2_space, STR_TILE2_SPACE
-	MENU_ENTRY view_tile3_space, STR_TILE3_SPACE
+	MENU_ENTRY view_tile1_ram, STR_TILE1_RAM
+	MENU_ENTRY view_tile2_ram, STR_TILE2_RAM
+	MENU_ENTRY view_tile3_ram, STR_TILE3_RAM
 	MENU_ENTRY view_work_ram, STR_WORK_RAM
 	MENU_LIST_END
 
@@ -94,7 +94,7 @@ STR_PALETTE_RAM:	STRING "PALETTE RAM"
 STR_PALETTE_EXT_RAM:	STRING "PALETTE EXT RAM"
 STR_ROM_SPACE:		STRING "ROM SPACE"
 STR_SPRITE_RAM:		STRING "SPRITE RAM"
-STR_TILE1_SPACE:	STRING "TILE1 SPACE"
-STR_TILE2_SPACE:	STRING "TILE2 SPACE"
-STR_TILE3_SPACE:	STRING "TILE3 SPACE"
+STR_TILE1_RAM:		STRING "TILE1 RAM"
+STR_TILE2_RAM:		STRING "TILE2 RAM"
+STR_TILE3_RAM:		STRING "TILE3 RAM"
 STR_WORK_RAM:		STRING "WORK RAM"
