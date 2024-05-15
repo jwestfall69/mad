@@ -137,9 +137,6 @@ print_error_invalid_dsub:
 		DSUB	print_string
 		DSUB_RETURN
 
-
-	ifnd _PRINT_ERROR_MEMORY_OVERRIDE_
-
 ; params:
 ;  d0 = error code
 ;  d1 = expected value
@@ -185,8 +182,6 @@ print_error_memory_dsub:
 		lea	STR_EXPECTED, a0
 		DSUB	print_string
 		DSUB_RETURN
-
-	endif
 
 ; params:
 ;  a1 = error description

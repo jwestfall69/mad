@@ -72,14 +72,6 @@ print_clear_line_dsub:
 		moveq	#48, d1
 		bra	print_char_repeat_dsub
 
-; called by error_handler
-; params:
-;  a1 = error description
-print_error_string_dsub:
-		SEEK_XY	4, 5
-		movea.l	a1, a0
-		bra	print_string_dsub	; will do the DSUB_RETURN
-
 ; d0 = data
 print_hex_nibble_dsub:
 		moveq	#1, d1

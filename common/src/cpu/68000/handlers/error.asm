@@ -16,10 +16,6 @@
 ;  d1 = error data
 ;  d2 = error data
 ;  a0 = error data
-; returns
-;  a1 = error code description
-;  a2 = print error dsub
-;  d0-d2, a0 are unmodified
 error_handler_dsub:
 
 		; The screen maybe in a screwed up state depending
