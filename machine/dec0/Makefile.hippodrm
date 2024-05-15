@@ -1,9 +1,0 @@
-ROMSET=hippodrm
-ROMSET_CFLAGS=-D_ROMSET_HIPPODRM_
-ROMA=ew02
-ROMB=ew01
-
-DIAG=dec0_diag
-ROM_SIZE=131072
-
-include common.mk

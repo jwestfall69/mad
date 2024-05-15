@@ -1,9 +1,4 @@
 DIAG=dec0_diag
-ROM_SIZE=131072
-
-BUILD_DIR=build/$(ROMSET)
-OBJ_DIR=$(BUILD_DIR)/obj
-WORK_DIR=$(BUILD_DIR)/work
 
 VASM = vasmm68k_mot
 VASM_FLAGS = -Fvobj -m68000 -spaces -chklabels -Iinclude -I../../common/include  -quiet
@@ -45,6 +40,9 @@ OBJS += $(OBJ_DIR)/$(DIAG).o \
         $(OBJ_DIR)/tests/palette_ext_ram.o \
         $(OBJ_DIR)/tests/sound.o \
         $(OBJ_DIR)/tests/sprite_ram.o \
+        $(OBJ_DIR)/tests/tile1_ram.o \
+        $(OBJ_DIR)/tests/tile2_ram.o \
+        $(OBJ_DIR)/tests/tile3_ram.o \
         $(OBJ_DIR)/tests/work_ram.o
 
 INCS = $(wildcard include/*.inc) \
@@ -57,10 +55,10 @@ $(WORK_DIR)/$(DIAG).bin: $(WORK_DIR) $(OBJ_DIR) $(BUILD_DIR) $(OBJS)
 	../../util/rom-byte-split $(WORK_DIR)/$(DIAG).bin $(BUILD_DIR)/$(ROMA) $(BUILD_DIR)/$(ROMB)
 
 $(OBJ_DIR)/%.o: src/%.asm $(INCS)
-	$(VASM) $(VASM_FLAGS) $(ROMSET_CFLAGS) -o $@ $<
+	$(VASM) $(VASM_FLAGS) $(BUILD_FLAGS) -o $@ $<
 
 $(OBJ_DIR)/cpu/68000/%.o: ../../common/src/cpu/68000/%.asm $(INCS)
-	 $(VASM) $(VASM_FLAGS) $(ROMSET_CFLAGS) -o $@ $<
+	 $(VASM) $(VASM_FLAGS) $(BUILD_FLAGS) -o $@ $<
 
 $(WORK_DIR):
 	$(MKDIR) -p $(WORK_DIR)

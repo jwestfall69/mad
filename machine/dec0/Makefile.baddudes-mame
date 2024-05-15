@@ -1,0 +1,11 @@
+ROMSET=baddudes
+ROM_SIZE=131072
+ROMA=ei04-1.3c
+ROMB=ei01-1.3a
+
+BUILD_DIR=build/mame/$(ROMSET)
+OBJ_DIR=$(BUILD_DIR)/obj
+WORK_DIR=$(BUILD_DIR)/work
+BUILD_FLAGS=-D_ROMSET_BADDUDES_ -D_MAME_BUILD_
+
+include common.mk

@@ -1,0 +1,11 @@
+ROMSET=hippodrm
+ROM_SIZE=131072
+ROMA=ew02
+ROMB=ew01
+
+BUILD_DIR=build/mame/$(ROMSET)
+OBJ_DIR=$(BUILD_DIR)/obj
+WORK_DIR=$(BUILD_DIR)/work
+BUILD_FLAGS=-D_ROMSET_HIPPODRM_ -D_MAME_BUILD_
+
+include common.mk

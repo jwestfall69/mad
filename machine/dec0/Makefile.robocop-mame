@@ -1,0 +1,11 @@
+ROMSET=robocop
+ROM_SIZE=131072
+ROMA=ep05-4.11c
+ROMB=ep01-4.11b
+
+BUILD_DIR=build/mame/$(ROMSET)
+OBJ_DIR=$(BUILD_DIR)/obj
+WORK_DIR=$(BUILD_DIR)/work
+BUILD_FLAGS=-D_ROMSET_ROBOCOP_ -D_MAME_BUILD_
+
+include common.mk

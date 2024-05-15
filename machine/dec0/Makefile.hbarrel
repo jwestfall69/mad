@@ -1,6 +1,0 @@
-ROMSET=hbarrel
-ROMSET_CFLAGS=-D_ROMSET_HBARREL_ -D_PRINT_COLUMN_
-ROMA=ec04-e.3c
-ROMB=ec01-e.3a
-
-include common.mk

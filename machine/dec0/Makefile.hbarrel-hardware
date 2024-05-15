@@ -1,0 +1,11 @@
+ROMSET=hbarrel
+ROM_SIZE=131072
+ROMA=ec04-e.3c
+ROMB=ec01-e.3a
+
+BUILD_DIR=build/hardware/$(ROMSET)
+OBJ_DIR=$(BUILD_DIR)/obj
+WORK_DIR=$(BUILD_DIR)/work
+BUILD_FLAGS=-D_ROMSET_HBARREL_ -D_PRINT_COLUMN_
+
+include common.mk

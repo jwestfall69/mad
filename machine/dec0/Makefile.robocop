@@ -1,6 +1,0 @@
-ROMSET=robocop
-ROMSET_CFLAGS=-D_ROMSET_ROBOCOP_
-ROMA=ep05-4.11c
-ROMB=ep01-4.11b
-
-include common.mk
