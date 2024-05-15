@@ -1,13 +1,13 @@
 # MAD - Multiple Arcade Diag
-**IMPORTANT**: This is an expirement at this point.  There maybe large changes as I get things figured out.
+**IMPORTANT**: This is an experiment at this point.  There maybe large changes as I get things figured out.
 
-Having created a couple different diagnostic roms/bios for arcade boards I wanted to look into making it easier/faster to write new ones.  The idea behind this project is to have a framework that contains all of the common code that exists between diag roms from different board.  Stuff like ram tests, menu systems, memory viewer, displaying player/dsw inputs, sending a byte to the sound latch, etc.
+Having created a couple different diagnostic roms/bios for arcade boards I wanted to look into making it easier/faster to write new ones.  The idea behind this project is to have a framework that contains all of the common code that exists between diag roms from different boards.  Stuff like ram tests, menu systems, memory viewer, displaying player/dsw inputs, sending a byte to the sound latch, etc.
 
 Currently I've been soley focusing on m68k based boards.  Once I'm satisfied with the m68k code and layout I want to look into adding other cpus.  I think ideally I would want to be able to have diag roms for both the main cpu and the sound cpu for each board.  But thats a long way off.
 
 In general adding a new board entails understanding how to initialize the hardware, figuring out how to print to the screen (including palette setup), then just hooking up the commom tests (ram, io, sound, etc).  MAD has already helped me track down issues in my toki (bad joystick inputs) and wwfsstar (failed palette upper ram chip) boards.
 
-Below is the list of boards that are currently be used for testing MAD.  These were picked because I have them and its a good mix of manufacturers, individual game boards vs multiple games (rom boards) on a single platform.  This has been to help me understand what all can be merged into common code and what type of one-offs I may have to deal with.
+Below is the list of boards that I'm currently using to develope MAD.  These were picked because I have them and its a good mix of manufacturers, individual game boards vs multiple games (rom boards) on a single platform.  This has been to help me understand what all can be merged into common code and what type of one-offs may exist and how to deal with them.
 
 ### CPS1
 **Three Wonders** (3wonders with cps_b21_bts1)<br>
@@ -49,22 +49,22 @@ I've been doing most of my developemnt in window subsystem for linux (wsl).  Thi
 
 I'm using debian wsl.  You will want to `apt-get install build-essential` to get gcc/make.
 
-vasm and vlink are need to for actually compiling the m68k source code, which are available here
+vasm and vlink are need to for compiling the m68k source code, which are available here
 
 http://sun.hasenbraten.de/vasm/<br>
 http://sun.hasenbraten.de/vlink/
 
-For vasm you will need vasmm68k_mot.  If you are building vasm from source, like I did, you can build it with the following command
+For vasm you will need the vasmm68k_mot variant.  If you are building vasm from source, you can build it with the following command from where ever you decompressed vasm.tar.gz.
 
 ```
 $ make CPU=m68k SYNTAX=mot
 ```
 
-Copy the resulting vasmm68k_mot (and vlink) so they are within your $PATH (ie /usr/local/bin/)
+Copy the resulting vasmm68k_mot (and vlink, when you get that compiled) so they are within your $PATH (ie: /usr/local/bin/)
 
-The first thing you will want to is run `make` in the `util` dir, which has a couple utils that deal with crc/mirror injecting and rom splitting.
+The first thing you will want to is run `make` in the `util` dir, which has a couple utils that deal with crc/mirror injection and rom splitting.
 
-Under the machine/ dir will be the different board types
+Under the machine/ directory are the available board types:
 
 ```
 jwestfall@DESKTOP-7LADK23:/mnt/c/Users/jwestfall/Desktop/mad/machine$ ls -la
@@ -99,7 +99,7 @@ drwxrwxrwx 1 jwestfall jwestfall 4096 May 12 10:17 include
 drwxrwxrwx 1 jwestfall jwestfall 4096 May 11 11:09 src
 ```
 
-The build*.sh are specific to my setup and may not work for you.  They each will build the rom then copy it/them into my mame's roms/[romset]/ directory.  You can run `make -f Makefile.xxx` to build the roms for the specific board/romset.
+The build*.sh are specific to my setup and may not work for you.  They build the roms then copy them into my mame's roms/[romset]/ directory.  However you can just run `make -f Makefile.xxx` to build the roms for the specific board/romset.
 
 ```
 jwestfall@DESKTOP-7LADK23:/mnt/c/Users/jwestfall/Desktop/mad/machine/dec0$ make -f Makefile.robocop
@@ -127,7 +127,7 @@ Output ROM #1: build/robocop/ep05-4.11c (65536 bytes)
 Output ROM #2: build/robocop/ep01-4.11b (65536 bytes)
 ```
 
-From there you can either put those files in mame to test or burn them to the correct eprom types.
+From there you can use the Output ROMs in the build/ directory with mame or burn them to eproms to use on the hardware.
 
 In some cases there will be different Makefiles for mame vs hardware.
 
@@ -144,4 +144,4 @@ drwxrwxrwx 1 jwestfall jwestfall 4096 May 12 10:17 include
 -rwxrwxrwx 1 jwestfall jwestfall  792 Apr 28 12:43 README.md
 drwxrwxrwx 1 jwestfall jwestfall 4096 May 11 11:08 src
 ```
-These will mainly come down to differencea between mame vs real hardware.  The most common case is mame not allowing reads on some memory regions while its allowed on hardware.  For the mame builds if defines are used to disable code that will trigger a test failure for those memory regions.
+These will be do to a behavior difference between mame vs hardware.  The most common case is mame not allowing reads on some memory regions while its allowed on hardware.  The mame build will have the corresponding tests disabled to prevent false errors.
