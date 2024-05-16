@@ -42,7 +42,7 @@ screen_init_dsub:
 		DSUB	palette_init
 		dbra	d2, .loop
 
-		SEEK_XY	14, 0
+		SEEK_XY	17, 0
 		lea	STR_HEADER, a0
 		DSUB	print_string
 
@@ -93,6 +93,6 @@ MEMORY_FILL_LIST
 	MEMORY_FILL_ENTRY PALETTE_RAM_START, PALETTE_RAM_SIZE, $f0f0
 	MEMORY_FILL_LIST_END
 
-STR_HEADER:	STRING "CPS1 DIAG 0.01 - ACK"
+STR_HEADER:	STRING "CPS1 - MAD 0.1"
 
 	section bss

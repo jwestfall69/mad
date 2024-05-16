@@ -48,7 +48,7 @@ screen_init_dsub:
 		; background color
 		move.w	#0, PALETTE_RAM_START + $61e
 
-		SEEK_XY	6, 0
+		SEEK_XY	9, 0
 		lea	STR_HEADER, a0
 		DSUB	print_string
 
@@ -86,5 +86,5 @@ screen_update_dsub:
 
 	section data
 
-STR_HEADER:	STRING "TOKI DIAG 0.01 - ACK"
+STR_HEADER:	STRING "TOKI - MAD 0.1"
 
