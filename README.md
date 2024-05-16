@@ -11,29 +11,29 @@ Below is the list of boards that I'm currently using to develope MAD.  These wer
 
 ### CPS1
 **Three Wonders** (3wonders with cps_b21_bts1)<br>
-![cps1 3wonders](docs/images/cps1-3wonders.png)
+![cps1 3wonders](docs/images/cps1/3wonders.png)
 
 **Captain Commando** (captcomm with cps_b21_bts3)<br>
-![cps1 captcomm](docs/images/cps1-captcomm.png)
+![cps1 captcomm](docs/images/cps1/captcomm.png)
 
 **Ghouls'n Ghosts** (ghouls with cps_b01)<br>
-![cps1 ghouls](docs/images/cps1-ghouls.png)
+![cps1 ghouls](docs/images/cps1/ghouls.png)
 
 **Street Fighter II: The World Warrior** (sf2 with cps_b11)<br>
-![cps1 sf2](docs/images/cps1-sf2.png)
+![cps1 sf2](docs/images/cps1/sf2.png)
 
 ### dec0 based games
 **Bad Dudes vs. Dragonninja** (baddudes)<br>
-![dec0 baddudes](docs/images/dec0-baddudes.png)
+![dec0 baddudes](docs/images/dec0/baddudes.png)
 
 **Heavy Barrel** (hbarrel)<br>
-![dec0 hbarrel](docs/images/dec0-hbarrel.png)
+![dec0 hbarrel](docs/images/dec0/hbarrel.png)
 
 **Hippodrome** (hippodrm)<br>
-![dec0 hippodrm](docs/images/dec0-hippodrm.png)
+![dec0 hippodrm](docs/images/dec0/hippodrm.png)
 
 **Robocop** (robocop)<br>
-![dec0 robocop](docs/images/dec0-robocop.png)
+![dec0 robocop](docs/images/dec0/robocop.png)
 
 ### Toki
 ![toki](docs/images/toki.png)
