@@ -77,4 +77,12 @@ error_handler_dsub:
 
 	.pe_return:
 		move.b	d6, d0
-		bra	sound_play_byte_dsub	; will DSUB_RETURN for us
+		DSUB	sound_play_byte
+
+	ifnd _ERROR_ADDRESS_DISABLED_
+		; d6 will still contain the error code
+		move.b	d6, d0
+		DSUB	error_address	; never returns
+	else
+		STALL
+	endif

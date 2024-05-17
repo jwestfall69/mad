@@ -13,6 +13,9 @@ SECTIONS {
 	.rodata: {
 		*(data)
 	} > ROM
+	 .error_addresses 0x6000: {
+		*(error_addresses)
+	} > ROM
 	.footer 0x7ffb: {
 		*(footer)
 	} > ROM
