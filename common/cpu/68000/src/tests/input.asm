@@ -1,4 +1,4 @@
-	include "cpu/68000/dsub.inc"
+	include "cpu/68000/include/dsub.inc"
 
 	global print_input_list
 

@@ -1,5 +1,5 @@
-	include "cpu/68000/dsub.inc"
-	include "cpu/68000/menu_input.inc"
+	include "cpu/68000/include/dsub.inc"
+	include "cpu/68000/include/menu_input.inc"
 	include "machine.inc"
 
 	global sound_test_handler

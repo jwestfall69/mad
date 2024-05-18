@@ -1,4 +1,4 @@
-	include "cpu/68000/dsub.inc"
+	include "cpu/68000/include/dsub.inc"
 
 	include "machine.inc"
 	include "mad_rom.inc"

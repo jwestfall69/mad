@@ -1,5 +1,5 @@
-	include "cpu/68000/macros.inc"
-	include "cpu/68000/tests/auto.inc"
+	include "cpu/68000/include/macros.inc"
+	include "cpu/68000/include/tests/auto.inc"
 
 	global AUTO_DSUB_LIST
 	global AUTO_FUNC_LIST

@@ -1,4 +1,4 @@
-	include "cpu/68000/macros.inc"
+	include "cpu/68000/include/macros.inc"
 
 	include "machine.inc"
 	include "mad_rom.inc"

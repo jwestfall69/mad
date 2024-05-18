@@ -1,6 +1,6 @@
-	include "cpu/68000/dsub.inc"
-	include "cpu/68000/macros.inc"
-	include "cpu/68000/print_error.inc"
+	include "cpu/68000/include/dsub.inc"
+	include "cpu/68000/include/macros.inc"
+	include "cpu/68000/include/print_error.inc"
 
 	include "machine.inc"
 

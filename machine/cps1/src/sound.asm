@@ -1,5 +1,5 @@
-	include "cpu/68000/dsub.inc"
-	include "cpu/68000/macros.inc"
+	include "cpu/68000/include/dsub.inc"
+	include "cpu/68000/include/macros.inc"
 
 	include "machine.inc"
 

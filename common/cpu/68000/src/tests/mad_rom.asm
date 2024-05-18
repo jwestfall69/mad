@@ -1,6 +1,6 @@
-	include "cpu/68000/dsub.inc"
-	include "cpu/68000/error_codes.inc"
-	include "cpu/68000/macros.inc"
+	include "cpu/68000/include/dsub.inc"
+	include "cpu/68000/include/error_codes.inc"
+	include "cpu/68000/include/macros.inc"
 
 	include "mad_rom.inc"
 	include "machine.inc"

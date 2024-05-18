@@ -1,7 +1,7 @@
-	include "cpu/68000/dsub.inc"
-	include "cpu/68000/macros.inc"
-	include "cpu/68000/menu_input.inc"
-	include "cpu/68000/handlers/menu.inc"
+	include "cpu/68000/include/dsub.inc"
+	include "cpu/68000/include/macros.inc"
+	include "cpu/68000/include/menu_input.inc"
+	include "cpu/68000/include/handlers/menu.inc"
 
 	include "machine.inc"
 	include "mad_rom.inc"

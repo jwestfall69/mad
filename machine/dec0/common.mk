@@ -1,29 +1,29 @@
 MAD_NAME=mad_dec0
 VASM = vasmm68k_mot
-VASM_FLAGS = -Fvobj -m68000 -spaces -chklabels -Iinclude -I../../common/include  -quiet
+VASM_FLAGS = -Fvobj -m68000 -spaces -chklabels -Iinclude -I../../common  -quiet
 VLINK = vlink
 VLINK_FLAGS = -brawbin1 -T$(MAD_NAME).ld
 MKDIR = mkdir
 DD = dd
 
-OBJS = $(OBJ_DIR)/cpu/68000/crc32.o \
-       $(OBJ_DIR)/cpu/68000/dsub.o \
-       $(OBJ_DIR)/cpu/68000/error_address.o \
-       $(OBJ_DIR)/cpu/68000/input_update.o \
-       $(OBJ_DIR)/cpu/68000/memory_fill.o \
-       $(OBJ_DIR)/cpu/68000/menu_input_generic.o \
-       $(OBJ_DIR)/cpu/68000/print_error.o \
-       $(OBJ_DIR)/cpu/68000/util.o \
-       $(OBJ_DIR)/cpu/68000/xy_string.o \
-       $(OBJ_DIR)/cpu/68000/handlers/error.o \
-       $(OBJ_DIR)/cpu/68000/handlers/memory_viewer.o \
-       $(OBJ_DIR)/cpu/68000/handlers/memory_tests.o \
-       $(OBJ_DIR)/cpu/68000/handlers/menu.o \
-       $(OBJ_DIR)/cpu/68000/handlers/sound.o \
-       $(OBJ_DIR)/cpu/68000/tests/auto.o \
-       $(OBJ_DIR)/cpu/68000/tests/input.o \
-       $(OBJ_DIR)/cpu/68000/tests/mad_rom.o \
-       $(OBJ_DIR)/cpu/68000/tests/memory.o
+OBJS = $(OBJ_DIR)/cpu/68000/src/crc32.o \
+       $(OBJ_DIR)/cpu/68000/src/dsub.o \
+       $(OBJ_DIR)/cpu/68000/src/error_address.o \
+       $(OBJ_DIR)/cpu/68000/src/input_update.o \
+       $(OBJ_DIR)/cpu/68000/src/memory_fill.o \
+       $(OBJ_DIR)/cpu/68000/src/menu_input_generic.o \
+       $(OBJ_DIR)/cpu/68000/src/print_error.o \
+       $(OBJ_DIR)/cpu/68000/src/util.o \
+       $(OBJ_DIR)/cpu/68000/src/xy_string.o \
+       $(OBJ_DIR)/cpu/68000/src/handlers/error.o \
+       $(OBJ_DIR)/cpu/68000/src/handlers/memory_viewer.o \
+       $(OBJ_DIR)/cpu/68000/src/handlers/memory_tests.o \
+       $(OBJ_DIR)/cpu/68000/src/handlers/menu.o \
+       $(OBJ_DIR)/cpu/68000/src/handlers/sound.o \
+       $(OBJ_DIR)/cpu/68000/src/tests/auto.o \
+       $(OBJ_DIR)/cpu/68000/src/tests/input.o \
+       $(OBJ_DIR)/cpu/68000/src/tests/mad_rom.o \
+       $(OBJ_DIR)/cpu/68000/src/tests/memory.o
 
 # code from this machine
 OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
@@ -46,8 +46,8 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/tests/work_ram.o
 
 INCS = $(wildcard include/*.inc) \
-       $(wildcard ../../common/include/cpu/68000/*.inc) \
-       $(wildcard ../../common/include/cpu/68000/tests/*.inc)
+       $(wildcard ../../common/cpu/68000/include/*.inc) \
+       $(wildcard ../../common/cpu/68000/include/tests/*.inc)
 
 $(WORK_DIR)/$(MAD_NAME).bin: $(WORK_DIR) $(OBJ_DIR) $(BUILD_DIR) $(OBJS)
 	$(VLINK) $(VLINK_FLAGS) -o $(WORK_DIR)/$(MAD_NAME).bin $(OBJS)
@@ -57,14 +57,14 @@ $(WORK_DIR)/$(MAD_NAME).bin: $(WORK_DIR) $(OBJ_DIR) $(BUILD_DIR) $(OBJS)
 $(OBJ_DIR)/%.o: src/%.asm $(INCS)
 	$(VASM) $(VASM_FLAGS) $(BUILD_FLAGS) -o $@ $<
 
-$(OBJ_DIR)/cpu/68000/%.o: ../../common/src/cpu/68000/%.asm $(INCS)
+$(OBJ_DIR)/cpu/68000/src/%.o: ../../common/cpu/68000/src/%.asm $(INCS)
 	 $(VASM) $(VASM_FLAGS) $(BUILD_FLAGS) -o $@ $<
 
 $(WORK_DIR):
 	$(MKDIR) -p $(WORK_DIR)
 
 $(OBJ_DIR):
-	$(MKDIR) -p $(OBJ_DIR)/tests $(OBJ_DIR)/cpu/68000/handlers $(OBJ_DIR)/cpu/68000/tests
+	$(MKDIR) -p $(OBJ_DIR)/tests $(OBJ_DIR)/cpu/68000/src/handlers $(OBJ_DIR)/cpu/68000/src/tests
 
 clean:
 	rm -fr $(BUILD_DIR)/
