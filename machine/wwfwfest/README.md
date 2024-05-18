@@ -1,6 +1,9 @@
 # WWF Wrestlefest
 ## NOTES
 
+### MAD eproms
+27c020/27c2001
+
 ### BG1/BG2 RAM
 * BG1 and BG2 share these chips
 * 2x UM6264AK-10L (8K x 8bit each)

@@ -1,6 +1,9 @@
 # WWF Superstars
 ## NOTES
 
+### MAD eeproms
+27c010/27c1001
+
 ### BG RAM (gfx board)
 * 1x TMM2018AP-35 (2K x 8bit)
 * IC24
