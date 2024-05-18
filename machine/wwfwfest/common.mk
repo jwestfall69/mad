@@ -1,7 +1,7 @@
 VASM = vasmm68k_mot
 VASM_FLAGS = -Fvobj -m68000 -spaces -chklabels -Iinclude -I../../common/include  -quiet
 VLINK = vlink
-VLINK_FLAGS = -brawbin1 -Tdiag_rom.ld
+VLINK_FLAGS = -brawbin1 -T$(MAD_NAME).ld
 MKDIR = mkdir
 DD = dd
 
@@ -20,12 +20,12 @@ OBJS = $(OBJ_DIR)/cpu/68000/crc32.o \
        $(OBJ_DIR)/cpu/68000/handlers/menu.o \
        $(OBJ_DIR)/cpu/68000/handlers/sound.o \
        $(OBJ_DIR)/cpu/68000/tests/auto.o \
-       $(OBJ_DIR)/cpu/68000/tests/diag_rom.o \
        $(OBJ_DIR)/cpu/68000/tests/input.o \
+       $(OBJ_DIR)/cpu/68000/tests/mad_rom.o \
        $(OBJ_DIR)/cpu/68000/tests/memory.o
 
 # code from this machine
-OBJS += $(OBJ_DIR)/$(DIAG).o \
+OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/errors.o \
         $(OBJ_DIR)/footer.o \
         $(OBJ_DIR)/main_menu.o \
@@ -45,10 +45,10 @@ INCS = $(wildcard include/*.inc) \
        $(wildcard ../../common/include/cpu/68000/*.inc) \
        $(wildcard ../../common/include/cpu/68000/tests/*.inc)
 
-$(WORK_DIR)/$(DIAG).bin: $(WORK_DIR) $(OBJ_DIR) $(BUILD_DIR) $(OBJS)
-	$(VLINK) $(VLINK_FLAGS) -o $(WORK_DIR)/$(DIAG).bin $(OBJS)
-	../../util/rom-inject-crc-mirror -f $(WORK_DIR)/$(DIAG).bin -t $(ROM_SIZE)
-	../../util/rom-byte-split $(WORK_DIR)/$(DIAG).bin $(BUILD_DIR)/$(ROMA) $(BUILD_DIR)/$(ROMB)
+$(WORK_DIR)/$(MAD_NAME).bin: $(WORK_DIR) $(OBJ_DIR) $(BUILD_DIR) $(OBJS)
+	$(VLINK) $(VLINK_FLAGS) -o $(WORK_DIR)/$(MAD_NAME).bin $(OBJS)
+	../../util/rom-inject-crc-mirror -f $(WORK_DIR)/$(MAD_NAME).bin -t $(ROM_SIZE)
+	../../util/rom-byte-split $(WORK_DIR)/$(MAD_NAME).bin $(BUILD_DIR)/$(ROMA) $(BUILD_DIR)/$(ROMB)
 
 $(OBJ_DIR)/%.o: src/%.asm $(INCS)
 	$(VASM) $(VASM_FLAGS) $(BUILD_FLAGS) -o $@ $<

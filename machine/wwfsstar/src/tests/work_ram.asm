@@ -3,7 +3,7 @@
 	include "cpu/68000/xy_string.inc"
 	include "cpu/68000/handlers/memory_tests.inc"
 
-	include "diag_rom.inc"
+	include "mad_rom.inc"
 	include "error_codes.inc"
 	include "machine.inc"
 

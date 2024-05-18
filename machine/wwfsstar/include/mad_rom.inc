@@ -1,12 +1,13 @@
-SP_INIT_ADDR		equ $1c3ff0
-DIAG_ROM_SIZE		equ $8000
 
-CURSOR_CHAR		equ ')'
+SP_INIT_ADDR		equ $1c3ff0
+MAD_ROM_SIZE		equ $8000
+
+CURSOR_CHAR		equ '*'
 CURSOR_CLEAR_CHAR	equ ' '
 
-SOUND_NUM_SUCCESS	equ $05
-SOUND_NUM_BIT_ZERO	equ $26		; drum?
-SOUND_NUM_BIT_ONE	equ $2a		; punch
+SOUND_NUM_SUCCESS	equ $1
+SOUND_NUM_BIT_ZERO	equ $30	; slap sound
+SOUND_NUM_BIT_ONE	equ $2f	; punch sound
 
 	; when playing a byte, how long to delay between bits
 	macro SOUND_BIT_DELAY

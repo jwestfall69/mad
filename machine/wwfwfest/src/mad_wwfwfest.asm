@@ -2,8 +2,8 @@
 	include "cpu/68000/macros.inc"
 	include "cpu/68000/menu_input.inc"
 
-	include "diag_rom.inc"
 	include "machine.inc"
+	include "mad_rom.inc"
 
 	global _start
 	global	STR_PASSES

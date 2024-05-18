@@ -1,8 +1,8 @@
 	include "cpu/68000/dsub.inc"
 	include "cpu/68000/macros.inc"
 
-	include "diag_rom.inc"
 	include "machine.inc"
+	include "mad_rom.inc"
 
 	global print_error_memory_override_dsub
 

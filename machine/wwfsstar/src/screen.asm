@@ -1,11 +1,9 @@
-	; global includes
 	include "cpu/68000/dsub.inc"
 	include "cpu/68000/macros.inc"
 	include "cpu/68000/memory_fill.inc"
 
-	; machine includes
-	include "diag_rom.inc"
 	include "machine.inc"
+	include "mad_rom.inc"
 
 	global screen_clear_dsub
 	global screen_init_dsub

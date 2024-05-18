@@ -3,9 +3,9 @@
 	include "cpu/68000/xy_string.inc"
 	include "cpu/68000/handlers/memory_tests.inc"
 
-	include "diag_rom.inc"
 	include "error_codes.inc"
 	include "machine.inc"
+	include "mad_rom.inc"
 
 	global auto_work_ram_tests_dsub
 	global manual_work_ram_tests

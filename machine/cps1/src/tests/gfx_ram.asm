@@ -4,9 +4,9 @@
 	include "cpu/68000/handlers/memory_tests.inc"
 	include "cpu/68000/tests/memory.inc"
 
-	include "diag_rom.inc"
 	include "error_codes.inc"
 	include "machine.inc"
+	include "mad_rom.inc"
 
 	global auto_gfx_ram_tests
 	global manual_gfx_ram_tests

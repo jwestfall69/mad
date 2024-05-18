@@ -2,7 +2,7 @@
 	include "cpu/68000/macros.inc"
 	include "cpu/68000/xy_string.inc"
 
-	include "diag_rom.inc"
+	include "mad_rom.inc"
 	include "machine.inc"
 
 	global sound_test

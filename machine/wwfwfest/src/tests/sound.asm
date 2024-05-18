@@ -2,8 +2,8 @@
 	include "cpu/68000/macros.inc"
 	include "cpu/68000/xy_string.inc"
 
-	include "diag_rom.inc"
 	include "machine.inc"
+	include "mad_rom.inc"
 
 	global sound_test
 
@@ -21,7 +21,7 @@ sound_test:
 	section	data
 
 SCREEN_XYS_LIST:
-	XY_STRING  3, 10, <"SOUND NUM", CHAR_COLON>
-	XY_STRING  3, 19, "B1 - PLAY SOUND"
-	XY_STRING  3, 20, "B2 - RETURN TO MENU"
+	XY_STRING 3, 10, <"SOUND NUM", CHAR_COLON>
+	XY_STRING 3, 19, "B1 - PLAY SOUND"
+	XY_STRING 3, 20, "B2 - RETURN TO MENU"
 	XY_STRING_LIST_END

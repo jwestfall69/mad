@@ -15,7 +15,7 @@ error_address_dsub:
 
 
 
-	; The diag rom's .ld file should be setup to put the error_addresses
+	; The  mad_<machine>.ld file should be setup to put the error_addresses
 	; section at $6000 of the rom.  Below will fill $6000 to a little
 	; before $8000 with opcode $60fe (bra self)
 	section error_addresses

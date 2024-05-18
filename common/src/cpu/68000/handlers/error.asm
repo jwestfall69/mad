@@ -4,7 +4,7 @@
 	include "cpu/68000/handlers/error.inc"
 
 	include "machine.inc"
-	include "diag_rom.inc"
+	include "mad_rom.inc"
 
 	global error_handler_dsub
 

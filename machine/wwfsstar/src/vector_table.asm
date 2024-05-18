@@ -1,5 +1,5 @@
-	include "diag_rom.inc"
 	include "machine.inc"
+	include "mad_rom.inc"
 
 	global INTERRUPT_TIMER_COUNT
 	global INTERRUPT_VBLANK_COUNT

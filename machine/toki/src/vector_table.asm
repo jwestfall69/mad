@@ -1,6 +1,7 @@
 	include "cpu/68000/macros.inc"
-	include "diag_rom.inc"
+
 	include "machine.inc"
+	include "mad_rom.inc"
 
 	section vectors, data
 

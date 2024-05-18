@@ -1,10 +1,12 @@
-SP_INIT_ADDR			equ $fffffc
-
-DIAG_ROM_SIZE			equ $8000
+SP_INIT_ADDR			equ $ffbffc
+MAD_ROM_SIZE			equ $8000
 
 PALETTE_TEXT_COLOR		equ $ffff
-PALETTE_TEXT_SHADOW_COLOR	equ $2222
+PALETTE_TEXT_SHADOW_COLOR	equ $0
 PALETTE_BACKGROUND_COLOR	equ $0
+
+CURSOR_CHAR			equ '*'
+CURSOR_CLEAR_CHAR		equ $0
 
 	; when playing a byte, how long to delay between bits
 	macro SOUND_BIT_DELAY

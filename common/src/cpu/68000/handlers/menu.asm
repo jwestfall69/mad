@@ -3,8 +3,8 @@
 	include "cpu/68000/menu_input.inc"
 	include "cpu/68000/handlers/menu.inc"
 
-	include "diag_rom.inc"
 	include "machine.inc"
+	include "mad_rom.inc"
 
 	global menu_handler
 	global MENU_CURSOR

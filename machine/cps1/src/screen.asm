@@ -2,8 +2,8 @@
 	include "cpu/68000/macros.inc"
 	include "cpu/68000/memory_fill.inc"
 
-	include "diag_rom.inc"
 	include "machine.inc"
+	include "mad_rom.inc"
 
 	global cps_a_init_dsub
 	global palette_init_dsub

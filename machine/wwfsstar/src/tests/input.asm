@@ -3,7 +3,7 @@
 	include "cpu/68000/xy_string.inc"
 	include "cpu/68000/tests/input.inc"
 
-	include "diag_rom.inc"
+	include "mad_rom.inc"
 	include "machine.inc"
 
 	global input_test

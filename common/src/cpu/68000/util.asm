@@ -1,7 +1,7 @@
 	include "cpu/68000/dsub.inc"
 
 	include "machine.inc"
-	include "diag_rom.inc"
+	include "mad_rom.inc"
 
 	global delay_dsub
 	global memory_rewrite_word_dsub

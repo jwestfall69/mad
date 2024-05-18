@@ -1,4 +1,4 @@
-DIAG=wwfwfest_diag
+MAD_NAME=mad_wwfwfest
 ROM_SIZE=524288
 ROMA=31e14-0.ic18
 ROMB=31e13-0.ic19
