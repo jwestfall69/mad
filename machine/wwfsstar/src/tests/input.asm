@@ -46,8 +46,7 @@ input_test:
 
 		move.b	REG_INPUT_P1, d0
 		not.b	d0
-		and.b	#(P1_B2|P1_A), d0
-		cmp.b	#(P1_B2|P1_A), d0
+		cmp.b	#(P1_B2|P1_RIGHT), d0
 		bne	.loop_test
 
 		move.w	#$2700, sr
@@ -76,5 +75,5 @@ INPUT_XYS_LIST:
 	XY_STRING  2, 11, "SYS"
 	XY_STRING  3, 15, "VBI SHOULD EQUAL VBP"
 	XY_STRING  3, 16, "TIMER SHOULD BE 17X VBI/P"
-	XY_STRING  3, 20, "P1 B2+A - RETURN TO MENU"
+	XY_STRING  3, 20, "P1 B2+RIGHT - RETURN TO MENU"
 	XY_STRING_LIST_END

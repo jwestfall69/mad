@@ -41,12 +41,7 @@ input_test:
 
 		move.b	REG_INPUT_P1, d0
 		not.b	d0
-		and.b	#(P1_B2), d0
-		move.b	REG_INPUT_SYSTEM, d1
-		not.b	d1
-		and.b	#(SYS_START1), d1
-		or.b	d1, d0
-		cmp.b	#(P1_B2|SYS_START1), d0
+		cmp.b	#(P1_B2|P1_RIGHT), d0
 		bne	.loop_test
 
 		move.w	#$2700, sr
@@ -72,5 +67,5 @@ SCREEN_XYS_LIST:
 	XY_STRING  1,  9, "DSW1"
 	XY_STRING  1, 10, "DSW2"
 	XY_STRING  2, 11, "SYS"
-	XY_STRING  3, 20, "P1 B2+START - RETURN TO MENU"
+	XY_STRING  3, 20, "P1 B2+RIGHT - RETURN TO MENU"
 	XY_STRING_LIST_END
