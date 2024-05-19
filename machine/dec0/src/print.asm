@@ -5,6 +5,7 @@
 	include "mad_rom.inc"
 
 	global print_bits_byte_dsub
+	global print_byte_dsub
 	global print_char_dsub
 	global print_char_repeat_dsub
 	global print_clear_line_dsub
@@ -48,8 +49,9 @@ print_bits_byte_dsub:
 		dbra	d2, .loop_next_bit
 		DSUB_RETURN
 ; params:
-;  d0 = char
+;  d0 = char or byte
 ;  a6 = address in fg ram to start printing at
+print_byte_dsub:
 print_char_dsub:
 		and.l	#$ff, d0
 		move.w	d0, (a6)

@@ -158,7 +158,7 @@ memory_dump:
 
 		move.l	d5, d0
 		and.l	#$ff, d0
-		RSUB	print_char
+		RSUB	print_byte
 
 		lsr.l	#8, d5
 		sub.b	#1, d2
