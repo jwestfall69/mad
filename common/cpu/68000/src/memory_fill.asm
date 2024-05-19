@@ -1,6 +1,8 @@
 	include "cpu/68000/include/dsub.inc"
 	include "cpu/68000/include/macros.inc"
 
+	include "machine.inc"
+
 	global memory_fill_dsub
 	global memory_fill_list_dsub
 
@@ -13,6 +15,7 @@
 memory_fill_dsub:
 		ror.l	#1, d0	; convert to words
 	.loop_next_address:
+		WATCHDOG
 		move.w	d1, (a0)+
 		subq.l	#1, d0
 		bne	.loop_next_address

@@ -37,6 +37,7 @@ memory_viewer_handler:
 		movea.l	a1, a2
 
 	.loop_next_input:
+		WATCHDOG
 		bsr	memory_dump
 		jsr	(a2)		; input callback
 

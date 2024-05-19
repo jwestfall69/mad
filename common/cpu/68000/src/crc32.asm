@@ -1,5 +1,7 @@
 	include "cpu/68000/include/dsub.inc"
 
+	include "machine.inc"
+
 	global crc32_dsub
 
 	section code
@@ -18,6 +20,7 @@ crc32_dsub:
 		move.l	#$edb88320, d5			; P
 		moveq	#-1, d0
 	.loop_outer:
+		WATCHDOG
 		moveq	#7, d2
 		move.b	(a0)+, d1
 		eor.b	d1, d0

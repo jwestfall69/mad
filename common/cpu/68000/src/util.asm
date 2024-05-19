@@ -39,6 +39,7 @@ sound_play_byte_dsub:
 		moveq	#7, d2
 
 	.loop_next_bit:
+		WATCHDOG
 		lsl.b	d3
 		bcc	.is_zero
 		move.b	#SOUND_NUM_BIT_ONE, d0

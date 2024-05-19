@@ -84,3 +84,6 @@ SOUND_NUM_STOP			equ $f0
 	macro SOUND_STOP
 		move.b	#SOUND_NUM_STOP, REG_SOUND1
 	endm
+
+	macro WATCHDOG
+	endm

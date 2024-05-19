@@ -115,6 +115,9 @@ SOUND_NUM_STOP		equ $ff
 		move.w	#$82, REG_SOUND5
 	endm
 
+	macro WATCHDOG
+	endm
+
 	macro ENABLE_INTS
 		move.w	#$2000, sr
 	endm

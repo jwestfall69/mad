@@ -1,5 +1,7 @@
 	include "cpu/68000/include/dsub.inc"
 
+	include "machine.inc"
+
 	global print_input_list
 
 	section code
@@ -7,6 +9,7 @@
 ; params:
 ;  a0 = address of start of INPUT_ENTRY struct list
 print_input_list:
+		WATCHDOG
 		move.w	(a0)+, d1
 		beq	.list_end
 

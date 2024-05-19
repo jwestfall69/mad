@@ -35,6 +35,7 @@ menu_handler:
 		bra	.update_cursor
 
 	.loop_menu_input:
+		WATCHDOG
 		jsr	(a2)			; input callback
 
 	.check_button_pressed:
