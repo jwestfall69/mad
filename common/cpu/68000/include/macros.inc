@@ -5,12 +5,10 @@
 
 	macro STALL
 .\@
-
+		WATCHDOG
 	ifd _STALL_DELAY_
 		move.l	#$1fff, d0
 		DSUB	delay
 	endif
-
-		WATCHDOG
 		bra	.\@
 	endm
