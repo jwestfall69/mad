@@ -72,7 +72,7 @@ SYS_SERVICE2		equ $20
 SYS_SERVICE3		equ $40
 SYS_SERVICE4		equ $80
 
-CHAR_COLON		equ ':'
+CHAR_COLON		equ $40
 
 SOUND_NUM_STOP		equ $ff
 
@@ -88,10 +88,25 @@ SOUND_NUM_STOP		equ $ff
 		move.b d0, $a0011
 	endm
 
-
 	macro SOUND_PLAY
+		move.b	d0, REG_SOUND
+		; transitioning this bit from high to low
+		; will trigger an irq on the sound cpu.
+		; need to clean this up a little, the number
+		; of nops is just randomly picked
+		move.b	#$8, $a0001
+		nop
+		nop
+		nop
+		nop
+		nop
+		nop
+		nop
+		move.b	#$0, $a0001
 	endm
 
 	macro SOUND_STOP
+		move.b	#$0, d0
+		SOUND_PLAY
 	endm
 

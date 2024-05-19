@@ -19,6 +19,8 @@ sound_test_handler:
 		DSUB	print_hex_byte
 
 	.loop_input:
+		WATCHDOG
+
 		jsr	(a1)
 
 		btst	#MENU_DOWN_BIT, d0

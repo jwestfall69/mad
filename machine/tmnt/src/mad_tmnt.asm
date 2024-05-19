@@ -49,6 +49,9 @@ _start:
 		move.b	d0, (a0)+
 		dbra	d0, .loop
 
+		move.b	#SOUND_NUM_SUCCESS, d0
+		SOUND_PLAY
+
 		bsr	main_menu
 
 	section data
