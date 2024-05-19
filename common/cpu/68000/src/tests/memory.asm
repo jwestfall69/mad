@@ -1,6 +1,8 @@
 	include "cpu/68000/include/dsub.inc"
 	include "cpu/68000/include/macros.inc"
 
+	include "machine.inc"
+
 	global memory_address_test_dsub
 	global memory_data_test_dsub
 	global memory_march_test_dsub
@@ -47,6 +49,8 @@ memory_address_test_dsub:
 		moveq	#0, d1
 		moveq	#1, d3
 
+		WATCHDOG
+
 	.loop_read_next_address:
 		add.w	#$101, d1
 		and.w	d5, d1
@@ -91,6 +95,8 @@ memory_data_test_dsub:
 		movea.l	a0, a2
 
 	.loop_next_pattern:
+		WATCHDOG
+
 		movea.l	a2, a0
 		move.l	d4, d0
 
@@ -187,6 +193,8 @@ memory_march_test_dsub:
 		move.w	#$ffff, (a0)+
 		subq.l	#1, d0
 		bne	.loop_up_test
+
+		WATCHDOG
 
 		suba.l	#2, a0
 		move.l	d4, d0
@@ -315,22 +323,24 @@ memory_output_list_test_dsub:
 ; return:
 ;  d0 = $00 (pass) or 1 (fail)
 memory_output_byte_test_dsub:
-		adda.w  d0, a0
-		moveq   #$31, d2
+		adda.w	d0, a0
+		moveq	#$31, d2
+
+		WATCHDOG
 
 	.loop_test_again:
-		move.b  (a0), d1
-		cmp.b   *(PC,d0.w), d1
-		bne     .check_passed
+		move.b	(a0), d1
+		cmp.b	*(PC,d0.w), d1
+		bne	.check_passed
 
-		move.b  (a0), d1
+		move.b	(a0), d1
 		nop
-		cmp.b   *-2(PC,d0.w), d1
-		bne     .check_passed
+		cmp.b	*-2(PC,d0.w), d1
+		bne	.check_passed
 
-		move.b  (a0), d1
-		add.w   #0, d0
-		cmp.b   *-4(PC,d0.w), d1
+		move.b	(a0), d1
+		add.w	#0, d0
+		cmp.b	*-4(PC,d0.w), d1
 
 	.check_passed:
 		dbeq	d2, .loop_test_again
@@ -353,6 +363,8 @@ memory_output_byte_test_dsub:
 ; - re-reads memory address
 ; - compare re-read with original
 memory_write_test_dsub:
+
+		WATCHDOG
 
 		move.b	d0, d3
 		move.w	(a0), d1
