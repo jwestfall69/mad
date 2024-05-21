@@ -32,6 +32,10 @@ view_tile_ram:
 		lea	TILE_RAM_START, a0
 		bra	view_memory
 
+view_tile2_ram:
+		lea	TILE_RAM_START+$6000, a0
+		bra	view_memory
+
 view_mmio_input:
 		lea	$0a0000, a0
 		bra	view_memory
@@ -64,6 +68,7 @@ MENU_LIST:
 	MENU_ENTRY view_palette_ram, STR_PALETTE_RAM
 	MENU_ENTRY view_rom_space, STR_ROM_SPACE
 	MENU_ENTRY view_tile_ram, STR_TILE_RAM
+	MENU_ENTRY view_tile2_ram, STR_TILE2_RAM
 	MENU_ENTRY view_work_ram, STR_WORK_RAM
 	MENU_LIST_END
 
@@ -72,5 +77,6 @@ STR_MMIO_INPUT:		STRING "MMIO INPUT"
 STR_PALETTE_RAM:	STRING "PALETTE RAM"
 STR_ROM_SPACE:		STRING "ROM SPACE"
 STR_TILE_RAM:		STRING "TILE RAM"
+STR_TILE2_RAM:		STRING "TILE2 RAM"
 STR_WORK_RAM:		STRING "WORK RAM"
 
