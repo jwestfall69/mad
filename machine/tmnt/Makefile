@@ -27,12 +27,14 @@ OBJS = \
        $(OBJ_DIR)/cpu/68000/src/handlers/error.o \
        $(OBJ_DIR)/cpu/68000/src/handlers/menu.o \
        $(OBJ_DIR)/cpu/68000/src/handlers/memory_tests.o \
+       $(OBJ_DIR)/cpu/68000/src/handlers/memory_byte_tests.o \
        $(OBJ_DIR)/cpu/68000/src/handlers/memory_viewer.o \
        $(OBJ_DIR)/cpu/68000/src/handlers/sound.o \
        $(OBJ_DIR)/cpu/68000/src/tests/auto.o \
        $(OBJ_DIR)/cpu/68000/src/tests/input.o \
        $(OBJ_DIR)/cpu/68000/src/tests/mad_rom.o \
-       $(OBJ_DIR)/cpu/68000/src/tests/memory.o
+       $(OBJ_DIR)/cpu/68000/src/tests/memory.o \
+       $(OBJ_DIR)/cpu/68000/src/tests/memory_byte.o
 
 # code from this machine
 OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
@@ -47,6 +49,7 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/tests/input.o \
         $(OBJ_DIR)/tests/palette_ram.o \
         $(OBJ_DIR)/tests/sound.o \
+        $(OBJ_DIR)/tests/tile_ram.o \
         $(OBJ_DIR)/tests/work_ram.o
 
 INCS = $(wildcard include/*.inc) \

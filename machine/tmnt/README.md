@@ -28,4 +28,13 @@ While it might have been possible to use error address with the non-delay versio
 Palette ram is 8 bits only (lower byte).  Its supports word read/write, with the upper byte being ignored.
 
 ### Tile RAM
-Tile ram is 8 bits only (lower byte).  Its only supports byte read/write from/to it.  Word reads/writes do nothing.
+Tile ram is 16 bits, but only correctly works with byte reads/writes.  Attempts to read/write as a word will cause the upper byte to get read/written to both the upper and lower bytes.
+
+It also appears that:
+
+$100000 is mirrored at $101000
+$102000 is mirrored at $103000
+$104000 is mirrored at $105000
+
+$106000 is mirrored at $107000, but there is other weirdness in this range.  It seems writing anything to $106800 to 1068ff will cause screen rendering/updating to stop.
+
