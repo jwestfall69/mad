@@ -13,7 +13,7 @@
 ;  d0 = number of bytes (long)
 ;  d1 = value (word)
 memory_fill_dsub:
-		ror.l	#1, d0	; convert to words
+		lsr.l	#1, d0	; convert to words
 	.loop_next_address:
 		WATCHDOG
 		move.w	d1, (a0)+
@@ -35,7 +35,7 @@ memory_fill_list_dsub:
 
 		move.w	(a1)+, d1		; value to write
 
-		ror.l	#1, d0
+		lsr.l	#1, d0
 	.loop_next_address:
 		move.w	d1, (a0)+
 		subq.l	#1, d0
