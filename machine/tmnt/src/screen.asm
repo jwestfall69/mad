@@ -12,21 +12,25 @@
 
 screen_clear_dsub:
 
-		; tile ram seems to only work if you
-		; byte writes
 		lea	TILE_RAM_START, a0
-		move.w	#(TILE_RAM_SIZE / 2) - 1, d0
-	.loop_next_address:
-		move.b	#$ff, (a0)+	; space
-		move.b	#$ff, (a0)+
-		dbra	d0, .loop_next_address
+		move.l	#$1000, d0
+		move.w	#$10, d1
+		DSUB	memory_fill_tile
 
-		lea	TILE_RAM_START, a0
-		move.w	#($1000 / 2) - 1, d0
-	.loop_derp:
-		move.b	#$0, (a0)+	; space
-		move.b	#$10, (a0)+
-		dbra	d0, .loop_derp
+		lea	TILE_RAM_START+$2000, a0
+		move.l	#$1000, d0
+		move.w	#$10, d1
+		DSUB	memory_fill_tile
+
+		lea	TILE_RAM_START+$4000, a0
+		move.l	#$1000, d0
+		move.w	#$10, d1
+		DSUB	memory_fill_tile
+
+		lea	TILE_RAM_START+$6000, a0
+		move.l	#$800, d0
+		move.w	#$0000, d1
+		DSUB	memory_fill_tile
 
 		move.w	#$0, $106b00
 		move.w	#$0, $106e00
@@ -73,7 +77,26 @@ screen_seek_xy_dsub:
 		adda.l	d1, a6
 		DSUB_RETURN
 
+; fills memory with byte writes
+; params:
+;  a0 = start address
+;  d0 = number of bytes (long)
+;  d1 = value (word)
+; this may need to be move to common but for now only
+; tmnt has memory that requires being written as bytes
+memory_fill_tile_dsub:
+		lsr.l	#1, d0	; convert to words
+		move.b	d1, d2
+		lsr.w	#8, d1
+
+	.loop_next_address:
+		move.b	d1, (a0)+
+		move.b	d2, (a0)+
+		subq.l	#1, d0
+		bne	.loop_next_address
+		WATCHDOG
+		DSUB_RETURN
+
 	section data
 
 STR_HEADER:	STRING "TMNT < MAD 0=1"
-
