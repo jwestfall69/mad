@@ -57,7 +57,7 @@ dsub_enter:
 		subq.w	#4, d7
 		jmp	*+4(PC, d7.w)
 
-		; pseudo mode (DSUB)
+		; pseudo mode (PSUB)
 		movea.l	a3, a3
 		jmp	(a2)
 		movea.l	a3, a4
@@ -81,7 +81,7 @@ dsub_return:
 		addq.w	#4, d7
 		jmp	*(PC, d7.w)
 
-		; pseudo mode (DSUB)
+		; pseudo mode (PSUB)
 		jmp	(a3)
 		nop
 		jmp	(a4)
