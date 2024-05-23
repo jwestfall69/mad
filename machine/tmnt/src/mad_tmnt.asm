@@ -9,14 +9,12 @@
 	section code
 
 _start:
-
-		move.w	#$2700, sr
 		WATCHDOG
-		PSUB_INIT
+		SOUND_STOP
 
 		move.b #$13, $10e801
-		move.b #0, $a0001 ; coin
-		move.b #$10, $140000 ; k051960
+		move.b #0, $a0001 	; coin
+		move.b #$10, $140000	; k051960
 		move.b #$0, $106402
 		move.b #$0, $106400
 		move.b #$0, $106403
@@ -28,27 +26,19 @@ _start:
 		move.b #$18, $140000
 		move.b #$0, $106d00
 
+		PSUB_INIT
 		PSUB	screen_init
 		PSUB	auto_dsub_tests
 
-		WATCHDOG
-
 		RSUB_INIT
+		bsr	auto_func_tests
 
-		jsr	auto_func_tests
+		move.b	#SOUND_NUM_SUCCESS, d0
+		SOUND_PLAY
+
 		clr.b	INPUT_P1_EDGE
 		clr.b	INPUT_P1_RAW
 		clr.b	INPUT_SYSTEM_EDGE
 		clr.b	INPUT_SYSTEM_RAW
 		clr.b	MENU_CURSOR
-
-		lea	WORK_RAM_START+$100, a0
-		move.w	#$ff, d0
-	.loop:
-		move.b	d0, (a0)+
-		dbra	d0, .loop
-
-		move.b	#SOUND_NUM_SUCCESS, d0
-		SOUND_PLAY
-
-		bsr	main_menu
+		bra	main_menu

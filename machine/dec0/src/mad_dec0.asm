@@ -16,18 +16,17 @@ _start:
 
 		PSUB_INIT
 		PSUB	screen_init
-
 		PSUB	auto_dsub_tests
 
 		RSUB_INIT
+		bsr	auto_func_tests
 
-		jsr	auto_func_tests
+		;moveq	#SOUND_NUM_SUCCESS, d0
+		;SOUND_PLAY
 
 		clr.b	INPUT_P1_EDGE
 		clr.b	INPUT_P1_RAW
 		clr.b	INPUT_SYSTEM_EDGE
 		clr.b	INPUT_SYSTEM_RAW
 		clr.b	MENU_CURSOR
-
-		bsr	main_menu
-		STALL
+		bra	main_menu

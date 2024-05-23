@@ -9,26 +9,30 @@
 	section code
 
 _start:
-		SOUND_STOP
-
-		PSUB_INIT
-		PSUB	screen_init
-
 		; high bit flips the screen, not sure what the others
 		; are but the screen doesnt seem to render at all without
 		; them
 		move.w	#$c0f0, MMIO_SCREEN_FLIP
 
+		SOUND_STOP
+
+		PSUB_INIT
+		PSUB	screen_init
 		PSUB	auto_dsub_tests
 
 		RSUB_INIT
+		; enabling ints so are vblank handler can deal with triggering
+		; a screen update during the vblank.  If we do it manually
+		; during screen draw it will cause random pixel corruption.
 		ENABLE_INTS
-
-		RSUB	screen_init
 		bsr	auto_func_tests
 
 		move.w	#SOUND_NUM_SUCCESS, d0
 		SOUND_PLAY
 
-		bsr	main_menu
-		STALL
+		clr.b	INPUT_P1_EDGE
+		clr.b	INPUT_P1_RAW
+		clr.b	INPUT_SYSTEM_EDGE
+		clr.b	INPUT_SYSTEM_RAW
+		clr.b	MENU_CURSOR
+		bra	main_menu
