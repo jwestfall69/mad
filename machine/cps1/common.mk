@@ -34,12 +34,12 @@ OBJS = $(OBJ_DIR)/cpu/68000/src/crc32.o \
 OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/errors.o \
         $(OBJ_DIR)/footer.o \
-        $(OBJ_DIR)/main_menu.o \
-        $(OBJ_DIR)/memory_viewer_menu.o \
         $(OBJ_DIR)/print.o \
         $(OBJ_DIR)/screen.o \
         $(OBJ_DIR)/sound.o \
         $(OBJ_DIR)/vector_table.o \
+        $(OBJ_DIR)/menus/main.o \
+        $(OBJ_DIR)/menus/memory_viewer.o \
         $(OBJ_DIR)/tests/auto.o \
         $(OBJ_DIR)/tests/gfx_ram.o \
         $(OBJ_DIR)/tests/input.o \
@@ -73,7 +73,7 @@ $(WORK_DIR):
 	$(MKDIR) -p $(WORK_DIR)
 
 $(OBJ_DIR):
-	$(MKDIR) -p $(OBJ_DIR)/tests $(OBJ_DIR)/cpu/68000/src/handlers $(OBJ_DIR)/cpu/68000/src/tests
+	$(MKDIR) -p $(OBJ_DIR)/menus $(OBJ_DIR)/tests $(OBJ_DIR)/cpu/68000/src/handlers $(OBJ_DIR)/cpu/68000/src/tests
 
 clean:
 	rm -fr $(BUILD_DIR)/
