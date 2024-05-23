@@ -5,7 +5,6 @@
 	include "mad_rom.inc"
 
 	global _start
-	global	STR_PASSES
 
 	section code
 
@@ -31,13 +30,4 @@ _start:
 		clr.b	MENU_CURSOR
 
 		bsr	main_menu
-
-		SEEK_XY	10,11
-		lea	STR_PASSES, a0
-		RSUB	print_string
-
 		STALL
-
-	section data
-
-STR_PASSES:	STRING "PASSES"

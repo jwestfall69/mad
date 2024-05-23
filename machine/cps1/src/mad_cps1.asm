@@ -5,7 +5,6 @@
 	include "mad_rom.inc"
 
 	global _start
-	global STR_PASSES
 
 	section code
 
@@ -27,9 +26,4 @@ _start:
 		RSUB_INIT
 		bsr	auto_func_tests
 		bsr	main_menu
-
 		STALL
-
-	section data
-
-STR_PASSES:	STRING "PASSES"

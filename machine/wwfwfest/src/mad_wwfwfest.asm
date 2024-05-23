@@ -6,7 +6,6 @@
 	include "mad_rom.inc"
 
 	global _start
-	global	STR_PASSES
 
 	section code
 
@@ -38,7 +37,3 @@ _start:
 		SOUND_PLAY
 
 		bsr	main_menu
-
-	section data
-
-STR_PASSES:	STRING "PASSES"

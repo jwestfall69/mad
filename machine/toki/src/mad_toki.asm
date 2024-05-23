@@ -5,8 +5,6 @@
 	include "mad_rom.inc"
 
 	global _start
-	global	vblank_interrupt
-	global	STR_PASSES
 
 	section code
 
@@ -34,7 +32,3 @@ _start:
 
 		bsr	main_menu
 		STALL
-
-	section data
-
-STR_PASSES:	STRING "PASSES"
