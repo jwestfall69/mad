@@ -57,6 +57,9 @@ screen_init_dsub:
 ;  d1 = y
 screen_seek_xy_dsub:
 		SEEK_XY	0, 0
+		and.l	#$ff, d0
+		and.l	#$ff, d1
+
 		lsl.w	#2, d0
 		lsl.w	#7, d1
 		adda.l	d0, a6

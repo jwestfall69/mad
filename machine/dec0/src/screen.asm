@@ -74,6 +74,8 @@ screen_init_dsub:
 
 screen_seek_xy_dsub:
 		SEEK_XY	0, 0
+		and.l	#$ff, d0
+		and.l	#$ff, d1
 
 	ifd _PRINT_COLUMN_
 		lsl.w	#6, d0
