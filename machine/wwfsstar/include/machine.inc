@@ -23,6 +23,8 @@ PALETTE_RAM_ADDRESS_LINES	equ 10
 
 	endif
 
+PALETTE_SIZE			equ $20		; size of an individual palette
+
 SPRITE_RAM_START		equ $100000
 SPRITE_RAM_SIZE			equ $400
 SPRITE_RAM_ADDRESS_LINES	equ 10
