@@ -13,7 +13,7 @@
 ; returns:
 ;  d0 = 0 or MENU_* bits set depending on raw inputs
 menu_input_generic:
-		move.w	#$1fff, d0
+		move.l	#$1fff, d0
 		RSUB	delay
 
 		jsr	input_p1_update

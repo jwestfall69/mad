@@ -11,13 +11,13 @@
 ; d0 = sound to play
 sound_play_dsub:
 
-	; cps1's sound code seems to ignore the byte
-	; sent to the latch if its the same as the
-	; last time, so we tell it to stop first.
-	move.b	#SOUND_NUM_STOP, REG_SOUND1
-	move.b	d0, d1
-	move.w	#$fff,d0
-	DSUB	delay
+		; cps1's sound code seems to ignore the byte
+		; sent to the latch if its the same as the
+		; last time, so we tell it to stop first.
+		move.b	#SOUND_NUM_STOP, REG_SOUND1
+		move.b	d0, d1
+		move.l	#$fff,d0
+		DSUB	delay
 
-	move.b	d1, REG_SOUND1
-	DSUB_RETURN
+		move.b	d1, REG_SOUND1
+		DSUB_RETURN
