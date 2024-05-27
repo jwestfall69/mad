@@ -68,7 +68,7 @@ full_screen:
 		add.w	d3, d4
 		move.l	(a1, d4.w), d1
 		lea	FG_RAM_START, a0
-		move.l	#(FG_RAM_SIZE / 4), d0
+		move.l	#(FG_RAM_SIZE / 4) - 1, d0
 
 	.loop_next_address:
 		move.l	d1, (a0)+
