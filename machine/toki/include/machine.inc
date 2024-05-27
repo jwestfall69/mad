@@ -18,6 +18,7 @@ FG_RAM_SIZE		equ $800
 
 PALETTE_RAM_START	equ $06e000
 PALETTE_RAM_SIZE	equ $800
+PALETTE_SIZE		equ $20		; size of individual palette
 
 SCROLL_RAM_SART		equ $0a0000
 SCROLL_RAM_SIZE		equ $d
