@@ -6,6 +6,7 @@ BG_RAM_MASK			equ $ffff
 BG2_RAM_START			equ $082000
 
 FG_RAM_START			equ $0c0000
+FG_RAM_SIZE			equ $2000
 FG_SPRITE_RAM_START		equ $0c0000
 FG_SPRITE_RAM_SIZE		equ $4000
 FG_SPRITE_RAM_ADDRESS_LINES	equ 14
@@ -15,6 +16,7 @@ PALETTE_RAM_START		equ $180000
 PALETTE_RAM_SIZE		equ $10000	; address space, not size (2k)
 PALETTE_RAM_ADDRESS_LINES	equ 16
 PALETTE_RAM_MASK		equ $ffff
+PALETTE_SIZE			equ $80		; size of individual palette
 
 SPRITE_RAM_START		equ $0c2000
 
