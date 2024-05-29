@@ -11,3 +11,11 @@
 
 SOUND_NUM_BIT_ZERO		equ $21	; radar type sound
 SOUND_NUM_BIT_ONE		equ $2d	; coin?
+
+; video dac test
+TILE_B036_NUM			equ $1d
+TILE_B036_PAL_OFFSET		equ $e
+TILE_B147_NUM			equ $832
+TILE_B147_PAL_OFFSET		equ $10
+TILE_B25A_NUM			equ $93f
+TILE_B25A_PAL_OFFSET		equ $14

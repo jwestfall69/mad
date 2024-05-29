@@ -11,3 +11,12 @@
 
 SOUND_NUM_BIT_ZERO		equ $25	; fire
 SOUND_NUM_BIT_ONE		equ $38	; voice saying one
+
+; video dac test
+TILE_B036_NUM			equ $11
+TILE_B036_PAL_OFFSET		equ $2
+TILE_B147_NUM			equ $404
+TILE_B147_PAL_OFFSET		equ $1e
+TILE_B25A_NUM			equ $33a
+TILE_B25A_PAL_OFFSET		equ $14
+TILE_B25A_PAL_OFFSET2		equ $c
