@@ -23,7 +23,11 @@ screen_clear_dsub:
 		moveq	#32, d1
 		DSUB	print_char_repeat
 
+	ifd _PRINT_COLUMN_
+		SEEK_XY	8, 0
+	else
 		SEEK_XY	9, 0
+	endif
 		lea	STR_HEADER, a0
 		DSUB	print_string
 		DSUB_RETURN
