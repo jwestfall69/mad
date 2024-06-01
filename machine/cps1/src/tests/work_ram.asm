@@ -21,8 +21,10 @@ manual_work_ram_tests:
 		lea	SCREEN_XYS_LIST, a0
 		RSUB	print_xy_string_list
 
-		moveq	#0, d6		; passes, memory tests don't touch it
+		DISABLE_INTS
 		PSUB_INIT
+
+		moveq	#0, d6		; passes, memory tests don't touch it
 
 	.loop_next_pass:
 
@@ -48,6 +50,7 @@ manual_work_ram_tests:
 
 	.test_exit:
 		RSUB_INIT
+		ENABLE_INTS
 		bra	main_menu
 
 	section data

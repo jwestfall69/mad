@@ -17,10 +17,11 @@ _start:
 
 		PSUB_INIT
 		PSUB	cps_a_init
-		PSUB	screen_init
+		PSUB	screen_init_workaround
 		PSUB	auto_dsub_tests
 
 		RSUB_INIT
+		ENABLE_INTS
 		bsr	auto_func_tests
 
 		;moveq	#SOUND_NUM_SUCCESS, d0

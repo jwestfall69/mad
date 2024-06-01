@@ -87,3 +87,11 @@ SOUND_NUM_STOP			equ $f0
 
 	macro WATCHDOG
 	endm
+
+	macro ENABLE_INTS
+		move.w	#$2000, sr
+	endm
+
+	macro DISABLE_INTS
+		move.w	#$2700, sr
+	endm

@@ -13,4 +13,5 @@
 
 ; vblank
 irq2_handler:
+		move.w	#PALETTE_RAM_START / 256, REGA_PALETTE_RAM_BASE
 		rte

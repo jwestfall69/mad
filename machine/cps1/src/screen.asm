@@ -8,6 +8,7 @@
 	global cps_a_init_dsub
 	global palette_init_dsub
 	global screen_init_dsub
+	global screen_init_workaround_dsub
 	global screen_clear_dsub
 	global screen_seek_xy_dsub
 
@@ -26,21 +27,26 @@ palette_init_dsub:
 ; The ram block we use for palette data is suppose to get copied to
 ; the palette ram whenever we write to REGA_PALETTE_RAM_BASE, however
 ; this doesn't seem to be the case 100% of the time.  It appears a
-; number of game write to REGA_PALETTE_RAM_BASE within the vblank
+; number of games write to REGA_PALETTE_RAM_BASE within the vblank
 ; interrupt handler to get around this issue? Using an interrupt
-; handler isn't something we can do since ram maybe bad.  From testing
-; it appears we can trigger the copy just by looping over clearing ram
-; and writing to REGA_PALETTE_RAM_BASE a 3+ times.
-screen_clear_dsub:
-screen_init_dsub:
-
-		moveq	#2, d2
-	.loop:
+; handler isn't something we can do before work ram is tested.  From
+; testing it appears we can trigger the copy just by looping over
+; clearing ram and writing to REGA_PALETTE_RAM_BASE a 3+ times.
+screen_init_workaround_dsub:
+		moveq	#1, d2
+	.loop_workaround:
 
 		lea	MEMORY_FILL_LIST, a0
 		DSUB	memory_fill_list
 		DSUB	palette_init
-		dbra	d2, .loop
+		dbra	d2, .loop_workaround
+
+screen_clear_dsub:
+screen_init_dsub:
+
+		lea	MEMORY_FILL_LIST, a0
+		DSUB	memory_fill_list
+		DSUB	palette_init
 
 		SEEK_XY	17, 0
 		lea	STR_HEADER, a0
