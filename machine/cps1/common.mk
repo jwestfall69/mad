@@ -47,7 +47,8 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/tests/gfx_ram.o \
         $(OBJ_DIR)/tests/input.o \
         $(OBJ_DIR)/tests/sound.o \
-        $(OBJ_DIR)/tests/work_ram.o
+        $(OBJ_DIR)/tests/work_ram.o \
+        $(OBJ_DIR)/tests/video_dac.o
 
 INCS = $(wildcard include/*.inc) \
        $(wildcard include/cps_b/*.inc) \

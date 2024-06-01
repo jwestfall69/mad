@@ -20,3 +20,17 @@ CURSOR_CLEAR_CHAR		equ ' '
 
 SOUND_NUM_BIT_ZERO		equ $04	; punch
 SOUND_NUM_BIT_ONE		equ $02	; whip?
+
+; These are tiles which are filled with a single
+; color from the palette that we will use for the
+; solid color blocks
+TILE_B0_NUM			equ $c010
+TILE_B0_PAL_OFFSET		equ $0
+TILE_B1_NUM			equ $c011
+TILE_B1_PAL_OFFSET		equ $2
+TILE_B2_NUM			equ $c012
+TILE_B2_PAL_OFFSET		equ $4
+TILE_B3_NUM			equ $c013
+TILE_B3_PAL_OFFSET		equ $6
+TILE_BA_NUM			equ $c014
+TILE_BA_PAL_OFFSET		equ $8
