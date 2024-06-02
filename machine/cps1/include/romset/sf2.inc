@@ -21,16 +21,15 @@ CURSOR_CLEAR_CHAR		equ ' '
 
 SOUND_NUM_BIT_ZERO		equ $20	; ?
 SOUND_NUM_BIT_ONE		equ $22	; ?
-; These are tiles which are filled with a single
-; color from the palette that we will use for the
-; solid color blocks
-TILE_B0_NUM			equ $4080
-TILE_B0_PAL_OFFSET		equ $0
-TILE_B1_NUM			equ $4081
-TILE_B1_PAL_OFFSET		equ $2
-TILE_B2_NUM			equ $4082
-TILE_B2_PAL_OFFSET		equ $4
-TILE_B3_NUM			equ $4083
-TILE_B3_PAL_OFFSET		equ $6
-TILE_BA_NUM			equ $4084
-TILE_BA_PAL_OFFSET		equ $8
+
+; video dac
+VD_TILE_B0_NUM			equ $4080
+VD_TILE_B0_PAL_OFFSET		equ $0
+VD_TILE_B1_NUM			equ $4081
+VD_TILE_B1_PAL_OFFSET		equ $2
+VD_TILE_B2_NUM			equ $4082
+VD_TILE_B2_PAL_OFFSET		equ $4
+VD_TILE_B3_NUM			equ $4083
+VD_TILE_B3_PAL_OFFSET		equ $6
+VD_TILE_BA_NUM			equ $4084
+VD_TILE_BA_PAL_OFFSET		equ $8

@@ -5,19 +5,19 @@
 
 	include "mad_rom.inc"
 	include "machine.inc"
-	include "video_dac.inc"
 
 	global video_dac_test
 
 	section code
 
 video_dac_test:
-
 		RSUB	screen_clear
 
 		lea	SCREEN_XYS_LIST, a0
 		RSUB	print_xy_string_list
 
+		; Palette Layout
+		;  xxxx BBBB GGGG RRRR
 		; red palette setup
 		lea	PALETTE_RAM_START+PALETTE_SIZE, a0
 		move.w	#$f, d0
@@ -38,7 +38,8 @@ video_dac_test:
 		move.w	#$fff, d0
 		bsr	palette_setup_color
 
-		bsr	draw_color_cubes
+		bsr	generate_tiles_table
+		bsr	draw_colors
 
 	.loop_input:
 		bsr	menu_input_generic
@@ -57,15 +58,30 @@ video_dac_test:
 
 ; In full screen mode we fill the entire fg ram with a single
 ; tile/color bit to allow isolating it for testing
+MAX_COLOR_INDEX		equ (VD_NUM_COLORS - 1)
+MAX_COLOR_BIT_INDEX	equ (VD_NUM_BITS_PER_COLOR - 1)
 full_screen:
 
-		lea	TILES_ARRAY, a1
-		moveq	#0, d2		; color bit per color
-		moveq	#0, d3		; color
+		; Treat TILES_TABLE as a multidimensional array of
+		;  long[VD_NUM_COLORS][VD_NUM_BITS_PER_COLOR]
+		; where:
+		;  d3 is the first index (color)
+		;  d2 is the second index (color bit for that color)
+		lea	TILES_TABLE, a1
+
+		; start at [0][0], red bit 0
+		moveq	#0, d2
+		moveq	#0, d3
 
 	.draw_full_screen:
+		; convert the d2/d3 array index numbers into the correct offset
+		; in TILES_TABLE
 		move.w	d2, d4
-		add.w	d3, d4
+		mulu	#SCREEN_BYTES_PER_TILE, d4
+		move.l	d3, d5
+		mulu	#(SCREEN_BYTES_PER_TILE * VD_NUM_BITS_PER_COLOR), d5
+		add.w	d5, d4
+
 		move.l	(a1, d4.w), d1
 		lea	FG_RAM_START, a0
 		move.l	#(FG_RAM_SIZE / 4) - 1, d0
@@ -79,35 +95,35 @@ full_screen:
 
 		btst	#MENU_DOWN_BIT, d0
 		beq	.down_not_pressed
-		add.w	#20, d3			; goto next color in array
-		cmp.w	#80, d3			; past end of array?
-		bne	.draw_full_screen
-		moveq	#0, d3
+		add.w	#1, d3				; goto next color in table
+		cmp.w	#MAX_COLOR_INDEX, d3		; past end of table?
+		ble	.draw_full_screen
+		moveq	#0, d3				; yes? wrap around to first color
 		bra	.draw_full_screen
 	.down_not_pressed:
 
 		btst	#MENU_UP_BIT, d0
 		beq	.up_not_pressed
-		sub.w	#20, d3			; goto previous color in array
-		bpl	.draw_full_screen	; before start of array?
-		move.w	#60, d3
+		sub.w	#1, d3				; goto previous color in table
+		bpl	.draw_full_screen		; negative color index?
+		move.w	#MAX_COLOR_INDEX, d3		; yes? wrap around to last color
 		bra	.draw_full_screen
 	.up_not_pressed:
 
 		btst	#MENU_RIGHT_BIT, d0
 		beq	.right_not_pressed
-		addq.w	#4, d2			; goto next color bit in array
-		cmp.b	#20, d2			; past end of color bits for this color?
-		bne	.draw_full_screen
-		moveq	#0, d2
+		addq.w	#1, d2				; goto next color bit in table
+		cmp.b	#MAX_COLOR_BIT_INDEX, d2	; past end of color bits for this color?
+		ble	.draw_full_screen
+		moveq	#0, d2				; yes? wrap around to first color bit for this color
 		bra	.draw_full_screen
 	.right_not_pressed:
 
 		btst	#MENU_LEFT_BIT, d0
 		beq	.left_not_pressed
-		subq.w	#4, d2			; goto previous color bit in array
-		bpl	.draw_full_screen	; before start of color bits for this color?
-		moveq	#16, d2
+		subq.w	#1, d2				; goto previous color bit in table
+		bpl	.draw_full_screen		; negative color bit index?
+		moveq	#MAX_COLOR_BIT_INDEX, d2	; yes? wrap around to last color bit for this color
 		bra	.draw_full_screen
 	.left_not_pressed:
 
@@ -118,68 +134,101 @@ full_screen:
 
 		rts
 
-	section	data
+; Given the raw tile numbers, generate a table that has
+; the required tile+palette number for each color/color bit
+;
+; Tile Layout
+; xxxx xxxx TTTT TTTT xxxx xxxx PPPP tttt
+; where
+;  P = palette number
+;  T = lower 8 bits of tile number
+;  t = upper 4 bits of tile number
+generate_tiles_table:
+		lea	TILES_TABLE, a1
+		move.l	#(1<<4), d5			; start with palette #1
+		moveq	#(VD_NUM_COLORS - 1), d4
 
-; draws the 4x4 color cubes for all colors
-draw_color_cubes:
-		SEEK_XY 10, 6
-		lea	TILES_ARRAY, a0
-
-		moveq	#3, d2		; number of colors - 1
 	.loop_next_color:
-		movem.l	d2, -(a7)
-		move.l	(a0)+, d2	; bit 0
-		move.l	(a0)+, d3	; bit 1
-		move.l	(a0)+, d4	; bit 2
-		move.l	(a0)+, d5	; bit 3
-		move.l	(a0)+, d6	; all
-		moveq	#3, d0		; of rows - 1
+		lea	TILES_RAW, a0
+		moveq	#4, d1				; # raw tiles
 
-	.loop_next_row:
-		moveq	#3, d1		; number of blocks per bit - 1
+	.loop_next_raw_tile:
+		move.l	(a0)+, d0			; take the raw tile
+		or.l	d5, d0				; add in the palette #
+		move.l	d0, (a1)+			; save to TILES_TABLE
+		dbra	d1, .loop_next_raw_tile
 
-	.loop_next_block:
-		movem.l	d1, -(a7)
-		lsl.l	#2, d1
-		move.l	d2, (a6, d1.w)
-		move.l	d3, 16(a6, d1.w)
-		move.l	d4, 32(a6, d1.w)
-		move.l	d5, 48(a6, d1.w)
-		move.l	d6, 64(a6, d1.w)
-		movem.l	(a7)+, d1
-
-		dbra	d1, .loop_next_block
-
-		add.l	#$100, a6	; got next line
-		dbra	d0, .loop_next_row
-
-		movem.l	(a7)+, d2
-		dbra	d2, .loop_next_color
-
+		add.l	#(1<<4), d5			; next palette
+		dbra	d4, .loop_next_color
 		rts
+
+COLOR_BLOCK_START_X	equ 10
+COLOR_BLOCK_START_Y	equ 6
+draw_colors:
+		lea	TILES_TABLE, a0
+		moveq	#COLOR_BLOCK_START_Y, d6
+		moveq	#(VD_NUM_COLORS - 1), d3
+
+	.loop_next_color:
+		moveq	#COLOR_BLOCK_START_X, d5
+		moveq	#(VD_NUM_BITS_PER_COLOR - 1), d4
+
+	.loop_next_color_bit:
+		move.b	d5, d0
+		move.b	d6, d1
+		RSUB	screen_seek_xy			; seek upper-left x, y for this color bit
+
+		move.l	(a0)+, d0
+		bsr	draw_color_bit
+
+		add.b	#VD_COLOR_BLOCK_WIDTH, d5	; next bit over (+x offset)
+		dbra	d4, .loop_next_color_bit
+
+		add.b	#VD_COLOR_BLOCK_HEIGHT, d6	; next color down (+y offset)
+		dbra	d3, .loop_next_color
+		rts
+
+; draws an individual color bit
+; params:
+;  d0 = tile
+draw_color_bit:
+		moveq	#(VD_COLOR_BLOCK_HEIGHT - 1), d1
+		moveq	#0, d2				; row offset
+	.loop_next_row:
+		move.l	d0, (a6, d2.w)
+		move.l	d0, 4(a6, d2.w)
+		move.l	d0, 8(a6, d2.w)
+		move.l	d0, 12(a6, d2.w)
+		add.w	#SCREEN_BYTES_PER_LINE, d2	; next row
+		dbra	d1, .loop_next_row
+		rts
+
 ; params:
 ;  a0 = palette start address
-;  d0 = color bits set to 1's (word)
+;  d0 = color's bits set to 1's (word)
 palette_setup_color:
 
-		moveq	#3, d5
-		move.w	#$111, d4	; bit mask
 		lea	PALETTE_OFFSETS, a1
+		moveq	#(VD_NUM_BITS_PER_COLOR - 2), d5; number of bits (not including all/combined)
+		move.w	#$111, d4			; bit mask
 
 	.loop_next_offset:
 		move.w	(a1)+, d1
 		move.w	d0, d2
 		and.w	d4, d2
-		move.w	d2, (a0, d1.w)	; individual B0 to B3
-		lsl.w	#1, d4
+		move.w	d2, (a0, d1.w)			; individual b0 to b3
+		lsl.w	#1, d4				; shift bit mask to get the next bit
 		dbra	d5, .loop_next_offset
 
-		; all/combined has 2 colors to make a solid tile
-		move.w	(a1)+, d1
+		; There ended up only being 4 solid color tiles,
+		; but we need 5.  For the 5th tile we picked one
+		; that needs 2 colors from the palette.  Below is
+		; setting both of color indexes to the color we are
+		; after
+		move.w	(a1)+, d1			; all bits enabled for this individual color
 		move.w	d0, (a0, d1.w)
-		move.w	(a1)0, d1
+		move.w	(a1), d1
 		move.w	d0, (a0, d1.w)
-
 		rts
 
 	section data
@@ -187,20 +236,9 @@ palette_setup_color:
 	align 2
 
 PALETTE_OFFSETS:
-	dc.w	TILE_B0_PAL_OFFSET, TILE_B1_PAL_OFFSET, TILE_B2_PAL_OFFSET, TILE_B3_PAL_OFFSET, TILE_BA_PAL_OFFSET1, TILE_BA_PAL_OFFSET2
-
-; fg tile layout
-; xxxx xxxx TTTT TTTT xxxx xxxx PPPP tttt
-; where
-;  P = palette number
-;  T = lower 8 bits of tile number
-;  t = upper 4 bits of tile number
-; The bit shifts below are setting the palette numbers
-TILES_ARRAY:
-		dc.l TILE_B0_NUM | (1<<4), TILE_B1_NUM | (1<<4), TILE_B2_NUM | (1<<4), TILE_B3_NUM | (1<<4), TILE_BA_NUM | (1<<4)	; red
-		dc.l TILE_B0_NUM | (2<<4), TILE_B1_NUM | (2<<4), TILE_B2_NUM | (2<<4), TILE_B3_NUM | (2<<4), TILE_BA_NUM | (2<<4)	; green
-		dc.l TILE_B0_NUM | (3<<4), TILE_B1_NUM | (3<<4), TILE_B2_NUM | (3<<4), TILE_B3_NUM | (3<<4), TILE_BA_NUM | (3<<4)	; blue
-		dc.l TILE_B0_NUM | (4<<4), TILE_B1_NUM | (4<<4), TILE_B2_NUM | (4<<4), TILE_B3_NUM | (4<<4), TILE_BA_NUM | (4<<4)	; all/combined
+	dc.w	VD_TILE_B0_PAL_OFFSET, VD_TILE_B1_PAL_OFFSET, VD_TILE_B2_PAL_OFFSET, VD_TILE_B3_PAL_OFFSET, VD_TILE_BA_PAL_OFFSET1, VD_TILE_BA_PAL_OFFSET2
+TILES_RAW:
+	dc.l	VD_TILE_B0_NUM, VD_TILE_B1_NUM, VD_TILE_B2_NUM, VD_TILE_B3_NUM, VD_TILE_BA_NUM
 
 SCREEN_XYS_LIST:
 	XY_STRING 13,  2, "VIDEO DAC TEST"
@@ -208,3 +246,10 @@ SCREEN_XYS_LIST:
 	XY_STRING  3, 24, "B1 - FULL SCREEN"
 	XY_STRING  3, 25, "B2 - RETURN TO MENU"
 	XY_STRING_LIST_END
+
+	section bss
+
+	align 2
+
+TILES_TABLE:
+	dcb.l	VD_NUM_COLORS*VD_NUM_BITS_PER_COLOR

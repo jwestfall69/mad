@@ -13,3 +13,10 @@ CURSOR_CLEAR_CHAR		equ $0
 		move.l	#$7ffff, d0
 		DSUB	delay
 	endm
+
+; video dac
+VD_NUM_COLORS			equ $4	; includes all/combined
+VD_NUM_BITS_PER_COLOR		equ $9	; includes all/combined
+VD_COLOR_BLOCK_WIDTH		equ $3
+VD_COLOR_BLOCK_HEIGHT		equ $3
+; tile defines are in the romsets

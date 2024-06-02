@@ -99,14 +99,18 @@ CHAR_COLON			equ ':'
 
 SOUND_NUM_STOP			equ $00
 
+SCREEN_TILES_PER_LINE		equ 32
+SCREEN_BYTES_PER_TILE		equ 4
+SCREEN_BYTES_PER_LINE		equ (SCREEN_BYTES_PER_TILE * SCREEN_TILES_PER_LINE)
+
 	; goto the correct fg memory location before printing text
 	; to the screen
 	macro SEEK_XY
-		lea	(FG_RAM_START + $80 + (\1 * 4) + (\2 * 32 * 4)), a6
+		lea	(FG_RAM_START + $80 + (\1 * SCREEN_BYTES_PER_TILE) + (\2 * SCREEN_BYTES_PER_LINE)), a6
 	endm
 
 	macro SEEK_LN
-		lea	(FG_RAM_START + $80 + (\1 * 32 * 4)), a6
+		lea	(FG_RAM_START + $80 + (\1 * SCREEN_BYTES_PER_LINE)), a6
 	endm
 
 	macro SOUND_PLAY

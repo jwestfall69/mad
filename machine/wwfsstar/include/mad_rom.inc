@@ -14,3 +14,19 @@ SOUND_NUM_BIT_ONE	equ $2f	; punch sound
 		move.l	#$7ffff, d0
 		DSUB	delay
 	endm
+
+; video dac
+VD_NUM_COLORS		equ $4		; includes all/combined
+VD_NUM_BITS_PER_COLOR	equ $5		; includes all/combined
+VD_COLOR_BLOCK_WIDTH	equ $4
+VD_COLOR_BLOCK_HEIGHT	equ $4
+VD_TILE_B0_NUM		equ $100fc
+VD_TILE_B0_PAL_OFFSET	equ $18
+VD_TILE_B1_NUM		equ $3000b
+VD_TILE_B1_PAL_OFFSET	equ $14
+VD_TILE_B2_NUM		equ $600fa
+VD_TILE_B2_PAL_OFFSET	equ $1e
+VD_TILE_B3_NUM		equ $b00f9
+VD_TILE_B3_PAL_OFFSET	equ $4
+VD_TILE_BA_NUM		equ $f0000	; all bits enabled
+VD_TILE_BA_PAL_OFFSET	equ $2
