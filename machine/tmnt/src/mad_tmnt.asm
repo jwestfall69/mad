@@ -36,9 +36,5 @@ _start:
 		move.b	#SOUND_NUM_SUCCESS, d0
 		SOUND_PLAY
 
-		clr.b	INPUT_P1_EDGE
-		clr.b	INPUT_P1_RAW
-		clr.b	INPUT_SYSTEM_EDGE
-		clr.b	INPUT_SYSTEM_RAW
 		clr.b	MENU_CURSOR
 		bra	main_menu

@@ -3,8 +3,9 @@
 	include "cpu/68000/include/xy_string.inc"
 	include "cpu/68000/include/handlers/memory_tests.inc"
 
-	include "mad_rom.inc"
 	include "error_codes.inc"
+	include "input.inc"
+	include "mad_rom.inc"
 	include "machine.inc"
 
 	global auto_work_ram_tests_dsub
@@ -39,7 +40,7 @@ manual_work_ram_tests:
 		tst.b	d0
 		bne	.test_failed
 
-		btst	#P1_B2_BIT, REG_INPUT_P1
+		btst	#INPUT_B2_BIT, REG_INPUT
 		beq	.test_exit
 
 		addq.l	#1, d6

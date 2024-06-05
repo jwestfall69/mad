@@ -1,8 +1,8 @@
 	include "cpu/68000/include/dsub.inc"
-	include "cpu/68000/include/menu_input.inc"
 	include "cpu/68000/include/macros.inc"
 
 	include "machine.inc"
+	include "input.inc"
 
 	global memory_viewer_handler
 
@@ -12,7 +12,6 @@ NUM_ROWS	equ 20
 START_ROW	equ 6
 
 ; a0 = start memory location
-; a1 = input callback function
 memory_viewer_handler:
 
 		movem.l	a0-a1, -(a7)
@@ -39,34 +38,35 @@ memory_viewer_handler:
 	.loop_next_input:
 		WATCHDOG
 		bsr	memory_dump
-		jsr	(a2)		; input callback
+		bsr	input_update
+		move.b	INPUT_EDGE, d0
 
-		btst	#MENU_UP_BIT, d0
+		btst	#INPUT_UP_BIT, d0
 		beq	.up_not_pressed
 		suba.l	#4, a0
 		bra	.loop_next_input
 
 	.up_not_pressed:
-		btst	#MENU_DOWN_BIT, d0
+		btst	#INPUT_DOWN_BIT, d0
 		beq	.down_not_pressed
 		adda.l	#4, a0
 		bra	.loop_next_input
 
 	.down_not_pressed:
-		btst	#MENU_RIGHT_BIT, d0
+		btst	#INPUT_RIGHT_BIT, d0
 		beq	.right_not_pressed
 		adda.l	#$50, a0
 		bra	.loop_next_input
 
 	.right_not_pressed:
-		btst	#MENU_LEFT_BIT, d0
+		btst	#INPUT_LEFT_BIT, d0
 		beq	.left_not_pressed
 		suba.l	#$50, a0
 		bra	.loop_next_input
 
 	.left_not_pressed:
-		btst	#MENU_BUTTON_BIT, d0
-		beq	.button_not_pressed
+		btst	#INPUT_B1_BIT, d0
+		beq	.b1_not_pressed
 
 		movem.l	a0, -(a7)
 		move.b	READ_MODE, d0
@@ -86,8 +86,8 @@ memory_viewer_handler:
 		RSUB	print_string
 		movem.l	(a7)+, a0
 
-	.button_not_pressed:
-		btst	#MENU_EXIT_BIT, d0
+	.b1_not_pressed:
+		btst	#INPUT_B2_BIT, d0
 		beq	.loop_next_input
 
 		rts

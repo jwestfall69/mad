@@ -4,6 +4,7 @@
 	include "cpu/68000/include/handlers/memory_tests.inc"
 
 	include "error_codes.inc"
+	include "input.inc"
 	include "machine.inc"
 
 	global auto_tile_ram_tests
@@ -49,10 +50,10 @@ manual_tile_ram_tests:
 		tst.b	d0
 		bne	.test_failed
 
-		btst	#P1_B2_BIT, REG_INPUT_P1
+		btst	#INPUT_B2_BIT, REG_INPUT
 		beq	.test_exit
 
-		btst	#P1_B1_BIT, REG_INPUT_P1
+		btst	#INPUT_B1_BIT, REG_INPUT
 		beq	.test_pause
 
 		addq.l	#1, d6
@@ -74,7 +75,7 @@ manual_tile_ram_tests:
 		RSUB	print_hex_long
 
 	.loop_paused:
-		btst	#P1_B1_BIT, REG_INPUT_P1
+		btst	#INPUT_B1_BIT, REG_INPUT
 		beq	.loop_paused
 		bra	.loop_next_pass
 

@@ -1,8 +1,8 @@
 	include "cpu/68000/include/dsub.inc"
-	include "cpu/68000/include/menu_input.inc"
 	include "cpu/68000/include/macros.inc"
 	include "cpu/68000/include/xy_string.inc"
 
+	include "input.inc"
 	include "machine.inc"
 
 	global tile_viewer_handler
@@ -12,8 +12,6 @@ START_ROW	equ $8
 
 	section code
 
-; params:
-;  a0 = menu get input function
 tile_viewer_handler:
 
 		movem.l	a0, -(a7)
@@ -65,9 +63,10 @@ tile_viewer_handler:
 	.loop_input:
 		WATCHDOG
 
-		jsr	(a0)
+		bsr	input_update
+		move.b	INPUT_EDGE, d0
 
-		btst	#MENU_EXIT_BIT, d0
+		btst	#INPUT_B2_BIT, d0
 		beq	.loop_input
 		rts
 

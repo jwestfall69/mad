@@ -9,6 +9,5 @@
 	section code
 
 tile_viewer:
-		lea	menu_input_generic, a0
 		bsr	tile_viewer_handler
 		rts

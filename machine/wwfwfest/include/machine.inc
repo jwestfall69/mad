@@ -42,41 +42,8 @@ REG_INPUT_DSW2			equ $140022
 REG_INPUT_DSW3			equ $140024
 REG_INPUT_SYSTEM		equ $140026
 
-P1_RIGHT_BIT			equ $0
-P1_LEFT_BIT			equ $1
-P1_UP_BIT			equ $2
-P1_DOWN_BIT			equ $3
-P1_B1_BIT			equ $4
-P1_B2_BIT			equ $5
-P1_START_BIT			equ $7
-
-P1_RIGHT			equ $01
-P1_LEFT				equ $02
-P1_UP				equ $04
-P1_DOWN				equ $08
-P1_B1				equ $10
-P1_B2				equ $20
-P1_START			equ $80
-
-P2_RIGHT_BIT			equ $0
-P2_LEFT_BIT			equ $1
-P2_UP_BIT			equ $2
-P2_DOWN_BIT			equ $3
-P2_B1_BIT			equ $4
-P2_B2_BIT			equ $5
-P2_START_BIT			equ $7
-
-P2_RIGHT			equ $01
-P2_LEFT				equ $02
-P2_UP				equ $04
-P2_DOWN				equ $08
-P2_B1				equ $10
-P2_B2				equ $20
-P2_START			equ $80
-
 SYS_VBLANK_BIT			equ $2
 SYS_VBLANK			equ $04
-SYS_START1			equ $80
 
 CHAR_COLON			equ '@'
 

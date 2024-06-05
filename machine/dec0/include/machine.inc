@@ -74,58 +74,7 @@ REG_INPUT_SYSTEM		equ $30c003
 REG_INPUT_DSW1			equ $30c005
 REG_INPUT_DSW2			equ $30c004
 
-P1_UP_BIT			equ $0
-P1_DOWN_BIT			equ $1
-P1_LEFT_BIT			equ $2
-P1_RIGHT_BIT			equ $3
-P1_B1_BIT			equ $4
-P1_B2_BIT			equ $5
-P1_B3_BIT			equ $6
-P1_B4_BIT			equ $7
-
-P1_UP				equ $01
-P1_DOWN				equ $02
-P1_LEFT				equ $04
-P1_RIGHT			equ $08
-P1_B1				equ $10
-P1_B2				equ $20
-P1_B3				equ $40
-P1_B4				equ $80
-
-P2_UP_BIT			equ $0
-P2_DOWN_BIT			equ $1
-P2_LEFT_BIT			equ $2
-P2_RIGHT_BIT			equ $3
-P2_B1_BIT			equ $4
-P2_B2_BIT			equ $5
-P2_B3_BIT			equ $6
-P2_B4_BIT			equ $7
-
-P2_UP				equ $01
-P2_DOWN				equ $02
-P2_LEFT				equ $04
-P2_RIGHT			equ $08
-P2_B1				equ $10
-P2_B2				equ $20
-P2_B3				equ $40
-P2_B4				equ $80
-
-SYS_P1_B5_BIT			equ $0
-SYS_P2_B5_BIT			equ $1
-SYS_START1_BIT			equ $2
-SYS_START2_BIT			equ $3
-SYS_COIN1_BIT			equ $4
-SYS_COIN2_BIT			equ $5
-SYS_SERVICE_BIT			equ $6
 SYS_VBLANK_BIT			equ $7
-
-SYS_P1_B5			equ $01
-SYS_P2_B5			equ $02
-SYS_START1			equ $04
-SYS_START2			equ $08
-SYS_COIN1			equ $10
-SYS_COIN2			equ $20
-SYS_SERVICE			equ $40
 SYS_VBLANK			equ $80
 
 DSW1_SCREEN_FLIP		equ $40

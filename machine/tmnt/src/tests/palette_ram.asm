@@ -4,6 +4,7 @@
 	include "cpu/68000/include/handlers/memory_tests.inc"
 
 	include "error_codes.inc"
+	include "input.inc"
 	include "machine.inc"
 
 	global auto_palette_ram_tests
@@ -36,7 +37,7 @@ manual_palette_ram_tests:
 		tst.b	d0
 		bne	.test_failed
 
-		btst	#P1_B2_BIT, REG_INPUT_P1
+		btst	#INPUT_B2_BIT, REG_INPUT
 		beq	.test_exit
 
 		addq.l	#1, d6

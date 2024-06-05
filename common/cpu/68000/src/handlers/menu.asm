@@ -1,8 +1,8 @@
 	include "cpu/68000/include/dsub.inc"
 	include "cpu/68000/include/macros.inc"
-	include "cpu/68000/include/menu_input.inc"
 	include "cpu/68000/include/handlers/menu.inc"
 
+	include "input.inc"
 	include "machine.inc"
 	include "mad_rom.inc"
 
@@ -16,7 +16,6 @@ MENU_Y_OFFSET		equ $5
 
 ; params:
 ;  a0 = menu struct { menu_title_ptr, menu_entry's }
-;  a1 = input callback function
 ; returns:
 ;  d0 = 0 (function ran) or 1 (menu exit)
 menu_handler:
@@ -24,7 +23,7 @@ menu_handler:
 		move.l	a0, MENU_LIST
 		move.l	a1, a2
 
-		jsr	print_menu_list
+		bsr	print_menu_list
 		move.b	d0, d6			; max menu entries
 		subq.b	#1, d6
 
@@ -36,13 +35,14 @@ menu_handler:
 
 	.loop_menu_input:
 		WATCHDOG
-		jsr	(a2)			; input callback
+		bsr	input_update
+		move.b	INPUT_EDGE, d0
 
 	.check_button_pressed:
-		btst	#MENU_BUTTON_BIT, d0
+		btst	#INPUT_B1_BIT, d0
 		bne	.menu_entry_run
 
-		btst	#MENU_UP_BIT, d0
+		btst	#INPUT_UP_BIT, d0
 		beq	.up_not_pressed
 
 		move.b	d4, d5
@@ -52,7 +52,7 @@ menu_handler:
 		bra	.update_cursor
 
 	.up_not_pressed:
-		btst	#MENU_DOWN_BIT, d0
+		btst	#INPUT_DOWN_BIT, d0
 		beq	.down_not_pressed
 
 		move.b	d4, d5
@@ -63,7 +63,7 @@ menu_handler:
 		bra	.update_cursor
 
 	.down_not_pressed:
-		btst	#MENU_EXIT_BIT, d0
+		btst	#INPUT_B2_BIT, d0
 		beq	.loop_menu_input
 		moveq	#MENU_EXIT, d0
 		rts

@@ -3,6 +3,7 @@
 	include "cpu/68000/include/xy_string.inc"
 	include "cpu/68000/include/tests/input.inc"
 
+	include "input.inc"
 	include "machine.inc"
 	include "mad_rom.inc"
 
@@ -19,9 +20,9 @@ input_test:
 		lea	INPUT_LIST, a0
 		jsr	print_input_list
 
-		move.b	REG_INPUT_P1, d0
+		move.b	REG_INPUT, d0
 		not.b	d0
-		cmp.b	#(P1_B2|P1_RIGHT), d0
+		cmp.b	#(INPUT_B2|INPUT_RIGHT), d0
 		bne	.loop_test
 
 		rts

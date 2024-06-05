@@ -20,7 +20,6 @@ main_menu:
 		RSUB	print_string
 
 		lea	MENU_LIST, a0
-		lea	menu_input_generic, a1
 		jsr	menu_handler
 
 		bra	.loop_menu

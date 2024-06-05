@@ -48,24 +48,6 @@ REG_INPUT_IN2			equ $800177
 REG_INPUT_IN3			equ $800179
 REG_INPUT_SYSTEM		equ $800018
 
-P1_RIGHT_BIT			equ $0
-P1_LEFT_BIT			equ $1
-P1_DOWN_BIT			equ $2
-P1_UP_BIT			equ $3
-P1_B1_BIT			equ $4
-P1_B2_BIT			equ $5
-P1_B3_BIT			equ $6
-
-P1_RIGHT			equ $01
-P1_LEFT				equ $02
-P1_DOWN				equ $04
-P1_UP				equ $08
-P1_B1				equ $10
-P1_B2				equ $20
-P1_B3				equ $40
-
-SYS_START1			equ $10
-
 CHAR_COLON			equ ':'
 
 SOUND_NUM_STOP			equ $f0

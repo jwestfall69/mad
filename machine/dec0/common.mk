@@ -11,7 +11,6 @@ OBJS = $(OBJ_DIR)/cpu/68000/src/crc32.o \
        $(OBJ_DIR)/cpu/68000/src/error_address.o \
        $(OBJ_DIR)/cpu/68000/src/input_update.o \
        $(OBJ_DIR)/cpu/68000/src/memory_fill.o \
-       $(OBJ_DIR)/cpu/68000/src/menu_input_generic.o \
        $(OBJ_DIR)/cpu/68000/src/print_error.o \
        $(OBJ_DIR)/cpu/68000/src/util.o \
        $(OBJ_DIR)/cpu/68000/src/xy_string.o \

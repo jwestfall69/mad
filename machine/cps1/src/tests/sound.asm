@@ -13,7 +13,6 @@ sound_test:
 		lea	SCREEN_XYS_LIST, a0
 		RSUB	print_xy_string_list
 
-		lea	menu_input_generic, a0
 		moveq	#0, d0
 		jsr	sound_test_handler
 		rts

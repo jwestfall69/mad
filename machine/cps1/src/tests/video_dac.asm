@@ -1,8 +1,8 @@
 	include "cpu/68000/include/dsub.inc"
 	include "cpu/68000/include/macros.inc"
-	include "cpu/68000/include/menu_input.inc"
 	include "cpu/68000/include/xy_string.inc"
 
+	include "input.inc"
 	include "mad_rom.inc"
 	include "machine.inc"
 
@@ -30,29 +30,30 @@ video_dac_test:
 		move.b 	BRIGHTNESS, d0
 		RSUB	print_hex_nibble
 
-		bsr	menu_input_generic
+		bsr	input_update
+		move.b	INPUT_EDGE, d0
 
-		btst	#MENU_RIGHT_BIT, d0
+		btst	#INPUT_RIGHT_BIT, d0
 		beq	.right_not_pressed
 		move.b	BRIGHTNESS, d1
 		addq.b	#1, d1
 		bra	.brightness_adjusted
 	.right_not_pressed:
 
-		btst	#MENU_LEFT_BIT, d0
+		btst	#INPUT_LEFT_BIT, d0
 		beq	.left_not_pressed
 		move.b	BRIGHTNESS, d1
 		subq.b	#1, d1
 		bra	.brightness_adjusted
 	.left_not_pressed:
 
-		btst	#MENU_BUTTON_BIT, d0
+		btst	#INPUT_B1_BIT, d0
 		beq	.button_not_pressed
 		bsr	full_screen
 		bra	.loop_main
 	.button_not_pressed:
 
-		btst	#MENU_EXIT_BIT, d0
+		btst	#INPUT_B2_BIT, d0
 		beq	.loop_input
 		rts
 
@@ -97,9 +98,10 @@ full_screen:
 		dbra	d0, .loop_next_address
 
 	.loop_input:
-		bsr	menu_input_generic
+		bsr	input_update
+		move.b	INPUT_EDGE, d0
 
-		btst	#MENU_DOWN_BIT, d0
+		btst	#INPUT_DOWN_BIT, d0
 		beq	.down_not_pressed
 		add.w	#1, d3				; goto next color in table
 		cmp.w	#MAX_COLOR_INDEX, d3		; past end of table?
@@ -108,7 +110,7 @@ full_screen:
 		bra	.draw_full_screen
 	.down_not_pressed:
 
-		btst	#MENU_UP_BIT, d0
+		btst	#INPUT_UP_BIT, d0
 		beq	.up_not_pressed
 		sub.w	#1, d3				; goto previous color in table
 		bpl	.draw_full_screen		; negative color index?
@@ -116,7 +118,7 @@ full_screen:
 		bra	.draw_full_screen
 	.up_not_pressed:
 
-		btst	#MENU_RIGHT_BIT, d0
+		btst	#INPUT_RIGHT_BIT, d0
 		beq	.right_not_pressed
 		addq.w	#1, d2				; goto next color bit in table
 		cmp.b	#MAX_COLOR_BIT_INDEX, d2	; past end of color bits for this color?
@@ -125,7 +127,7 @@ full_screen:
 		bra	.draw_full_screen
 	.right_not_pressed:
 
-		btst	#MENU_LEFT_BIT, d0
+		btst	#INPUT_LEFT_BIT, d0
 		beq	.left_not_pressed
 		subq.w	#1, d2				; goto previous color bit in table
 		bpl	.draw_full_screen		; negative color bit index?
@@ -133,7 +135,7 @@ full_screen:
 		bra	.draw_full_screen
 	.left_not_pressed:
 
-		btst	#MENU_EXIT_BIT, d0
+		btst	#INPUT_B2_BIT, d0
 		bne	.full_screen_exit
 		bra	.loop_input
 	.full_screen_exit:

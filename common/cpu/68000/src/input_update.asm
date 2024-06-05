@@ -1,38 +1,34 @@
+	include "cpu/68000/include/dsub.inc"
+
+	include "input.inc"
 	include "machine.inc"
 
-	global input_p1_update
-	global input_system_update
+	global input_update
 
-	global INPUT_P1_EDGE
-	global INPUT_P1_RAW
-	global INPUT_SYSTEM_EDGE
-	global INPUT_SYSTEM_RAW
+	global INPUT_EDGE
+	global INPUT_RAW
 
 	section code
 
-input_p1_update:
-		move.b	REG_INPUT_P1, d0
-		not.b	d0
-		move.b	INPUT_P1_RAW, d1
-		eor.b	d0, d1
-		and.b	d0, d1
-		move.b	d1, INPUT_P1_EDGE
-		move.b	d0, INPUT_P1_RAW
-		rts
+; This is a generic input update that should work so long as
+; the machine as all of the player 1's buttons in a single
+; register.  Should that not be the case a machine specific
+; version of this function should be made.
+input_update:
+		; small delay to help stop button press bounce
+		move.l	#$1fff, d0
+		RSUB	delay
 
-input_system_update:
-		move.b	REG_INPUT_SYSTEM, d0
+		move.b	REG_INPUT, d0
 		not.b	d0
-		move.b	INPUT_SYSTEM_RAW, d1
+		move.b	INPUT_RAW, d1
 		eor.b	d0, d1
 		and.b	d0, d1
-		move.b	d1, INPUT_SYSTEM_EDGE
-		move.b	d0, INPUT_SYSTEM_RAW
+		move.b	d1, INPUT_EDGE
+		move.b	d0, INPUT_RAW
 		rts
 
 	section bss
 
-INPUT_P1_EDGE:		dc.b $0
-INPUT_P1_RAW:		dc.b $0
-INPUT_SYSTEM_EDGE: 	dc.b $0
-INPUT_SYSTEM_RAW:	dc.b $0
+INPUT_EDGE:		dc.b $0
+INPUT_RAW:		dc.b $0

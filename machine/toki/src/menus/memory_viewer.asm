@@ -20,7 +20,6 @@ memory_viewer_menu:
 		RSUB	print_string
 
 		lea	MENU_LIST, a0
-		lea	menu_input_generic, a1
 		jsr	menu_handler
 
 		cmp.b	#MENU_CONTINUE, d0
@@ -64,7 +63,6 @@ view_work_ram:
 		lea	WORK_RAM_START, a0
 
 view_memory:
-		lea	menu_input_generic, a1
 		jsr	memory_viewer_handler
 		rts
 
