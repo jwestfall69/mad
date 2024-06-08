@@ -6,8 +6,11 @@
 #include <sys/stat.h>
 
 // negative offsets from end
-#define MIRROR_OFFSET 5
-#define CRC32_OFFSET  4
+#define MIRROR_OFFSET       5
+#define CRC32_OFFSET        4
+
+#define CRC32_BIG_ENDIAN    0
+#define CRC32_LITTLE_ENDIAN 1
 
 int check_size(uint32_t size);
 uint32_t crc32_calc(const void *data, size_t n_bytes);
@@ -25,8 +28,9 @@ int main(int argc, char **argv) {
   uint32_t start_offset = 0;
   uint32_t start_size = 0;
   struct stat sb;
+  int32_t endian = -1;
 
-  while((opt = getopt(argc, argv, "f:ht:s:")) != -1) {
+  while((opt = getopt(argc, argv, "e:f:ht:s:")) != -1) {
     switch (opt) {
       case 'f':
         if(lstat(optarg, &sb) == -1) {
@@ -55,6 +59,17 @@ int main(int argc, char **argv) {
         }
         break;
 
+      case 'e':
+        if(strcmp("big", optarg) == 0) {
+          endian = CRC32_BIG_ENDIAN;
+        } else if(strcmp("little", optarg) == 0) {
+          endian = CRC32_LITTLE_ENDIAN;
+        } else {
+          printf("ERROR: -e arg must either be \'big\' for big-endian or \'little\' for little-endian\n");
+          exit(EXIT_FAILURE);
+        }
+        break;
+
       case 's':
         start_offset = atoi(optarg);
         break;
@@ -74,6 +89,11 @@ int main(int argc, char **argv) {
 
   if(target_size <= 0) {
     printf("ERROR: -t <target_size> option is required\n");
+    exit(EXIT_FAILURE);
+  }
+
+  if(endian == -1) {
+    printf("ERROR: -e <big|little> option is required\n");
     exit(EXIT_FAILURE);
   }
 
@@ -113,8 +133,11 @@ int main(int argc, char **argv) {
   printf("CRC32 Range:  0x%x - 0x%x\n", start_offset, start_size - MIRROR_OFFSET);
   printf("CRC32:        0x%8x\n", crc32);
 
-  // fix endian for when we memcpy
-  crc32 = htobe32(crc32);
+  if(endian == CRC32_BIG_ENDIAN) {
+    crc32 = htobe32(crc32);
+  } else {
+    crc32 = htole32(crc32);
+  }
 
   // fill in the first one manaully since crc32 is only in it
   data[start_size - MIRROR_OFFSET] = mirror;
@@ -163,5 +186,5 @@ uint32_t crc32_calc(const void *data, size_t n_bytes) {
 }
 
 void usage(void) {
-  printf("Usage:  inject-crc-mirror -f <romfile> -t <target_size> [-s crc start offset]\n");
+  printf("Usage:  inject-crc-mirror -f <romfile> -t <target_size> -e <big|little> [-s crc start offset]\n");
 }

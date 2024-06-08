@@ -56,7 +56,7 @@ INCS = $(wildcard include/*.inc) \
 
 $(WORK_DIR)/$(MAD_NAME).bin: $(WORK_DIR) $(OBJ_DIR) $(BUILD_DIR) $(OBJS)
 	$(VLINK) $(VLINK_FLAGS) -o $(WORK_DIR)/$(MAD_NAME).bin $(OBJS)
-	../../../util/rom-inject-crc-mirror -f $(WORK_DIR)/$(MAD_NAME).bin -t $(ROM_SIZE)
+	../../../util/rom-inject-crc-mirror -f $(WORK_DIR)/$(MAD_NAME).bin -e big -t $(ROM_SIZE)
 	../../../util/rom-byte-split $(WORK_DIR)/$(MAD_NAME).bin $(BUILD_DIR)/$(ROMA) $(BUILD_DIR)/$(ROMB)
 
 $(OBJ_DIR)/%.o: src/%.asm $(INCS)
