@@ -1,0 +1,1 @@
+MAD_ROM_SIZE		equ $8000

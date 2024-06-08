@@ -1,0 +1,4 @@
+	macro STALL
+.\@
+		jp .\@
+	endm

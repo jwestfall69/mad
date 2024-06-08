@@ -57,13 +57,14 @@ vasm and vlink are need to for compiling the m68k source code, which are availab
 http://sun.hasenbraten.de/vasm/<br>
 http://sun.hasenbraten.de/vlink/
 
-For vasm you will need the vasmm68k_mot variant.  If you are building vasm from source, you can build it with the following command from where ever you decompressed vasm.tar.gz.
+For vasm you will need the vasmm68k_mot and vasmz80_oldsytle variants.  If you are building vasm from source, you can build it with the following commands from where ever you decompressed vasm.tar.gz.
 
 ```
 $ make CPU=m68k SYNTAX=mot
+$ make CPU=z80 SYNTAX=oldstyle
 ```
 
-Copy the resulting vasmm68k_mot (and vlink, when you get that compiled) so they are within your $PATH (ie: /usr/local/bin/)
+Copy the resulting vasmm68k_mot and vasmz80_oldsytle (and vlink, when you get that compiled) so they are within your $PATH (ie: /usr/local/bin/)
 
 The first thing you will want to is run `make` in the `util` dir, which has a couple utils that deal with crc/mirror injection and rom splitting.
 
