@@ -1,3 +1,4 @@
 util/rom-byte-split
 util/rom-inject-crc-mirror
-machine/*/build/*
+machine/*/main/build/*
+machine/*/sound/build/*

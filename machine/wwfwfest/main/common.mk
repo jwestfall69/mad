@@ -1,5 +1,5 @@
 VASM = vasmm68k_mot
-VASM_FLAGS = -Fvobj -m68000 -spaces -chklabels -Iinclude -I../../common  -quiet
+VASM_FLAGS = -Fvobj -m68000 -spaces -chklabels -Iinclude -I../../../common  -quiet
 VLINK = vlink
 VLINK_FLAGS = -brawbin1 -T$(MAD_NAME).ld
 MKDIR = mkdir
@@ -36,27 +36,26 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/menus/memory_viewer.o \
         $(OBJ_DIR)/tests/auto.o \
         $(OBJ_DIR)/tests/bg_ram.o \
-        $(OBJ_DIR)/tests/fg_ram.o \
+        $(OBJ_DIR)/tests/fg_sprite_ram.o \
         $(OBJ_DIR)/tests/input.o \
         $(OBJ_DIR)/tests/palette_ram.o \
         $(OBJ_DIR)/tests/sound.o \
-        $(OBJ_DIR)/tests/sprite_ram.o \
-        $(OBJ_DIR)/tests/video_dac.o \
-        $(OBJ_DIR)/tests/work_ram.o
+        $(OBJ_DIR)/tests/work_ram.o \
+        $(OBJ_DIR)/tests/video_dac.o
 
 INCS = $(wildcard include/*.inc) \
-       $(wildcard ../../common/cpu/68000/include/*.inc) \
-       $(wildcard ../../common/cpu/68000/include/tests/*.inc)
+       $(wildcard ../../../common/cpu/68000/include/*.inc) \
+       $(wildcard ../../../common/cpu/68000/include/tests/*.inc)
 
 $(WORK_DIR)/$(MAD_NAME).bin: $(WORK_DIR) $(OBJ_DIR) $(BUILD_DIR) $(OBJS)
 	$(VLINK) $(VLINK_FLAGS) -o $(WORK_DIR)/$(MAD_NAME).bin $(OBJS)
-	../../util/rom-inject-crc-mirror -f $(WORK_DIR)/$(MAD_NAME).bin -t $(ROM_SIZE)
-	../../util/rom-byte-split $(WORK_DIR)/$(MAD_NAME).bin $(BUILD_DIR)/$(ROMA) $(BUILD_DIR)/$(ROMB)
+	../../../util/rom-inject-crc-mirror -f $(WORK_DIR)/$(MAD_NAME).bin -t $(ROM_SIZE)
+	../../../util/rom-byte-split $(WORK_DIR)/$(MAD_NAME).bin $(BUILD_DIR)/$(ROMA) $(BUILD_DIR)/$(ROMB)
 
 $(OBJ_DIR)/%.o: src/%.asm $(INCS)
 	$(VASM) $(VASM_FLAGS) $(BUILD_FLAGS) -o $@ $<
 
-$(OBJ_DIR)/cpu/68000/src/%.o: ../../common/cpu/68000/src/%.asm $(INCS)
+$(OBJ_DIR)/cpu/68000/src/%.o: ../../../common/cpu/68000/src/%.asm $(INCS)
 	 $(VASM) $(VASM_FLAGS) $(BUILD_FLAGS) -o $@ $<
 
 $(WORK_DIR):

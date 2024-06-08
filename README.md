@@ -81,10 +81,10 @@ drwxrwxrwx 1 jwestfall jwestfall 4096 May 12 14:21 wwfsstar
 drwxrwxrwx 1 jwestfall jwestfall 4096 May 12 14:19 wwfwfest
 ```
 
-Inside of these will be Makefiles for generating the roms for the given board/romset.  In some cases there will be different Makefiles for mame vs hardware. These will be do to a behavior difference between mame vs hardware.  The most common case is mame not allowing reads on some memory regions while its allowed on hardware.  The mame build will have the corresponding tests disabled to prevent false errors.
+Inside of these will be a `main` directory and sometimes a `sound` directory.  The former is the diag rom for the main cpu, and the latter the sound cpu.  In side those directories will be Makefiles for generating the roms for the given board/romset.  In some cases there will be different Makefiles for mame vs hardware. These will be do to a behavior difference between mame vs hardware.  The most common case is mame not allowing reads on some memory regions while its allowed on hardware.  The mame build will have the corresponding tests disabled to prevent false errors.
 
 ```
-jwestfall@DESKTOP-7LADK23:/mnt/c/Users/jwestfall/Desktop/mad/machine/dec0$ ls -la
+jwestfall@DESKTOP-7LADK23:/mnt/c/Users/jwestfall/Desktop/mad/machine/dec0/main$ ls -la
 total 4
 -rwxrwxrwx 1 jwestfall jwestfall  106 May 14 21:59 build-baddudes-hardware.sh
 -rwxrwxrwx 1 jwestfall jwestfall  154 May 14 22:00 build-baddudes-mame.sh
@@ -111,29 +111,29 @@ drwxrwxrwx 1 jwestfall jwestfall 4096 May 17 18:47 src
 The build*.sh are specific to my setup and may not work for you.  They build the roms then copy them into my mame's roms/[romset]/ directory.  However you can just run `make -f Makefile.xxx` to build the roms for the specific board/romset.
 
 ```
-jwestfall@DESKTOP-7LADK23:/mnt/c/Users/jwestfall/Desktop/mad/machine/dec0$ make -f Makefile.robocop-hardware
+jwestfall@DESKTOP-7LADK23:/mnt/c/Users/jwestfall/Desktop/mad/machine/dec0/main$ make -f Makefile.robocop-hardware
 mkdir -p build/hardware/robocop/work
 mkdir -p build/hardware/robocop/obj/tests build/hardware/robocop/obj/cpu/68000/handlers build/hardware/robocop/obj/cpu/68000/tests
 make: Warning: File 'build/hardware/robocop' has modification time 2.5 s in the future
-vasmm68k_mot -Fvobj -m68000 -spaces -chklabels -Iinclude -I../../common/include  -quiet -D_ROMSET_ROBOCOP_ -o build/hardware/robocop/obj/cpu/68000/crc32.o ../../common/src/cpu/68000/crc32.asm
-vasmm68k_mot -Fvobj -m68000 -spaces -chklabels -Iinclude -I../../common/include  -quiet -D_ROMSET_ROBOCOP_ -o build/hardware/robocop/obj/cpu/68000/dsub.o ../../common/src/cpu/68000/dsub.asm
-vasmm68k_mot -Fvobj -m68000 -spaces -chklabels -Iinclude -I../../common/include  -quiet -D_ROMSET_ROBOCOP_ -o build/hardware/robocop/obj/cpu/68000/error_address.o ../../common/src/cpu/68000/error_address.asm
-vasmm68k_mot -Fvobj -m68000 -spaces -chklabels -Iinclude -I../../common/include  -quiet -D_ROMSET_ROBOCOP_ -o build/hardware/robocop/obj/cpu/68000/input_update.o ../../common/src/cpu/68000/input_update.asm
+vasmm68k_mot -Fvobj -m68000 -spaces -chklabels -Iinclude -I../../../common/include  -quiet -D_ROMSET_ROBOCOP_ -o build/hardware/robocop/obj/cpu/68000/crc32.o ../../../common/src/cpu/68000/crc32.asm
+vasmm68k_mot -Fvobj -m68000 -spaces -chklabels -Iinclude -I../../../common/include  -quiet -D_ROMSET_ROBOCOP_ -o build/hardware/robocop/obj/cpu/68000/dsub.o ../../../common/src/cpu/68000/dsub.asm
+vasmm68k_mot -Fvobj -m68000 -spaces -chklabels -Iinclude -I../../../common/include  -quiet -D_ROMSET_ROBOCOP_ -o build/hardware/robocop/obj/cpu/68000/error_address.o ../../../common/src/cpu/68000/error_address.asm
+vasmm68k_mot -Fvobj -m68000 -spaces -chklabels -Iinclude -I../../../common/include  -quiet -D_ROMSET_ROBOCOP_ -o build/hardware/robocop/obj/cpu/68000/input_update.o ../../../common/src/cpu/68000/input_update.asm
 
 ...
 
-vasmm68k_mot -Fvobj -m68000 -spaces -chklabels -Iinclude -I../../common/include  -quiet -D_ROMSET_ROBOCOP_ -o build/hardware/robocop/obj/tests/tile2_ram.o src/tests/tile2_ram.asm
-vasmm68k_mot -Fvobj -m68000 -spaces -chklabels -Iinclude -I../../common/include  -quiet -D_ROMSET_ROBOCOP_ -o build/hardware/robocop/obj/tests/tile3_ram.o src/tests/tile3_ram.asm
-vasmm68k_mot -Fvobj -m68000 -spaces -chklabels -Iinclude -I../../common/include  -quiet -D_ROMSET_ROBOCOP_ -o build/hardware/robocop/obj/tests/work_ram.o src/tests/work_ram.asm
+vasmm68k_mot -Fvobj -m68000 -spaces -chklabels -Iinclude -I../../../common/include  -quiet -D_ROMSET_ROBOCOP_ -o build/hardware/robocop/obj/tests/tile2_ram.o src/tests/tile2_ram.asm
+vasmm68k_mot -Fvobj -m68000 -spaces -chklabels -Iinclude -I../../../common/include  -quiet -D_ROMSET_ROBOCOP_ -o build/hardware/robocop/obj/tests/tile3_ram.o src/tests/tile3_ram.asm
+vasmm68k_mot -Fvobj -m68000 -spaces -chklabels -Iinclude -I../../../common/include  -quiet -D_ROMSET_ROBOCOP_ -o build/hardware/robocop/obj/tests/work_ram.o src/tests/work_ram.asm
 vlink -brawbin1 -Tmad_dec0.ld -o build/hardware/robocop/work/mad_dec0.bin build/hardware/robocop/obj/cpu/68000/crc32.o build/hardware/robocop/obj/cpu/68000/dsub.o build/hardware/robocop/obj/cpu/68000/error_address.o build/hardware/robocop/obj/cpu/68000/input_update.o build/hardware/robocop/obj/cpu/68000/memory_fill.o build/hardware/robocop/obj/cpu/68000/menu_input_generic.o build/hardware/robocop/obj/cpu/68000/print_error.o build/hardware/robocop/obj/cpu/68000/util.o build/hardware/robocop/obj/cpu/68000/xy_string.o build/hardware/robocop/obj/cpu/68000/handlers/error.o build/hardware/robocop/obj/cpu/68000/handlers/memory_viewer.o build/hardware/robocop/obj/cpu/68000/handlers/memory_tests.o build/hardware/robocop/obj/cpu/68000/handlers/menu.o build/hardware/robocop/obj/cpu/68000/handlers/sound.o build/hardware/robocop/obj/cpu/68000/tests/auto.o build/hardware/robocop/obj/cpu/68000/tests/input.o build/hardware/robocop/obj/cpu/68000/tests/mad_rom.o build/hardware/robocop/obj/cpu/68000/tests/memory.o build/hardware/robocop/obj/mad_dec0.o build/hardware/robocop/obj/errors.o build/hardware/robocop/obj/footer.o build/hardware/robocop/obj/main_menu.o build/hardware/robocop/obj/memory_viewer_menu.o build/hardware/robocop/obj/print.o build/hardware/robocop/obj/screen.o build/hardware/robocop/obj/vector_table.o build/hardware/robocop/obj/tests/auto.o build/hardware/robocop/obj/tests/input.o build/hardware/robocop/obj/tests/palette_ram.o build/hardware/robocop/obj/tests/palette_ext_ram.o build/hardware/robocop/obj/tests/sound.o build/hardware/robocop/obj/tests/sprite_ram.o build/hardware/robocop/obj/tests/tile1_ram.o build/hardware/robocop/obj/tests/tile2_ram.o build/hardware/robocop/obj/tests/tile3_ram.o build/hardware/robocop/obj/tests/work_ram.o
-../../util/rom-inject-crc-mirror -f build/hardware/robocop/work/mad_dec0.bin -t 131072
+../../../util/rom-inject-crc-mirror -f build/hardware/robocop/work/mad_dec0.bin -t 131072
 Using ROM: build/hardware/robocop/work/mad_dec0.bin
 Start Size:   0x8000
 Target Size:  0x20000
 CRC32 Range:  0x0 - 0x7ffb
 CRC32:        0x3b6a6732
 Mirrors:      0x3
-../../util/rom-byte-split build/hardware/robocop/work/mad_dec0.bin build/hardware/robocop/ep05-4.11c build/hardware/robocop/ep01-4.11b
+../../../util/rom-byte-split build/hardware/robocop/work/mad_dec0.bin build/hardware/robocop/ep05-4.11c build/hardware/robocop/ep01-4.11b
 Input ROM: build/hardware/robocop/work/mad_dec0.bin (131072 bytes)
 Output ROM #1: build/hardware/robocop/ep05-4.11c (65536 bytes)
 Output ROM #2: build/hardware/robocop/ep01-4.11b (65536 bytes)
