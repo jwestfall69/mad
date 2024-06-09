@@ -2,6 +2,7 @@
 	include "cpu/z80/include/macros.inc"
 	include "cpu/z80/include/psub.inc"
 
+	include "machine.inc"
 	include "mad_rom.inc"
 
 	global auto_mad_rom_crc32_test_psub
@@ -9,7 +10,7 @@
 	section code
 
 auto_mad_rom_crc32_test_psub:
-		ld	bc, $0000
+		ld	bc, ROM_START
 		exx
 		ld	bc, MAD_ROM_SIZE - 5
 		exx

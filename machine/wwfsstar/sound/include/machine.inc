@@ -1,0 +1,2 @@
+ROM_START	equ $0
+ROM_SIZE	equ $8000

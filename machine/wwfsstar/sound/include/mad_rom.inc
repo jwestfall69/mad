@@ -1,1 +1,1 @@
-MAD_ROM_SIZE		equ $8000
+MAD_ROM_SIZE		equ $4000

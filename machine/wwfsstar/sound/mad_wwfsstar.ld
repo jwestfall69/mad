@@ -1,5 +1,5 @@
 MEMORY {
-	ROM: org=0x0000, len=0x8000
+	ROM: org=0x0000, len=0x4000
 	RAM: org=0x8000, len=0x800
 }
 
@@ -13,10 +13,10 @@ SECTIONS {
 	.rodata: {
 		*(data)
 	} > ROM
-	 .error_addresses 0x6000: {
+	 .error_addresses 0x2000: {
 		*(error_addresses)
 	} > ROM
-	.footer 0x7ffb: {
+	.footer 0x3ffb: {
 		*(footer)
 	} > ROM
 	.bss (NOLOAD): {
