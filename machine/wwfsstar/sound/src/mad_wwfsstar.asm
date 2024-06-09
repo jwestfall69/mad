@@ -10,9 +10,14 @@ _start:
 		di
 		im 1
 
-		ld	a, EC_ALL_TESTS_PASSED
-		jp	error_address
+
 		PSUB	auto_mad_rom_crc32_test
+		jr	nz, .test_failed
+
+		PSUB	auto_mad_rom_address_test
+		jr	nz, .test_failed
 
 		STALL
 
+	.test_failed:
+		jp	error_address
