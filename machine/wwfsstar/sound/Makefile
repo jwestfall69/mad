@@ -13,6 +13,7 @@ MKDIR = mkdir
 DD = dd
 
 OBJS = $(OBJ_DIR)/cpu/z80/src/crc32.o \
+       $(OBJ_DIR)/cpu/z80/src/error_address.o \
        $(OBJ_DIR)/cpu/z80/src/psub.o \
        $(OBJ_DIR)/cpu/z80/src/tests/mad_rom.o
 
