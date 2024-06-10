@@ -1,2 +1,5 @@
 ROM_START	equ $0
 ROM_SIZE	equ $8000
+
+RAM_START	equ $8000
+RAM_SIZE	equ $800
