@@ -5,12 +5,12 @@
 	include "machine.inc"
 	include "mad_rom.inc"
 
-	global auto_mad_rom_crc32_test_psub
-	global auto_mad_rom_address_test_psub
+	global mad_rom_crc32_test_psub
+	global mad_rom_address_test_psub
 
 	section code
 
-auto_mad_rom_crc32_test_psub:
+mad_rom_crc32_test_psub:
 		ld	bc, ROM_START
 		exx
 		ld	bc, MAD_ROM_SIZE - 5
@@ -38,7 +38,7 @@ auto_mad_rom_crc32_test_psub:
 ; no need to loop looking for the correct values of
 ; the different mirrors since we can only report a
 ; back pass/fail
-auto_mad_rom_address_test_psub:
+mad_rom_address_test_psub:
 		ld	a, (MAD_ROM_MIRROR_ADDRESS)
 		or	a
 		jr	nz, .test_failed
