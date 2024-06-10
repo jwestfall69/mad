@@ -4,7 +4,7 @@
 	include "machine.inc"
 
 	global memory_address_test_psub
-	global memory_data_test_psub
+	global memory_data_pattern_test_psub
 	global memory_march_test_psub
 	global memory_output_test_psub
 	global memory_write_test_psub
@@ -82,9 +82,35 @@ memory_address_test_psub:
 		inc	a
 		PSUB_RETURN
 
-memory_data_test_psub:
-		xor a
+; params:
+;  hl = start address
+;  de = size
+;  c = pattern
+; returns:
+;  Z = 0 (error), 1 = (pass)
+;  a = 0 (pass), 1 = (fail)
+memory_data_pattern_test_psub:
+		exx
+
+	.loop_next_address:
+		ld	a, c
+		ld	(hl), a
+		cp	(hl)
+		jr	nz, .test_failed_abort
+		inc	hl
+		dec	de
+		ld	a, d
+		or	e
+		jr	nz, .loop_next_address
+
+		xor	a
 		PSUB_RETURN
+
+	.test_failed_abort:
+		xor	a
+		inc	a
+		PSUB_RETURN
+
 
 memory_march_test_psub:
 		xor a
@@ -152,9 +178,3 @@ memory_write_test_psub:
 		xor	a
 		inc	a
 		PSUB_RETURN
-
-	section data
-
-DATA_PATTERNS:
-	byte	$00, $55, $aa, $ff
-DATA_PATTERNS_END:

@@ -32,6 +32,12 @@ _start:
 		PSUB	memory_address_test
 		jr	nz, .test_failed
 
+		ld	hl, RAM_START
+		ld	de, RAM_SIZE
+		ld	c, $55
+		PSUB	memory_data_pattern_test
+		jr	nz, .test_failed
+
 		STALL
 
 	.test_failed:
