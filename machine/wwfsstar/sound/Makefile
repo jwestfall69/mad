@@ -21,7 +21,8 @@ OBJS = $(OBJ_DIR)/cpu/z80/src/crc32.o \
 # code from this machine
 OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/footer.o \
-        $(OBJ_DIR)/vector_table.o
+        $(OBJ_DIR)/vector_table.o \
+        $(OBJ_DIR)/tests/ram_tests.o
 
 INCS = $(wildcard include/*.inc) \
        $(wildcard ../../../common/cpu/z80/include/*.inc) \

@@ -1,0 +1,5 @@
+EC_RAM_ADDRESS		equ $2
+EC_RAM_DATA		equ $3
+EC_RAM_MARCH		equ $4
+EC_RAM_OUTPUT		equ $5
+EC_RAM_WRITE		equ $6

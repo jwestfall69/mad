@@ -1,4 +1,3 @@
-	include "cpu/z80/include/error_codes.inc"
 	include "cpu/z80/include/macros.inc"
 	include "cpu/z80/include/psub.inc"
 
@@ -19,24 +18,7 @@ _start:
 		PSUB	mad_rom_address_test
 		jr	nz, .test_failed
 
-		ld	hl, RAM_START
-		PSUB	memory_output_test
-		jr	nz, .test_failed
-
-		ld	hl, RAM_START
-		PSUB	memory_write_test
-		jr	nz, .test_failed
-
-		ld	hl, RAM_START
-		ld	b, RAM_ADDRESS_LINES
-		PSUB	memory_address_test
-		jr	nz, .test_failed
-
-		ld	hl, RAM_START
-		ld	de, RAM_SIZE
-		ld	c, $55
-		PSUB	memory_data_pattern_test
-		jr	nz, .test_failed
+		PSUB	ram_tests
 
 		STALL
 
