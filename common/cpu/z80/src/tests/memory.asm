@@ -11,8 +11,75 @@
 
 	section code
 
+; Write an incrementing data value at incrementing addresses
+; params:
+;  hl = start address
+;  b = number of address lines
+; returns:
+;  a = 0 (pass), 1 (fail)
+;  Z = 1 (pass), 0 (fail)
 memory_address_test_psub:
+		exx
+
+		; backup hl and b to hl' and b'
+		ld	a, h
+		exx
+		ld	h, a
+		exx
+		ld	a, l
+		exx
+		ld	l, a
+		exx
+
+		ld	a, b
+		exx
+		ld	b, a
+		exx
+
+		ld	a, $1
+		ld	de, $1
+
+		ld	(hl), a
+		inc	a
+
+	.loop_next_write_address:
+		add	hl, de
+		ld	(hl), a
+		sbc	hl, de
+
+		inc	a
+		rl	e
+		rl	d
+		djnz	.loop_next_write_address
+
+		; switch to our backup copy of hl and b
+		; then re-read the data to verify its correct
+		exx
+
+		ld	a, $1
+		ld	de, $1
+
+		cp	(hl)
+		jr	nz, .test_failed
+		inc	a
+
+	.loop_next_read_address:
+		add	hl, de
+		cp	(hl)
+		jr	nz, .test_failed
+		sbc	hl, de
+
+		inc	a
+		rl	e
+		rl	d
+		djnz	.loop_next_read_address
+
 		xor a
+		PSUB_RETURN
+
+	.test_failed:
+		xor	a
+		inc	a
 		PSUB_RETURN
 
 memory_data_test_psub:
@@ -29,15 +96,15 @@ memory_march_test_psub:
 ; with $ff or other garbage.  So we we loop $64 times trying to catch
 ; 2 different opcodes being placed into 'a' in a row.
 ; params:
-;  bc = memory location to test
+;  hl = memory location to test
 ; returns:
 ;  Z = 0 (error), 1 = (pass)
 ;  a = 0 (pass), 1 = (fail)
 memory_output_test_psub:
-		ld	d,b
-		ld	h,b
-		ld	e,c
-		ld	l,c
+		exx
+
+		ld	d, h
+		ld	e, l
 
 		ld	b, $64
 	.loop_next:
@@ -61,18 +128,20 @@ memory_output_test_psub:
 		PSUB_RETURN
 
 ; params:
-;  bc = memory location to tess
+;  hl = memory location to test
 ; returns:
 ;  Z = 0 (error), 1 = (pass)
 ;  a = 0 (pass), 1 = (fail)
 memory_write_test_psub:
+		exx
+
 		; read/save a byte from ram, write !byte back to the location,
 		; re-read the location and error if it still the original byte
-		ld	a, (bc)
+		ld	a, (hl)
 		ld	b, a
 		xor	$ff
-		ld	(bc), a
-		ld	a, (bc)
+		ld	(hl), a
+		ld	a, (hl)
 		cp	b
 		jr	z, .test_failed
 

@@ -10,7 +10,11 @@
 ; psub_enter requires 2 registers to be setup
 ;  de = return address
 ;  hl = psub being jumped to
-; This should is all handled by using the PSUB <psub> macro
+; This should is all handled by using the PSUB <psub> macro.
+;
+; NOTE: the psub macro will do an exx before setting up the de and hl
+; registers.  A psub code block will need to do a exx in order to access
+; the original de, hl and bc register values
 psub_enter:
 		; We are using the unused high bit of the 'r' register
 		; to determine if we are nested or not

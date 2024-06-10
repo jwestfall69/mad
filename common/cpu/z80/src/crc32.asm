@@ -10,6 +10,8 @@
 ;  bc = upper 16bits of crc32
 ;  de = lower 16bits of crc32
 crc32_psub:
+		exx
+
 		ld	a, c
 		exx
 		ld	l, a

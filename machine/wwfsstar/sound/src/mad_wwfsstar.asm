@@ -19,16 +19,20 @@ _start:
 		PSUB	auto_mad_rom_address_test
 		jr	nz, .test_failed
 
-		ld	bc, RAM_START
+		ld	hl, RAM_START
 		PSUB	memory_output_test
 		jr	nz, .test_failed
 
-		ld	bc, RAM_START
+		ld	hl, RAM_START
 		PSUB	memory_write_test
+		jr	nz, .test_failed
+
+		ld	hl, RAM_START
+		ld	b, RAM_ADDRESS_LINES
+		PSUB	memory_address_test
 		jr	nz, .test_failed
 
 		STALL
 
 	.test_failed:
-		STALL
 		jp	error_address
