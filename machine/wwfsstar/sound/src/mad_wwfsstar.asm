@@ -1,3 +1,4 @@
+	include "cpu/z80/include/error_codes.inc"
 	include "cpu/z80/include/macros.inc"
 	include "cpu/z80/include/psub.inc"
 
@@ -20,7 +21,12 @@ _start:
 
 		PSUB	ram_tests
 
-		STALL
+		ld	sp, RAM_START + RAM_SIZE - 2
+
+		call	msm6295_tests
+
+		ld	a, EC_ALL_TESTS_PASSED
+		jp	error_address
 
 	.test_failed:
 		jp	error_address

@@ -15,13 +15,16 @@ DD = dd
 OBJS = $(OBJ_DIR)/cpu/z80/src/crc32.o \
        $(OBJ_DIR)/cpu/z80/src/error_address.o \
        $(OBJ_DIR)/cpu/z80/src/psub.o \
+       $(OBJ_DIR)/cpu/z80/src/util.o \
        $(OBJ_DIR)/cpu/z80/src/tests/mad_rom.o \
-       $(OBJ_DIR)/cpu/z80/src/tests/memory.o
+       $(OBJ_DIR)/cpu/z80/src/tests/memory.o \
+       $(OBJ_DIR)/cpu/z80/src/tests/oki/msm6295.o
 
 # code from this machine
 OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/footer.o \
         $(OBJ_DIR)/vector_table.o \
+        $(OBJ_DIR)/tests/msm6295.o \
         $(OBJ_DIR)/tests/ram_tests.o
 
 INCS = $(wildcard include/*.inc) \
@@ -43,7 +46,7 @@ $(WORK_DIR):
 	$(MKDIR) -p $(WORK_DIR)
 
 $(OBJ_DIR):
-	$(MKDIR) -p $(OBJ_DIR)/tests $(OBJ_DIR)/cpu/z80/src/tests
+	$(MKDIR) -p $(OBJ_DIR)/tests $(OBJ_DIR)/cpu/z80/src/tests/oki
 
 clean:
 	rm -fr $(BUILD_DIR)/
