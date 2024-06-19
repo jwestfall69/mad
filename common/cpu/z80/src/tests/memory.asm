@@ -112,8 +112,62 @@ memory_data_pattern_test_psub:
 		PSUB_RETURN
 
 
+; params:
+;  hl = start address
+;  de = size
 memory_march_test_psub:
-		xor a
+		exx
+
+		; back up de to bc
+		ld	b, d
+		ld	c, e
+
+		; fill the region with $0
+	.loop_fill_zero:
+		ld	(hl), $0
+		inc	hl
+		dec	de
+		ld	a, d
+		or	e
+		jr	nz, .loop_fill_zero
+
+
+		; march up, verify $0, write $ff
+		sbc	hl, bc
+		ld	d, b
+		ld	e, c
+	.loop_up_test:
+		xor	a
+		cp	(hl)
+		jr	nz, .test_failed
+		ld	(hl), $ff
+		inc	hl
+		dec	de
+		ld	a, d
+		or	e
+		jr	nz, .loop_up_test
+
+		; march down, verify $ff, write $0
+		ld	d, b
+		ld	e, c
+		dec	hl
+	.loop_down_test:
+		ld	a, $ff
+		cp	(hl)
+		jr	nz, .test_failed
+		ld	(hl), $0
+		dec	hl
+		dec	de
+		ld	a, d
+		or	e
+		jr	nz, .loop_down_test
+
+		xor	a
+		PSUB_RETURN
+
+	.test_failed:
+		xor	a
+		inc	a
 		PSUB_RETURN
 
 ; When a memory address doesn't output anything on a read request it will

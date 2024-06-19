@@ -56,16 +56,15 @@ ram_tests_psub:
 		jp	error_address
 
 	.test_passed_address:
-		;ld	hl, RAM_START
-		;ld	de, RAM_SIZE
-		;PSUB	memory_march_test
-		;jr	z, .test_failed_march
-		;ld	a, EC_RAM_MARCH
-		;jp	error_address
+		ld	hl, RAM_START
+		ld	de, RAM_SIZE
+		PSUB	memory_march_test
+		jr	z, .test_passed_march
+		ld	a, EC_RAM_MARCH
+		jp	error_address
 
 	.test_passed_march:
 		PSUB_RETURN
-
 
 	.test_failed_data:
 		ld	a, EC_RAM_DATA
