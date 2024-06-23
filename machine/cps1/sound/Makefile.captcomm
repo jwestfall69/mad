@@ -1,0 +1,5 @@
+ROMSET=captcomm
+ROM=cc_09.11a
+ROM_SIZE=65536
+
+include common.mk

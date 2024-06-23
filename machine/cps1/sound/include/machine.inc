@@ -1,0 +1,8 @@
+ROM_START		equ $0
+ROM_SIZE		equ $8000
+
+RAM_START		equ $d000
+RAM_SIZE		equ $800
+RAM_ADDRESS_LINES	equ 11
+
+REG_MSM6295		equ $f002
