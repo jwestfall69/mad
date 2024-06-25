@@ -16,6 +16,7 @@ OBJS = $(OBJ_DIR)/cpu/z80/src/crc32.o \
        $(OBJ_DIR)/cpu/z80/src/error_address.o \
        $(OBJ_DIR)/cpu/z80/src/psub.o \
        $(OBJ_DIR)/cpu/z80/src/util.o \
+       $(OBJ_DIR)/cpu/z80/src/tests/unexpected_irq.o \
        $(OBJ_DIR)/cpu/z80/src/tests/mad_rom.o \
        $(OBJ_DIR)/cpu/z80/src/tests/memory.o \
        $(OBJ_DIR)/cpu/z80/src/tests/oki/msm6295.o
@@ -24,8 +25,9 @@ OBJS = $(OBJ_DIR)/cpu/z80/src/crc32.o \
 OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/footer.o \
         $(OBJ_DIR)/vector_table.o \
+        $(OBJ_DIR)/tests/irq.o \
         $(OBJ_DIR)/tests/msm6295.o \
-        $(OBJ_DIR)/tests/ram_tests.o
+        $(OBJ_DIR)/tests/ram.o
 
 INCS = $(wildcard include/*.inc) \
        $(wildcard ../../../common/cpu/z80/include/*.inc) \

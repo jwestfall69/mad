@@ -1,6 +1,8 @@
 	include "cpu/z80/include/macros.inc"
 	include "cpu/z80/include/z80.inc"
 
+	global IRQ_SEEN
+
 	section vectors
 
 	roffs RST_ENTRY
@@ -16,8 +18,21 @@
 	section code
 
 irq_handler:
-		STALL
+		ex	af, af'
+
+		xor	a
+		inc	a
+
+		ld	(IRQ_SEEN), a
+
+		ex	af, af'
+		reti
 
 nmi_handler:
 		jp	_start
 
+
+	section bss
+
+IRQ_SEEN:
+		blk	1

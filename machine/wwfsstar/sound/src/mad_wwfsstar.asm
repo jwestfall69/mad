@@ -23,10 +23,10 @@ _start:
 
 		ld	sp, RAM_START + RAM_SIZE - 2
 
+		call	irq_tests
 		call	msm6295_tests
 
 		ld	a, EC_ALL_TESTS_PASSED
-		jp	error_address
 
 	.test_failed:
 		jp	error_address
