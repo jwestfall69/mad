@@ -18,14 +18,14 @@
 	section code
 
 irq_handler:
-		ex	af, af'
+		push	af
 
 		xor	a
 		inc	a
 
 		ld	(IRQ_SEEN), a
 
-		ex	af, af'
+		pop	af
 		reti
 
 nmi_handler:
