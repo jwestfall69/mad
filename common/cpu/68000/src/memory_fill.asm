@@ -37,6 +37,7 @@ memory_fill_list_dsub:
 
 		lsr.l	#1, d0
 	.loop_next_address:
+		WATCHDOG
 		move.w	d1, (a0)+
 		subq.l	#1, d0
 		bne	.loop_next_address
