@@ -9,7 +9,7 @@
 	section code
 
 _start:
-		;SOUND_STOP
+		SOUND_STOP
 
 		; hardware init
 		; bg layer
@@ -50,7 +50,7 @@ _start:
 		RSUB_INIT
 		;bsr	auto_func_tests
 
-		;move.w	#SOUND_NUM_SUCCESS, d0
-		;SOUND_PLAY
+		move.w	#SOUND_NUM_SUCCESS, d0
+		SOUND_PLAY
 
 		bsr	main_menu
