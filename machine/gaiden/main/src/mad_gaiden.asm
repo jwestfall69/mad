@@ -28,7 +28,16 @@ _start:
 
 		; txt layer
 		move.w #$ffb2, $7a100
+
+		; mame and hardware don't seem to agree on the 'y' scroll
+		; value meaning.  A value of $20 in mame causes the header
+		; to be off the top of the screen.  A value of $0 on hardware
+		; causes the header to start 2 rows down.
+	ifd _MAME_BUILD_
+		move.w #$0000, $7a104
+	else
 		move.w #$0020, $7a104
+	endif
 		move.w #$0000, $7a108
 		move.w #$0000, $7a10c
 		move.w #$0003, $7a110
@@ -36,7 +45,7 @@ _start:
 
 		PSUB_INIT
 		PSUB	screen_init
-		;PSUB	auto_dsub_tests
+		PSUB	auto_dsub_tests
 
 		RSUB_INIT
 		;bsr	auto_func_tests

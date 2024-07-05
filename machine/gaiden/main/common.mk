@@ -3,10 +3,6 @@ ROM_SIZE=262144
 ROMA=gaiden_1.3s
 ROMB=gaiden_2.4s
 
-BUILD_DIR=build
-OBJ_DIR=$(BUILD_DIR)/obj
-WORK_DIR=$(BUILD_DIR)/work
-
 VASM = vasmm68k_mot
 VASM_FLAGS = -Fvobj -m68000 -spaces -chklabels -Iinclude -I../../../common/  -quiet
 VLINK = vlink
@@ -14,24 +10,34 @@ VLINK_FLAGS = -brawbin1 -T$(MAD_NAME).ld
 MKDIR = mkdir
 DD = dd
 
-OBJS = $(OBJ_DIR)/cpu/68000/src/dsub.o \
+OBJS = $(OBJ_DIR)/cpu/68000/src/crc32.o \
+       $(OBJ_DIR)/cpu/68000/src/dsub.o \
        $(OBJ_DIR)/cpu/68000/src/input_update.o \
        $(OBJ_DIR)/cpu/68000/src/memory_fill.o \
+       $(OBJ_DIR)/cpu/68000/src/print_error.o \
        $(OBJ_DIR)/cpu/68000/src/util.o \
        $(OBJ_DIR)/cpu/68000/src/xy_string.o \
+       $(OBJ_DIR)/cpu/68000/src/handlers/error.o \
        $(OBJ_DIR)/cpu/68000/src/handlers/menu.o \
+       $(OBJ_DIR)/cpu/68000/src/handlers/memory_tests.o \
        $(OBJ_DIR)/cpu/68000/src/handlers/memory_viewer.o \
-       $(OBJ_DIR)/cpu/68000/src/handlers/tile_viewer.o
+       $(OBJ_DIR)/cpu/68000/src/handlers/tile_viewer.o \
+       $(OBJ_DIR)/cpu/68000/src/tests/auto.o \
+       $(OBJ_DIR)/cpu/68000/src/tests/mad_rom.o \
+       $(OBJ_DIR)/cpu/68000/src/tests/memory.o
 
 # code from this machine
 OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
+        $(OBJ_DIR)/errors.o \
         $(OBJ_DIR)/footer.o \
         $(OBJ_DIR)/print.o \
         $(OBJ_DIR)/screen.o \
         $(OBJ_DIR)/vector_table.o \
         $(OBJ_DIR)/menus/debug.o \
         $(OBJ_DIR)/menus/main.o \
-        $(OBJ_DIR)/menus/memory_viewer.o
+        $(OBJ_DIR)/menus/memory_viewer.o \
+        $(OBJ_DIR)/tests/auto.o \
+        $(OBJ_DIR)/tests/work_ram.o
 
 INCS = $(wildcard include/*.inc) \
        $(wildcard ../../../common/cpu/68000/include/*.inc) \
@@ -43,10 +49,10 @@ $(WORK_DIR)/$(MAD_NAME).bin: $(WORK_DIR) $(OBJ_DIR) $(BUILD_DIR) $(OBJS)
 	../../../util/rom-byte-split $(WORK_DIR)/$(MAD_NAME).bin $(BUILD_DIR)/$(ROMA) $(BUILD_DIR)/$(ROMB)
 
 $(OBJ_DIR)/%.o: src/%.asm $(INCS)
-	$(VASM) $(VASM_FLAGS) -o $@ $<
+	$(VASM) $(VASM_FLAGS) $(BUILD_FLAGS) -o $@ $<
 
 $(OBJ_DIR)/cpu/68000/src/%.o: ../../../common/cpu/68000/src/%.asm $(INCS)
-	 $(VASM) $(VASM_FLAGS) -o $@ $<
+	$(VASM) $(VASM_FLAGS) $(BUILD_FLAGS) -o $@ $<
 
 $(WORK_DIR):
 	$(MKDIR) -p $(WORK_DIR)
