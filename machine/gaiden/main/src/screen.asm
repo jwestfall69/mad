@@ -49,6 +49,10 @@ screen_init_dsub:
 		lea	PALETTE_RAM_START + $400, a0
 		move.w	#$0000, (a0)
 
+		; background color
+		lea	PALETTE_RAM_START + $1600, a0
+		move.w	#$0000, (a0)
+
 		bra	screen_clear_dsub
 
 ; in cases where we need to goto x, y location at runtime
@@ -76,4 +80,4 @@ MEMORY_FILL_LIST:
 	MEMORY_FILL_ENTRY TXT_RAM_START, TXT_RAM_SIZE, $0
 	MEMORY_FILL_LIST_END
 
-STR_HEADER:	STRING "GAIDEN - MAD 0\01"
+STR_HEADER:	STRING "GAIDEN  MAD 0\01"
