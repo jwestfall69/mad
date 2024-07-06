@@ -10,8 +10,12 @@ SOUND_NUM_BIT_ONE	equ $10		; sword
 
 	; when playing a byte, how long to delay between bits
 	macro SOUND_BIT_DELAY
-		move.l	#$7ffff, d0
+		moveq	#$7f, d1
+	.\@:
+		WATCHDOG
+		move.l	#$fff, d0
 		DSUB	delay
+		dbra	d1, .\@
 	endm
 
 ; video dac
