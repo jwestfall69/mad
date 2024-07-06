@@ -20,14 +20,16 @@ SOUND_NUM_BIT_ONE	equ $10		; sword
 
 ; video dac
 VD_NUM_COLORS		equ $4		; includes all/combined
-VD_NUM_BITS_PER_COLOR	equ $4		; includes all/combined
+VD_NUM_BITS_PER_COLOR	equ $5		; includes all/combined
 VD_COLOR_BLOCK_WIDTH	equ $4
 VD_COLOR_BLOCK_HEIGHT	equ $4
-VD_TILE_B0_NUM		equ $11
-VD_TILE_B0_PAL_OFFSET	equ $0
-VD_TILE_B1_NUM		equ $1c
-VD_TILE_B1_PAL_OFFSET	equ $16
-VD_TILE_B2_NUM		equ $1d
-VD_TILE_B2_PAL_OFFSET	equ $18
-VD_TILE_BA_NUM		equ $1f		; all bits enabled
-VD_TILE_BA_PAL_OFFSET	equ $1c
+VD_TILE_B0_NUM		equ $22
+VD_TILE_B0_PAL_OFFSET	equ $4
+VD_TILE_B1_NUM		equ $23
+VD_TILE_B1_PAL_OFFSET	equ $6
+VD_TILE_B2_NUM		equ $24
+VD_TILE_B2_PAL_OFFSET	equ $8
+VD_TILE_B3_NUM		equ $25
+VD_TILE_B3_PAL_OFFSET	equ $a
+VD_TILE_BA_NUM		equ $26		; all bits enabled
+VD_TILE_BA_PAL_OFFSET	equ $c

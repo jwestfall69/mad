@@ -49,9 +49,9 @@ MENU_LIST:
 	MENU_ENTRY manual_palette_ram_tests, STR_PALETTE_RAM_TEST
 	MENU_ENTRY manual_sprite_ram_tests, STR_SPRITE_RAM_TEST
 	MENU_ENTRY manual_txt_ram_tests, STR_TXT_RAM_TEST
-;	MENU_ENTRY input_test, STR_INPUT_TEST
+	MENU_ENTRY input_test, STR_INPUT_TEST
 	MENU_ENTRY sound_test, STR_SOUND_TEST
-;	MENU_ENTRY video_dac_test, STR_VIDEO_DAC_TEST
+	MENU_ENTRY video_dac_test, STR_VIDEO_DAC_TEST
 	MENU_ENTRY memory_viewer_menu, STR_MEMORY_VIEWER
 	MENU_ENTRY debug_menu, STR_DEBUG_MENU
 	MENU_LIST_END

@@ -3,6 +3,7 @@
 	include "machine.inc"
 	include "mad_rom.inc"
 
+	global INTERRUPT_VBLANK_COUNT
 	section vectors, data
 
 		dc.l	SP_INIT_ADDR
