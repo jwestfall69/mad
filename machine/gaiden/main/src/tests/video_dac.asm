@@ -242,7 +242,7 @@ draw_color_bit:
 		swap	d0
 		and.w	#$f000, d0
 		lsr.w	#8, d0
-		lea	(a6, -$800), a6
+		lea	(-$800, a6), a6
 		move.w	d0, d1
 
 		; setup the palette number data
