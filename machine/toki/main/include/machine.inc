@@ -123,11 +123,3 @@ SCREEN_BYTES_PER_LINE		equ (SCREEN_BYTES_PER_TILE * SCREEN_TILES_PER_LINE)
 
 	macro WATCHDOG
 	endm
-
-	macro ENABLE_INTS
-		move.w	#$2000, sr
-	endm
-
-	macro DISABLE_INTS
-		move.w	#$2700, sr
-	endm

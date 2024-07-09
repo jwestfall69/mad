@@ -20,7 +20,7 @@ input_test:
 		clr.b	INPUT_SYSTEM_EDGE
 		clr.b	INPUT_SYSTEM_RAW
 
-		move.w	#$2500, sr
+		INTS_ENABLE
 
 	.loop_test:
 
@@ -47,7 +47,7 @@ input_test:
 		cmp.b	#(INPUT_B2|INPUT_RIGHT), d0
 		bne	.loop_test
 
-		move.w	#$2700, sr
+		INTS_DISABLE
 		rts
 
 

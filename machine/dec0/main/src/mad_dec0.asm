@@ -9,6 +9,8 @@
 	section code
 
 _start:
+		INTS_DISABLE
+
 		move.b	#$0, $30c011 	; tile/sprite priority
 		move.b	#$3, $30c01f	; reset intel 8751?
 

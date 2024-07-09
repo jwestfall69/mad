@@ -9,6 +9,8 @@
 	section code
 
 _start:
+		INTS_DISABLE
+
 		WATCHDOG
 		SOUND_STOP
 

@@ -9,6 +9,8 @@
 	section code
 
 _start:
+		INTS_DISABLE
+
 		; one of these causes the sync
 		; signal to start
 		move.w #$0081, $100008

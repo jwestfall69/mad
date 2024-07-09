@@ -9,6 +9,8 @@
 	section code
 
 _start:
+		INTS_DISABLE
+
 		SOUND_STOP
 
 		PSUB_INIT

@@ -22,7 +22,7 @@ manual_work_ram_tests:
 		lea	SCREEN_XYS_LIST, a0
 		RSUB	print_xy_string_list
 
-		DISABLE_INTS
+		INTS_DISABLE
 		PSUB_INIT
 
 		moveq	#0, d6		; passes, memory tests don't touch it
@@ -51,7 +51,7 @@ manual_work_ram_tests:
 
 	.test_exit:
 		RSUB_INIT
-		ENABLE_INTS
+		INTS_ENABLE
 		bra	main_menu
 
 	section data

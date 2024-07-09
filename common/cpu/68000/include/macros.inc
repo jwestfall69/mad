@@ -12,3 +12,12 @@
 	endif
 		bra	.\@
 	endm
+
+
+	macro INTS_ENABLE
+		move.w	#$2000, sr
+	endm
+
+	macro INTS_DISABLE
+		move.w	#$2700, sr
+	endm

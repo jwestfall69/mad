@@ -9,7 +9,7 @@
 	section code
 
 _start:
-		SOUND_STOP
+		INTS_DISABLE
 
 		; hardware init
 		; bg layer
@@ -42,6 +42,8 @@ _start:
 		move.w #$0000, $7a10c
 		move.w #$0003, $7a110
 		move.w #$0, $7a808
+
+		SOUND_STOP
 
 		PSUB_INIT
 		PSUB	screen_init
