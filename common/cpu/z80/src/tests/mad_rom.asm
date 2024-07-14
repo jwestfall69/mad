@@ -34,14 +34,18 @@ mad_rom_crc32_test_psub:
 		PSUB_RETURN
 
 
-; Any non-zero value indicates an issue.  There is
-; no need to loop looking for the correct values of
-; the different mirrors since we can only report a
-; back pass/fail
 mad_rom_address_test_psub:
-		ld	a, (MAD_ROM_MIRROR_ADDRESS)
-		or	a
+		ld	hl, MAD_ROM_MIRROR_ADDRESS
+		ld	de, MAD_ROM_SIZE
+		ld	b, (ROM_SIZE / MAD_ROM_SIZE) - 1
+		xor	a
+
+	.loop_next_mirror:
+		cp	(hl)
 		jr	nz, .test_failed
+		inc	a
+		add	hl, de
+		djnz	.loop_next_mirror
 
 		xor	a
 		PSUB_RETURN
