@@ -1,4 +1,4 @@
-SP_INIT_ADDR			equ $ffbffc
+SP_INIT_ADDR			equ WORK_RAM_START + WORK_RAM_SIZE
 MAD_ROM_SIZE			equ $8000
 
 PALETTE_TEXT_COLOR		equ $ffff
