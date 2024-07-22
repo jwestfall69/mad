@@ -58,6 +58,7 @@ manual_txt_ram_tests:
 		RSUB	print_hex_long
 
 	.loop_paused:
+		WATCHDOG
 		btst	#INPUT_B1_BIT, REG_INPUT
 		beq	.loop_paused
 		bra	.loop_next_pass
