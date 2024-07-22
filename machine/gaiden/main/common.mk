@@ -36,6 +36,7 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/print.o \
         $(OBJ_DIR)/screen.o \
         $(OBJ_DIR)/vector_table.o \
+        $(OBJ_DIR)/handlers/memory_tests_no_march.o \
         $(OBJ_DIR)/menus/debug.o \
         $(OBJ_DIR)/menus/main.o \
         $(OBJ_DIR)/menus/memory_viewer.o \
@@ -69,7 +70,7 @@ $(WORK_DIR):
 	$(MKDIR) -p $(WORK_DIR)
 
 $(OBJ_DIR):
-	$(MKDIR) -p $(OBJ_DIR)/debug $(OBJ_DIR)/menus $(OBJ_DIR)/tests $(OBJ_DIR)/cpu/68000/src/debug $(OBJ_DIR)/cpu/68000/src/handlers $(OBJ_DIR)/cpu/68000/src/tests
+	$(MKDIR) -p $(OBJ_DIR)/debug $(OBJ_DIR)/handlers $(OBJ_DIR)/menus $(OBJ_DIR)/tests $(OBJ_DIR)/cpu/68000/src/debug $(OBJ_DIR)/cpu/68000/src/handlers $(OBJ_DIR)/cpu/68000/src/tests
 
 clean:
 	rm -fr $(BUILD_DIR)/

@@ -12,16 +12,16 @@
 
 	section code
 
-; bg ram on my test board will work for a few tests
-; then error out with bad data.  Unclear if this is
-; some issue with my board or not.  The ram chips
-; are fine.  Need to get another gaiden board to see
-; if it does the same.  Maybe there is some bus conflict
-; that can happen during reads.
+; bg ram seems to have issues with the march test, in that
+; it will randomly fail after passing a number of times.  This
+; has been confirmed on multiple boards. For now we will just
+; not do the march test.  I'm somewhat assuming there is a
+; conflicted between the cpu accessing and the custom chip
+; accessing the ram
 auto_bg_ram_tests:
 
 		lea	MT_DATA, a0
-		DSUB	memory_tests_handler
+		DSUB	memory_tests_no_march_handler
 		rts
 
 manual_bg_ram_tests:

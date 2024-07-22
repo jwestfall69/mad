@@ -12,10 +12,16 @@
 
 	section code
 
+; txt ram seems to have issues with the march test, in that
+; it will randomly fail after passing a number of times.  This
+; has been confirmed on multiple boards. For now we will just
+; not do the march test.  I'm somewhat assuming there is a
+; conflicted between the cpu accessing and the custom chip
+; accessing the ram
 auto_txt_ram_tests:
 
 		lea	MT_DATA, a0
-		DSUB	memory_tests_handler
+		DSUB	memory_tests_no_march_handler
 		rts
 
 manual_txt_ram_tests:
