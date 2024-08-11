@@ -189,7 +189,7 @@ memory_march_test_dsub:
 		move.w	(a0), d2
 		and.w	d5, d2
 		cmp.w	d1, d2
-		bne	.test_failed_up
+		bne	.test_failed
 		move.w	#$ffff, (a0)+
 		subq.l	#1, d0
 		bne	.loop_up_test
@@ -205,7 +205,7 @@ memory_march_test_dsub:
 		move.w	(a0), d2
 		and.w	d5, d2
 		cmp.w	d1, d2
-		bne	.test_failed_down
+		bne	.test_failed
 		move.w	#0, (a0)
 		suba.l	#2, a0
 		subq.l	#1, d0
@@ -214,10 +214,7 @@ memory_march_test_dsub:
 		moveq	#0, d0
 		DSUB_RETURN
 
-	.test_failed_up:
-		subq.l	#2, a0
-
-	.test_failed_down:
+	.test_failed:
 		moveq	#0, d0
 		cmp.b	d1, d2
 		beq	.check_upper
