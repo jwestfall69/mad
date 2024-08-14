@@ -24,6 +24,7 @@ OBJS = $(OBJ_DIR)/cpu/z80/src/crc32.o \
 OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/footer.o \
         $(OBJ_DIR)/vector_table.o \
+        $(OBJ_DIR)/tests/bank_switch.o \
         $(OBJ_DIR)/tests/irq.o \
         $(OBJ_DIR)/tests/msm6295.o \
         $(OBJ_DIR)/tests/ram.o

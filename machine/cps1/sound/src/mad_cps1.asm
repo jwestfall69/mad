@@ -23,6 +23,7 @@ _start:
 
 		ld	sp, RAM_START + RAM_SIZE - 2
 
+		call	bank_switch_tests
 		call	irq_tests
 		call	msm6295_tests
 

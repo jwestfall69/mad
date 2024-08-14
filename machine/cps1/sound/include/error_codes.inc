@@ -9,3 +9,5 @@ EC_MSM6295_PLAY			equ $8
 EC_MSM6295_OUTPUT		equ $9
 
 EC_UNEXPECTED_IRQ		equ $a
+
+EC_BANK_SWITCH			equ $b
