@@ -24,8 +24,8 @@ _start:
 		ld	sp, RAM_START + RAM_SIZE - 2
 
 		call	bank_switch_tests
-		call	irq_tests
 		call	msm6295_tests
+		call	ym2151_tests
 
 		ld	a, EC_ALL_TESTS_PASSED
 	.test_failed:
