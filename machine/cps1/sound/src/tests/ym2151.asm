@@ -25,11 +25,16 @@ ym2151_tests:
 		jp	error_address
 
 	.test_passed_unexpected_irq:
-		ld	hl, REG_YM2151_DATA
 		call	ym2151_busy_bit_test
 		jr	z, .test_passed_busy_bit
 		ld	a, EC_YM2151_BUSY_BIT
 		jp	error_address
 
 	.test_passed_busy_bit:
+		call	ym2151_timera_irq_test
+		jr	z, .test_passed_timera_irq
+		ld	a, EC_YM2151_TIMERA_IRQ
+		jp	error_address
+
+	.test_passed_timera_irq:
 		ret
