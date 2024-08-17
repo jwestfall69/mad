@@ -23,6 +23,7 @@ _start:
 
 		ld	sp, RAM_START + RAM_SIZE - 2
 
+		call	mcpu_latch_tests
 		call	msm6295_tests
 		call	ym2151_tests
 
