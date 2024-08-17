@@ -8,6 +8,7 @@
 
 	global ym2151_busy_bit_test
 	global ym2151_timera_irq_test
+	global ym2151_timerb_irq_test
 
 	section code
 
@@ -33,7 +34,7 @@ ym2151_busy_bit_test:
 
 ; timera is a 10 bit timer
 ; params:
-;   a = upper 8 bits of timer (lower 2 will be 0)
+;   a = upper 8 bits of timer data (lower 2 will be 0)
 ;  hl = ym2151 data register
 ;  de = ym2151 address register
 ; returns:
@@ -52,6 +53,50 @@ ym2151_timera_irq_test:
 		; enable irq, reset and load of timera
 		ld	b, YM2151_REG_TIMER
 		ld	c, $15
+		call	ym2151_write_register
+
+		xor	a
+		ld	(IRQ_SEEN), a
+
+		ei
+
+		ld	bc, $ffff
+		PSUB	delay
+
+		di
+
+		; disable timer
+		ld	b, YM2151_REG_TIMER
+		ld	c, $0
+		call	ym2151_write_register
+
+		ld	a, (IRQ_SEEN)
+		cp	0
+		jr	z, .test_failed
+
+		xor	a
+		ret
+
+	.test_failed:
+		xor	a
+		inc 	a
+		ret
+
+; timerb is a 8 bit timer
+; params:
+;   a = timer data
+;  hl = ym2151 data register
+;  de = ym2151 address register
+; returns:
+;  a = (0 = pass, 1 = fail)
+ym2151_timerb_irq_test:
+		ld	b, YM2151_REG_CLKB
+		ld	c, a
+		call	ym2151_write_register
+
+		; enable irq, reset and load of timera
+		ld	b, YM2151_REG_TIMER
+		ld	c, $2a
 		call	ym2151_write_register
 
 		xor	a

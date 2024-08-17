@@ -43,4 +43,11 @@ ym2151_tests:
 		jp	error_address
 
 	.test_passed_timera_irq:
+		ld	a, $1f
+		call	ym2151_timerb_irq_test
+		jr	z, .test_passed_timerb_irq
+		ld	a, EC_YM2151_TIMERB_IRQ
+		jp	error_address
+
+	.test_passed_timerb_irq:
 		ret
