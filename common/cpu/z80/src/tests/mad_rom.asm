@@ -37,7 +37,7 @@ mad_rom_crc32_test_psub:
 mad_rom_address_test_psub:
 		ld	hl, MAD_ROM_MIRROR_ADDRESS
 		ld	de, MAD_ROM_SIZE
-		ld	b, (ROM_SIZE / MAD_ROM_SIZE) - 1
+		ld	b, ROM_SIZE / MAD_ROM_SIZE
 		xor	a
 
 	.loop_next_mirror:
