@@ -19,19 +19,21 @@ OBJS = $(OBJ_DIR)/cpu/z80/src/crc32.o \
        $(OBJ_DIR)/cpu/z80/src/tests/unexpected_irq.o \
        $(OBJ_DIR)/cpu/z80/src/tests/mad_rom.o \
        $(OBJ_DIR)/cpu/z80/src/tests/memory.o \
-       $(OBJ_DIR)/cpu/z80/src/tests/oki/msm6295.o
+       $(OBJ_DIR)/cpu/z80/src/tests/oki/msm6295.o \
+       $(OBJ_DIR)/cpu/z80/src/tests/yamaha/ym2151.o
 
 # code from this machine
 OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/footer.o \
         $(OBJ_DIR)/vector_table.o \
-        $(OBJ_DIR)/tests/irq.o \
         $(OBJ_DIR)/tests/msm6295.o \
-        $(OBJ_DIR)/tests/ram.o
+        $(OBJ_DIR)/tests/ram.o \
+        $(OBJ_DIR)/tests/ym2151.o
 
 INCS = $(wildcard include/*.inc) \
        $(wildcard ../../../common/cpu/z80/include/*.inc) \
        $(wildcard ../../../common/cpu/z80/include/tests/*.inc)
+       $(wildcard ../../../common/cpu/z80/include/tests/*/*.inc)
 
 $(WORK_DIR)/$(MAD_NAME).bin: $(WORK_DIR) $(OBJ_DIR) $(BUILD_DIR) $(OBJS)
 	$(VLINK) $(VLINK_FLAGS) -o $(WORK_DIR)/$(MAD_NAME).bin $(OBJS)
@@ -48,7 +50,7 @@ $(WORK_DIR):
 	$(MKDIR) -p $(WORK_DIR)
 
 $(OBJ_DIR):
-	$(MKDIR) -p $(OBJ_DIR)/tests $(OBJ_DIR)/cpu/z80/src/tests/oki
+	$(MKDIR) -p $(OBJ_DIR)/tests $(OBJ_DIR)/cpu/z80/src/tests/oki $(OBJ_DIR)/cpu/z80/src/tests/yamaha
 
 clean:
 	rm -fr $(BUILD_DIR)/
