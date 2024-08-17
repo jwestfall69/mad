@@ -14,10 +14,11 @@
 
 ; we haven't done anything with the ym2151, so the
 ; busy bit shouldn't be set
+; params:
+;  hl = ym2151 data register
 ; returns:
 ;  a = (0 = pass, 1 = fail)
 ym2151_busy_bit_test:
-		ld	hl, REG_YM2151_DATA
 		ld	a, (hl)
 
 		and	YM2151_BUSY_BIT
@@ -31,15 +32,16 @@ ym2151_busy_bit_test:
 		ret
 
 ; timera is a 10 bit timer
+; params:
+;   a = upper 8 bits of timer (lower 2 will be 0)
+;  hl = ym2151 data register
+;  de = ym2151 address register
 ; returns:
 ;  a = (0 = pass, 1 = fail)
 ym2151_timera_irq_test:
-		xor	a
-		ld	(IRQ_SEEN), a
-
 		; set upper 8 bits
 		ld	b, YM2151_REG_CLKA1
-		ld	c, $1f
+		ld	c, a
 		call	ym2151_write_register
 
 		; set lower 2 bits
@@ -51,6 +53,9 @@ ym2151_timera_irq_test:
 		ld	b, YM2151_REG_TIMER
 		ld	c, $15
 		call	ym2151_write_register
+
+		xor	a
+		ld	(IRQ_SEEN), a
 
 		ei
 
@@ -77,26 +82,28 @@ ym2151_timera_irq_test:
 		ret
 
 ; params:
-;  b = register
-;  c = value
+;  hl = ym2151 data register
+;  de = ym2151 address register
+;   b = register
+;   c = value
 ym2151_write_register:
 		call	ym2151_wait_busy
-		ld	hl, REG_YM2151_ADDRESS
-		ld	(hl), b
+		ld	a, b
+		ld	(de), a
 
 		call	ym2151_wait_busy
-		ld	hl, REG_YM2151_DATA
 		ld	(hl), c
 
 		ret
 
 ; Waits until ym2151 is not busy. If it takes to long
 ; trigger a EC_YM2151_BUSY_TIMEOUT error address jump
+; params:
+;  hl = ym2151 data register
 ym2151_wait_busy:
 		push bc
 		push af
 
-		ld	hl, REG_YM2151_DATA
 		ld	bc, $1ff
 
 	.loop_try_again:
