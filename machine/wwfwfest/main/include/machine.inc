@@ -26,7 +26,11 @@ WORK_RAM_ADDRESS_LINES		equ 14
 WORK_RAM_MASK			equ $ffff
 
 ROM_START			equ $000000
+	ifd _27C010_
+ROM_SIZE			equ $40000
+	else
 ROM_SIZE			equ $80000
+	endif
 
 REG_SOUND			equ $14000d
 REG_SCREEN_PRIORITY		equ $140011

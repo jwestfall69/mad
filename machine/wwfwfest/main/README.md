@@ -2,7 +2,7 @@
 ## NOTES
 
 ### MAD eproms
-27c020/27c2001
+27c020/27c2001 (or 27c010/27c1001 if you use the 27c010 build)
 
 ### BG1/BG2 RAM
 * BG1 and BG2 share these chips

@@ -1,0 +1,11 @@
+MAD_NAME=mad_wwfwfest
+ROM_SIZE=262144
+ROMA=31e14-0.ic18
+ROMB=31e13-0.ic19
+
+BUILD_DIR=build/hardware-27c010
+OBJ_DIR=$(BUILD_DIR)/obj
+WORK_DIR=$(BUILD_DIR)/work
+BUILD_FLAGS=-D_ERROR_ADDRESS_DISABLED_ -D_27C010_
+
+include common.mk
