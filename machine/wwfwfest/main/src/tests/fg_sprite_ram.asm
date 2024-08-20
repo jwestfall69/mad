@@ -29,12 +29,13 @@ manual_fg_sprite_ram_tests:
 		moveq	#0, d6		; passes, memory tests don't touch it
 
 	.loop_next_pass:
+		WATCHDOG
 
 		jsr	auto_fg_sprite_ram_tests
 		tst.b	d0
 		bne	.test_failed
 
-		btst	#INPUT_B2_BIT, REG_INPUT	
+		btst	#INPUT_B2_BIT, REG_INPUT
 		beq	.test_exit
 
 		btst	#INPUT_B1_BIT, REG_INPUT
@@ -59,6 +60,7 @@ manual_fg_sprite_ram_tests:
 		RSUB	print_hex_long
 
 	.loop_paused:
+		WATCHDOG
 		btst	#INPUT_B1_BIT, REG_INPUT
 		beq	.loop_paused
 		bra	.loop_next_pass

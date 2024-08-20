@@ -101,6 +101,7 @@ manual_palette_ram_tests:
 		moveq	#0, d6		; passes, memory tests don't touch it
 
 	.loop_next_pass:
+		WATCHDOG
 
 		SEEK_XY	12, 10
 		move.l	d6, d0
@@ -178,6 +179,8 @@ palette_ram_address_test_dsub:
 		moveq	#0, d1
 		moveq	#1, d3
 
+		WATCHDOG
+
 	.loop_read_next_address:
 		add.w	#$101, d1
 
@@ -235,6 +238,8 @@ palette_ram_data_test_dsub:
 		movea.l	a0, a2
 
 	.loop_next_pattern:
+		WATCHDOG
+
 		movea.l	a2, a0
 		move.w	d4, d0
 

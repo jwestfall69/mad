@@ -29,6 +29,7 @@ manual_work_ram_tests:
 		PSUB_INIT
 
 	.loop_next_pass:
+		WATCHDOG
 
 		SEEK_XY	12, 10
 		move.l	d6, d0

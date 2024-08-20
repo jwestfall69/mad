@@ -30,6 +30,7 @@ manual_bg_ram_tests:
 		moveq	#0, d6		; passes, memory tests don't touch it
 
 	.loop_next_pass:
+		WATCHDOG
 
 		SEEK_XY	12, 10
 		move.l	d6, d0

@@ -42,6 +42,7 @@ video_dac_test:
 		bsr	draw_colors
 
 	.loop_input:
+		WATCHDOG
 		bsr	input_update
 		move.b	INPUT_EDGE, d0
 
@@ -92,6 +93,7 @@ full_screen:
 		dbra	d0, .loop_next_address
 
 	.loop_input:
+		WATCHDOG
 		bsr	input_update
 		move.b	INPUT_EDGE, d0
 
