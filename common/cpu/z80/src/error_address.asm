@@ -21,6 +21,15 @@ error_address:
 		rr	l
 
 		add	hl, bc		; add on base address
+
+		; The top bit of the R register is used for PSUB nesting.  We need
+		; to make sure its 0 or it will make address line a7 participate
+		; in the z80's dram refresh logic. This would cause a conflict for
+		; us since we use A7 for error address.
+		ld	a, r
+		and	a, $7f
+		ld	r, a
+
 		jp	(hl)
 
 	section error_addresses
