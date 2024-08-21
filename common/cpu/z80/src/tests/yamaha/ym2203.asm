@@ -151,6 +151,8 @@ ym2203_wait_busy:
 
 		ld	bc, $1ff
 
+		WATCHDOG
+
 	.loop_try_again:
 		ld	a, (hl)
 		and	YM2203_BUSY_BIT

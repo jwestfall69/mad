@@ -151,6 +151,8 @@ ym2151_wait_busy:
 
 		ld	bc, $1ff
 
+		WATCHDOG
+
 	.loop_try_again:
 		ld	a, (hl)
 		and	YM2151_BUSY_BIT

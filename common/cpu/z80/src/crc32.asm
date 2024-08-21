@@ -1,5 +1,7 @@
 	include "cpu/z80/include/psub.inc"
 
+	include "machine.inc"
+
 	global crc32_psub
 
 	section code
@@ -26,6 +28,7 @@ crc32_psub:
 		ld	hl, $ffff
 
 	.loop_outer:
+		WATCHDOG
 		ld	b, $08
 		ld	a, e
 		exx
@@ -35,6 +38,7 @@ crc32_psub:
 		ld	e, a
 
 	.loop_inner:
+		WATCHDOG
 		srl	h
 		rr	l
 		rr	d
@@ -54,6 +58,7 @@ crc32_psub:
 		ld	h, a
 
 	.loop_inner_inner:
+		WATCHDOG
 		djnz	.loop_inner
 		exx
 		dec	de

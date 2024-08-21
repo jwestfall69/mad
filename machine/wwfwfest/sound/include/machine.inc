@@ -9,3 +9,6 @@ REG_MCPU_LATCH		equ $e000
 REG_MSM6295		equ $d800
 REG_YM2151_ADDRESS	equ $c800
 REG_YM2151_DATA		equ $c801
+
+	macro WATCHDOG
+	endm

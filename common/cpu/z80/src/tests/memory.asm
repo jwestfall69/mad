@@ -52,6 +52,8 @@ memory_address_test_psub:
 		rl	d
 		djnz	.loop_next_write_address
 
+		WATCHDOG
+
 		; switch to our backup copy of hl and b
 		; then re-read the data to verify its correct
 		exx
@@ -74,10 +76,15 @@ memory_address_test_psub:
 		rl	d
 		djnz	.loop_next_read_address
 
+		WATCHDOG
+
 		xor a
 		PSUB_RETURN
 
 	.test_failed:
+
+		WATCHDOG
+
 		xor	a
 		inc	a
 		PSUB_RETURN
@@ -103,10 +110,15 @@ memory_data_pattern_test_psub:
 		or	e
 		jr	nz, .loop_next_address
 
+		WATCHDOG
+
 		xor	a
 		PSUB_RETURN
 
 	.test_failed_abort:
+
+		WATCHDOG
+
 		xor	a
 		inc	a
 		PSUB_RETURN
@@ -131,12 +143,14 @@ memory_march_test_psub:
 		or	e
 		jr	nz, .loop_fill_zero
 
+		WATCHDOG
 
 		; march up, verify $0, write $ff
 		sbc	hl, bc
 		ld	d, b
 		ld	e, c
 	.loop_up_test:
+
 		xor	a
 		cp	(hl)
 		jr	nz, .test_failed
@@ -146,6 +160,8 @@ memory_march_test_psub:
 		ld	a, d
 		or	e
 		jr	nz, .loop_up_test
+
+		WATCHDOG
 
 		; march down, verify $ff, write $0
 		ld	d, b
@@ -183,6 +199,8 @@ memory_march_test_psub:
 memory_output_test_psub:
 		exx
 
+		WATCHDOG
+
 		ld	d, h
 		ld	e, l
 
@@ -214,6 +232,8 @@ memory_output_test_psub:
 ;  a = 0 (pass), 1 = (fail)
 memory_write_test_psub:
 		exx
+
+		WATCHDOG
 
 		; read/save a byte from ram, write !byte back to the location,
 		; re-read the location and error if it still the original byte
