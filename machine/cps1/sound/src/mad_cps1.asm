@@ -12,6 +12,7 @@ _start:
 		di
 		im 1
 
+		PSUB_INIT
 
 		PSUB	mad_rom_crc32_test
 		jr	nz, .test_failed
