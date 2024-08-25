@@ -41,15 +41,13 @@ memory_address_test_dsub:
 		move.l	a1, a0
 		add.l	d3, a0
 		dbra	d0, .loop_write_next_address
-
+		WATCHDOG
 
 		move.l	a1, a0
 		move.w	d4, d0
 
 		moveq	#0, d1
 		moveq	#1, d3
-
-		WATCHDOG
 
 	.loop_read_next_address:
 		add.w	#$101, d1
@@ -63,11 +61,15 @@ memory_address_test_dsub:
 		move.l	a1, a0
 		add.l	d3, a0
 		dbra	d0, .loop_read_next_address
+		WATCHDOG
 
 		moveq	#0, d0
 		DSUB_RETURN
 
 	.test_failed:
+
+		WATCHDOG
+
 		moveq	#1, d0
 		DSUB_RETURN
 
@@ -95,7 +97,6 @@ memory_data_test_dsub:
 		movea.l	a0, a2
 
 	.loop_next_pattern:
-		WATCHDOG
 
 		movea.l	a2, a0
 		move.l	d4, d0
@@ -107,6 +108,7 @@ memory_data_test_dsub:
 		move.w	d1, (a0)+
 		subq.l	#1, d0
 		bne	.loop_next_write_address
+		WATCHDOG
 
 		; In some cases when you write then re-read right away
 		; you will just get back the last written data on the bus when
@@ -128,6 +130,8 @@ memory_data_test_dsub:
 		bne	.test_failed
 		subq.l	#1, d0
 		bne	.loop_next_read_address
+		WATCHDOG
+
 		dbra	d3, .loop_next_pattern
 
 		; verify the poison looks good too
@@ -142,6 +146,9 @@ memory_data_test_dsub:
 		DSUB_RETURN
 
 	.test_failed:
+
+		WATCHDOG
+
 		subq.l	#2, a0
 
 		moveq	#0, d0
@@ -181,6 +188,7 @@ memory_march_test_dsub:
 		move.w	d1, (a0)+
 		subq.l	#1, d0
 		bne	.loop_fill_zero
+		WATCHDOG
 
 		movea.l	a2, a0
 		move.l	d4, d0
@@ -193,7 +201,6 @@ memory_march_test_dsub:
 		move.w	#$ffff, (a0)+
 		subq.l	#1, d0
 		bne	.loop_up_test
-
 		WATCHDOG
 
 		suba.l	#2, a0
@@ -210,11 +217,15 @@ memory_march_test_dsub:
 		suba.l	#2, a0
 		subq.l	#1, d0
 		bne	.loop_down_test
+		WATCHDOG
 
 		moveq	#0, d0
 		DSUB_RETURN
 
 	.test_failed:
+
+		WATCHDOG
+
 		moveq	#0, d0
 		cmp.b	d1, d2
 		beq	.check_upper
