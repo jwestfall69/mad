@@ -1,6 +1,7 @@
 	include "cpu/68000/include/dsub.inc"
 	include "cpu/68000/include/macros.inc"
 
+	include "error_codes.inc"
 	include "machine.inc"
 	include "mad_rom.inc"
 
@@ -14,17 +15,17 @@ _start:
 		move.b	d0, $c0011
 		move.b	d0, $c0019
 
-		;SOUND_STOP
+		SOUND_STOP
 
 		PSUB_INIT
 		PSUB	screen_init
 		PSUB	auto_dsub_tests
 
 		RSUB_INIT
-		;bsr	auto_func_tests
+		bsr	auto_func_tests
 
-		;moveq	#SOUND_NUM_SUCCESS, d0
-		;SOUND_PLAY
+		moveq	#SOUND_NUM_SUCCESS, d0
+		SOUND_PLAY
 
 		clr.b	INPUT_EDGE
 		clr.b	INPUT_RAW

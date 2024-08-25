@@ -26,7 +26,7 @@
 ;   will not trigger.  You can get it to trigger
 ;   by doing irq1's ack (during vblank only?).
 ;   This will cause irq2 to trigger multiple times
-;   then it will stop.
+;   then it will stop (at next vblank?)
 
 ; vblank
 irq1_handler:

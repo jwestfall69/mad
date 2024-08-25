@@ -17,16 +17,18 @@ DD = dd
 
 OBJS = $(OBJ_DIR)/cpu/68000/src/crc32.o \
        $(OBJ_DIR)/cpu/68000/src/dsub.o \
-       $(OBJ_DIR)/cpu/68000/src/error_address.o \
        $(OBJ_DIR)/cpu/68000/src/input_update.o \
        $(OBJ_DIR)/cpu/68000/src/memory_fill.o \
        $(OBJ_DIR)/cpu/68000/src/print_error.o \
        $(OBJ_DIR)/cpu/68000/src/util.o \
        $(OBJ_DIR)/cpu/68000/src/xy_string.o \
+       $(OBJ_DIR)/cpu/68000/src/debug/ec_dupe_check.o \
        $(OBJ_DIR)/cpu/68000/src/handlers/error.o \
        $(OBJ_DIR)/cpu/68000/src/handlers/memory_tests.o \
        $(OBJ_DIR)/cpu/68000/src/handlers/memory_viewer.o \
        $(OBJ_DIR)/cpu/68000/src/handlers/menu.o \
+       $(OBJ_DIR)/cpu/68000/src/handlers/sound.o \
+       $(OBJ_DIR)/cpu/68000/src/handlers/tile_viewer.o \
        $(OBJ_DIR)/cpu/68000/src/tests/auto.o \
        $(OBJ_DIR)/cpu/68000/src/tests/input.o \
        $(OBJ_DIR)/cpu/68000/src/tests/mad_rom.o \
@@ -34,15 +36,21 @@ OBJS = $(OBJ_DIR)/cpu/68000/src/crc32.o \
 
 # code from this machine
 OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
+        $(OBJ_DIR)/error_address.o \
         $(OBJ_DIR)/errors.o \
         $(OBJ_DIR)/footer.o \
         $(OBJ_DIR)/print.o \
         $(OBJ_DIR)/screen.o \
         $(OBJ_DIR)/vector_table.o \
+        $(OBJ_DIR)/menus/debug.o \
         $(OBJ_DIR)/menus/main.o \
         $(OBJ_DIR)/menus/memory_viewer.o \
         $(OBJ_DIR)/tests/auto.o \
         $(OBJ_DIR)/tests/input.o \
+        $(OBJ_DIR)/tests/palette_ram.o \
+        $(OBJ_DIR)/tests/sound.o \
+        $(OBJ_DIR)/tests/sprite_ram.o \
+        $(OBJ_DIR)/tests/tile_ram.o \
         $(OBJ_DIR)/tests/work_ram.o
 
 INCS = $(wildcard include/*.inc) \
