@@ -1,0 +1,32 @@
+	include "cpu/68000/include/dsub.inc"
+	include "cpu/68000/include/macros.inc"
+
+	include "machine.inc"
+	include "mad_rom.inc"
+
+	global _start
+
+	section code
+
+_start:
+		INTS_DISABLE
+
+		move.b	d0, $c0011
+		move.b	d0, $c0019
+
+		;SOUND_STOP
+
+		PSUB_INIT
+		PSUB	screen_init
+		PSUB	auto_dsub_tests
+
+		RSUB_INIT
+		;bsr	auto_func_tests
+
+		;moveq	#SOUND_NUM_SUCCESS, d0
+		;SOUND_PLAY
+
+		clr.b	INPUT_EDGE
+		clr.b	INPUT_RAW
+		clr.b	MENU_CURSOR
+		bra	main_menu
