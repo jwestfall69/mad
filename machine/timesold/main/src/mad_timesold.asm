@@ -12,9 +12,6 @@
 _start:
 		INTS_DISABLE
 
-		move.b	d0, $c0011
-		move.b	d0, $c0019
-
 		SOUND_STOP
 
 		PSUB_INIT
