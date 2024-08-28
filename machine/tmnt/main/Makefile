@@ -2,7 +2,7 @@ MAD_NAME=mad_tmnt
 ROM_SIZE=262144
 ROMA=963-x23.j17
 ROMB=963-x24.k17
-BUILD_FLAGS=-D_STALL_DELAY_ -D_ERROR_ADDRESS_DISABLED_
+BUILD_FLAGS=-D_STALL_DELAY_
 
 BUILD_DIR=build
 OBJ_DIR=$(BUILD_DIR)/obj
@@ -39,6 +39,7 @@ OBJS = \
 
 # code from this machine
 OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
+        $(OBJ_DIR)/error_address.o \
         $(OBJ_DIR)/errors.o \
         $(OBJ_DIR)/footer.o \
         $(OBJ_DIR)/print.o \
