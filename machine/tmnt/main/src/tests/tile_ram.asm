@@ -12,7 +12,6 @@
 
 	section code
 
-; tile ram is only 8 bit
 auto_tile_ram_tests:
 
 		lea	MT_DATA1, a0
