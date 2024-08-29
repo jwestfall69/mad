@@ -33,7 +33,7 @@ fg_tile_viewer:
 		rts
 
 ; Palette Layout
-;  xxxx BBBB GGGG RRRR
+;  xxxx RRRR GGGG BBBB
 fg_palette_setup:
 
 		lea	PALETTE_RAM_START+(PALETTE_SIZE*PALETTE_NUM), a0

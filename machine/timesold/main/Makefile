@@ -53,6 +53,7 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/tests/sound.o \
         $(OBJ_DIR)/tests/sprite_ram.o \
         $(OBJ_DIR)/tests/tile_ram.o \
+        $(OBJ_DIR)/tests/video_dac.o \
         $(OBJ_DIR)/tests/work_ram.o
 
 INCS = $(wildcard include/*.inc) \
