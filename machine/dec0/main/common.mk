@@ -53,10 +53,13 @@ INCS = $(wildcard include/*.inc) \
        $(wildcard ../../../common/cpu/68000/include/*.inc) \
        $(wildcard ../../../common/cpu/68000/include/tests/*.inc)
 
-$(WORK_DIR)/$(MAD_NAME).bin: $(WORK_DIR) $(OBJ_DIR) $(BUILD_DIR) $(OBJS)
+$(WORK_DIR)/$(MAD_NAME).bin: include/error_codes.inc $(WORK_DIR) $(OBJ_DIR) $(BUILD_DIR) $(OBJS)
 	$(VLINK) $(VLINK_FLAGS) -o $(WORK_DIR)/$(MAD_NAME).bin $(OBJS)
 	../../../util/rom-inject-crc-mirror -f $(WORK_DIR)/$(MAD_NAME).bin -e big -t $(ROM_SIZE)
 	../../../util/rom-byte-split $(WORK_DIR)/$(MAD_NAME).bin $(BUILD_DIR)/$(ROMA) $(BUILD_DIR)/$(ROMB)
+
+include/error_codes.inc: include/error_codes.cfg
+	../../../util/gen-error-codes -b 8 include/error_codes.cfg include/error_codes.inc
 
 $(OBJ_DIR)/%.o: src/%.asm $(INCS)
 	$(VASM) $(VASM_FLAGS) $(BUILD_FLAGS) -o $@ $<
