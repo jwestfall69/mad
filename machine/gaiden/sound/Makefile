@@ -18,8 +18,8 @@ OBJS = $(OBJ_DIR)/cpu/z80/src/crc32.o \
        $(OBJ_DIR)/cpu/z80/src/tests/unexpected_irq.o \
        $(OBJ_DIR)/cpu/z80/src/tests/mad_rom.o \
        $(OBJ_DIR)/cpu/z80/src/tests/memory.o \
-       $(OBJ_DIR)/cpu/z80/src/tests/oki/msm6295.o \
-       $(OBJ_DIR)/cpu/z80/src/tests/yamaha/ym2203.o
+       $(OBJ_DIR)/cpu/z80/src/tests/oki/msm6295_mreq.o \
+       $(OBJ_DIR)/cpu/z80/src/tests/yamaha/ym2203_mreq.o
 
 # code from this machine
 OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
