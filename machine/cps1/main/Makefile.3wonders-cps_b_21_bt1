@@ -1,0 +1,7 @@
+ROMSET=3wonders
+BUILD_FLAGS=-D_ROMSET_3WONDERS_ -D_CPS_B_21_BT1_
+ROM_SIZE=262144
+ROMA=rte_30a.11f
+ROMB=rte_35a.11h
+
+include common.mk

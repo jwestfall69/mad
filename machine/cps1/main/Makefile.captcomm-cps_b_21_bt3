@@ -1,0 +1,6 @@
+ROMSET=captcomm
+BUILD_FLAGS=-D_ROMSET_CAPTCOMM_ -D_CPS_B_21_BT3_
+ROMA=cce_23f.8f
+ROM_SIZE=524288
+
+include common.mk
