@@ -146,6 +146,12 @@ ym2203_write_register:
 ; params:
 ;  hl = ym2203 data register
 ym2203_wait_busy:
+	ifd _YM2203_NO_READ_
+		nop
+		nop
+		nop
+		ret
+	else
 		push bc
 		push af
 
@@ -170,3 +176,4 @@ ym2203_wait_busy:
 		pop	af
 		pop	bc
 		ret
+	endif
