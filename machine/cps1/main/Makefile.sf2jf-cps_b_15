@@ -1,0 +1,7 @@
+ROMSET=sf2jf
+BUILD_FLAGS=-D_ROMSET_SF2JF_ -D_CPS_B_15_
+ROM_SIZE=262144
+ROMA=sf2j_30f.11e
+ROMB=sf2j_37f.11f
+
+include common.mk

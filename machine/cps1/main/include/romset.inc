@@ -14,3 +14,7 @@
 	ifd _ROMSET_SF2_
 		include "romset/sf2.inc"
 	endif
+
+	ifd _ROMSET_SF2JF_
+		include "romset/sf2jf.inc"
+	endif
