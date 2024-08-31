@@ -1,0 +1,6 @@
+BUILD_DIR=build/hardware
+OBJ_DIR=$(BUILD_DIR)/obj
+WORK_DIR=$(BUILD_DIR)/work
+BUILD_FLAGS=-D_YM2203_NO_READ_
+
+include common.mk
