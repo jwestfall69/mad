@@ -29,12 +29,13 @@ int main(int argc, char **argv) {
   uint16_t mirror_offset = DEFAULT_MIRROR_OFFSET;
   int32_t target_size = -1;
   int32_t opt;
+  uint8_t reverse = 0;
   uint32_t start_offset = DEFAULT_START_OFFSET;
   uint32_t start_size = 0;
   struct stat sb;
   int32_t endian = -1;
 
-  while((opt = getopt(argc, argv, "c:e:f:hm:t:s:")) != -1) {
+  while((opt = getopt(argc, argv, "c:e:f:hm:rs:t:")) != -1) {
     switch (opt) {
 
       case 'c':
@@ -73,6 +74,10 @@ int main(int argc, char **argv) {
 
       case 'm':
           mirror_offset = atoi(optarg);
+          break;
+
+      case 'r':
+          reverse = 1;
           break;
 
       case 't':
@@ -132,7 +137,7 @@ int main(int argc, char **argv) {
     exit(EXIT_FAILURE);
   }
 
-  uint32_t offset = start_size;
+  int32_t offset = start_size;
   while(offset < target_size) {
     memcpy(data + offset, data, start_size);
     offset += start_size;
@@ -154,17 +159,33 @@ int main(int argc, char **argv) {
     crc32 = htole32(crc32);
   }
 
-  // fill in the first one manaully since crc32 is only in it
-  data[start_size - mirror_offset] = mirror;
-  memcpy((data + start_size) - crc32_offset, &crc32, 4);
+  // in reverse mode the last copy is the active one
+  if(reverse) {
+    data[target_size - mirror_offset] = mirror;
+    memcpy((data + target_size) - crc32_offset, &crc32, 4);
 
-  offset = start_size;
+    offset = target_size - (2 * start_size);
 
-  // fill in mirror numbers
-  while(offset < target_size) {
-    mirror++;
-    data[(start_size + offset) - mirror_offset] = mirror;
-    offset += start_size;
+    // fill in mirror numbers in reverse going from low to high
+    while(offset >= 0) {
+      mirror++;
+      data[(start_size + offset) - mirror_offset] = mirror;
+      offset -= start_size;
+    }
+
+  } else {
+    // fill in the first one manaully since crc32 is only in it
+    data[start_size - mirror_offset] = mirror;
+    memcpy((data + start_size) - crc32_offset, &crc32, 4);
+
+    offset = start_size;
+
+    // fill in mirror numbers
+    while(offset < target_size) {
+      mirror++;
+      data[(start_size + offset) - mirror_offset] = mirror;
+      offset += start_size;
+    }
   }
 
   printf("Mirrors:       0x%x\n", mirror);
@@ -206,6 +227,7 @@ void usage(void) {
   printf("  -f <romfile>               - <romfile> to add crc32/mirror to [required]\n");
   printf("  -t <target_size>           - how large the <romfile> should become [required]\n");
   printf("  -e <big|little>            - use big or little endian when writing crc32 value [required]\n");
+  printf("  -r                         - reverse mode, the last copy is the active one in the rom\n");
   printf("  -s <crc32 start offset>    - offset from beginning of rom to start crc32 calc [default: %d]\n", DEFAULT_START_OFFSET);
   printf("  -c <crc32 write offset>    - offset from end of rom of where to write the crc32 data [default: %d]\n", DEFAULT_CRC32_OFFSET);
   printf("  -m <mirror write offset>   - offset from end of rom of where to write the mirror data [default: %d]\n", DEFAULT_MIRROR_OFFSET);
