@@ -6,11 +6,13 @@
 #include <sys/stat.h>
 
 // negative offsets from end
-#define MIRROR_OFFSET       5
-#define CRC32_OFFSET        4
+#define DEFAULT_CRC32_OFFSET        4
+#define DEFAULT_MIRROR_OFFSET       5
 
-#define CRC32_BIG_ENDIAN    0
-#define CRC32_LITTLE_ENDIAN 1
+#define DEFAULT_START_OFFSET        0
+
+#define CRC32_BIG_ENDIAN            0
+#define CRC32_LITTLE_ENDIAN         1
 
 int check_size(uint32_t size);
 uint32_t crc32_calc(const void *data, size_t n_bytes);
@@ -22,16 +24,34 @@ int main(int argc, char **argv) {
   FILE *rom = NULL;
   char *data;
   uint32_t crc32;
+  uint16_t crc32_offset = DEFAULT_CRC32_OFFSET;
   uint8_t mirror = 0;
+  uint16_t mirror_offset = DEFAULT_MIRROR_OFFSET;
   int32_t target_size = -1;
   int32_t opt;
-  uint32_t start_offset = 0;
+  uint32_t start_offset = DEFAULT_START_OFFSET;
   uint32_t start_size = 0;
   struct stat sb;
   int32_t endian = -1;
 
-  while((opt = getopt(argc, argv, "e:f:ht:s:")) != -1) {
+  while((opt = getopt(argc, argv, "c:e:f:hm:t:s:")) != -1) {
     switch (opt) {
+
+      case 'c':
+          crc32_offset = atoi(optarg);
+          break;
+
+      case 'e':
+        if(strcmp("big", optarg) == 0) {
+          endian = CRC32_BIG_ENDIAN;
+        } else if(strcmp("little", optarg) == 0) {
+          endian = CRC32_LITTLE_ENDIAN;
+        } else {
+          printf("ERROR: -e arg must either be \'big\' for big-endian or \'little\' for little-endian\n");
+          exit(EXIT_FAILURE);
+        }
+        break;
+
       case 'f':
         if(lstat(optarg, &sb) == -1) {
           printf("ERROR: Unable to stat file %s\n", optarg);
@@ -51,21 +71,14 @@ int main(int argc, char **argv) {
         printf("Using ROM: %s\n", optarg);
         break;
 
+      case 'm':
+          mirror_offset = atoi(optarg);
+          break;
+
       case 't':
         target_size = atoi(optarg);
         if(!check_size(target_size)) {
           printf("ERROR: Target size of %d bytes is invalid, must be a power of 2\n", target_size);
-          exit(EXIT_FAILURE);
-        }
-        break;
-
-      case 'e':
-        if(strcmp("big", optarg) == 0) {
-          endian = CRC32_BIG_ENDIAN;
-        } else if(strcmp("little", optarg) == 0) {
-          endian = CRC32_LITTLE_ENDIAN;
-        } else {
-          printf("ERROR: -e arg must either be \'big\' for big-endian or \'little\' for little-endian\n");
           exit(EXIT_FAILURE);
         }
         break;
@@ -125,13 +138,15 @@ int main(int argc, char **argv) {
     offset += start_size;
   }
 
-  printf("Start Size:   0x%x\n", start_size);
-  printf("Target Size:  0x%x\n", target_size);
+  printf("Start Size:    0x%x\n", start_size);
+  printf("Target Size:   0x%x\n", target_size);
+  printf("CRC32 Offset:  0x%02x from end\n", crc32_offset);
+  printf("Mirror Offset: 0x%02x from end\n", mirror_offset);
 
   // don't calc crc of the mirror/crc part of the rom
-  crc32 = crc32_calc(data + start_offset, (start_size - start_offset) - MIRROR_OFFSET);
-  printf("CRC32 Range:  0x%x - 0x%x\n", start_offset, start_size - MIRROR_OFFSET);
-  printf("CRC32:        0x%8x\n", crc32);
+  crc32 = crc32_calc(data + start_offset, (start_size - start_offset) - mirror_offset);
+  printf("CRC32 Range:   0x%x - 0x%x\n", start_offset, start_size - mirror_offset);
+  printf("CRC32:         0x%8x\n", crc32);
 
   if(endian == CRC32_BIG_ENDIAN) {
     crc32 = htobe32(crc32);
@@ -140,19 +155,19 @@ int main(int argc, char **argv) {
   }
 
   // fill in the first one manaully since crc32 is only in it
-  data[start_size - MIRROR_OFFSET] = mirror;
-  memcpy((data + start_size) - CRC32_OFFSET, &crc32, 4);
+  data[start_size - mirror_offset] = mirror;
+  memcpy((data + start_size) - crc32_offset, &crc32, 4);
 
   offset = start_size;
 
   // fill in mirror numbers
   while(offset < target_size) {
     mirror++;
-    data[(start_size + offset) - MIRROR_OFFSET] = mirror;
+    data[(start_size + offset) - mirror_offset] = mirror;
     offset += start_size;
   }
 
-  printf("Mirrors:      0x%x\n", mirror);
+  printf("Mirrors:       0x%x\n", mirror);
 
   rewind(rom);
   fwrite(data, 1, target_size, rom);
@@ -186,5 +201,12 @@ uint32_t crc32_calc(const void *data, size_t n_bytes) {
 }
 
 void usage(void) {
-  printf("Usage:  inject-crc-mirror -f <romfile> -t <target_size> -e <big|little> [-s crc start offset]\n");
+  printf("Usage: inject-crc-mirror [options]\n\n");
+  printf("options:\n");
+  printf("  -f <romfile>               - <romfile> to add crc32/mirror to [required]\n");
+  printf("  -t <target_size>           - how large the <romfile> should become [required]\n");
+  printf("  -e <big|little>            - use big or little endian when writing crc32 value [required]\n");
+  printf("  -s <crc32 start offset>    - offset from beginning of rom to start crc32 calc [default: %d]\n", DEFAULT_START_OFFSET);
+  printf("  -c <crc32 write offset>    - offset from end of rom of where to write the crc32 data [default: %d]\n", DEFAULT_CRC32_OFFSET);
+  printf("  -m <mirror write offset>   - offset from end of rom of where to write the mirror data [default: %d]\n", DEFAULT_MIRROR_OFFSET);
 }
