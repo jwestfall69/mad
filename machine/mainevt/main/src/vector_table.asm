@@ -1,21 +1,22 @@
 	section vectors
 
-		word	handle_swi
-		word	handle_swi
-		word	handle_firq
-		word	handle_irq
-		word	handle_swi
-		word	handle_nmi
-		word	handle_reset
+		word	swi_handler
+		word	swi_handler
+		word	firq_handler
+		word	irq_handler
+		word	swi_handler
+		word	nmi_handler
+		word	reset_handler
 
 	section reset
-handle_reset:
+
+reset_handler:
 		jmp	_start
 
 	section code
 
-handle_nmi:
-handle_irq:
-handle_firq:
-handle_swi:
+nmi_handler:
+irq_handler:
+firq_handler:
+swi_handler:
 		rti

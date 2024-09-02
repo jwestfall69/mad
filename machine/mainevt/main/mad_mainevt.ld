@@ -4,7 +4,7 @@ MEMORY {
 }
 
 SECTIONS {
-	/* force our _start function to be at 0xc05a */
+	/* force our reset_handler function to be at 0xc05a */
 	.reset 0xc000: {
 		FILL8(0x12);
 		RESERVE(0x5a);
