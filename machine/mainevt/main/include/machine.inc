@@ -1,0 +1,30 @@
+PALETTE_RAM_START	equ $5e00
+PALETTE_RAM_SIZE	equ $200
+
+; 0x3800 - 0x3807 = k051937 register?
+; 0x0000 - 0x3bff = k052109 ram
+; 0x3c00 - 0x3fff = k051960 ram
+TILE_RAM_START		equ $0000
+TILE_RAM_SIZE		equ $4000
+
+WORK_RAM_START		equ $4000
+WORK_RAM_SIZE		equ $1e00
+
+REG_WATCHDOG		equ $1f8c
+
+; note only 36 tiles are visable
+SCREEN_TILES_PER_LINE		equ 64
+SCREEN_BYTES_PER_TILE		equ 1
+SCREEN_BYTES_PER_LINE		equ (SCREEN_BYTES_PER_TILE * SCREEN_TILES_PER_LINE)
+
+	macro	SEEK_XY
+		ldx	#(TILE_RAM_START + $208e + \1 + (\2 * SCREEN_BYTES_PER_LINE))
+	endm
+
+	macro	SEEK_LN
+		ldx	#(TILE_RAM_START + $208e + (\1 * SCREEN_BYTES_PER_LINE))
+	endm
+
+	macro	WATCHDOG
+		sta	REG_WATCHDOG
+	endm
