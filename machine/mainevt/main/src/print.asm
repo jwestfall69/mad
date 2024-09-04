@@ -5,6 +5,8 @@
 
 	global print_char_psub
 	global print_char_repeat_psub
+	global print_hex_byte_psub
+	global print_hex_word_psub
 	global print_string_psub
 
 	section	code
@@ -64,6 +66,61 @@ print_char_repeat_psub:
 		decb
 		bne	.loop_next_char
 	PSUB_RETURN
+
+; params:
+;  a = byte
+;  x = start location in tile ram
+print_hex_byte_psub:
+
+		; printing backwards
+		leax	1, x
+		lde	#$2
+
+	.loop_next_nibble:
+		ldb	#$f
+		andr	a, b
+
+		addb	#$ac		; gets us the font which is 0-9,A-Z
+
+		stb	,x
+		leax	-1, x
+
+		lsra
+		lsra
+		lsra
+		lsra
+
+		dece
+		bne	.loop_next_nibble
+		PSUB_RETURN
+
+; params:
+;  d = word
+;  x = start location in tile ram
+print_hex_word_psub:
+
+		; printing backwards
+		leax	3, x
+		lde	#$4
+
+	.loop_next_nibble:
+		ldf	#$f
+		andr	b, f
+
+		addf	#$ac		; gets us the font which is 0-9,A-Z
+
+		stf	,x
+		leax	-1, x
+
+		lsrd
+		lsrd
+		lsrd
+		lsrd
+
+		dece
+		bne	.loop_next_nibble
+		PSUB_RETURN
+
 
 ; params:
 ;  x = start location in tile ram
