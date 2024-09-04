@@ -25,4 +25,7 @@ SECTIONS {
 	.vectors 0xfff2: {
 		*(vectors)
 	} > ROM
+	.bss (NOLOAD): {
+		*(bss)
+	} > RAM
 }

@@ -5,6 +5,7 @@
 
 	global	screen_clear_psub
 	global 	screen_init_psub
+	global	screen_seek_xy_psub
 
 	section code
 
@@ -57,6 +58,20 @@ screen_clear_psub:
 		lda	#$4c
 		ldb	#$24
 		PSUB	print_char_repeat
+		PSUB_RETURN
+
+; params:
+;  a = x
+;  b = y
+screen_seek_xy_psub:
+		SEEK_XY 0, 0
+
+		leax	a, x
+		tfr	b, a
+		clrb
+		rord
+		rord
+		leax	d, x
 		PSUB_RETURN
 
 	section data

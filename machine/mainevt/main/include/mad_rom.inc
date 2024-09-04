@@ -1,0 +1,2 @@
+CURSOR_CHAR		equ $aa
+CURSOR_CLEAR_CHAR	equ $fe

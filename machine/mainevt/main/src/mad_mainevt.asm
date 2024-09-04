@@ -30,5 +30,5 @@ _start:
 
 
 		PSUB	screen_init
-		STALL
-
+		lds	#(WORK_RAM_START + WORK_RAM_SIZE - 2)
+		jsr	main_menu
