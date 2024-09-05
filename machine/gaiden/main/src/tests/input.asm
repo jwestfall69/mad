@@ -12,7 +12,7 @@
 	section code
 
 input_test:
-		lea	INPUT_XYS_LIST, a0
+		lea	SCREEN_XYS_LIST, a0
 		RSUB	print_xy_string_list
 
 		clr.l	INTERRUPT_VBLANK_COUNT
@@ -46,7 +46,7 @@ INPUT_LIST:
 	INPUT_ENTRY 11, REG_INPUT_SYSTEM
 	INPUT_LIST_END
 
-INPUT_XYS_LIST:
+SCREEN_XYS_LIST:
 	XY_STRING  6,  6, "76543210"
 	XY_STRING  3,  7, "P1"
 	XY_STRING 17,  7, "VBI"

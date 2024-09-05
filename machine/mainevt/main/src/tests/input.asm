@@ -11,7 +11,7 @@
 	section code
 
 input_test:
-		ldy	#INPUT_XYS_LIST
+		ldy	#SCREEN_XYS_LIST
 		PSUB	print_xy_string_list
 
 	.loop_test:
@@ -41,7 +41,7 @@ INPUT_LIST:
 	INPUT_ENTRY 14, REG_INPUT_SYSTEM
 	INPUT_LIST_END
 
-INPUT_XYS_LIST:
+SCREEN_XYS_LIST:
 	XY_STRING  6,  6, "76543210"
 	XY_STRING  3,  7, "P1"
 	XY_STRING  3,  8, "P2"
