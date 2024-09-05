@@ -17,8 +17,8 @@ REG_INPUT_P2		equ $1f96
 REG_INPUT_P3		equ $1f99
 REG_INPUT_P4		equ $1f9a
 REG_INPUT_DSW1		equ $1f97
-REG_INPUT_DSW2		equ $1f98
-REG_INPUT_DSW3		equ $1f9b
+REG_INPUT_DSW2		equ $1f9b
+REG_INPUT_DSW3		equ $1f98
 REG_INPUT_SYSTEM	equ $1f94
 
 ; note only 36 tiles are visable
