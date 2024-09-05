@@ -7,7 +7,6 @@
 
 	section code
 
-
 _start:
 		ldd	#$1380
 		sta	$7c00	; reset of customs? no rendering without

@@ -27,35 +27,12 @@ main_menu:
 
 	section data
 
-STR_MENU_TITLE:	string "MAIN MENU"
-
-STR_TEST1:		string "TEST1"
-STR_TEST2:		string "TEST2"
-STR_TEST3:		string "TEST3"
+STR_INPUT_TEST:		string "INPUT TEST"
 STR_MEMORY_VIEWER:	string "MEMORY VIEWER"
-STR_TEST4:		string "TEST4"
+
+STR_MENU_TITLE:		string "MAIN MENU"
 
 MENU_LIST:
-	MENU_ENTRY test1_func, STR_TEST1
-	MENU_ENTRY test2_func, STR_TEST2
+	MENU_ENTRY input_test, STR_INPUT_TEST
 	MENU_ENTRY memory_viewer_menu, STR_MEMORY_VIEWER
-	MENU_ENTRY test3_func, STR_TEST3
-	MENU_ENTRY test4_func, STR_TEST4
 	MENU_LIST_END
-
-
-test1_func:
-		STALL
-		rts
-
-test2_func:
-		STALL
-		rts
-
-test3_func:
-		STALL
-		rts
-
-test4_func:
-		STALL
-		rts
