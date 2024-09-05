@@ -3,6 +3,7 @@
 
 	include "machine.inc"
 
+	global print_bits_byte_psub
 	global print_char_psub
 	global print_char_repeat_psub
 	global print_hex_byte_psub
@@ -11,6 +12,28 @@
 
 	section	code
 
+; params:
+;  a = byte
+;  x = location in tile ram
+print_bits_byte_psub:
+		; printing backwards
+		leax	7, x
+		lde	#$8
+
+	.loop_next_nibble:
+		ldb	#$1
+		andr	a, b
+
+		addb	#$ac		; gets us to 0-1 of the font
+
+		stb	,x
+		leax	-1, x
+
+		lsra
+
+		dece
+		bne	.loop_next_nibble
+		PSUB_RETURN
 
 ; params:
 ;  a = char
