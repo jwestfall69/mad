@@ -4,7 +4,7 @@
 
 	include "machine.inc"
 
-	global	fg_tile_viewer
+	global fg_tile_viewer
 
 	section code
 
@@ -82,7 +82,7 @@ PALETTE_DATA:
 
 STR_TITLE: 	STRING "FG TILE VIEWER"
 
-	section	bss
+	section bss
 
 BANK_CURRENT:	dc.b $0
 

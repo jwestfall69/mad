@@ -1,8 +1,8 @@
 	include "cpu/6309/include/psub.inc"
 
-	global	delay_psub
+	global delay_psub
 
-	section	code
+	section code
 
 ; params:
 ;  w = number of loops

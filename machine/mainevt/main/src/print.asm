@@ -11,7 +11,7 @@
 	global print_hex_word_psub
 	global print_string_psub
 
-	section	code
+	section code
 
 ; params:
 ;  a = byte

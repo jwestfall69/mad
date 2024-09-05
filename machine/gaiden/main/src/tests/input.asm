@@ -35,7 +35,7 @@ input_test:
 		move.w	#$2700, sr
 		rts
 
-	section	data
+	section data
 	align 2
 
 INPUT_LIST:

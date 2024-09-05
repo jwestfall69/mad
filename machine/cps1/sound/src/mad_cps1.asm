@@ -4,7 +4,7 @@
 
 	include "machine.inc"
 
-	global	_start
+	global _start
 
 	section code
 

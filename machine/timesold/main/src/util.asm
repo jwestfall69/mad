@@ -4,7 +4,7 @@
 
 	include "machine.inc"
 
-	global	fg_set_bank
+	global fg_set_bank
 
 	section code
 
@@ -66,7 +66,7 @@ fg_set_bank:
 	.skip_bank_switch:
 		rts
 
-	section	bss
+	section bss
 
 BANK_CURRENT:	dc.b $0
 

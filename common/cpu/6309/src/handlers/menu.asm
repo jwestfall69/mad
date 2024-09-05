@@ -6,13 +6,13 @@
 	include "machine.inc"
 	include "mad_rom.inc"
 
-	global	menu_handler
-	global	MENU_CURSOR
+	global menu_handler
+	global MENU_CURSOR
 
 MENU_X_OFFSET		equ $2
 MENU_Y_OFFSET		equ $5
 
-	section	code
+	section code
 
 ; params:
 ;  y = address of menu struct list

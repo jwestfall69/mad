@@ -3,9 +3,9 @@
 
 	include "machine.inc"
 
-	global	screen_clear_psub
-	global 	screen_init_psub
-	global	screen_seek_xy_psub
+	global screen_clear_psub
+	global screen_init_psub
+	global screen_seek_xy_psub
 
 	section code
 

@@ -4,7 +4,7 @@
 
 	include "machine.inc"
 
-	global	fg_tile_viewer
+	global fg_tile_viewer
 
 	section code
 

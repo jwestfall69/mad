@@ -17,7 +17,7 @@ sound_test:
 		jsr	sound_test_handler
 		rts
 
-	section	data
+	section data
 
 SCREEN_XYS_LIST:
 	XY_STRING 3, 10, <"SOUND NUM", CHAR_COLON>

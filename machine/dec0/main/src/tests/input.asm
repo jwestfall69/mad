@@ -61,7 +61,7 @@ input_system_update:
 		move.b	d0, INPUT_SYSTEM_RAW
 		rts
 
-	section	data
+	section data
 	align 2
 
 INPUT_LIST:

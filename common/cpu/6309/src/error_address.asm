@@ -1,6 +1,6 @@
 	include "machine.inc"
 
-	global	error_address_psub
+	global error_address_psub
 
 	section code
 

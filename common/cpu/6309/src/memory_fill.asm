@@ -2,9 +2,9 @@
 
 	include "machine.inc"
 
-	global	memory_fill_psub
+	global memory_fill_psub
 
-	section	code
+	section code
 
 ; params:
 ;  a = byte to fill with

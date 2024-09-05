@@ -49,7 +49,7 @@ input_test:
 		INTS_DISABLE
 		rts
 
-	section	data
+	section data
 	align 2
 
 INPUT_LIST:

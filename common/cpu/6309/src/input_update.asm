@@ -3,7 +3,7 @@
 	include "input.inc"
 	include "machine.inc"
 
-	global	input_update
+	global input_update
 
 	global INPUT_EDGE
 	global INPUT_RAW

@@ -27,7 +27,7 @@ input_test:
 
 		rts
 
-	section	data
+	section data
 	align 2
 
 INPUT_LIST:
