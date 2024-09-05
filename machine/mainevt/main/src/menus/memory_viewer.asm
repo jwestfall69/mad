@@ -51,8 +51,7 @@ view_work_ram:
 		bra	view_memory
 
 view_memory:
-		;jsr	memory_viewer_handler
-		STALL
+		jsr	memory_viewer_handler
 		rts
 
 	section data

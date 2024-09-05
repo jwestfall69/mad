@@ -17,6 +17,7 @@ OBJS = $(OBJ_DIR)/cpu/6309/src/input_update.o \
        $(OBJ_DIR)/cpu/6309/src/memory_fill.o \
        $(OBJ_DIR)/cpu/6309/src/util.o \
        $(OBJ_DIR)/cpu/6309/src/xy_string.o \
+       $(OBJ_DIR)/cpu/6309/src/handlers/memory_viewer.o \
        $(OBJ_DIR)/cpu/6309/src/handlers/menu.o \
        $(OBJ_DIR)/cpu/6309/src/tests/input.o
 

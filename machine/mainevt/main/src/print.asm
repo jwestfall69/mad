@@ -4,6 +4,7 @@
 	include "machine.inc"
 
 	global print_bits_byte_psub
+	global print_byte_psub
 	global print_char_psub
 	global print_char_repeat_psub
 	global print_hex_byte_psub
@@ -33,6 +34,15 @@ print_bits_byte_psub:
 
 		dece
 		bne	.loop_next_nibble
+		PSUB_RETURN
+
+
+
+; params:
+;  a = raw byte
+;  x = location in tile ram
+print_byte_psub:
+		sta	,x
 		PSUB_RETURN
 
 ; params:
