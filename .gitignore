@@ -2,3 +2,4 @@ util/rom-byte-split
 util/rom-inject-crc-mirror
 machine/*/main/build/*
 machine/*/sound/build/*
+*.swp
