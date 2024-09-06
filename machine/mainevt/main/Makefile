@@ -19,6 +19,7 @@ OBJS = $(OBJ_DIR)/cpu/6309/src/input_update.o \
        $(OBJ_DIR)/cpu/6309/src/xy_string.o \
        $(OBJ_DIR)/cpu/6309/src/handlers/memory_viewer.o \
        $(OBJ_DIR)/cpu/6309/src/handlers/menu.o \
+       $(OBJ_DIR)/cpu/6309/src/handlers/sound.o \
        $(OBJ_DIR)/cpu/6309/src/tests/input.o
 
 # code from this machine
@@ -28,7 +29,8 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/vector_table.o \
         $(OBJ_DIR)/menus/main.o \
         $(OBJ_DIR)/menus/memory_viewer.o \
-        $(OBJ_DIR)/tests/input.o
+        $(OBJ_DIR)/tests/input.o \
+        $(OBJ_DIR)/tests/sound.o
 
 INCS = $(wildcard include/*.inc) \
        $(wildcard ../../../common/cpu/6309/include/*.inc) \
