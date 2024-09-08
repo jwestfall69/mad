@@ -53,18 +53,18 @@ memory_viewer_handler:
 		bra	.loop_next_input
 
 	.down_not_pressed:
-		btst	#INPUT_RIGHT_BIT, d0
-		beq	.right_not_pressed
-		adda.l	#$50, a0
-		bra	.loop_next_input
-
-	.right_not_pressed:
 		btst	#INPUT_LEFT_BIT, d0
 		beq	.left_not_pressed
 		suba.l	#$50, a0
 		bra	.loop_next_input
 
 	.left_not_pressed:
+		btst	#INPUT_RIGHT_BIT, d0
+		beq	.right_not_pressed
+		adda.l	#$50, a0
+		bra	.loop_next_input
+
+	.right_not_pressed:
 		btst	#INPUT_B1_BIT, d0
 		beq	.b1_not_pressed
 

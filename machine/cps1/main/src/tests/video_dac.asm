@@ -33,13 +33,6 @@ video_dac_test:
 		bsr	input_update
 		move.b	INPUT_EDGE, d0
 
-		btst	#INPUT_RIGHT_BIT, d0
-		beq	.right_not_pressed
-		move.b	BRIGHTNESS, d1
-		addq.b	#1, d1
-		bra	.brightness_adjusted
-	.right_not_pressed:
-
 		btst	#INPUT_LEFT_BIT, d0
 		beq	.left_not_pressed
 		move.b	BRIGHTNESS, d1
@@ -47,11 +40,18 @@ video_dac_test:
 		bra	.brightness_adjusted
 	.left_not_pressed:
 
+		btst	#INPUT_RIGHT_BIT, d0
+		beq	.right_not_pressed
+		move.b	BRIGHTNESS, d1
+		addq.b	#1, d1
+		bra	.brightness_adjusted
+	.right_not_pressed:
+
 		btst	#INPUT_B1_BIT, d0
-		beq	.button_not_pressed
+		beq	.b1_not_pressed
 		bsr	full_screen
 		bra	.loop_main
-	.button_not_pressed:
+	.b1_not_pressed:
 
 		btst	#INPUT_B2_BIT, d0
 		beq	.loop_input
@@ -101,6 +101,14 @@ full_screen:
 		bsr	input_update
 		move.b	INPUT_EDGE, d0
 
+		btst	#INPUT_UP_BIT, d0
+		beq	.up_not_pressed
+		sub.w	#1, d3				; goto previous color in table
+		bpl	.draw_full_screen		; negative color index?
+		move.w	#MAX_COLOR_INDEX, d3		; yes? wrap around to last color
+		bra	.draw_full_screen
+	.up_not_pressed:
+
 		btst	#INPUT_DOWN_BIT, d0
 		beq	.down_not_pressed
 		add.w	#1, d3				; goto next color in table
@@ -110,13 +118,13 @@ full_screen:
 		bra	.draw_full_screen
 	.down_not_pressed:
 
-		btst	#INPUT_UP_BIT, d0
-		beq	.up_not_pressed
-		sub.w	#1, d3				; goto previous color in table
-		bpl	.draw_full_screen		; negative color index?
-		move.w	#MAX_COLOR_INDEX, d3		; yes? wrap around to last color
+		btst	#INPUT_LEFT_BIT, d0
+		beq	.left_not_pressed
+		subq.w	#1, d2				; goto previous color bit in table
+		bpl	.draw_full_screen		; negative color bit index?
+		moveq	#MAX_COLOR_BIT_INDEX, d2	; yes? wrap around to last color bit for this color
 		bra	.draw_full_screen
-	.up_not_pressed:
+	.left_not_pressed:
 
 		btst	#INPUT_RIGHT_BIT, d0
 		beq	.right_not_pressed
@@ -126,14 +134,6 @@ full_screen:
 		moveq	#0, d2				; yes? wrap around to first color bit for this color
 		bra	.draw_full_screen
 	.right_not_pressed:
-
-		btst	#INPUT_LEFT_BIT, d0
-		beq	.left_not_pressed
-		subq.w	#1, d2				; goto previous color bit in table
-		bpl	.draw_full_screen		; negative color bit index?
-		moveq	#MAX_COLOR_BIT_INDEX, d2	; yes? wrap around to last color bit for this color
-		bra	.draw_full_screen
-	.left_not_pressed:
 
 		btst	#INPUT_B2_BIT, d0
 		bne	.full_screen_exit

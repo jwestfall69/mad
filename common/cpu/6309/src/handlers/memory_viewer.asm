@@ -43,18 +43,18 @@ memory_viewer_handler:
 		bra	.loop_next_input
 
 	.down_not_pressed:
-		bita	#INPUT_RIGHT
-		beq	.right_not_pressed
-		leay	$50, y
-		bra	.loop_next_input
-
-	.right_not_pressed:
 		bita	#INPUT_LEFT
 		beq	.left_not_pressed
 		leay	-$50, y
 		bra	.loop_next_input
 
 	.left_not_pressed:
+		bita	#INPUT_RIGHT
+		beq	.right_not_pressed
+		leay	$50, y
+		bra	.loop_next_input
+
+	.right_not_pressed:
 		bita	#INPUT_B2
 		beq	.loop_next_input
 		rts

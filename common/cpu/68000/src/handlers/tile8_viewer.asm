@@ -93,17 +93,17 @@ tile8_viewer_handler:
 		bra	.loop_redraw
 	.down_not_pressed:
 
-		btst	#INPUT_RIGHT_BIT, d0
-		beq	.right_not_pressed
-		add.w	#$1000, TILE_OFFSET
-		bra	.loop_redraw
-	.right_not_pressed:
-
 		btst	#INPUT_LEFT_BIT, d0
 		beq	.left_not_pressed
 		sub.w	#$1000, TILE_OFFSET
 		bra	.loop_redraw
 	.left_not_pressed:
+
+		btst	#INPUT_RIGHT_BIT, d0
+		beq	.right_not_pressed
+		add.w	#$1000, TILE_OFFSET
+		bra	.loop_redraw
+	.right_not_pressed:
 
 		btst	#INPUT_B2_BIT, d0
 		beq	.loop_input

@@ -38,10 +38,6 @@ menu_handler:
 		bsr	input_update
 		move.b	INPUT_EDGE, d0
 
-	.check_button_pressed:
-		btst	#INPUT_B1_BIT, d0
-		bne	.menu_entry_run
-
 		btst	#INPUT_UP_BIT, d0
 		beq	.up_not_pressed
 
@@ -63,6 +59,11 @@ menu_handler:
 		bra	.update_cursor
 
 	.down_not_pressed:
+		btst	#INPUT_B1_BIT, d0
+		beq	.b1_not_pressed
+		bra	.menu_entry_run
+
+	.b1_not_pressed:
 		btst	#INPUT_B2_BIT, d0
 		beq	.loop_menu_input
 		moveq	#MENU_EXIT, d0

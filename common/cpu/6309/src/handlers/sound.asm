@@ -27,18 +27,18 @@ sound_test_handler:
 		puls	b
 		lda	INPUT_EDGE
 
-		bita	#INPUT_DOWN
-		beq	.down_not_pressed
-		subf	#$1
-		bra	.update_byte
-
-	.down_not_pressed:
 		bita	#INPUT_UP
 		beq	.up_not_pressed
 		addf	#$1
 		bra	.update_byte
 
 	.up_not_pressed:
+		bita	#INPUT_DOWN
+		beq	.down_not_pressed
+		subf	#$1
+		bra	.update_byte
+
+	.down_not_pressed:
 		bita	#INPUT_LEFT
 		beq	.left_not_pressed
 		subf	#$10

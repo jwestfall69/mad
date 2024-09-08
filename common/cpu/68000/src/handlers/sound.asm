@@ -25,18 +25,18 @@ sound_test_handler:
 		bsr	input_update
 		move.b	INPUT_EDGE, d0
 
+		btst	#INPUT_UP_BIT, d0
+		beq	.up_not_pressed
+		add.b	#1, d4
+		bra	.update_byte
+	.up_not_pressed:
+
 		btst	#INPUT_DOWN_BIT, d0
 		beq	.down_not_pressed
 		sub.b	#1, d4
 		bra	.update_byte
 
 	.down_not_pressed:
-		btst	#INPUT_UP_BIT, d0
-		beq	.up_not_pressed
-		add.b	#1, d4
-		bra	.update_byte
-
-	.up_not_pressed:
 		btst	#INPUT_LEFT_BIT, d0
 		beq	.left_not_pressed
 		sub.b	#$10, d4
