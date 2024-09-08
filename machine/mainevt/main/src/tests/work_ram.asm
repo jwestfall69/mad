@@ -126,6 +126,10 @@ auto_work_ram_tests_psub:
 		STALL
 
 
+; We can't use work ram and we don't have enough
+; registers to track the number of passes.  So
+; we just blindly using part of palette ram to
+; do it.
 NUM_PASSES		equ PALETTE_RAM_START + PALETTE_SIZE
 
 manual_work_ram_tests:
