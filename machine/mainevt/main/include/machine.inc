@@ -1,5 +1,6 @@
 PALETTE_RAM_START	equ $5e00
 PALETTE_RAM_SIZE	equ $200
+PALETTE_SIZE		equ $20		; size of each palette
 
 ; 0x3800 - 0x3807 = k051937 register?
 ; 0x0000 - 0x3bff = k052109 ram
@@ -9,6 +10,7 @@ TILE_RAM_SIZE		equ $4000
 
 WORK_RAM_START		equ $4000
 WORK_RAM_SIZE		equ $1e00
+WORK_RAM_ADDRESS_LINES	equ $9
 
 REG_WATCHDOG		equ $1f8c
 REG_SOUND		equ $1f84

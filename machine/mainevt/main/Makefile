@@ -15,12 +15,14 @@ DD = dd
 
 OBJS = $(OBJ_DIR)/cpu/6309/src/input_update.o \
        $(OBJ_DIR)/cpu/6309/src/memory_fill.o \
+       $(OBJ_DIR)/cpu/6309/src/print_error_work_ram.o \
        $(OBJ_DIR)/cpu/6309/src/util.o \
        $(OBJ_DIR)/cpu/6309/src/xy_string.o \
        $(OBJ_DIR)/cpu/6309/src/handlers/memory_viewer.o \
        $(OBJ_DIR)/cpu/6309/src/handlers/menu.o \
        $(OBJ_DIR)/cpu/6309/src/handlers/sound.o \
-       $(OBJ_DIR)/cpu/6309/src/tests/input.o
+       $(OBJ_DIR)/cpu/6309/src/tests/input.o \
+       $(OBJ_DIR)/cpu/6309/src/tests/memory.o
 
 # code from this machine
 OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
@@ -30,7 +32,8 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/menus/main.o \
         $(OBJ_DIR)/menus/memory_viewer.o \
         $(OBJ_DIR)/tests/input.o \
-        $(OBJ_DIR)/tests/sound.o
+        $(OBJ_DIR)/tests/sound.o \
+        $(OBJ_DIR)/tests/work_ram.o
 
 INCS = $(wildcard include/*.inc) \
        $(wildcard ../../../common/cpu/6309/include/*.inc) \
