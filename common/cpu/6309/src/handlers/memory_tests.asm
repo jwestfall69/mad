@@ -95,7 +95,6 @@ memory_tests_handler:
 	.add_base_ec:
 		ldy	MT_DATA
 		adda	MT_PARAMS.base_ec, y
-		STALL
 		rts
 
 	section bss

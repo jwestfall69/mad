@@ -43,9 +43,3 @@ print_error_work_ram_memory_psub:
 		ldy	#STR_ACTUAL
 		PSUB	print_string
 		PSUB_RETURN
-
-	section data
-
-STR_ADDRESS:			string "ADDRESS"
-STR_EXPECTED:			string "EXPECTED"
-STR_ACTUAL:			string "ACTUAL"
