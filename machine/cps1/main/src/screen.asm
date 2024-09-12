@@ -36,7 +36,7 @@ screen_init_workaround_dsub:
 		moveq	#1, d2
 	.loop_workaround:
 
-		lea	MEMORY_FILL_LIST, a0
+		lea	d_memory_fill_list, a0
 		DSUB	memory_fill_list
 		DSUB	palette_init
 		dbra	d2, .loop_workaround
@@ -44,12 +44,12 @@ screen_init_workaround_dsub:
 screen_clear_dsub:
 screen_init_dsub:
 
-		lea	MEMORY_FILL_LIST, a0
+		lea	d_memory_fill_list, a0
 		DSUB	memory_fill_list
 		DSUB	palette_init
 
 		SEEK_XY	17, 0
-		lea	STR_HEADER, a0
+		lea	d_str_header, a0
 		DSUB	print_string
 
 		SEEK_LN	1
@@ -88,9 +88,9 @@ screen_seek_xy_dsub:
 		DSUB_RETURN
 
 	section data
-
 	align 2
-MEMORY_FILL_LIST
+
+d_memory_fill_list
 	MEMORY_FILL_ENTRY SCROLL1_RAM_START, SCROLL1_RAM_SIZE, $0
 	MEMORY_FILL_ENTRY SCROLL2_RAM_START, SCROLL2_RAM_SIZE, $0
 	MEMORY_FILL_ENTRY SCROLL3_RAM_START, SCROLL3_RAM_SIZE, $0
@@ -99,6 +99,4 @@ MEMORY_FILL_LIST
 	MEMORY_FILL_ENTRY PALETTE_RAM_START, PALETTE_RAM_SIZE, $f0f0
 	MEMORY_FILL_LIST_END
 
-STR_HEADER:	STRING "CPS1 - MAD 0.1"
-
-	section bss
+d_str_header:	STRING "CPS1 - MAD 0.1"

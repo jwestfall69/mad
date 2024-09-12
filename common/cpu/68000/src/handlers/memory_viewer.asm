@@ -17,18 +17,18 @@ memory_viewer_handler:
 		movem.l	a0-a1, -(a7)
 		RSUB	screen_clear
 
-		clr.b	READ_MODE
+		clr.b	r_read_mode
 
 		SEEK_XY	9, 3
-		lea	STR_MEMORY_VIEWER, a0
+		lea	d_str_memory_viewer, a0
 		RSUB	print_string
 
 		SEEK_XY 16, 4
-		lea	STR_READ_MODE, a0
+		lea	d_str_read_mode, a0
 		RSUB	print_string
 
 		SEEK_XY	11, 4
-		lea	STR_READ_MODE_WORD, a0
+		lea	d_str_read_mode_word, a0
 		RSUB	print_string
 
 		movem.l	(a7)+, a0-a1
@@ -39,7 +39,7 @@ memory_viewer_handler:
 		WATCHDOG
 		bsr	memory_dump
 		bsr	input_update
-		move.b	INPUT_EDGE, d0
+		move.b	r_input_edge, d0
 
 		btst	#INPUT_UP_BIT, d0
 		beq	.up_not_pressed
@@ -69,17 +69,17 @@ memory_viewer_handler:
 		beq	.b1_not_pressed
 
 		movem.l	a0, -(a7)
-		move.b	READ_MODE, d0
+		move.b	r_read_mode, d0
 		add.b	#$1, d0
 		and.b	#$1, d0
-		move.b	d0, READ_MODE
+		move.b	d0, r_read_mode
 		tst.b	d0
 		beq	.read_mode_word
-		lea	STR_READ_MODE_BYTE, a0
+		lea	d_str_read_mode_byte, a0
 		bra	.print_read_mode
 
 	.read_mode_word:
-		lea	STR_READ_MODE_WORD, a0
+		lea	d_str_read_mode_word, a0
 
 	.print_read_mode:
 		SEEK_XY	11, 4
@@ -120,7 +120,7 @@ memory_dump:
 		move.w	d3, d1
 		RSUB	screen_seek_xy
 
-		btst	#$0, READ_MODE
+		btst	#$0, r_read_mode
 		beq	.read_mode_word
 		move.b	(a0), d0
 		lsl.l	#8, d0
@@ -174,14 +174,16 @@ memory_dump:
 
 
 	section data
+	align 2
 
-STR_MEMORY_VIEWER:	STRING "MEMORY VIEWER"
-STR_READ_MODE:		STRING "READ"
-STR_READ_MODE_BYTE:	STRING "BYTE"
-STR_READ_MODE_WORD:	STRING "WORD"
+d_str_memory_viewer:		STRING "MEMORY VIEWER"
+d_str_read_mode:		STRING "READ"
+d_str_read_mode_byte:		STRING "BYTE"
+d_str_read_mode_word:		STRING "WORD"
 
 	section bss
+	align 2
 
 ; ran out of registers in memory_dump so
 ; have to use ram for the read mode
-READ_MODE:	dc.b	$0
+r_read_mode:	dc.b	$0

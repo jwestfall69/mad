@@ -7,7 +7,7 @@
 	include "mad_rom.inc"
 
 	global menu_handler
-	global MENU_CURSOR
+	global r_menu_cursor
 
 MENU_X_OFFSET		equ $2
 MENU_Y_OFFSET		equ $5
@@ -19,11 +19,11 @@ MENU_Y_OFFSET		equ $5
 ; returns:
 ;  a = 0 (function ran) or 1 (menu exit)
 menu_handler:
-		sty	MENU_LIST
+		sty	r_menu_list_addr
 		jsr	print_menu_list
 		tfr	a, b		; max cursor
 		subb	#$1		; convert to 0 index
-		lde	MENU_CURSOR	; e = current menu entry
+		lde	r_menu_cursor	; e = current menu entry
 		tfr	e, f		; f = previous
 		bra	.update_cursor	; force initial cursor draw
 
@@ -32,7 +32,7 @@ menu_handler:
 		pshs	b
 		jsr	input_update
 		puls	b
-		lda	INPUT_EDGE
+		lda	r_input_edge
 
 		bita	#INPUT_UP
 		beq	.up_not_pressed
@@ -62,7 +62,7 @@ menu_handler:
 		rts
 
 	.update_cursor:
-		ste	MENU_CURSOR
+		ste	r_menu_cursor
 		pshs	b
 
 		; remove old cursor location
@@ -87,19 +87,19 @@ menu_handler:
 		bra	.loop_menu_input
 
 	.menu_entry_run:
-		ste	MENU_CURSOR
+		ste	r_menu_cursor
 
 		PSUB	screen_clear
 
 		; convert into the array offset
 		; for the selected menu item
-		lde	MENU_CURSOR
+		lde	r_menu_cursor
 		tfr	e, a
 		lsla
 		lsla
 
 		; goto the menu entry
-		ldy	MENU_LIST
+		ldy	r_menu_list_addr
 		leay	a, y
 		pshs	y
 		ldy	$2, y		; string address
@@ -108,13 +108,13 @@ menu_handler:
 		PSUB	print_string
 		puls	y
 
-		lde	MENU_CURSOR
+		lde	r_menu_cursor
 		pshsw
 
 		jsr	[0, y]		; run function
 
 		pulsw
-		ste	MENU_CURSOR
+		ste	r_menu_cursor
 
 		lda	#MENU_CONTINUE
 		rts
@@ -150,6 +150,6 @@ print_menu_list:
 
 	section bss
 
-MENU_LIST:	blkw	1
-MENU_CURSOR:	blk	1
+r_menu_list_addr:	blkw	1
+r_menu_cursor:		blk	1
 

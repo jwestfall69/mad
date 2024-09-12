@@ -16,10 +16,10 @@ fg_tile_viewer:
 		RSUB	screen_clear
 		bsr	fg_palette_setup
 
-		clr.b	BANK_CURRENT
+		clr.b	r_fg_current_bank
 
 		SEEK_XY	7, 3
-		lea	STR_TITLE, a0
+		lea	d_str_title, a0
 		RSUB	print_string
 
 		moveq	#$0, d0
@@ -37,7 +37,7 @@ fg_tile_viewer:
 fg_palette_setup:
 
 		lea	PALETTE_RAM_START+(PALETTE_SIZE*PALETTE_NUM), a0
-		lea	PALETTE_DATA, a1
+		lea	d_palette_data, a1
 		moveq	#(PALETTE_SIZE/2 - 1), d0
 
 	.loop_next_color:
@@ -74,16 +74,11 @@ fg_draw_tile_cb:
 		rts
 
 	section data
+	align 2
 
-PALETTE_DATA:
+d_palette_data:
 	dc.w	$0000, $0ed0, $00bc, $0a35, $09d5, $009c, $0c66
 	dc.w	$06c4, $0c64, $0b39, $02cb, $0e94, $036b, $04d8
 	dc.w	$064c, $050d
 
-STR_TITLE: 	STRING "FG TILE VIEWER"
-
-	section bss
-
-BANK_CURRENT:	dc.b $0
-
-
+d_str_title: 	STRING "FG TILE VIEWER"

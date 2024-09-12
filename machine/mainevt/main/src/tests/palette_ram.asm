@@ -13,12 +13,12 @@
 	section code
 
 auto_palette_ram_tests:
-		ldx	#MT_DATA
+		ldx	#d_mt_data
 		jsr	memory_tests_handler
 		rts
 
 manual_palette_ram_tests:
-		ldy	#SCREEN_XYS_LIST
+		ldy	#d_screen_xys_list
 		PSUB	print_xy_string_list
 
 		clrd
@@ -52,7 +52,7 @@ manual_palette_ram_tests:
 	.test_paused:
 		PSUB	screen_init
 
-		ldy	#SCREEN_XYS_LIST
+		ldy	#d_screen_xys_list
 		PSUB	print_xy_string_list
 
 		SEEK_XY	12, 10
@@ -76,10 +76,10 @@ manual_palette_ram_tests:
 
 	section data
 
-MT_DATA:
+d_mt_data:
 	MT_PARAMS PALETTE_RAM_START, PALETTE_RAM_SIZE, PALETTE_RAM_ADDRESS_LINES, PALETTE_RAM_BASE_EC
 
-SCREEN_XYS_LIST:
+d_screen_xys_list:
 	XY_STRING 3,  4, "PALETTE RAM TEST"
 	XY_STRING 3, 10, "PASSES"
 	XY_STRING 3, 19, "B1 - PAUSE"

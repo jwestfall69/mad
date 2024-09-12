@@ -10,16 +10,16 @@
 
 main_menu:
 		clra
-		sta	MENU_CURSOR
+		sta	r_menu_cursor
 
 	.loop_menu:
 		PSUB	screen_init
 
 		SEEK_XY	3, 3
-		ldy	#STR_MENU_TITLE
+		ldy	#d_str_menu_title
 		PSUB	print_string
 
-		ldy	#MENU_LIST
+		ldy	#d_menu_list
 		jsr	menu_handler
 
 		bra	.loop_menu
@@ -27,18 +27,18 @@ main_menu:
 
 	section data
 
-STR_INPUT_TEST:		string "INPUT TEST"
-STR_MEMORY_VIEWER:	string "MEMORY VIEWER"
-STR_PALETTE_RAM_TEST:	string "PALETTE RAM TEST"
-STR_SOUND_TEST:		string "SOUND TEST"
-STR_WORK_RAM_TEST:	string "WORK RAM TEST"
-
-STR_MENU_TITLE:		string "MAIN MENU"
-
-MENU_LIST:
-	MENU_ENTRY manual_work_ram_tests, STR_WORK_RAM_TEST
-	MENU_ENTRY manual_palette_ram_tests, STR_PALETTE_RAM_TEST
-	MENU_ENTRY input_test, STR_INPUT_TEST
-	MENU_ENTRY sound_test, STR_SOUND_TEST
-	MENU_ENTRY memory_viewer_menu, STR_MEMORY_VIEWER
+d_menu_list:
+	MENU_ENTRY input_test, d_str_input_test
+	MENU_ENTRY memory_viewer_menu, d_str_memory_viewer
+	MENU_ENTRY manual_palette_ram_tests, d_str_palette_ram_test
+	MENU_ENTRY sound_test, d_str_sound_test
+	MENU_ENTRY manual_work_ram_tests, d_str_work_ram_test
 	MENU_LIST_END
+
+d_str_menu_title:		string "MAIN MENU"
+
+d_str_input_test:		string "INPUT TEST"
+d_str_memory_viewer:		string "MEMORY VIEWER"
+d_str_palette_ram_test:		string "PALETTE RAM TEST"
+d_str_sound_test:		string "SOUND TEST"
+d_str_work_ram_test:		string "WORK RAM TEST"

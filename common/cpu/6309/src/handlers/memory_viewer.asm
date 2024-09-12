@@ -18,7 +18,7 @@ memory_viewer_handler:
 		pshs	y
 		PSUB	screen_clear
 
-		ldy	#SCREEN_XY_LIST
+		ldy	#d_screen_xys_list
 		PSUB	print_xy_string_list
 		puls	y
 
@@ -29,7 +29,7 @@ memory_viewer_handler:
 		puls	y
 
 		jsr	input_update
-		lda	INPUT_EDGE
+		lda	r_input_edge
 
 		bita	#INPUT_UP
 		beq	.up_not_pressed
@@ -64,71 +64,71 @@ memory_viewer_handler:
 memory_dump:
 
 		ldf	#START_ROW
-		stf	CURRENT_ROW
+		stf	r_current_row
 
 		lde	#NUM_ROWS
-		ste	REMAINING_ROWS
+		ste	r_remaining_rows
 
 	.loop_next_address:
 		; address
 		lda	#4
-		ldb	CURRENT_ROW
+		ldb	r_current_row
 		PSUB	screen_seek_xy
 		tfr	y, d
 		PSUB	print_hex_word
 
 		; 1st word
 		lda	#11
-		ldb	CURRENT_ROW
+		ldb	r_current_row
 		PSUB	screen_seek_xy
 		ldd	0, y
 		PSUB	print_hex_word
 
 		; 2nd word
 		lda	#16
-		ldb	CURRENT_ROW
+		ldb	r_current_row
 		PSUB	screen_seek_xy
 		ldd	2, y
 		PSUB	print_hex_word
 
 		; 1st byte
 		lda	#23
-		ldb	CURRENT_ROW
+		ldb	r_current_row
 		PSUB	screen_seek_xy
 		lda	0, y
 		PSUB	print_byte
 
 		; 2nd byte
 		lda	#24
-		ldb	CURRENT_ROW
+		ldb	r_current_row
 		PSUB	screen_seek_xy
 		lda	1, y
 		PSUB	print_byte
 
 		; 3rd byte
 		lda	#25
-		ldb	CURRENT_ROW
+		ldb	r_current_row
 		PSUB	screen_seek_xy
 		lda	2, y
 		PSUB	print_byte
 
 		; 4th btye
 		lda	#26
-		ldb	CURRENT_ROW
+		ldb	r_current_row
 		PSUB	screen_seek_xy
 		lda	3, y
 		PSUB	print_byte
 
 		leay	4, y
-		inc	CURRENT_ROW
-		dec	REMAINING_ROWS
+		inc	r_current_row
+		dec	r_remaining_rows
 		lbne	.loop_next_address
 
 		rts
 
 	section data
 
-SCREEN_XY_LIST:
+d_screen_xys_list:
 	XY_STRING  9, 3, "MEMORY_VIEWER"
 	XY_STRING  4, 4, "ADDR"
 	XY_STRING 13, 4, "DATA"
@@ -137,5 +137,5 @@ SCREEN_XY_LIST:
 
 	section bss
 
-CURRENT_ROW:	blk	1
-REMAINING_ROWS:	blk	1
+r_current_row:		blk	1
+r_remaining_rows:	blk	1

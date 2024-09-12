@@ -5,8 +5,8 @@
 
 	global input_update
 
-	global INPUT_EDGE
-	global INPUT_RAW
+	global r_input_edge
+	global r_input_raw
 
 	section code
 
@@ -23,15 +23,15 @@ input_update:
 
 		lda	REG_INPUT
 		coma
-		ldb	INPUT_RAW
+		ldb	r_input_raw
 
 		eorr	a, b
 		andr	a, b
-		stb	INPUT_EDGE
-		sta	INPUT_RAW
+		stb	r_input_edge
+		sta	r_input_raw
 		rts
 
 	section bss
 
-INPUT_EDGE:	blk 1
-INPUT_RAW:	blk 1
+r_input_edge:	blk 1
+r_input_raw:	blk 1

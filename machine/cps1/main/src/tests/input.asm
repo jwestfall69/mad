@@ -12,12 +12,12 @@
 	section code
 
 input_test:
-		lea	SCREEN_XYS_LIST, a0
+		lea	d_screen_xys_list, a0
 		RSUB	print_xy_string_list
 
 	.loop_test:
 
-		lea	INPUT_LIST, a0
+		lea	d_input_list, a0
 		jsr	print_input_list
 
 		move.b	REG_INPUT, d0
@@ -30,7 +30,7 @@ input_test:
 	section data
 	align 2
 
-INPUT_LIST:
+d_input_list:
 	INPUT_ENTRY  7, REG_INPUT_P1
 	INPUT_ENTRY  8, REG_INPUT_P2
 	INPUT_ENTRY  9, REG_INPUT_IN2
@@ -41,7 +41,7 @@ INPUT_LIST:
 	INPUT_ENTRY 14, REG_INPUT_SYSTEM
 	INPUT_LIST_END
 
-SCREEN_XYS_LIST:
+d_screen_xys_list:
 	XY_STRING 6,  6, "76543210"
 	XY_STRING 3,  7, "P1"
 	XY_STRING 3,  8, "P2"

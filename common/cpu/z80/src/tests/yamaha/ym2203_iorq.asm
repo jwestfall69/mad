@@ -57,7 +57,7 @@ ym2203_timera_irq_test:
 		call	ym2203_write_register
 
 		xor	a
-		ld	(IRQ_SEEN), a
+		ld	(r_irq_seen), a
 
 		ei
 
@@ -71,7 +71,7 @@ ym2203_timera_irq_test:
 		ld	c, $0
 		call	ym2203_write_register
 
-		ld	a, (IRQ_SEEN)
+		ld	a, (r_irq_seen)
 		cp	0
 		jr	z, .test_failed
 
@@ -101,7 +101,7 @@ ym2203_timerb_irq_test:
 		call	ym2203_write_register
 
 		xor	a
-		ld	(IRQ_SEEN), a
+		ld	(r_irq_seen), a
 
 		ei
 
@@ -115,7 +115,7 @@ ym2203_timerb_irq_test:
 		ld	c, $0
 		call	ym2203_write_register
 
-		ld	a, (IRQ_SEEN)
+		ld	a, (r_irq_seen)
 		cp	0
 		jr	z, .test_failed
 

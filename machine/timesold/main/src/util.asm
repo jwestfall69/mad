@@ -5,6 +5,7 @@
 	include "machine.inc"
 
 	global fg_set_bank
+	global r_fg_current_bank
 
 	section code
 
@@ -36,11 +37,11 @@
 ; params:
 ;  d0 = bank number
 fg_set_bank:
-		move.b	(BANK_CURRENT), d1
+		move.b	(r_fg_current_bank), d1
 		cmp.b	d0, d1
 		beq	.skip_bank_switch
 
-		move.b	d0, (BANK_CURRENT)
+		move.b	d0, (r_fg_current_bank)
 
 		lea	REG_LATCH_BANK_BIT0, a0
 		btst	#$0, d0
@@ -67,7 +68,6 @@ fg_set_bank:
 		rts
 
 	section bss
+	align 2
 
-BANK_CURRENT:	dc.b $0
-
-
+r_fg_current_bank:	dc.b $0

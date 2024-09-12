@@ -32,7 +32,7 @@ error_handler_dsub:
 		move.l	d6, a0
 
 		; use the error code to find the correct print error dsub id
-		lea	(EC_LIST), a1
+		lea	(d_ec_list), a1
 	.loop_ec_next_entry:
 		cmp.b	(a1), d0
 		beq	.ec_found
@@ -51,7 +51,7 @@ error_handler_dsub:
 		and.w	#$ff, d4
 
 		; use the print error dsub id to find print error dsub to run
-		lea	(EC_PRINT_LIST), a2
+		lea	(d_ec_print_list), a2
 	.loop_pe_next_entry:
 		cmp.w	(a2), d4
 		beq 	.pe_found

@@ -5,8 +5,8 @@
 
 	global input_update
 
-	global INPUT_EDGE
-	global INPUT_RAW
+	global r_input_edge
+	global r_input_raw
 
 	section code
 
@@ -21,14 +21,15 @@ input_update:
 
 		move.b	REG_INPUT, d0
 		not.b	d0
-		move.b	INPUT_RAW, d1
+		move.b	r_input_raw, d1
 		eor.b	d0, d1
 		and.b	d0, d1
-		move.b	d1, INPUT_EDGE
-		move.b	d0, INPUT_RAW
+		move.b	d1, r_input_edge
+		move.b	d0, r_input_raw
 		rts
 
 	section bss
+	align 2
 
-INPUT_EDGE:		dc.b $0
-INPUT_RAW:		dc.b $0
+r_input_edge:		dc.b $0
+r_input_raw:		dc.b $0

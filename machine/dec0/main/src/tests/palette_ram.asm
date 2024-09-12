@@ -15,13 +15,13 @@
 	section code
 
 auto_palette_ram_tests:
-		lea 	MT_DATA, a0
+		lea 	d_mt_data, a0
 		RSUB	memory_tests_handler
 		rts
 
 manual_palette_ram_tests:
 
-		lea	SCREEN_XYS_LIST, a0
+		lea	d_screen_xys_list, a0
 		RSUB	print_xy_string_list
 
 		moveq	#0, d6		; passes, memory tests don't touch it
@@ -50,18 +50,17 @@ manual_palette_ram_tests:
 		rts
 
 	section data
-
 	align 2
 
 ; fix me based on ram chips
-MEMORY_ADDRESS_LIST:
+d_memory_address_list:
 	MEMORY_ADDRESS_ENTRY PALETTE_RAM_START
 	MEMORY_ADDRESS_LIST_END
 
-MT_DATA:
-	MT_PARAMS PALETTE_RAM_START, MEMORY_ADDRESS_LIST, PALETTE_RAM_SIZE, PALETTE_RAM_ADDRESS_LINES, PALETTE_RAM_MASK, MT_TEST_BOTH, PALETTE_RAM_BASE_EC
+d_mt_data:
+	MT_PARAMS PALETTE_RAM_START, d_memory_address_list, PALETTE_RAM_SIZE, PALETTE_RAM_ADDRESS_LINES, PALETTE_RAM_MASK, MT_TEST_BOTH, PALETTE_RAM_BASE_EC
 
-SCREEN_XYS_LIST:
+d_screen_xys_list:
 	XY_STRING 3, 10, "PASSES"
 	XY_STRING 3, 20, "B2 - RETURN TO MENU"
 	XY_STRING_LIST_END

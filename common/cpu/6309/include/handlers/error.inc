@@ -4,8 +4,8 @@
 	;   word description_string_address;
 	; }
 	macro EC_ENTRY
-		dfb EC_\1, \2
-		dfw STR_\1
+		dfb \1, \2
+		dfw \3
 	endm
 
 	macro EC_LIST_END

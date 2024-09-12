@@ -1,7 +1,7 @@
 	include "cpu/z80/include/macros.inc"
 	include "cpu/z80/include/z80.inc"
 
-	global IRQ_SEEN
+	global r_irq_seen
 
 	section vectors
 
@@ -25,7 +25,7 @@ irq_handler:
 		xor	a
 		inc	a
 
-		ld	(IRQ_SEEN), a
+		ld	(r_irq_seen), a
 
 		pop	af
 		reti
@@ -33,8 +33,7 @@ irq_handler:
 nmi_handler:
 		jp	_start
 
-
 	section bss
 
-IRQ_SEEN:
+r_irq_seen:
 		blk	1

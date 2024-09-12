@@ -12,12 +12,12 @@
 	section code
 
 input_test:
-		lea	SCREEN_XYS_LIST, a0
+		lea	d_screen_xys_list, a0
 		RSUB	print_xy_string_list
 
-		clr.l	INTERRUPT_IRQ1_COUNT
-		clr.l	INTERRUPT_IRQ2_COUNT
-		clr.l	INTERRUPT_IRQ3_COUNT
+		clr.l	r_irq1_count
+		clr.l	r_irq2_count
+		clr.l	r_irq3_count
 
 		INTS_ENABLE
 
@@ -26,19 +26,19 @@ input_test:
 		; triggers MCU to write DSW2 state to $040000
 		tst.b	REG_MCU_DSW2
 
-		lea	INPUT_LIST, a0
+		lea	d_input_list, a0
 		jsr	print_input_list
 
 		SEEK_XY	20, 7
-		move.l	INTERRUPT_IRQ1_COUNT, d0
+		move.l	r_irq1_count, d0
 		RSUB	print_hex_3_bytes
 
 		SEEK_XY	20, 8
-		move.l	INTERRUPT_IRQ2_COUNT, d0
+		move.l	r_irq2_count, d0
 		RSUB	print_hex_3_bytes
 
 		SEEK_XY	20, 9
-		move.l	INTERRUPT_IRQ3_COUNT, d0
+		move.l	r_irq3_count, d0
 		RSUB	print_hex_3_bytes
 
 		move.b	REG_INPUT, d0
@@ -52,14 +52,14 @@ input_test:
 	section data
 	align 2
 
-INPUT_LIST:
+d_input_list:
 	INPUT_ENTRY  7, REG_INPUT_P1
 	INPUT_ENTRY  8, REG_INPUT_P2
 	INPUT_ENTRY  9, REG_INPUT_DSW1
 	INPUT_ENTRY 10, REG_INPUT_DSW2
 	INPUT_LIST_END
 
-SCREEN_XYS_LIST:
+d_screen_xys_list:
 	XY_STRING  6,  6, "76543210"
 	XY_STRING  3,  7, "P1"
 	XY_STRING 15,  7, "IRQ1"

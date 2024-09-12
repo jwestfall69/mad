@@ -10,16 +10,16 @@
 	section code
 
 memory_viewer_menu:
-		move.b	#0, MENU_CURSOR
+		move.b	#0, r_menu_cursor
 
 	.loop_menu:
 		RSUB	screen_init
 
 		SEEK_XY	3, 3
-		lea	STR_MENU_TITLE, a0
+		lea	d_str_menu_title, a0
 		RSUB	print_string
 
-		lea	MENU_LIST, a0
+		lea	d_menu_list, a0
 		jsr	menu_handler
 
 		cmp.b	#MENU_CONTINUE, d0
@@ -84,37 +84,35 @@ view_memory:
 
 
 	section data
-
-STR_MENU_TITLE:		STRING "MEMORY VIEWER MENU"
-
 	align 2
 
-MENU_LIST:
-	MENU_ENTRY view_gfx_ram, STR_GFX_RAM
-	MENU_ENTRY view_cps_a_reg, STR_CPS_A_REG
-	MENU_ENTRY view_cps_b_reg, STR_CPS_B_REG
-	MENU_ENTRY view_mmio, STR_MMIO
-	MENU_ENTRY view_object_ram, STR_OBJECT_RAM
-	MENU_ENTRY view_palette_ram, STR_PALETTE_RAM
-	MENU_ENTRY view_rom_space, STR_ROM_SPACE
-	MENU_ENTRY view_row_scroll_ram, STR_ROW_SCROLL_RAM
-	MENU_ENTRY view_scroll1_ram, STR_SCROLL1_RAM
-	MENU_ENTRY view_scroll2_ram, STR_SCROLL2_RAM
-	MENU_ENTRY view_scroll3_ram, STR_SCROLL3_RAM
-	MENU_ENTRY view_work_ram, STR_WORK_RAM
+d_menu_list:
+	MENU_ENTRY view_cps_a_reg, d_str_cps_a_reg
+	MENU_ENTRY view_cps_b_reg, d_str_cps_b_reg
+	MENU_ENTRY view_gfx_ram, d_str_gfx_ram
+	MENU_ENTRY view_mmio, d_str_mmio
+	MENU_ENTRY view_object_ram, d_str_object_ram
+	MENU_ENTRY view_palette_ram, d_str_palette_ram
+	MENU_ENTRY view_rom_space, d_str_rom_space
+	MENU_ENTRY view_row_scroll_ram, d_str_row_scroll_ram
+	MENU_ENTRY view_scroll1_ram, d_str_scroll1_ram
+	MENU_ENTRY view_scroll2_ram, d_str_scroll2_ram
+	MENU_ENTRY view_scroll3_ram, d_str_scroll3_ram
+	MENU_ENTRY view_work_ram, d_str_work_ram
 	MENU_LIST_END
 
+d_str_menu_title:	STRING "MEMORY VIEWER MENU"
 
-STR_GFX_RAM:		STRING "GFX RAM"
-STR_CPS_A_REG:		STRING "CPS A REG"
-STR_CPS_B_REG:		STRING "CPS B REG"
-STR_MMIO:		STRING "MMIO"
-STR_OBJECT_RAM:		STRING "OBJECT RAM"
-STR_PALETTE_RAM:	STRING "PALETTE RAM"
-STR_ROM_SPACE:		STRING "ROM SPACE"
-STR_ROW_SCROLL_RAM:	STRING "ROW SCROLL RAM"
-STR_SCROLL1_RAM:	STRING "SCROLL1 RAM"
-STR_SCROLL2_RAM:	STRING "SCROLL2 RAM"
-STR_SCROLL3_RAM:	STRING "SCROLL3 RAM"
-STR_WORK_RAM:		STRING "WORK RAM"
+d_str_cps_a_reg:	STRING "CPS A REG"
+d_str_cps_b_reg:	STRING "CPS B REG"
+d_str_gfx_ram:		STRING "GFX RAM"
+d_str_mmio:		STRING "MMIO"
+d_str_object_ram:	STRING "OBJECT RAM"
+d_str_palette_ram:	STRING "PALETTE RAM"
+d_str_rom_space:	STRING "ROM SPACE"
+d_str_row_scroll_ram:	STRING "ROW SCROLL RAM"
+d_str_scroll1_ram:	STRING "SCROLL1 RAM"
+d_str_scroll2_ram:	STRING "SCROLL2 RAM"
+d_str_scroll3_ram:	STRING "SCROLL3 RAM"
+d_str_work_ram:		STRING "WORK RAM"
 

@@ -16,7 +16,7 @@ fg_tile_viewer:
 		bsr	fg_palette_setup
 
 		SEEK_XY	7, 3
-		lea	STR_TITLE, a0
+		lea	d_str_title, a0
 		RSUB	print_string
 
 		moveq	#$0, d0
@@ -31,7 +31,7 @@ fg_tile_viewer:
 fg_palette_setup:
 
 		lea	PALETTE_RAM_START+(PALETTE_SIZE*PALETTE_NUM), a0
-		lea	PALETTE_DATA, a1
+		lea	d_palette_data, a1
 		moveq	#(PALETTE_SIZE/4 - 1), d0
 
 	.loop_next_color:
@@ -69,10 +69,11 @@ fg_draw_tile_cb:
 		rts
 
 	section data
+	align 2
 
-PALETTE_DATA:
+d_palette_data:
 	dc.w	$3276, $6d39, $3e34, $fe00, $5864, $8064, $e519
 	dc.w	$d126, $e277, $8271, $0e78, $aa39, $f725, $0e5e
 	dc.w	$9532, $f043
 
-STR_TITLE: 	STRING "FG TILE VIEWER"
+d_str_title: 	STRING "FG TILE VIEWER"

@@ -23,7 +23,7 @@ sound_test_handler:
 		WATCHDOG
 
 		bsr	input_update
-		move.b	INPUT_EDGE, d0
+		move.b	r_input_edge, d0
 
 		btst	#INPUT_UP_BIT, d0
 		beq	.up_not_pressed

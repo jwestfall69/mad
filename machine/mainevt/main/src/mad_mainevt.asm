@@ -34,7 +34,7 @@ _start:
 		; to do the limited number of registers on
 		; the CPU
 		SEEK_XY	3, 4
-		ldy	#STR_TESTING_WORK_RAM
+		ldy	#d_str_testing_work_ram
 		PSUB	print_string
 
 		PSUB	auto_work_ram_tests
@@ -44,4 +44,4 @@ _start:
 
 	section data
 
-STR_TESTING_WORK_RAM:	string "TESTING WORK RAM"
+d_str_testing_work_ram:	string "TESTING WORK RAM"

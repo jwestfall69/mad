@@ -15,7 +15,7 @@
 ; tile ram is only 8 bit
 auto_tile_ram_tests:
 
-		lea	MT_DATA, a0
+		lea	d_mt_data, a0
 		DSUB	memory_tests_handler
 		rts
 
@@ -51,7 +51,7 @@ manual_tile_ram_tests:
 	.test_pause:
 		RSUB	screen_init
 
-		lea	SCREEN_XYS_LIST, a0
+		lea	d_screen_xys_list, a0
 		RSUB	print_xy_string_list
 
 		SEEK_XY	12, 10
@@ -68,12 +68,12 @@ manual_tile_ram_tests:
 		rts
 
 	section data
-
 	align 2
-MT_DATA:
+
+d_mt_data:
 	MT_PARAMS TILE_RAM_START, MT_NULL_ADDRESS_LIST, TILE_RAM_SIZE, TILE_RAM_ADDRESS_LINES, TILE_RAM_MASK, MT_TEST_LOWER_ONLY, TILE_RAM_BASE_EC
 
-SCREEN_XYS_LIST:
+d_screen_xys_list:
 	XY_STRING 3,  4, "TILE RAM TEST"
 	XY_STRING 3, 10, "PASSES"
 	XY_STRING 3, 19, "B1 - PAUSE"

@@ -25,7 +25,7 @@ sound_test_handler:
 		pshs	b
 		jsr	input_update
 		puls	b
-		lda	INPUT_EDGE
+		lda	r_input_edge
 
 		bita	#INPUT_UP
 		beq	.up_not_pressed

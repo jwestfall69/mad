@@ -12,19 +12,19 @@
 	section code
 
 input_test:
-		lea	SCREEN_XYS_LIST, a0
+		lea	d_screen_xys_list, a0
 		RSUB	print_xy_string_list
 
-		clr.l	INTERRUPT_VBLANK_COUNT
+		clr.l	r_irq_vblank_count
 		move.w	#$2400, sr
 
 	.loop_test:
 
-		lea	INPUT_LIST, a0
+		lea	d_input_list, a0
 		jsr	print_input_list
 
 		SEEK_XY	21, 7
-		move.l	INTERRUPT_VBLANK_COUNT, d0
+		move.l	r_irq_vblank_count, d0
 		RSUB	print_hex_3_bytes
 
 		move.b	REG_INPUT, d0
@@ -38,7 +38,7 @@ input_test:
 	section data
 	align 2
 
-INPUT_LIST:
+d_input_list:
 	INPUT_ENTRY  7, REG_INPUT_P1
 	INPUT_ENTRY  8, REG_INPUT_P2
 	INPUT_ENTRY  9, REG_INPUT_DSW1
@@ -46,7 +46,7 @@ INPUT_LIST:
 	INPUT_ENTRY 11, REG_INPUT_SYSTEM
 	INPUT_LIST_END
 
-SCREEN_XYS_LIST:
+d_screen_xys_list:
 	XY_STRING  6,  6, "76543210"
 	XY_STRING  3,  7, "P1"
 	XY_STRING 17,  7, "VBI"

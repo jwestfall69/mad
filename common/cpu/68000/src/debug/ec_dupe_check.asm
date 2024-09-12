@@ -10,7 +10,7 @@
 	section code
 
 ; This is a check to verify I dont accidently have any dupe
-; error codes in EC_LIST.
+; error codes in d_ec_list.
 ;
 ; There are 256 possible error codes.  We are using a 32 byte
 ; array where each bit represents a single error code we've
@@ -20,17 +20,17 @@
 ec_dupe_check:
 
 		SEEK_XY	3, 20
-		lea	STR_B2_RETURN, a0
+		lea	d_str_b2_return, a0
 		RSUB	print_string
 
-		lea	EC_SEEN, a0
+		lea	r_ec_seen, a0
 		move.l	#32, d0
 		move.l	#$0, d1
 		RSUB	memory_fill
 
-		lea	EC_LIST, a1
+		lea	d_ec_list, a1
 	.loop_ec_next_entry:
-		lea	EC_SEEN, a2
+		lea	r_ec_seen, a2
 		tst.l	(a1)		; list ends in a $0.l
 		beq	.ec_list_end
 
@@ -55,12 +55,12 @@ ec_dupe_check:
 
 		or.b	d2, (a2)
 
-		addq.l	#6, a1		; goto next EC_LIST entry
+		addq.l	#6, a1		; goto next d_ec_list entry
 		bra	.loop_ec_next_entry
 
 	.found_dupe:
 		SEEK_XY	3, 10
-		lea	STR_DUPE_FOUND, a0
+		lea	d_str_dupe_found, a0
 		RSUB	print_string
 
 		SEEK_XY	15, 10
@@ -70,7 +70,7 @@ ec_dupe_check:
 
 	.ec_list_end:
 		SEEK_XY	3, 10
-		lea	STR_NO_DUPES, a0
+		lea	d_str_no_dupes, a0
 		RSUB	print_string
 
 	.loop_input:
@@ -80,14 +80,14 @@ ec_dupe_check:
 		rts
 
 	section data
-
-STR_B2_RETURN:	STRING "B2 - RETURN TO MENU"
-STR_DUPE_FOUND: STRING <"DUPE FOUND", CHAR_COLON>
-STR_NO_DUPES:	STRING "NO DUPES FOUND"
-
-	section bss
-
 	align 2
 
-EC_SEEN:
+d_str_b2_return:	STRING "B2 - RETURN TO MENU"
+d_str_dupe_found: 	STRING <"DUPE FOUND", CHAR_COLON>
+d_str_no_dupes:		STRING "NO DUPES FOUND"
+
+	section bss
+	align 2
+
+r_ec_seen:
 	dcb.b	32

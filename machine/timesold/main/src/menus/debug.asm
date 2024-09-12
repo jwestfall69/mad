@@ -10,16 +10,16 @@
 	section code
 
 debug_menu:
-		move.b	#0, MENU_CURSOR
+		move.b	#0, r_menu_cursor
 
 	.loop_menu:
 		RSUB	screen_init
 
 		SEEK_XY	3, 3
-		lea	STR_MENU_TITLE, a0
+		lea	d_str_menu_title, a0
 		RSUB	print_string
 
-		lea	MENU_LIST, a0
+		lea	d_menu_list, a0
 		jsr	menu_handler
 
 		cmp.b	#MENU_CONTINUE, d0
@@ -28,15 +28,14 @@ debug_menu:
 		rts
 
 	section data
-
-STR_MENU_TITLE:		STRING "DEBUG MENU"
-
 	align 2
 
-MENU_LIST:
-	MENU_ENTRY ec_dupe_check, STR_EC_DUPE_CHECK
-	MENU_ENTRY fg_tile_viewer, STR_FG_TILE_VIEWER
+d_menu_list:
+	MENU_ENTRY ec_dupe_check, d_str_ec_dupe_check
+	MENU_ENTRY fg_tile_viewer, d_str_fg_tile_viewer
 	MENU_LIST_END
 
-STR_EC_DUPE_CHECK:		STRING "EC DUPE CHECK"
-STR_FG_TILE_VIEWER:		STRING "FG TILE VIEWER"
+d_str_menu_title:		STRING "DEBUG MENU"
+
+d_str_ec_dupe_check:		STRING "EC DUPE CHECK"
+d_str_fg_tile_viewer:		STRING "FG TILE VIEWER"

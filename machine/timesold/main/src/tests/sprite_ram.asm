@@ -19,13 +19,13 @@
 ; an upper, middle and lower error codes.  For not its just checking the lower
 ; byte, which covers 2 of the 3 ram chips.
 auto_sprite_ram_tests:
-		lea	MT_DATA, a0
+		lea	d_mt_data, a0
 		DSUB	memory_tests_handler
 		rts
 
 manual_sprite_ram_tests:
 
-		lea	SCREEN_XYS_LIST, a0
+		lea	d_screen_xys_list, a0
 		RSUB	print_xy_string_list
 
 		moveq	#0, d6		; passes, memory tests don't touch it
@@ -55,13 +55,12 @@ manual_sprite_ram_tests:
 		rts
 
 	section data
-
 	align 2
 
-MT_DATA:
+d_mt_data:
 	MT_PARAMS SPRITE_RAM_START, MT_NULL_ADDRESS_LIST, SPRITE_RAM_SIZE, SPRITE_RAM_ADDRESS_LINES, SPRITE_RAM_MASK, MT_TEST_LOWER_ONLY, SPRITE_RAM_BASE_EC
 
-SCREEN_XYS_LIST:
+d_screen_xys_list:
 	XY_STRING 3,  4, "SPRITE RAM TEST"
 	XY_STRING 3, 10, "PASSES"
 	XY_STRING 3, 20, "B2 - RETURN TO MENU"

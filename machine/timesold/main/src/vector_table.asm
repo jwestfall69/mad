@@ -1,9 +1,9 @@
 	include "machine.inc"
 	include "mad_rom.inc"
 
-	global INTERRUPT_IRQ1_COUNT
-	global INTERRUPT_IRQ2_COUNT
-	global INTERRUPT_IRQ3_COUNT
+	global r_irq1_count
+	global r_irq2_count
+	global r_irq3_count
 
 	section vectors, data
 
@@ -30,24 +30,24 @@
 
 ; vblank
 irq1_handler:
-		addq.l	#1, INTERRUPT_IRQ1_COUNT
+		addq.l	#1, r_irq1_count
 		tst.b	REG_IRQ1_ACK
 		rte
 
 ; scanline? by default seems to happen every 0.06 - 0.07 ms
 irq2_handler:
-		addq.l	#1, INTERRUPT_IRQ2_COUNT
+		addq.l	#1, r_irq2_count
 		rte
 
 ; timer? by default seems to happen every ~60ms?
 irq3_handler:
-		addq.l	#1, INTERRUPT_IRQ3_COUNT
+		addq.l	#1, r_irq3_count
 		tst.b	REG_IRQ3_ACK
 		rte
 
 	section bss
 	align 2
 
-INTERRUPT_IRQ1_COUNT:	dc.l $0
-INTERRUPT_IRQ2_COUNT:	dc.l $0
-INTERRUPT_IRQ3_COUNT:	dc.l $0
+r_irq1_count:	dc.l $0
+r_irq2_count:	dc.l $0
+r_irq3_count:	dc.l $0

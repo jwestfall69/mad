@@ -10,7 +10,7 @@
 	section code
 
 sound_test:
-		lea	SCREEN_XYS_LIST, a0
+		lea	d_screen_xys_list, a0
 		RSUB	print_xy_string_list
 
 		moveq	#$22, d0
@@ -18,8 +18,9 @@ sound_test:
 		rts
 
 	section data
+	align 2
 
-SCREEN_XYS_LIST:
+d_screen_xys_list:
 	XY_STRING  3, 10, "SOUND NUM:"
 	XY_STRING  3, 19, "B1 - PLAY SOUND"
 	XY_STRING  3, 20, "B2 - RETURN TO MENU"

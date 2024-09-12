@@ -14,22 +14,22 @@
 
 auto_tile_ram_tests:
 
-		lea	MT_DATA1, a0
+		lea	d_mt_data1, a0
 		DSUB	memory_byte_tests_handler
 		tst.b	d0
 		bne	.test_failed
 
-		lea	MT_DATA2, a0
+		lea	d_mt_data2, a0
 		DSUB	memory_byte_tests_handler
 		tst.b	d0
 		bne	.test_failed
 
-		lea	MT_DATA3, a0
+		lea	d_mt_data3, a0
 		DSUB	memory_byte_tests_handler
 		tst.b	d0
 		bne	.test_failed
 
-		;lea	MT_DATA4, a0
+		;lea	d_mt_data4, a0
 		;DSUB	memory_byte_tests_handler
 		;tst.b	d0
 		;bne	.test_failed
@@ -66,7 +66,7 @@ manual_tile_ram_tests:
 	.test_pause:
 		RSUB	screen_init
 
-		lea	SCREEN_XYS_LIST, a0
+		lea	d_screen_xys_list, a0
 		RSUB	print_xy_string_list
 
 		SEEK_XY	12, 10
@@ -82,19 +82,21 @@ manual_tile_ram_tests:
 		rts
 
 	section data
-
 	align 2
-MT_DATA1:
-;	MT_PARAMS TILE_RAM_START, MT_NULL_ADDRESS_LIST, TILE_RAM_SIZE, TILE_RAM_ADDRESS_LINES, TILE_RAM_MASK, MT_TEST_LOWER_ONLY, TILE_RAM_BASE_EC
+
+d_mt_data1:
 	MT_PARAMS TILE_RAM_START, MT_NULL_ADDRESS_LIST, $1000, 12, TILE_RAM_MASK, MT_TEST_BOTH, TILE_RAM_BASE_EC
-MT_DATA2:
+
+d_mt_data2:
 	MT_PARAMS TILE_RAM_START+$2000, MT_NULL_ADDRESS_LIST, $1000, 12, TILE_RAM_MASK, MT_TEST_BOTH, TILE_RAM_BASE_EC
-MT_DATA3:
+
+d_mt_data3:
 	MT_PARAMS TILE_RAM_START+$4000, MT_NULL_ADDRESS_LIST, $1000, 12, TILE_RAM_MASK, MT_TEST_BOTH, TILE_RAM_BASE_EC
-MT_DATA4:
+
+d_mt_data4:
 	MT_PARAMS TILE_RAM_START+$6000, MT_NULL_ADDRESS_LIST, $800, 12, TILE_RAM_MASK, MT_TEST_BOTH, TILE_RAM_BASE_EC
 
-SCREEN_XYS_LIST:
+d_screen_xys_list:
 	XY_STRING 3,  4, "TILE RAM TEST"
 	XY_STRING 3, 10, "PASSES"
 	XY_STRING 3, 19, "B1 - PAUSE"

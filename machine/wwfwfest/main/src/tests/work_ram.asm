@@ -17,12 +17,12 @@ auto_work_ram_tests_dsub:
 
 		; do to nesting depth issues we need to directly
 		; branch to the handler and let it do the DSUB_RETURN
-		lea	MT_DATA, a0
+		lea	d_mt_data, a0
 		bra	memory_tests_handler_dsub
 
 manual_work_ram_tests:
 
-		lea	SCREEN_XYS_LIST, a0
+		lea	d_screen_xys_list, a0
 		RSUB	print_xy_string_list
 
 		moveq	#0, d6		; passes, memory tests don't touch it
@@ -53,17 +53,16 @@ manual_work_ram_tests:
 
 	.test_exit:
 		RSUB_INIT
-		clr.b	MENU_CURSOR
+		clr.b	r_menu_cursor
 		bra	main_menu
 
 	section data
-
 	align 2
 
-MT_DATA:
+d_mt_data:
 	MT_PARAMS WORK_RAM_START, MT_NULL_ADDRESS_LIST, WORK_RAM_SIZE, WORK_RAM_ADDRESS_LINES, WORK_RAM_MASK, MT_TEST_BOTH, WORK_RAM_BASE_EC
 
-SCREEN_XYS_LIST:
+d_screen_xys_list:
 	XY_STRING 3, 10, "PASSES"
 	XY_STRING 3, 20, "B2 - RETURN TO MENU"
 	XY_STRING_LIST_END

@@ -12,7 +12,7 @@
 	section code
 
 input_test:
-		lea	SCREEN_XYS_LIST, a0
+		lea	d_screen_xys_list, a0
 		RSUB	print_xy_string_list
 
 	.loop_test:
@@ -66,10 +66,9 @@ input_test:
 		rts
 
 	section data
-
 	align 2
 
-SCREEN_XYS_LIST:
+d_screen_xys_list:
 	XY_STRING 6,  6, "76543210"
 	XY_STRING 3,  7, "P1"
 	XY_STRING 3,  8, "P2"

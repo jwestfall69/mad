@@ -32,14 +32,14 @@ print_error_work_ram_memory_psub:
 		PSUB	print_hex_byte
 
 		SEEK_XY	3,7
-		ldy	#STR_ADDRESS
+		ldy	#d_str_address
 		PSUB	print_string
 
 		SEEK_XY	3,8
-		ldy	#STR_EXPECTED
+		ldy	#d_str_expected
 		PSUB	print_string
 
 		SEEK_XY	3,9
-		ldy	#STR_ACTUAL
+		ldy	#d_str_actual
 		PSUB	print_string
 		PSUB_RETURN

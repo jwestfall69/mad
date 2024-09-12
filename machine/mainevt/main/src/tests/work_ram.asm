@@ -77,7 +77,7 @@ auto_work_ram_tests_psub:
 		PSUB	print_error_work_ram_memory
 
 		SEEK_XY	3, 4
-		ldy	#STR_WORK_RAM_ADDRESS
+		ldy	#d_str_work_ram_address
 		PSUB	print_string
 
 		lda	#EC_WORK_RAM_ADDRESS
@@ -87,7 +87,7 @@ auto_work_ram_tests_psub:
 		PSUB	print_error_work_ram_memory
 
 		SEEK_XY	3, 4
-		ldy	#STR_WORK_RAM_DATA
+		ldy	#d_str_work_ram_data
 		PSUB	print_string
 
 		lda	#EC_WORK_RAM_DATA
@@ -97,7 +97,7 @@ auto_work_ram_tests_psub:
 		PSUB	print_error_work_ram_memory
 
 		SEEK_XY	3, 4
-		ldy	#STR_WORK_RAM_MARCH
+		ldy	#d_str_work_ram_march
 		PSUB	print_string
 
 		lda	#EC_WORK_RAM_MARCH
@@ -105,7 +105,7 @@ auto_work_ram_tests_psub:
 
 	.test_failed_output:
 		SEEK_XY	3, 4
-		ldy	#STR_WORK_RAM_OUTPUT
+		ldy	#d_str_work_ram_output
 		PSUB	print_string
 
 		lda	#EC_WORK_RAM_OUTPUT
@@ -113,7 +113,7 @@ auto_work_ram_tests_psub:
 
 	.test_failed_write:
 		SEEK_XY	3, 4
-		ldy	#STR_WORK_RAM_WRITE
+		ldy	#d_str_work_ram_write
 		PSUB	print_string
 		lda	#EC_WORK_RAM_WRITE
 
@@ -133,7 +133,7 @@ auto_work_ram_tests_psub:
 NUM_PASSES		equ PALETTE_RAM_START + PALETTE_SIZE
 
 manual_work_ram_tests:
-		ldy	#SCREEN_XYS_LIST
+		ldy	#d_screen_xys_list
 		PSUB	print_xy_string_list
 
 		clrd
@@ -157,19 +157,19 @@ manual_work_ram_tests:
 
 
 	.test_exit:
-		clr	MENU_CURSOR
+		clr	r_menu_cursor
 		jmp	main_menu
 
 	section data
 
-SCREEN_XYS_LIST:
+d_screen_xys_list:
 	XY_STRING 3, 10, "PASSES"
 	XY_STRING 3, 20, "B2 - RETURN TO MENU"
 	XY_STRING_LIST_END
 
 ; These are padded so we fully overwrite "TESTING WORK RAM"
-STR_WORK_RAM_ADDRESS:		string "WORK RAM ADDRESS"
-STR_WORK_RAM_DATA:		string "WORK RAM DATA   "
-STR_WORK_RAM_MARCH:		string "WORK RAM MARCH  "
-STR_WORK_RAM_OUTPUT:		string "WORK RAM OUTPUT "
-STR_WORK_RAM_WRITE:		string "WORK RAM WRITE  "
+d_str_work_ram_address:		string "WORK RAM ADDRESS"
+d_str_work_ram_data:		string "WORK RAM DATA   "
+d_str_work_ram_march:		string "WORK RAM MARCH  "
+d_str_work_ram_output:		string "WORK RAM OUTPUT "
+d_str_work_ram_write:		string "WORK RAM WRITE  "

@@ -31,5 +31,5 @@ _start:
 		moveq	#SOUND_NUM_SUCCESS, d0
 		SOUND_PLAY
 
-		clr.b	MENU_CURSOR
+		clr.b	r_menu_cursor
 		bra	main_menu

@@ -20,13 +20,13 @@ auto_tile3_ram_tests:
 		rts
 	endif
 
-		lea 	MT_DATA, a0
+		lea 	d_mt_data, a0
 		RSUB	memory_tests_handler
 		rts
 
 manual_tile3_ram_tests:
 
-		lea	SCREEN_XYS_LIST, a0
+		lea	d_screen_xys_list, a0
 		RSUB	print_xy_string_list
 
 		moveq	#0, d6		; passes, memory tests don't touch it
@@ -55,13 +55,12 @@ manual_tile3_ram_tests:
 		rts
 
 	section data
-
 	align 2
 
-MT_DATA:
+d_mt_data:
 	MT_PARAMS TILE3_RAM_START, MT_NULL_ADDRESS_LIST, TILE3_RAM_SIZE, TILE3_RAM_ADDRESS_LINES, TILE3_RAM_MASK, MT_TEST_BOTH, TILE3_RAM_BASE_EC
 
-SCREEN_XYS_LIST:
+d_screen_xys_list:
 	XY_STRING 3, 10, "PASSES"
 	ifd _MAME_BUILD_
 		XY_STRING 3, 14, "MAME BUILD - TEST DISABLED"

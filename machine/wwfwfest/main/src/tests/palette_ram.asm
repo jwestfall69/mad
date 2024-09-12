@@ -95,7 +95,7 @@ auto_palette_ram_tests:
 
 manual_palette_ram_tests:
 
-		lea	SCREEN_XYS_LIST, a0
+		lea	d_screen_xys_list, a0
 		RSUB	print_xy_string_list
 
 		moveq	#0, d6		; passes, memory tests don't touch it
@@ -229,8 +229,8 @@ palette_ram_data_test_dsub:
 		ror.l	#1, d0
 		subq.l	#1, d0
 
-		lea	DATA_PATTERNS, a1
-		moveq	#(((DATA_PATTERNS_END - DATA_PATTERNS) / 2) - 1), d3
+		lea	d_data_patterns, a1
+		moveq	#(((d_data_patterns_end - d_data_patterns) / 2) - 1), d3
 
 		; backup params
 		move.l	d0, d4
@@ -288,14 +288,13 @@ palette_ram_data_test_dsub:
 
 
 	section data
-
 	align 2
 
-DATA_PATTERNS:
+d_data_patterns:
 	dc.w	$0000, $5555, $aaaa, $ffff
-DATA_PATTERNS_END:
+d_data_patterns_end:
 
-SCREEN_XYS_LIST:
+d_screen_xys_list:
 	XY_STRING 3, 10, "PASSES"
 	XY_STRING 3, 20, "B2 - RETURN TO MENU"
 	XY_STRING_LIST_END

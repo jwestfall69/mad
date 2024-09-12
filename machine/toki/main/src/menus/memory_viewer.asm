@@ -10,16 +10,16 @@
 	section code
 
 memory_viewer_menu:
-		move.b	#0, MENU_CURSOR
+		move.b	#0, r_menu_cursor
 
 	.loop_menu:
 		RSUB	screen_init
 
 		SEEK_XY	3, 3
-		lea	STR_MENU_TITLE, a0
+		lea	d_str_menu_title, a0
 		RSUB	print_string
 
-		lea	MENU_LIST, a0
+		lea	d_menu_list, a0
 		jsr	menu_handler
 
 		cmp.b	#MENU_CONTINUE, d0
@@ -68,31 +68,28 @@ view_memory:
 
 
 	section data
-
-STR_MENU_TITLE:		STRING "MEMORY VIEWER MENU"
-
 	align 2
 
-MENU_LIST:
-	MENU_ENTRY view_bg1_ram, STR_BG1_RAM
-	MENU_ENTRY view_bg2_ram, STR_BG2_RAM
-	MENU_ENTRY view_fg_ram, STR_FG_RAM
-	MENU_ENTRY view_mmio_input, STR_MMIO_INPUT
-	MENU_ENTRY view_mmio_screen, STR_MMIO_SCREEN
-	MENU_ENTRY view_palette_ram, STR_PALETTE_RAM
-	MENU_ENTRY view_rom_space, STR_ROM_SPACE
-	MENU_ENTRY view_sprite_ram, STR_SPRITE_RAM
-	MENU_ENTRY view_work_ram, STR_WORK_RAM
+d_menu_list:
+	MENU_ENTRY view_bg1_ram, d_str_bg1_ram
+	MENU_ENTRY view_bg2_ram, d_str_bg2_ram
+	MENU_ENTRY view_fg_ram, d_str_fg_ram
+	MENU_ENTRY view_mmio_input, d_str_mmio_input
+	MENU_ENTRY view_mmio_screen, d_str_mmio_screen
+	MENU_ENTRY view_palette_ram, d_str_palette_ram
+	MENU_ENTRY view_rom_space, d_str_rom_space
+	MENU_ENTRY view_sprite_ram, d_str_sprite_ram
+	MENU_ENTRY view_work_ram, d_str_work_ram
 	MENU_LIST_END
 
+d_str_menu_title:		STRING "MEMORY VIEWER MENU"
 
-STR_BG1_RAM:		STRING "BG1 RAM"
-STR_BG2_RAM:		STRING "BG2 RAM"
-STR_FG_RAM:		STRING "FG RAM"
-STR_MMIO_INPUT:		STRING "MMIO INPUT"
-STR_MMIO_SCREEN:	STRING "MMIO SCREEN"
-STR_PALETTE_RAM:	STRING "PALETTE RAM"
-STR_ROM_SPACE:		STRING "ROM SPACE"
-STR_SPRITE_RAM:		STRING "SPRITE RAM"
-STR_WORK_RAM:		STRING "WORK RAM"
-
+d_str_bg1_ram:			STRING "BG1 RAM"
+d_str_bg2_ram:			STRING "BG2 RAM"
+d_str_fg_ram:			STRING "FG RAM"
+d_str_mmio_input:		STRING "MMIO INPUT"
+d_str_mmio_screen:		STRING "MMIO SCREEN"
+d_str_palette_ram:		STRING "PALETTE RAM"
+d_str_rom_space:		STRING "ROM SPACE"
+d_str_sprite_ram:		STRING "SPRITE RAM"
+d_str_work_ram:			STRING "WORK RAM"

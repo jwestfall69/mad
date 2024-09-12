@@ -40,7 +40,7 @@ screen_clear_dsub:
 		move.b	#$0, $106c00
 
 		SEEK_XY 13, 0
-		lea	STR_HEADER, a0
+		lea	d_str_header, a0
 		DSUB	print_string
 
 		SEEK_XY	0, 1
@@ -98,5 +98,6 @@ memory_fill_tile_dsub:
 		DSUB_RETURN
 
 	section data
+	align 2
 
-STR_HEADER:	STRING "TMNT < MAD 0=1"
+d_str_header:	STRING "TMNT < MAD 0=1"

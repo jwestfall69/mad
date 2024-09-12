@@ -16,7 +16,7 @@ fg_tile_viewer:
 		bsr	fg_palette_setup
 
 		SEEK_XY	7, 3
-		lea	STR_TITLE, a0
+		lea	d_str_title, a0
 		RSUB	print_string
 
 		; This will start us off on the offset that
@@ -36,7 +36,7 @@ fg_tile_viewer:
 fg_palette_setup:
 
 		lea	PALETTE_RAM_START+(PALETTE_SIZE*PALETTE_NUM), a0
-		lea	PALETTE_DATA, a1
+		lea	d_palette_data, a1
 		moveq	#(PALETTE_SIZE/2 - 1), d0
 
 	.loop_next_color:
@@ -65,10 +65,11 @@ fg_draw_tile_cb:
 		rts
 
 	section data
+	align 2
 
-PALETTE_DATA:
+d_palette_data:
 	dc.w	$f817, $fed0, $f0bc, $fa35, $f9d5, $f09c, $fc66
 	dc.w	$f6c4, $fc64, $fb39, $f2cb, $fe94, $f36b, $f4d8
 	dc.w	$f64c, $f50d
 
-STR_TITLE: 	STRING "FG TILE VIEWER"
+d_str_title: 	STRING "FG TILE VIEWER"

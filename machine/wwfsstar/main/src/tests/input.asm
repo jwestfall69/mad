@@ -12,25 +12,25 @@
 	section code
 
 input_test:
-		lea	SCREEN_XYS_LIST, a0
+		lea	d_screen_xys_list, a0
 		RSUB	print_xy_string_list
 
 		moveq	#0, d4		; vblank pulse counter
-		clr.l	INTERRUPT_TIMER_COUNT
-		clr.l	INTERRUPT_VBLANK_COUNT
-		clr.b	INPUT_SYSTEM_EDGE
-		clr.b	INPUT_SYSTEM_RAW
+		clr.l	r_irq_timer_count
+		clr.l	r_irq_vblank_count
+		clr.b	r_intput_system_edge
+		clr.b	r_input_system_raw
 
 		INTS_ENABLE
 
 	.loop_test:
 
-		lea	INPUT_LIST, a0
+		lea	d_input_list, a0
 		jsr	print_input_list
 
 		jsr	input_system_update
 
-		btst	#SYS_VBLANK_BIT, INPUT_SYSTEM_EDGE
+		btst	#SYS_VBLANK_BIT, r_intput_system_edge
 		beq	.no_vblank
 		addq.l	#1, d4
 
@@ -40,11 +40,11 @@ input_test:
 		RSUB	print_hex_3_bytes
 
 		SEEK_XY	21, 8
-		move.l	INTERRUPT_VBLANK_COUNT, d0
+		move.l	r_irq_vblank_count, d0
 		RSUB	print_hex_3_bytes
 
 		SEEK_XY	21, 7
-		move.l	INTERRUPT_TIMER_COUNT, d0
+		move.l	r_irq_timer_count, d0
 		RSUB	print_hex_3_bytes
 
 		move.b	REG_INPUT, d0
@@ -58,17 +58,17 @@ input_test:
 input_system_update:
 		move.b	REG_INPUT_SYSTEM, d0
 		not.b	d0
-		move.b	INPUT_SYSTEM_RAW, d1
+		move.b	r_input_system_raw, d1
 		eor.b	d0, d1
 		and.b	d0, d1
-		move.b	d1, INPUT_SYSTEM_EDGE
-		move.b	d0, INPUT_SYSTEM_RAW
+		move.b	d1, r_intput_system_edge
+		move.b	d0, r_input_system_raw
 		rts
 
 	section data
 	align 2
 
-INPUT_LIST:
+d_input_list:
 	INPUT_ENTRY  7, REG_INPUT_P1
 	INPUT_ENTRY  8, REG_INPUT_P2
 	INPUT_ENTRY  9, REG_INPUT_DSW1
@@ -76,7 +76,7 @@ INPUT_LIST:
 	INPUT_ENTRY 11, REG_INPUT_SYSTEM
 	INPUT_LIST_END
 
-SCREEN_XYS_LIST:
+d_screen_xys_list:
 	XY_STRING  6,  6, "76543210"
 	XY_STRING  3,  7, "P1"
 	XY_STRING 15,  7, "TIMER"
@@ -92,6 +92,7 @@ SCREEN_XYS_LIST:
 	XY_STRING_LIST_END
 
 	section bss
+	align 2
 
-INPUT_SYSTEM_EDGE:	dc.b $0
-INPUT_SYSTEM_RAW:	dc.b $0
+r_intput_system_edge:	dc.b $0
+r_input_system_raw:	dc.b $0

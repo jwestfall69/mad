@@ -18,17 +18,17 @@
 ;  e = error data
 ;  x = error data
 error_handler:
-		sta	PE_DATA_A
-		stb	PE_DATA_B
-		ste	PE_DATA_E
-		stx	PE_DATA_X
+		sta	r_pe_data_a
+		stb	r_pe_data_b
+		ste	r_pe_data_e
+		stx	r_pe_data_x
 
 		; screen maybe messed up depending
 		; on which test is running
 		PSUB	screen_init
 
-		lda	PE_DATA_A
-		ldx	#EC_LIST
+		lda	r_pe_data_a
+		ldx	#d_ec_list
 	.loop_ec_next_entry:
 		cmpa	, x
 		beq	.ec_found
@@ -38,19 +38,19 @@ error_handler:
 		bne	.loop_ec_next_entry
 
 		; failed to find error code !?
-		lda	#PRINT_ERROR_INVALID
-		sta	PE_DATA_B
-		ldx	print_error_invalid
+		ldx	#print_error_invalid
+		ldb	#PRINT_ERROR_INVALID
+		stb	r_pe_data_b
 		bra	.pe_run
 
 	.ec_found:
 		lda	1, x	; print error function id
 		ldy	2, x
-		sty	PE_STRING_ADDR
+		sty	r_pe_string_addr
 
 
 		; use the print error dsub id to find print error function to run
-		ldx	#EC_PRINT_LIST
+		ldx	#d_ec_print_list
 	.loop_pe_next_entry:
 		cmpa	, x
 		beq	.pe_found
@@ -59,8 +59,8 @@ error_handler:
 		bne	.loop_pe_next_entry
 
 		; no print function found !?
-		sta	PE_DATA_B
-		ldx	print_error_invalid
+		sta	r_pe_data_b
+		ldx	#print_error_invalid
 		bra	.pe_run
 
 	.pe_found:
@@ -69,11 +69,11 @@ error_handler:
 	.pe_run:
 		jsr	, x
 
-		lda	PE_DATA_A
+		lda	r_pe_data_a
 		PSUB	sound_play_byte
 
 	ifnd _ERROR_ADDRESS_DISABLED_
-		lda	PE_DATA_A
+		lda	r_pe_data_a
 		STALL
 		;jsr	error_address	; never returns
 	else

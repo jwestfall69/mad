@@ -28,13 +28,13 @@ screen_clear_dsub:
 	else
 		SEEK_XY	9, 0
 	endif
-		lea	STR_HEADER, a0
+		lea	d_str_header, a0
 		DSUB	print_string
 		DSUB_RETURN
 
 screen_init_dsub:
 
-		lea	MEMORY_FILL_LIST, a0
+		lea	d_memory_fill_list, a0
 		DSUB	memory_fill_list
 
 		; mame and hardware don't seem to agree on screen flip
@@ -95,9 +95,9 @@ screen_seek_xy_dsub:
 		DSUB_RETURN
 
 	section data
-
 	align 2
-MEMORY_FILL_LIST:
+
+d_memory_fill_list:
 		MEMORY_FILL_ENTRY REG_TILE1_CTRL2, $8, $0
 		MEMORY_FILL_ENTRY REG_TILE2_CTRL1, $8, $0
 		MEMORY_FILL_ENTRY REG_TILE2_CTRL2, $8, $0
@@ -112,4 +112,4 @@ MEMORY_FILL_LIST:
 		MEMORY_FILL_ENTRY SPRITE_RAM_START, SPRITE_RAM_SIZE, $0
 		MEMORY_FILL_LIST_END
 
-STR_HEADER:	STRING "DEC0 - MAD 0.1"
+d_str_header:	STRING "DEC0 - MAD 0.1"

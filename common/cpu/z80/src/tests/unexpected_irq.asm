@@ -6,10 +6,10 @@
 
 ; If nothing is configured for generating interrupts
 ; we shouldn't be getting any
-; Your irq handler should define (bss) and set IRQ_SEEN to non-zero
+; Your irq handler should define (bss) and set r_irq_seen to non-zero
 unexpected_irq_test:
 		xor	a
-		ld	(IRQ_SEEN), a
+		ld	(r_irq_seen), a
 
 		ei
 
@@ -18,7 +18,7 @@ unexpected_irq_test:
 
 		di
 
-		ld	a, (IRQ_SEEN)
+		ld	a, (r_irq_seen)
 
 		jr	nz, .test_failed
 		xor	a

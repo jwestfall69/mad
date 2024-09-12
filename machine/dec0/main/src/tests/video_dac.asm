@@ -19,7 +19,7 @@
 video_dac_test:
 		RSUB	screen_clear
 
-		lea	SCREEN_XYS_LIST, a0
+		lea	d_screen_xys_list, a0
 		RSUB	print_xy_string_list
 
 		; Palette layout
@@ -55,7 +55,7 @@ video_dac_test:
 
 	.loop_input:
 		bsr	input_update
-		move.b	INPUT_EDGE, d0
+		move.b	r_input_edge, d0
 
 		btst	#INPUT_B1_BIT, d0
 		beq	.b1_not_pressed
@@ -74,12 +74,12 @@ MAX_COLOR_INDEX		equ (VD_NUM_COLORS - 1)
 MAX_COLOR_BIT_INDEX	equ (VD_NUM_BITS_PER_COLOR - 1)
 full_screen:
 
-		; Treat TILES_TABLE as a multidimensional array of
+		; Treat r_tiles_table as a multidimensional array of
 		;  long[VD_NUM_COLORS][VD_NUM_BITS_PER_COLOR]
 		; where:
 		;  d3 is the first index (color)
 		;  d2 is the second index (color bit for that color)
-		lea	TILES_TABLE, a1
+		lea	r_tiles_table, a1
 
 		; start at [0][0], red bit 0
 		moveq	#0, d2
@@ -87,7 +87,7 @@ full_screen:
 
 	.draw_full_screen:
 		; convert the d2/d3 array index numbers into the correct offset
-		; in TILES_TABLE
+		; in r_tiles_table
 		move.w	d2, d4
 		mulu	#SCREEN_BYTES_PER_TILE, d4
 		move.l	d3, d5
@@ -104,7 +104,7 @@ full_screen:
 
 	.loop_input:
 		bsr	input_update
-		move.b	INPUT_EDGE, d0
+		move.b	r_input_edge, d0
 
 		btst	#INPUT_UP_BIT, d0
 		beq	.up_not_pressed
@@ -156,7 +156,7 @@ full_screen:
 ;  P = palette number
 ;  T = tile number
 generate_tiles_table:
-		lea	TILES_TABLE, a1
+		lea	r_tiles_table, a1
 		move.w	#(1<<12), d5			; start with palette #1
 		moveq	#(VD_NUM_COLORS - 1), d4
 
@@ -164,13 +164,13 @@ generate_tiles_table:
 		moveq	#2, d6				; # raw tiles
 
 	.loop_next_group_of_three:
-		lea	TILES_RAW, a0
+		lea	d_tiles_raw, a0
 		moveq	#2, d1
 
 	.loop_next_raw_tile:
 		move.w	(a0)+, d0			; take the raw tile
 		or.w	d5, d0				; add in the palette #
-		move.w	d0, (a1)+			; save to TILES_TABLE
+		move.w	d0, (a1)+			; save to r_tiles_table
 		dbra	d1, .loop_next_raw_tile
 
 		add.w	#(1<<12), d5			; next palette
@@ -188,7 +188,7 @@ COLOR_BLOCK_START_Y	equ 6
 	endif
 
 draw_colors:
-		lea	TILES_TABLE, a0
+		lea	r_tiles_table, a0
 		moveq	#COLOR_BLOCK_START_Y, d6
 		moveq	#(VD_NUM_COLORS - 1), d3
 
@@ -236,7 +236,7 @@ palette_setup_color:
 		move.w	#$101, d4			; bit mask
 
 	.loop_next_group_of_three:
-		lea	PALETTE_OFFSETS, a1
+		lea	d_palette_offsets, a1
 		moveq	#2, d5
 
 	.loop_next_offset:
@@ -266,15 +266,14 @@ palette_setup_color:
 		rts
 
 	section data
-
 	align 2
 
-PALETTE_OFFSETS:
+d_palette_offsets:
 	dc.w	VD_TILE_B036_PAL_OFFSET, VD_TILE_B147_PAL_OFFSET, VD_TILE_B25A_PAL_OFFSET
-TILES_RAW:
+d_tiles_raw:
 	dc.w	VD_TILE_B036_NUM, VD_TILE_B147_NUM, VD_TILE_B25A_NUM
 
-SCREEN_XYS_LIST:
+d_screen_xys_list:
 	ifd _PRINT_COLUMN_
 		XY_STRING 8, 2, "VIDEO DAC TEST"
 		XY_STRING 2, 5, "0  1  2  3  4  5  6  7 ALL"
@@ -287,8 +286,7 @@ SCREEN_XYS_LIST:
 	XY_STRING_LIST_END
 
 	section bss
-
 	align 2
 
-TILES_TABLE:
+r_tiles_table:
 	dcb.w	VD_NUM_COLORS*VD_NUM_BITS_PER_COLOR

@@ -1,21 +1,22 @@
 	include "cpu/68000/include/macros.inc"
 	include "cpu/68000/include/tests/auto.inc"
 
-	global AUTO_DSUB_LIST
-	global AUTO_FUNC_LIST
+	global d_auto_dsub_list
+	global d_auto_func_list
 
 	section data
+	align 2
 
-AUTO_DSUB_LIST:
-	AUTO_ENTRY auto_mad_rom_address_test_dsub, STR_TESTING_MAD_ROM_ADDRESS
-	AUTO_ENTRY auto_mad_rom_crc32_test_dsub, STR_TESTING_MAD_ROM_CRC32
-	AUTO_ENTRY auto_ram_tests_dsub, STR_TESTING_RAM
+d_auto_dsub_list:
+	AUTO_ENTRY auto_mad_rom_address_test_dsub, d_str_testing_mad_rom_address
+	AUTO_ENTRY auto_mad_rom_crc32_test_dsub, d_str_testing_mad_rom_crc32
+	AUTO_ENTRY auto_ram_tests_dsub, d_str_testing_ram
 	AUTO_LIST_END
 
-AUTO_FUNC_LIST:
-;	AUTO_ENTRY auto_fg_ram_tests, STR_TESTING_FG_RAM
+d_auto_func_list:
+;	AUTO_ENTRY auto_fg_ram_tests, d_str_testing_fg_ram
 	AUTO_LIST_END
 
-STR_TESTING_MAD_ROM_ADDRESS:	STRING "TESTING MAD ROM ADDRESS"
-STR_TESTING_MAD_ROM_CRC32:	STRING "TESTING MAD ROM CRC32"
-STR_TESTING_RAM:		STRING "TESTING RAM"
+d_str_testing_mad_rom_address:	STRING "TESTING MAD ROM ADDRESS"
+d_str_testing_mad_rom_crc32:	STRING "TESTING MAD ROM CRC32"
+d_str_testing_ram:		STRING "TESTING RAM"

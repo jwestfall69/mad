@@ -4,8 +4,8 @@
 	;   long description_string_address;
 	; }
 	macro EC_ENTRY
-		dc.b EC_\1, \2
-		dc.l STR_\1
+		dc.b \1, \2
+		dc.l \3
 	endm
 
 	macro EC_LIST_END

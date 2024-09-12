@@ -10,7 +10,7 @@
 	global print_error_invalid_dsub
 	global print_error_memory_dsub
 	global print_error_string_dsub
-	global EC_PRINT_LIST
+	global d_ec_print_list
 
 	section code
 ; these are print_error functions that get called by error_handler
@@ -30,7 +30,7 @@ print_error_address_dsub:
 		DSUB	print_string
 
 		SEEK_XY	4, 8
-		lea	STR_ADDRESS, a0
+		lea	d_str_address, a0
 		DSUB	print_string
 
 		DSUB_RETURN
@@ -62,11 +62,11 @@ print_error_crc32_dsub:
 		DSUB	print_string
 
 		SEEK_XY	4, 8
-		lea	STR_ACTUAL, a0
+		lea	d_str_actual, a0
 		DSUB	print_string
 
 		SEEK_XY	4, 10
-		lea	STR_EXPECTED, a0
+		lea	d_str_expected, a0
 		DSUB	print_string
 		DSUB_RETURN
 
@@ -97,11 +97,11 @@ print_error_hex_byte_dsub:
 		DSUB	print_string
 
 		SEEK_XY	4, 8
-		lea	STR_ACTUAL, a0
+		lea	d_str_actual, a0
 		DSUB	print_string
 
 		SEEK_XY	4, 10
-		lea	STR_EXPECTED, a0
+		lea	d_str_expected, a0
 		DSUB	print_string
 		DSUB_RETURN
 
@@ -125,15 +125,15 @@ print_error_invalid_dsub:
 		DSUB	print_clear_line
 
 		SEEK_XY	2, 4
-		lea	STR_INVALID_ERROR, a0
+		lea	d_str_invalid_error, a0
 		DSUB	print_string
 
 		SEEK_XY	2, 6
-		lea	STR_ERROR_CODE, a0
+		lea	d_str_error_code, a0
 		DSUB	print_string
 
 		SEEK_XY	2, 7
-		lea	STR_PRINT_FUNCTION, a0
+		lea	d_str_print_function, a0
 		DSUB	print_string
 		DSUB_RETURN
 
@@ -171,15 +171,15 @@ print_error_memory_dsub:
 		DSUB	print_string
 
 		SEEK_XY	4, 8
-		lea	STR_ADDRESS, a0
+		lea	d_str_address, a0
 		DSUB	print_string
 
 		SEEK_XY	4, 10
-		lea	STR_ACTUAL, a0
+		lea	d_str_actual, a0
 		DSUB	print_string
 
 		SEEK_XY	4, 12
-		lea	STR_EXPECTED, a0
+		lea	d_str_expected, a0
 		DSUB	print_string
 		DSUB_RETURN
 
@@ -192,8 +192,9 @@ print_error_string_dsub:
 		DSUB_RETURN
 
 	section data
+	align 2
 
-EC_PRINT_LIST:
+d_ec_print_list:
 	EC_PRINT_ENTRY PRINT_ERROR_ADDRESS, print_error_address_dsub
 	EC_PRINT_ENTRY PRINT_ERROR_CRC32, print_error_crc32_dsub
 	EC_PRINT_ENTRY PRINT_ERROR_HEX_BYTE, print_error_hex_byte_dsub
@@ -201,10 +202,10 @@ EC_PRINT_LIST:
 	EC_PRINT_ENTRY PRINT_ERROR_STRING, print_error_string_dsub
 	EC_PRINT_LIST_END
 
-STR_ADDRESS:		STRING <"ADDRESS", CHAR_COLON>
-STR_ACTUAL:		STRING <"ACTUAL", CHAR_COLON>
-STR_EXPECTED:		STRING <"EXPECTED", CHAR_COLON>
+d_str_address:		STRING <"ADDRESS", CHAR_COLON>
+d_str_actual:		STRING <"ACTUAL", CHAR_COLON>
+d_str_expected:		STRING <"EXPECTED", CHAR_COLON>
 
-STR_INVALID_ERROR:	STRING "INVALID ERROR OR PRINT CODE"
-STR_ERROR_CODE:		STRING <"ERROR CODE", CHAR_COLON>
-STR_PRINT_FUNCTION:	STRING <"PRINT FUNCTION", CHAR_COLON>
+d_str_invalid_error:	STRING "INVALID ERROR OR PRINT CODE"
+d_str_error_code:	STRING <"ERROR CODE", CHAR_COLON>
+d_str_print_function:	STRING <"PRINT FUNCTION", CHAR_COLON>

@@ -51,7 +51,7 @@ screen_clear_psub:
 		PSUB	memory_fill
 
 		SEEK_XY	9, 0
-		ldy	#STR_HEADER
+		ldy	#d_str_header
 		PSUB	print_string
 
 		SEEK_LN	1
@@ -76,4 +76,4 @@ screen_seek_xy_psub:
 
 	section data
 
-STR_HEADER:	string "MAINEVT - MAD 0.1"
+d_str_header:	string "MAINEVT - MAD 0.1"

@@ -11,13 +11,13 @@
 	section code
 
 input_test:
-		ldy	#SCREEN_XYS_LIST
+		ldy	#d_screen_xys_list
 		PSUB	print_xy_string_list
 
 	.loop_test:
 		WATCHDOG
 
-		ldy	#INPUT_LIST
+		ldy	#d_input_list
 		jsr	print_input_list
 
 		lda	REG_INPUT
@@ -30,7 +30,7 @@ input_test:
 
 	section data
 
-INPUT_LIST:
+d_input_list:
 	INPUT_ENTRY  7, REG_INPUT_P1
 	INPUT_ENTRY  8, REG_INPUT_P2
 	INPUT_ENTRY  9, REG_INPUT_P3
@@ -41,15 +41,15 @@ INPUT_LIST:
 	INPUT_ENTRY 14, REG_INPUT_SYSTEM
 	INPUT_LIST_END
 
-SCREEN_XYS_LIST:
-	XY_STRING  6,  6, "76543210"
-	XY_STRING  3,  7, "P1"
-	XY_STRING  3,  8, "P2"
-	XY_STRING  3,  9, "P3"
-	XY_STRING  3, 10, "P4"
-	XY_STRING  1, 11, "DSW1"
-	XY_STRING  1, 12, "DSW2"
-	XY_STRING  1, 13, "DSW3"
-	XY_STRING  2, 14, "SYS"
-	XY_STRING  3, 20, "P1 B2+RIGHT - RETURN TO MENU"
+d_screen_xys_list:
+	XY_STRING 6,  6, "76543210"
+	XY_STRING 3,  7, "P1"
+	XY_STRING 3,  8, "P2"
+	XY_STRING 3,  9, "P3"
+	XY_STRING 3, 10, "P4"
+	XY_STRING 1, 11, "DSW1"
+	XY_STRING 1, 12, "DSW2"
+	XY_STRING 1, 13, "DSW3"
+	XY_STRING 2, 14, "SYS"
+	XY_STRING 3, 20, "P1 B2+RIGHT - RETURN TO MENU"
 	XY_STRING_LIST_END

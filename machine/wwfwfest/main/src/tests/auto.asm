@@ -1,26 +1,27 @@
 	include "cpu/68000/include/macros.inc"
 	include "cpu/68000/include/tests/auto.inc"
 
-	global AUTO_DSUB_LIST
-	global AUTO_FUNC_LIST
+	global d_auto_dsub_list
+	global d_auto_func_list
 
 	section data
+	align 2
 
-AUTO_DSUB_LIST:
-	AUTO_ENTRY auto_mad_rom_address_test_dsub, STR_TESTING_MAD_ROM_ADDRESS
-	AUTO_ENTRY auto_mad_rom_crc32_test_dsub, STR_TESTING_MAD_ROM_CRC32
-	AUTO_ENTRY auto_work_ram_tests_dsub, STR_TESTING_WORK_RAM
+d_auto_dsub_list:
+	AUTO_ENTRY auto_mad_rom_address_test_dsub, d_str_testing_mad_rom_address
+	AUTO_ENTRY auto_mad_rom_crc32_test_dsub, d_str_testing_mad_rom_crc32
+	AUTO_ENTRY auto_work_ram_tests_dsub, d_str_testing_work_ram
 	AUTO_LIST_END
 
-AUTO_FUNC_LIST:
-	AUTO_ENTRY auto_palette_ram_tests, STR_TESTING_PALETTE_RAM
-	AUTO_ENTRY auto_fg_sprite_ram_tests, STR_TESTING_FG_SPRITE_RAM
-	AUTO_ENTRY auto_bg_ram_tests, STR_TESTING_BG_RAM
+d_auto_func_list:
+	AUTO_ENTRY auto_palette_ram_tests, d_str_testing_palette_ram
+	AUTO_ENTRY auto_fg_sprite_ram_tests, d_str_testing_fg_sprite_ram
+	AUTO_ENTRY auto_bg_ram_tests, d_str_testing_bg_ram
 	AUTO_LIST_END
 
-STR_TESTING_BG_RAM:		STRING "TESTING BG RAM"
-STR_TESTING_MAD_ROM_ADDRESS:	STRING "TESTING MAD ROM ADDRESS"
-STR_TESTING_MAD_ROM_CRC32:	STRING "TESTING MAD ROM CRC32"
-STR_TESTING_FG_SPRITE_RAM:	STRING "TESTING FG/SPRITE RAM"
-STR_TESTING_PALETTE_RAM:	STRING "TESTING PALETTE RAM"
-STR_TESTING_WORK_RAM:		STRING "TESTING WORK RAM"
+d_str_testing_bg_ram:		STRING "TESTING BG RAM"
+d_str_testing_mad_rom_address:	STRING "TESTING MAD ROM ADDRESS"
+d_str_testing_mad_rom_crc32:	STRING "TESTING MAD ROM CRC32"
+d_str_testing_fg_sprite_ram:	STRING "TESTING FG/SPRITE RAM"
+d_str_testing_palette_ram:	STRING "TESTING PALETTE RAM"
+d_str_testing_work_ram:		STRING "TESTING WORK RAM"

@@ -3,7 +3,7 @@
 	include "machine.inc"
 	include "mad_rom.inc"
 
-	global INTERRUPT_VBLANK_COUNT
+	global r_irq_vblank_count
 	section vectors, data
 
 		dc.l	SP_INIT_ADDR
@@ -16,11 +16,11 @@
 
 ; vblank
 irq5_handler:
-		addq.l	#1, INTERRUPT_VBLANK_COUNT
+		addq.l	#1, r_irq_vblank_count
 		move.w	d0, REG_IRQ5_ACK
 		rte
 
 	section bss
 	align 2
 
-INTERRUPT_VBLANK_COUNT:	dc.l $0
+r_irq_vblank_count:	dc.l $0

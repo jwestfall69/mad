@@ -7,7 +7,7 @@
 	include "mad_rom.inc"
 
 	global menu_handler
-	global MENU_CURSOR
+	global r_menu_cursor
 
 MENU_X_OFFSET		equ $2
 MENU_Y_OFFSET		equ $5
@@ -20,14 +20,14 @@ MENU_Y_OFFSET		equ $5
 ;  d0 = 0 (function ran) or 1 (menu exit)
 menu_handler:
 
-		move.l	a0, MENU_LIST
+		move.l	a0, r_menu_list
 		move.l	a1, a2
 
 		bsr	print_menu_list
 		move.b	d0, d6			; max menu entries
 		subq.b	#1, d6
 
-		move.b	MENU_CURSOR, d4		; current menu entry
+		move.b	r_menu_cursor, d4		; current menu entry
 		move.b	d4, d5			; previous menu entry
 
 		; force an initial draw of the cursor
@@ -36,7 +36,7 @@ menu_handler:
 	.loop_menu_input:
 		WATCHDOG
 		bsr	input_update
-		move.b	INPUT_EDGE, d0
+		move.b	r_input_edge, d0
 
 		btst	#INPUT_UP_BIT, d0
 		beq	.up_not_pressed
@@ -92,11 +92,11 @@ menu_handler:
 
 	.menu_entry_run:
 
-		move.b	d4, MENU_CURSOR
+		move.b	d4, r_menu_cursor
 
 		RSUB	screen_clear
 
-		move.l	MENU_LIST, a1
+		move.l	r_menu_list, a1
 		move.l	d4, d0
 		mulu	#8, d0
 		add.l	d0, a1
@@ -106,12 +106,12 @@ menu_handler:
 		SEEK_XY	3, 4
 		RSUB	print_string
 
-		move.b	MENU_CURSOR, -(a7)
+		move.b	r_menu_cursor, -(a7)
 
 		move.la	(a1), a1
 		jsr	(a1)			; menu entry's function
 
-		move.b	(a7)+, MENU_CURSOR
+		move.b	(a7)+, r_menu_cursor
 
 		moveq	#MENU_CONTINUE, d0
 		rts
@@ -146,8 +146,7 @@ print_menu_list:
 		rts
 
 	section bss
-
 	align 2
 
-MENU_LIST:		dc.l	$0
-MENU_CURSOR:		dc.b	$0
+r_menu_list:		dc.l	$0
+r_menu_cursor:		dc.b	$0

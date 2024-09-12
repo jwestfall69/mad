@@ -15,11 +15,11 @@
 	section code
 
 auto_work_ram_tests_dsub:
-		lea	MT_DATA, a0
+		lea	d_mt_data, a0
 		bra	memory_tests_handler_dsub
 
 manual_work_ram_tests:
-		lea	SCREEN_XYS_LIST, a0
+		lea	d_screen_xys_list, a0
 		RSUB	print_xy_string_list
 
 		INTS_DISABLE
@@ -55,18 +55,17 @@ manual_work_ram_tests:
 		bra	main_menu
 
 	section data
-
 	align 2
 
 ; fix me based on ram chips
-MEMORY_ADDRESS_LIST:
+d_memory_address_list:
 	MEMORY_ADDRESS_ENTRY WORK_RAM_START
 	MEMORY_ADDRESS_LIST_END
 
-MT_DATA:
-	MT_PARAMS WORK_RAM_START, MEMORY_ADDRESS_LIST, WORK_RAM_SIZE, WORK_RAM_ADDRESS_LINES, WORK_RAM_MASK, $0, WORK_RAM_BASE_EC
+d_mt_data:
+	MT_PARAMS WORK_RAM_START, d_memory_address_list, WORK_RAM_SIZE, WORK_RAM_ADDRESS_LINES, WORK_RAM_MASK, $0, WORK_RAM_BASE_EC
 
-SCREEN_XYS_LIST:
+d_screen_xys_list:
 	XY_STRING 3, 10, "PASSES"
 	XY_STRING 3, 20, "B2 - RETURN TO MENU"
 	XY_STRING_LIST_END

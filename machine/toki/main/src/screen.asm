@@ -48,7 +48,7 @@ screen_init_dsub:
 		move.w	#0, PALETTE_RAM_START + $61e
 
 		SEEK_XY	9, 0
-		lea	STR_HEADER, a0
+		lea	d_str_header, a0
 		DSUB	print_string
 
 		SEEK_XY	0, 1
@@ -84,6 +84,7 @@ screen_update_dsub:
 		DSUB_RETURN
 
 	section data
+	align 2
 
-STR_HEADER:	STRING "TOKI - MAD 0.1"
+d_str_header:	STRING "TOKI - MAD 0.1"
 

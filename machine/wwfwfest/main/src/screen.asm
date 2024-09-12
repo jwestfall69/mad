@@ -13,11 +13,11 @@
 	section code
 
 screen_clear_dsub:
-		lea	MEMORY_FILL_LIST, a0
+		lea	d_memory_fill_list, a0
 		DSUB	memory_fill_list
 
 		SEEK_XY	7, 0
-		lea	STR_HEADER, a0
+		lea	d_str_header, a0
 		DSUB	print_string
 
 		SEEK_XY	0, 1
@@ -78,11 +78,11 @@ screen_seek_xy_dsub:
 		DSUB_RETURN
 
 	section data
-
 	align 2
-MEMORY_FILL_LIST:
+
+d_memory_fill_list:
 	MEMORY_FILL_ENTRY FG_SPRITE_RAM_START, FG_SPRITE_RAM_SIZE, $0
 	MEMORY_FILL_ENTRY BG_RAM_START, BG_RAM_SIZE, $0
 	MEMORY_FILL_LIST_END
 
-STR_HEADER:	STRING "WWF WRESTLEFEST - MAD 0.01"
+d_str_header:	STRING "WWF WRESTLEFEST - MAD 0.01"

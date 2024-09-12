@@ -18,28 +18,28 @@ START_ROW	equ $9
 ;  a0 = seek_xy function
 ;  a1 = draw_tile function
 tile8_viewer_handler:
-		move.w	d0, (TILE_OFFSET)
-		move.w	d1, (TILE_OFFSET_MASK)
-		move.l	a0, (SEEK_XY_CB)
-		move.l	a1, (DRAW_TILE_CB)
+		move.w	d0, (r_tile_offset)
+		move.w	d1, (r_tile_offset_mask)
+		move.l	a0, (r_seek_xy_cb)
+		move.l	a1, (r_draw_tile_cb)
 
-		lea	SCREEN_XYS_LIST, a0
+		lea	d_screen_xys_list, a0
 		RSUB	print_xy_string_list
 
 		SEEK_XY	6, 7
-		lea	STR_0F, a0
+		lea	d_str_0f, a0
 		RSUB	print_string
 
 	.loop_redraw:
-		move.w	(TILE_OFFSET), d6
-		move.w	(TILE_OFFSET_MASK), d1
+		move.w	(r_tile_offset), d6
+		move.w	(r_tile_offset_mask), d1
 		and.w	d1, d6
-		move.w	d6, (TILE_OFFSET)
+		move.w	d6, (r_tile_offset)
 
 		moveq	#15, d5			; number of rows - 1
 		moveq	#START_ROW, d2		; current row number
 
-		lea	STR_0F, a1
+		lea	d_str_0f, a1
 
 	.loop_next_row:
 		moveq	#START_COLUMN, d3	; reset with each row
@@ -57,11 +57,11 @@ tile8_viewer_handler:
 	.loop_next_byte:
 		move.l	d3, d0
 		move.l	d2, d1
-		move.l	(SEEK_XY_CB), a0
+		move.l	(r_seek_xy_cb), a0
 		jsr	(a0)
 
 		move.w	d6, d0
-		move.l	(DRAW_TILE_CB), a0
+		move.l	(r_draw_tile_cb), a0
 		jsr	(a0)
 
 		addq.b	#1, d3			; next position over
@@ -75,33 +75,33 @@ tile8_viewer_handler:
 		WATCHDOG
 
 		SEEK_XY	16, 5
-		move.w	TILE_OFFSET, d0
+		move.w	r_tile_offset, d0
 		RSUB	print_hex_word
 
 		bsr	input_update
-		move.b	INPUT_EDGE, d0
+		move.b	r_input_edge, d0
 
 		btst	#INPUT_UP_BIT, d0
 		beq	.up_not_pressed
-		sub.w	#$100, TILE_OFFSET
+		sub.w	#$100, r_tile_offset
 		bra	.loop_redraw
 	.up_not_pressed:
 
 		btst	#INPUT_DOWN_BIT, d0
 		beq	.down_not_pressed
-		add.w	#$100, TILE_OFFSET
+		add.w	#$100, r_tile_offset
 		bra	.loop_redraw
 	.down_not_pressed:
 
 		btst	#INPUT_LEFT_BIT, d0
 		beq	.left_not_pressed
-		sub.w	#$1000, TILE_OFFSET
+		sub.w	#$1000, r_tile_offset
 		bra	.loop_redraw
 	.left_not_pressed:
 
 		btst	#INPUT_RIGHT_BIT, d0
 		beq	.right_not_pressed
-		add.w	#$1000, TILE_OFFSET
+		add.w	#$1000, r_tile_offset
 		bra	.loop_redraw
 	.right_not_pressed:
 
@@ -110,22 +110,20 @@ tile8_viewer_handler:
 		rts
 
 	section data
-
 	align 2
 
-SCREEN_XYS_LIST:
+d_screen_xys_list:
 	XY_STRING 8,  5, <"OFFSET",CHAR_COLON>
 	XY_STRING 3, 26, "B2 - RETURN TO MENU"
 	XY_STRING_LIST_END
 
-; not part of SCREEN_XY_LIST so we can use in row headers
-STR_0F:			STRING "0123456789ABCDEF"
+; not part of d_screen_xys_list so we can use in row headers
+d_str_0f:		STRING "0123456789ABCDEF"
 
 	section bss
-
 	align 2
 
-SEEK_XY_CB:		dc.l	$0
-DRAW_TILE_CB:		dc.l	$0
-TILE_OFFSET:		dc.w	$0
-TILE_OFFSET_MASK:	dc.w	$0
+r_seek_xy_cb:		dc.l	$0
+r_draw_tile_cb:		dc.l	$0
+r_tile_offset:		dc.w	$0
+r_tile_offset_mask:	dc.w	$0

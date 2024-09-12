@@ -10,7 +10,7 @@
 	section code
 
 sound_test:
-		ldy	#SCREEN_XYS_LIST
+		ldy	#d_screen_xys_list
 		PSUB	print_xy_string_list
 
 		lda	#$1
@@ -19,7 +19,7 @@ sound_test:
 
 	section data
 
-SCREEN_XYS_LIST:
+d_screen_xys_list:
 	XY_STRING 3, 10, "SOUND NUM:"
 	XY_STRING 3, 19, "B1 - PLAY SOUND"
 	XY_STRING 3, 20, "B2 - RETURN TO MENU"
