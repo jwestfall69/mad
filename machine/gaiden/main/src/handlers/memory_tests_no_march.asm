@@ -8,16 +8,6 @@
 
 	section code
 
-; offsets into MT_PARAMS struct
-	rsreset
-mt_start_address	rs.l 1
-mt_address_list		rs.l 1
-mt_size			rs.l 1
-mt_num_address_lines	rs.w 1
-mt_mask			rs.w 1
-mt_lower_byte_only	rs.b 1
-mt_base_ec		rs.b 1
-
 ; params:
 ;  a0 = ptr to mt_params struct
 ; returns:
@@ -37,55 +27,55 @@ memory_tests_no_march_handler_dsub:
 
 		; output/write tests can either be a single
 		; address or a list of addresses.  If
-		; mt_address_list is non-zero we assume the
+		; s_mt_address_list is non-zero we assume the
 		; list versions of the functions are wanted.
-		tst.l	mt_address_list(a6)
+		tst.l	s_mt_address_list(a6)
 		bne	.memory_list
 
-		move.l	mt_start_address(a6), a0
-		move.b	mt_lower_byte_only(a6), d0
+		move.l	s_mt_start_address(a6), a0
+		move.b	s_mt_lower_byte_only(a6), d0
 		DSUB	memory_output_test
 		tst.b	d0
 		bne	.test_failed_output
 
-		move.l	mt_start_address(a6), a0
-		move.b	mt_lower_byte_only(a6), d0
+		move.l	s_mt_start_address(a6), a0
+		move.b	s_mt_lower_byte_only(a6), d0
 		DSUB	memory_write_test
 		tst.b	d0
 		bne	.test_failed_write
 		bra	.data_test
 
 	.memory_list:
-		move.l	mt_address_list(a6), a0
-		move.b	mt_lower_byte_only(a6), d0
+		move.l	s_mt_address_list(a6), a0
+		move.b	s_mt_lower_byte_only(a6), d0
 		DSUB	memory_output_list_test
 		tst.b	d0
 		bne	.test_failed_output
 
-		move.l	mt_address_list(a6), a0
-		move.b	mt_lower_byte_only(a6), d0
+		move.l	s_mt_address_list(a6), a0
+		move.b	s_mt_lower_byte_only(a6), d0
 		DSUB	memory_write_list_test
 		tst.b	d0
 		bne	.test_failed_write
 
 	.data_test:
-		move.l	mt_start_address(a6), a0
-		move.l	mt_size(a6), d0
-		move.w	mt_mask(a6), d1
+		move.l	s_mt_start_address(a6), a0
+		move.l	s_mt_size(a6), d0
+		move.w	s_mt_mask(a6), d1
 		DSUB	memory_data_test
 		tst.b	d0
 		bne	.test_failed_data
 
-		move.l	mt_start_address(a6), a0
-		move.w	mt_num_address_lines(a6), d0
-		move.w	mt_mask(a6), d1
+		move.l	s_mt_start_address(a6), a0
+		move.w	s_mt_num_address_lines(a6), d0
+		move.w	s_mt_mask(a6), d1
 		DSUB	memory_address_test
 		tst.b	d0
 		bne	.test_failed_address
 
-		;move.l	mt_start_address(a6), a0
-		;move.l	mt_size(a6), d0
-		;move.w	mt_mask(a6), d1
+		;move.l	s_mt_start_address(a6), a0
+		;move.l	s_mt_size(a6), d0
+		;move.w	s_mt_mask(a6), d1
 		;DSUB	memory_march_test
 		;tst.b	d0
 		;bne	.test_failed_march
@@ -120,5 +110,5 @@ memory_tests_no_march_handler_dsub:
 	; given our internal mt error add on the memory's base
 	; ec value so its the correct ec value for that memory
 	.add_base_ec:
-		add.b	mt_base_ec(a6), d0
+		add.b	s_mt_base_ec(a6), d0
 		DSUB_RETURN

@@ -16,57 +16,57 @@ memory_tests_handler:
 		stx	r_mt_data_addr
 		tfr	x, y
 
-		ldx	mt_start_address, y
+		ldx	s_mt_start_address, y
 		PSUB	memory_output_test
 		tsta
 		lbne	.test_failed_output
 
-		ldx	mt_start_address, y
+		ldx	s_mt_start_address, y
 		PSUB	memory_write_test
 		tsta
 		lbne	.test_failed_write
 
-		ldx	mt_start_address, y
-		ldd	mt_size, y
+		ldx	s_mt_start_address, y
+		ldd	s_mt_size, y
 		lde	#$00
 		PSUB	memory_data_test
 		tsta
 		lbne	.test_failed_data
 
 		ldy	r_mt_data_addr
-		ldx	mt_start_address, y
-		ldd	mt_size, y
+		ldx	s_mt_start_address, y
+		ldd	s_mt_size, y
 		lde	#$55
 		PSUB	memory_data_test
 		tsta
 		lbne	.test_failed_data
 
 		ldy	r_mt_data_addr
-		ldx	mt_start_address, y
-		ldd	mt_size, y
+		ldx	s_mt_start_address, y
+		ldd	s_mt_size, y
 		lde	#$aa
 		PSUB	memory_data_test
 		tsta
 		lbne	.test_failed_data
 
 		ldy	r_mt_data_addr
-		ldx	mt_start_address, y
-		ldd	mt_size, y
+		ldx	s_mt_start_address, y
+		ldd	s_mt_size, y
 		lde	#$ff
 		PSUB	memory_data_test
 		tsta
 		lbne	.test_failed_data
 
 		ldy	r_mt_data_addr
-		ldx	mt_start_address, y
-		lda	mt_num_address_lines, y
+		ldx	s_mt_start_address, y
+		lda	s_mt_num_address_lines, y
 		PSUB	memory_address_test
 		tsta
 		bne	.test_failed_address
 
 		ldy	r_mt_data_addr
-		ldx	mt_start_address, y
-		ldd	mt_size, y
+		ldx	s_mt_start_address, y
+		ldd	s_mt_size, y
 		PSUB	memory_march_test
  		tsta
 		bne	.test_failed_march
@@ -94,7 +94,7 @@ memory_tests_handler:
 
 	.add_base_ec:
 		ldy	r_mt_data_addr
-		adda	mt_base_ec, y
+		adda	s_mt_base_ec, y
 		rts
 
 	section bss

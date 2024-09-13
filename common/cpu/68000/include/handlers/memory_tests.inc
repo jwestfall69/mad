@@ -8,6 +8,15 @@
 	;   byte base_ec;
 	; };
 
+	rsreset
+s_mt_start_address	rs.l 1
+s_mt_address_list	rs.l 1
+s_mt_size		rs.l 1
+s_mt_num_address_lines	rs.w 1
+s_mt_mask		rs.w 1
+s_mt_lower_byte_only	rs.b 1
+s_mt_base_ec		rs.b 1
+
 	macro MT_PARAMS
 		dc.l \1, \2, \3
 		dc.w \4, \5
