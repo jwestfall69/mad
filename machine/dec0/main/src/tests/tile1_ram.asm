@@ -68,9 +68,9 @@ manual_tile1_ram_tests:
 		move.l	d6, d0
 		RSUB	print_hex_long
 
-	.loop_paused:
-		btst	#INPUT_B1_BIT, REG_INPUT
-		beq	.loop_paused
+		moveq	#INPUT_B1_BIT, d0
+		RSUB	wait_button_release
+
 		bra	.loop_next_pass
 
 

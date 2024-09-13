@@ -54,9 +54,9 @@ manual_ram_tests:
 		move.l	d6, d0
 		PSUB	print_hex_long
 
-	.loop_paused:
-		btst	#P1_B1_BIT, REG_INPUT_P1
-		beq	.loop_paused
+		moveq	#P1_B1_BIT, d0
+		PSUB	wait_button_release
+
 		bra	.loop_next_pass
 
 	.test_failed:

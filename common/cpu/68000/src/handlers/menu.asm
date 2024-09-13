@@ -27,8 +27,14 @@ menu_handler:
 		move.b	d0, d6			; max menu entries
 		subq.b	#1, d6
 
-		move.b	r_menu_cursor, d4		; current menu entry
+		move.b	r_menu_cursor, d4	; current menu entry
 		move.b	d4, d5			; previous menu entry
+
+		; This prevents us from exiting all the way back
+		; to the main menu, when exiting a function in a
+		; submenu
+		move.b	#INPUT_B2_BIT, d0
+		RSUB	wait_button_release
 
 		; force an initial draw of the cursor
 		bra	.update_cursor
