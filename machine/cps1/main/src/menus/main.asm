@@ -28,13 +28,13 @@ main_menu:
 	align 2
 
 d_menu_list:
-	MENU_ENTRY debug_menu, d_str_debug_menu
 	MENU_ENTRY manual_gfx_ram_tests, d_str_gfx_ram_test
+	MENU_ENTRY manual_work_ram_tests, d_str_work_ram_test
 	MENU_ENTRY input_test, d_str_input_test
 	MENU_ENTRY memory_viewer_menu, d_str_memory_viewer
 	MENU_ENTRY sound_test, d_str_sound_test
 	MENU_ENTRY video_dac_test, d_str_video_dac_test
-	MENU_ENTRY manual_work_ram_tests, d_str_work_ram_test
+	MENU_ENTRY debug_menu, d_str_debug_menu
 	MENU_LIST_END
 
 d_str_menu_title:		STRING "MAIN MENU"

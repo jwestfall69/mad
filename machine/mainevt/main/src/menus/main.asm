@@ -28,11 +28,11 @@ main_menu:
 	section data
 
 d_menu_list:
+	MENU_ENTRY manual_palette_ram_tests, d_str_palette_ram_test
+	MENU_ENTRY manual_work_ram_tests, d_str_work_ram_test
 	MENU_ENTRY input_test, d_str_input_test
 	MENU_ENTRY memory_viewer_menu, d_str_memory_viewer
-	MENU_ENTRY manual_palette_ram_tests, d_str_palette_ram_test
 	MENU_ENTRY sound_test, d_str_sound_test
-	MENU_ENTRY manual_work_ram_tests, d_str_work_ram_test
 	MENU_LIST_END
 
 d_str_menu_title:		STRING "MAIN MENU"
