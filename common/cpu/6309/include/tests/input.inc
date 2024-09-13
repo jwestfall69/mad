@@ -3,10 +3,10 @@
 	;   word input_address
 	; }
 	macro INPUT_ENTRY
-		dfb \1
-		dfw \2
+		dc.b \1
+		dc.w \2
 	endm
 
 	macro INPUT_LIST_END
-		dfb $0
+		dc.b $0
 	endm

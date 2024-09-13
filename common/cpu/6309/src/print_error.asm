@@ -158,20 +158,20 @@ d_ec_print_list:
 	EC_PRINT_ENTRY PRINT_ERROR_STRING, print_error_string
 	EC_PRINT_LIST_END
 
-d_str_address:		string "ADDRESS", CHAR_COLON
-d_str_actual:		string "ACTUAL", CHAR_COLON
-d_str_expected:		string "EXPECTED", CHAR_COLON
+d_str_address:		STRING "ADDRESS", CHAR_COLON
+d_str_actual:		STRING "ACTUAL", CHAR_COLON
+d_str_expected:		STRING "EXPECTED", CHAR_COLON
 
-d_str_invalid_error:	string "INVALID ERROR OR PRINT CODE"
-d_str_error_code:	string "ERROR CODE", CHAR_COLON
-d_str_print_function:	string "PRINT FUNCTION", CHAR_COLON
+d_str_invalid_error:	STRING "INVALID ERROR OR PRINT CODE"
+d_str_error_code:	STRING "ERROR CODE", CHAR_COLON
+d_str_print_function:	STRING "PRINT FUNCTION", CHAR_COLON
 
 	section bss
 
 ; error handler will populate these before calling
 ; the necessary print_error function.
-r_pe_data_a:		blk	1
-r_pe_data_b:		blk	1
-r_pe_data_e:		blk	1
-r_pe_data_x:		blkw	1
-r_pe_string_addr:	blkw	1
+r_pe_data_a:		dc.b $0
+r_pe_data_b:		dc.b $0
+r_pe_data_e:		dc.b $0
+r_pe_data_x:		dc.w $0
+r_pe_string_addr:	dc.w $0

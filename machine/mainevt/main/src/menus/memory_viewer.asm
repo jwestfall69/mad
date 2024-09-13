@@ -65,11 +65,11 @@ d_menu_list:
 	MENU_ENTRY view_work_ram, d_str_work_ram
 	MENU_LIST_END
 
-d_str_menu_title:	string "MEMORY VIEWER MENU"
+d_str_menu_title:	STRING "MEMORY VIEWER MENU"
 
-d_str_mmio_input:	string "MMIO INPUT"
-d_str_palette_ram:	string "PALETTE RAM"
-d_str_rom_space:	string "ROM SPACE"
-d_str_rom_bank_space:	string "ROM BANK SPACE"
-d_str_tile_ram:		string "TILE RAM"
-d_str_work_ram:		string "WORK RAM"
+d_str_mmio_input:	STRING "MMIO INPUT"
+d_str_palette_ram:	STRING "PALETTE RAM"
+d_str_rom_space:	STRING "ROM SPACE"
+d_str_rom_bank_space:	STRING "ROM BANK SPACE"
+d_str_tile_ram:		STRING "TILE RAM"
+d_str_work_ram:		STRING "WORK RAM"

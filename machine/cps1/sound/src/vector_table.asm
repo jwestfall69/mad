@@ -5,13 +5,13 @@
 
 	section vectors
 
-	roffs RST_ENTRY
+	rorg RST_ENTRY
 		jp	_start
 
-	roffs RST_IRQ
+	rorg RST_IRQ
 		jp	irq_handler
 
-	roffs RST_NMI
+	rorg RST_NMI
 		jp	nmi_handler
 
 
@@ -35,4 +35,4 @@ nmi_handler:
 	section bss
 
 r_irq_seen:
-		blk	1
+		dc.b	$0

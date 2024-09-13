@@ -10,11 +10,11 @@ PRINT_ERROR_INVALID		equ $ff
 	;   byte function_id;
 	;   word function_address
 	macro EC_PRINT_ENTRY
-		dfb \1
-		dfw \2
+		dc.b \1
+		dc.w \2
 	endm
 
 	macro EC_PRINT_LIST_END
-		dfb $0, $0
-		dfw $0
+		dc.b $0, $0
+		dc.w $0
 	endm

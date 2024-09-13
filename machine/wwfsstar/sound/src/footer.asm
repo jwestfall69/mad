@@ -5,7 +5,7 @@
 
 ; both filled in by rom-inject-crc-mirror
 MAD_ROM_MIRROR_ADDRESS:
-		blk	1
+		dc.b 	$0
 
 MAD_ROM_CRC32_ADDRESS:
-		blk	4
+		dc.b 	$0, $0, $0, $0

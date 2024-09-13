@@ -4,8 +4,8 @@ BUILD_DIR=build/$(ROMSET)
 OBJ_DIR=$(BUILD_DIR)/obj
 WORK_DIR=$(BUILD_DIR)/work
 
-VASM = vasmz80_oldstyle
-VASM_FLAGS = -Fvobj -chklabels -Iinclude -I../../../common  -quiet
+VASM = vasmz80_mot
+VASM_FLAGS = -Fvobj -spaces -chklabels -Iinclude -I../../../common  -quiet
 VLINK = vlink
 VLINK_FLAGS = -brawbin1 -T$(MAD_NAME).ld
 MKDIR = mkdir

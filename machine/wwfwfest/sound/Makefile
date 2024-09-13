@@ -5,8 +5,8 @@ OBJ_DIR=$(BUILD_DIR)/obj
 WORK_DIR=$(BUILD_DIR)/work
 ROM=31a11-2.ic42
 
-VASM = vasmz80_oldstyle
-VASM_FLAGS = -Fvobj -chklabels -Iinclude -I../../../common  -quiet
+VASM = vasmz80_mot
+VASM_FLAGS = -Fvobj -spaces -chklabels -Iinclude -I../../../common  -quiet
 VLINK = vlink
 VLINK_FLAGS = -brawbin1 -T$(MAD_NAME).ld
 MKDIR = mkdir

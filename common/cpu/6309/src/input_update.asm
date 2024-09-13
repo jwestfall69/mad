@@ -33,5 +33,5 @@ input_update:
 
 	section bss
 
-r_input_edge:	blk 1
-r_input_raw:	blk 1
+r_input_edge:	dc.b $0
+r_input_raw:	dc.b $0

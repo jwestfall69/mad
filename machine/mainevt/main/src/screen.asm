@@ -76,4 +76,4 @@ screen_seek_xy_psub:
 
 	section data
 
-d_str_header:	string "MAINEVT - MAD 0.1"
+d_str_header:	STRING "MAINEVT - MAD 0.1"

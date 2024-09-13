@@ -12,7 +12,7 @@
 ; to the z80 (but mame doesn't), which at least allows us to setup
 ; timers to verify the ym2203 is alive.
 ym2203_tests:
-	ifdef _MAME_BUILD_
+	ifd _MAME_BUILD_
 		ret
 	endif
 		call	unexpected_irq_test

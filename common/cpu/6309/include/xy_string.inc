@@ -3,10 +3,10 @@
 	;   byte string[], $0
 	; }
 	macro XY_STRING
-		dfb	\1, \2
-		dfb	\3, $0
+		dc.b	\1, \2
+		dc.b	\3, $0
 	endm
 
 	macro XY_STRING_LIST_END
-		dfb	$ff
+		dc.b	$ff
 	endm

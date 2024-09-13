@@ -150,6 +150,6 @@ print_menu_list:
 
 	section bss
 
-r_menu_list_addr:	blkw	1
-r_menu_cursor:		blk	1
+r_menu_list_addr:	dc.w $0
+r_menu_cursor:		dc.b $0
 

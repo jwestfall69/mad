@@ -35,4 +35,4 @@ error_address:
 	section error_addresses
 
 		; this will fill $2000 to almost $4000 with jr to self instructions
-		blkw (0xff8),0xfe18
+		blk.w $ff8, $fe18

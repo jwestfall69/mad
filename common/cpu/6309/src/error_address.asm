@@ -25,5 +25,5 @@ error_address_psub:
 	section error_addresses
 
 		; fills the errors section with bra to self instructions
-		blkw (0xfe0/2),0x20fe
+		blk.w (0xfe0/2),0x20fe
 

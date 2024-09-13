@@ -168,8 +168,8 @@ d_screen_xys_list:
 	XY_STRING_LIST_END
 
 ; These are padded so we fully overwrite "TESTING WORK RAM"
-d_str_work_ram_address:		string "WORK RAM ADDRESS"
-d_str_work_ram_data:		string "WORK RAM DATA   "
-d_str_work_ram_march:		string "WORK RAM MARCH  "
-d_str_work_ram_output:		string "WORK RAM OUTPUT "
-d_str_work_ram_write:		string "WORK RAM WRITE  "
+d_str_work_ram_address:		STRING "WORK RAM ADDRESS"
+d_str_work_ram_data:		STRING "WORK RAM DATA   "
+d_str_work_ram_march:		STRING "WORK RAM MARCH  "
+d_str_work_ram_output:		STRING "WORK RAM OUTPUT "
+d_str_work_ram_write:		STRING "WORK RAM WRITE  "

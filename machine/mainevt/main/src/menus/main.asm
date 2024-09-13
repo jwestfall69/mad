@@ -35,10 +35,10 @@ d_menu_list:
 	MENU_ENTRY manual_work_ram_tests, d_str_work_ram_test
 	MENU_LIST_END
 
-d_str_menu_title:		string "MAIN MENU"
+d_str_menu_title:		STRING "MAIN MENU"
 
-d_str_input_test:		string "INPUT TEST"
-d_str_memory_viewer:		string "MEMORY VIEWER"
-d_str_palette_ram_test:		string "PALETTE RAM TEST"
-d_str_sound_test:		string "SOUND TEST"
-d_str_work_ram_test:		string "WORK RAM TEST"
+d_str_input_test:		STRING "INPUT TEST"
+d_str_memory_viewer:		STRING "MEMORY VIEWER"
+d_str_palette_ram_test:		STRING "PALETTE RAM TEST"
+d_str_sound_test:		STRING "SOUND TEST"
+d_str_work_ram_test:		STRING "WORK RAM TEST"

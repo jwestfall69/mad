@@ -35,7 +35,8 @@ psub_enter:
 ; will jump to the below code, which determines the register (ix or iy) to
 ; use to jump back code that called the psub
 psub_exit:
-		ex	af, af'		; make sure we dont clobber 'a' or flags
+		; make sure we dont clobber a or flags
+		ex	af, af'
 		ld	a, r
 		add	a, $80
 		ld	r, a

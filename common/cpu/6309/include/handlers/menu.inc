@@ -6,10 +6,10 @@ MENU_CONTINUE	equ $1
 	;   word string_address;
 	; }
 	macro MENU_ENTRY
-		dfw \1, \2
+		dc.w \1, \2
 	endm
 
 	macro MENU_LIST_END
-		dfw $0, $0
+		dc.w $0, $0
 	endm
 

@@ -4,11 +4,11 @@
 	;   word description_string_address;
 	; }
 	macro EC_ENTRY
-		dfb \1, \2
-		dfw \3
+		dc.b \1, \2
+		dc.w \3
 	endm
 
 	macro EC_LIST_END
-		dfb $0, $0
-		dfw $0
+		dc.b $0, $0
+		dc.w $0
 	endm

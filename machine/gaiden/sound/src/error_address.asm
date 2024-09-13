@@ -59,11 +59,11 @@ error_address:
 ; as LOW 99% of the time and 1% HIGH.  So you hear/see it being LOW with
 ; and occasional HIGH pulse.
 
-	repeat 63
+	rept 63
 	inline
 	.loop:
 		ld	(de), a		; 0x12 opcode
-		blk	124, 0x00	; fill with nops
+		blk.b	124, $00	; fill with nops
 		jp	.loop		; 0xc3xxxx opcode (xxxx being .loop address)
 	einline
-	endrepeat
+	endr

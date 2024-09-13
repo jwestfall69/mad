@@ -44,4 +44,4 @@ _start:
 
 	section data
 
-d_str_testing_work_ram:	string "TESTING WORK RAM"
+d_str_testing_work_ram:	STRING "TESTING WORK RAM"
