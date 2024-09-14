@@ -13,7 +13,7 @@
 ;  x = MT_PARAMS struct address
 memory_tests_handler:
 
-		stx	r_mt_data_addr
+		stx	r_mt_data_ptr
 		tfr	x, y
 
 		ldx	s_mt_start_address, y
@@ -33,7 +33,7 @@ memory_tests_handler:
 		tsta
 		lbne	.test_failed_data
 
-		ldy	r_mt_data_addr
+		ldy	r_mt_data_ptr
 		ldx	s_mt_start_address, y
 		ldd	s_mt_size, y
 		lde	#$55
@@ -41,7 +41,7 @@ memory_tests_handler:
 		tsta
 		lbne	.test_failed_data
 
-		ldy	r_mt_data_addr
+		ldy	r_mt_data_ptr
 		ldx	s_mt_start_address, y
 		ldd	s_mt_size, y
 		lde	#$aa
@@ -49,7 +49,7 @@ memory_tests_handler:
 		tsta
 		lbne	.test_failed_data
 
-		ldy	r_mt_data_addr
+		ldy	r_mt_data_ptr
 		ldx	s_mt_start_address, y
 		ldd	s_mt_size, y
 		lde	#$ff
@@ -57,14 +57,14 @@ memory_tests_handler:
 		tsta
 		lbne	.test_failed_data
 
-		ldy	r_mt_data_addr
+		ldy	r_mt_data_ptr
 		ldx	s_mt_start_address, y
 		lda	s_mt_num_address_lines, y
 		PSUB	memory_address_test
 		tsta
 		bne	.test_failed_address
 
-		ldy	r_mt_data_addr
+		ldy	r_mt_data_ptr
 		ldx	s_mt_start_address, y
 		ldd	s_mt_size, y
 		PSUB	memory_march_test
@@ -93,10 +93,10 @@ memory_tests_handler:
 		lda	#MT_ERROR_WRITE_BASE
 
 	.add_base_ec:
-		ldy	r_mt_data_addr
+		ldy	r_mt_data_ptr
 		adda	s_mt_base_ec, y
 		rts
 
 	section bss
 
-r_mt_data_addr:	dc.w $0
+r_mt_data_ptr:	dc.w $0

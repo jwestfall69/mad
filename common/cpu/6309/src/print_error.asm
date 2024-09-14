@@ -18,7 +18,7 @@
 	global r_pe_data_b
 	global r_pe_data_e
 	global r_pe_data_x
-	global r_pe_string_addr
+	global r_pe_string_ptr
 
 	section code
 
@@ -26,7 +26,7 @@
 
 ; params:
 ;  r_pe_data_x = address
-;  r_pe_string_addr = error description
+;  r_pe_string_ptr = error description
 print_error_address:
 
 		; address
@@ -36,7 +36,7 @@ print_error_address:
 
 		; error
 		SEEK_XY	4, 5
-		ldy	r_pe_string_addr
+		ldy	r_pe_string_ptr
 		PSUB	print_string
 
 		SEEK_XY	4, 8
@@ -50,7 +50,7 @@ print_error_crc32:
 ; params:
 ;  r_pe_data_b = actual value
 ;  r_pe_data_e = expected value
-;  r_pe_string_addr = error description
+;  r_pe_string_ptr = error description
 print_error_hex_byte:
 
 		; expected
@@ -104,7 +104,7 @@ print_error_invalid:
 ;  r_pe_data_b = actual value
 ;  r_pe_data_e = expected value
 ;  r_pe_data_x = address
-;  r_pe_string_addr = error description
+;  r_pe_string_ptr = error description
 print_error_memory:
 
 		; address
@@ -124,7 +124,7 @@ print_error_memory:
 
 		; description
 		SEEK_XY	4, 5
-		ldy	r_pe_string_addr
+		ldy	r_pe_string_ptr
 		PSUB	print_string
 
 		SEEK_XY	4, 8
@@ -141,10 +141,10 @@ print_error_memory:
 		rts
 
 ; params:
-;  r_pe_string_addr = error description
+;  r_pe_string_ptr = error description
 print_error_string:
 		SEEK_XY	4, 5
-		ldy	r_pe_string_addr
+		ldy	r_pe_string_ptr
 		PSUB	print_string
 		rts
 
@@ -174,4 +174,4 @@ r_pe_data_a:		dc.b $0
 r_pe_data_b:		dc.b $0
 r_pe_data_e:		dc.b $0
 r_pe_data_x:		dc.w $0
-r_pe_string_addr:	dc.w $0
+r_pe_string_ptr:	dc.w $0

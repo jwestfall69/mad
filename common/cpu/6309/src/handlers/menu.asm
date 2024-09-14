@@ -19,7 +19,7 @@ MENU_Y_OFFSET		equ $5
 ; returns:
 ;  a = 0 (function ran) or 1 (menu exit)
 menu_handler:
-		sty	r_menu_list_addr
+		sty	r_menu_list_ptr
 		jsr	print_menu_list
 		tfr	a, b		; max cursor
 		subb	#$1		; convert to 0 index
@@ -99,7 +99,7 @@ menu_handler:
 		lsla
 
 		; goto the menu entry
-		ldy	r_menu_list_addr
+		ldy	r_menu_list_ptr
 		leay	a, y
 		pshs	y
 		ldy	$2, y		; string address
@@ -150,6 +150,6 @@ print_menu_list:
 
 	section bss
 
-r_menu_list_addr:	dc.w $0
+r_menu_list_ptr:	dc.w $0
 r_menu_cursor:		dc.b $0
 

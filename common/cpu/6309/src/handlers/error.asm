@@ -46,7 +46,7 @@ error_handler:
 	.ec_found:
 		lda	1, x	; print error function id
 		ldy	2, x
-		sty	r_pe_string_addr
+		sty	r_pe_string_ptr
 
 
 		; use the print error dsub id to find print error function to run
