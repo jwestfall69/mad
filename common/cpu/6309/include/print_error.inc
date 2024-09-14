@@ -6,6 +6,11 @@ PRINT_ERROR_STRING		equ $5
 
 PRINT_ERROR_INVALID		equ $ff
 
+	rsreset
+s_pe_print_error_id		rs.b 1
+s_pe_function_ptr		rs.w 1
+s_pe_struct_size		rs.b 0
+
 	; struct EC_PRINT_ENTRY {
 	;   byte function_id;
 	;   word function_address

@@ -2,6 +2,11 @@
 MENU_EXIT	equ $0
 MENU_CONTINUE	equ $1
 
+	rsreset
+s_me_function_ptr	rs.l 1
+s_me_name_ptr		rs.l 1
+s_me_struct_size	rs.b 0
+
 	; struct menu_entry {
 	;   long function_address;
 	;   long string_address;

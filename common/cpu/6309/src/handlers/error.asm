@@ -30,11 +30,11 @@ error_handler:
 		lda	r_pe_data_a
 		ldx	#d_ec_list
 	.loop_ec_next_entry:
-		cmpa	, x
+		cmpa	s_ee_error_code, x
 		beq	.ec_found
 
-		leax	4, x	; next entry
-		tst	, x	; list is null terminated
+		leax	s_ee_struct_size, x	; next entry
+		tst	s_ee_error_code, x	; list is null terminated
 		bne	.loop_ec_next_entry
 
 		; failed to find error code !?
@@ -44,18 +44,18 @@ error_handler:
 		bra	.pe_run
 
 	.ec_found:
-		lda	1, x	; print error function id
-		ldy	2, x
+		lda	s_ee_print_error_id, x
+		ldy	s_ee_description_ptr, x
 		sty	r_pe_string_ptr
 
 
 		; use the print error dsub id to find print error function to run
 		ldx	#d_ec_print_list
 	.loop_pe_next_entry:
-		cmpa	, x
+		cmpa	s_pe_print_error_id, x
 		beq	.pe_found
-		leax	3, x	; next entry
-		tst	, x	; list is null terminated
+		leax	s_pe_struct_size, x	; next entry
+		tst	s_pe_print_error_id, x	; list is null terminated
 		bne	.loop_pe_next_entry
 
 		; no print function found !?
@@ -64,7 +64,7 @@ error_handler:
 		bra	.pe_run
 
 	.pe_found:
-		ldx	1, x	; print function address
+		ldx	s_pe_function_ptr, x
 
 	.pe_run:
 		jsr	, x

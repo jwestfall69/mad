@@ -1,3 +1,9 @@
+	rsreset
+s_ee_error_code		rs.b 1
+s_ee_print_error_id	rs.b 1
+s_ee_description_ptr	rs.w 1
+s_ee_struct_size	rs.b 0
+
 	; struct EC_ENTRY {
 	;   byte error_code;
 	;   byte print_error_dsub_id;

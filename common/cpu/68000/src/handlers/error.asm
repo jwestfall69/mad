@@ -34,9 +34,9 @@ error_handler_dsub:
 		; use the error code to find the correct print error dsub id
 		lea	(d_ec_list), a1
 	.loop_ec_next_entry:
-		cmp.b	(a1), d0
+		cmp.b	s_ee_error_code(a1), d0
 		beq	.ec_found
-		addq.l	#6, a1
+		addq.l	#s_ee_struct_size, a1
 		tst.l	(a1)			; table is null terminated
 		bne	.loop_ec_next_entry
 
@@ -46,16 +46,16 @@ error_handler_dsub:
 		bra	.pe_run
 
 	.ec_found:
-		move.b	(1, a1), d4	; print error dsub id
-		movea.l	(2, a1), a1	; error description string
+		move.b	s_ee_print_error_id(a1), d4
+		movea.l	s_ee_description_ptr(a1), a1
 		and.w	#$ff, d4
 
 		; use the print error dsub id to find print error dsub to run
 		lea	(d_ec_print_list), a2
 	.loop_pe_next_entry:
-		cmp.w	(a2), d4
+		cmp.w	s_pe_print_error_id(a2), d4
 		beq 	.pe_found
-		addq.l	#6, a2
+		addq.l	#s_pe_struct_size, a2
 		tst.l	(a2)			; table is null terminated
 		bne	.loop_pe_next_entry
 
@@ -65,7 +65,7 @@ error_handler_dsub:
 		bra	.pe_run
 
 	.pe_found:
-		movea.l	(2, a2), a2
+		movea.l	s_pe_function_ptr(a2), a2
 
 	.pe_run:
 		move.b	d0, d6		; backup error code

@@ -6,12 +6,16 @@ PRINT_ERROR_STRING		equ $5
 
 PRINT_ERROR_INVALID		equ $ff
 
+	rsreset
+s_pe_print_error_id		rs.w 1
+s_pe_function_ptr		rs.l 1
+s_pe_struct_size		rs.b 0
+
 	; struct EC_PRINT_ENTRY {
-	;   byte padding;
-	;   byte dsub_id;
+	;   word dsub_id;
 	;   long dsub_address
 	macro EC_PRINT_ENTRY
-		dc.b $0, \1
+		dc.w \1
 		dc.l \2
 	endm
 

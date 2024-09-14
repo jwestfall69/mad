@@ -102,7 +102,7 @@ menu_handler:
 		ldy	r_menu_list_ptr
 		leay	a, y
 		pshs	y
-		ldy	$2, y		; string address
+		ldy	s_me_name_ptr, y
 
 		SEEK_XY 3, 4
 		PSUB	print_string
@@ -111,7 +111,7 @@ menu_handler:
 		lde	r_menu_cursor
 		pshsw
 
-		jsr	[0, y]		; run function
+		jsr	[s_me_function_ptr, y]
 
 		pulsw
 		ste	r_menu_cursor
@@ -129,7 +129,7 @@ print_menu_list:
 	.loop_next_entry:
 		pshs	y, d, x
 
-		ldy	$2, y		; string adderss
+		ldy	s_me_name_ptr, y
 		beq	.list_end
 
 		lda	#(MENU_X_OFFSET + 1)
@@ -139,7 +139,7 @@ print_menu_list:
 		PSUB	print_string
 
 		puls	x, d, y
-		leay	$4, y		; got next entry
+		leay	s_me_struct_size, y		; got next entry
 		ince
 		bra	.loop_next_entry
 

@@ -1,5 +1,6 @@
 	include "cpu/68000/include/dsub.inc"
 	include "cpu/68000/include/macros.inc"
+	include "cpu/68000/include/tests/auto.inc"
 
 	include "machine.inc"
 
@@ -14,16 +15,16 @@ auto_dsub_tests_dsub:
 	.loop_next_test:
 		; doing it this way because the only thing that we
 		; know will presist across test functions is d6
-		lea	d_auto_dsub_list + 4, a0		; string offset
-		move.l	(a0, d6), a0			; jump to index in the table
+		lea	d_auto_dsub_list + s_ae_name_ptr, a0	; string offset
+		move.l	(a0, d6), a0				; jump to index in the table
 
-		cmp.l	#0, a0				; table is null terminated
+		cmp.l	#0, a0					; table is null terminated
 		beq	.all_tests_done
 
 		SEEK_LN	5
 		DSUB	print_clear_line
 
-		SEEK_XY	4,5
+		SEEK_XY	4, 5
 		DSUB	print_string
 
 		lea	d_auto_dsub_list, a2		; test dsub offset
@@ -37,7 +38,7 @@ auto_dsub_tests_dsub:
 		tst.b	d0
 		bne	.test_failed
 
-		addq.w	#8, d6
+		addq.w	#s_ae_struct_size, d6
 		bra	.loop_next_test
 
 	.test_failed:
@@ -57,14 +58,14 @@ auto_func_tests:
 		SEEK_LN	5
 		RSUB	print_clear_line
 
-		move.l (4, a1), a0
-		SEEK_XY	4,5
+		move.l	s_ae_name_ptr(a1), a0
+		SEEK_XY	4, 5
 		RSUB	print_string
 
 		move.l	(a1), a0		; test function
 
 		movem.l a1, -(a7)
-		jsr	(a0)
+		jsr	s_ae_function_ptr(a0)
 		movem.l (a7)+, a1
 
 		tst.b	d0
@@ -76,7 +77,7 @@ auto_func_tests:
 		RSUB	screen_init
 		movem.l	(a7)+, a1
 
-		addq.l	#8, a1
+		addq.l	#s_ae_struct_size, a1
 		bra	.loop_next_test
 
 	.test_failed:

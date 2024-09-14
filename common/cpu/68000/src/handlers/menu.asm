@@ -107,15 +107,15 @@ menu_handler:
 		mulu	#8, d0
 		add.l	d0, a1
 
-		move.l	(4, a1), a0
+		move.l	s_me_name_ptr(a1), a0
 
 		SEEK_XY	3, 4
 		RSUB	print_string
 
 		move.b	r_menu_cursor, -(a7)
 
-		move.la	(a1), a1
-		jsr	(a1)			; menu entry's function
+		move.la	s_me_function_ptr(a1), a1
+		jsr	(a1)
 
 		move.b	(a7)+, r_menu_cursor
 
@@ -140,10 +140,10 @@ print_menu_list:
 		add.b	d4, d1
 		RSUB	screen_seek_xy
 
-		move.l	(4, a1), a0
+		move.l	s_me_name_ptr(a1), a0
 		RSUB	print_string
 
-		addq.l	#8, a1
+		addq.l	#s_me_struct_size, a1
 		addq.b	#1, d4
 		bra	.loop_next_entry
 
