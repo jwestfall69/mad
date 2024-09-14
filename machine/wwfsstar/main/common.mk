@@ -23,7 +23,8 @@ OBJS = $(OBJ_DIR)/cpu/68000/src/crc32.o \
        $(OBJ_DIR)/cpu/68000/src/tests/auto.o \
        $(OBJ_DIR)/cpu/68000/src/tests/input.o \
        $(OBJ_DIR)/cpu/68000/src/tests/mad_rom.o \
-       $(OBJ_DIR)/cpu/68000/src/tests/memory.o
+       $(OBJ_DIR)/cpu/68000/src/tests/memory.o \
+       $(OBJ_DIR)/cpu/68000/src/tests/work_ram.o
 
 # code from this machine
 OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
@@ -43,8 +44,7 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/tests/palette_ram.o \
         $(OBJ_DIR)/tests/sound.o \
         $(OBJ_DIR)/tests/sprite_ram.o \
-        $(OBJ_DIR)/tests/video_dac.o \
-        $(OBJ_DIR)/tests/work_ram.o
+        $(OBJ_DIR)/tests/video_dac.o
 
 INCS = $(wildcard include/*.inc) \
        $(wildcard ../../../common/cpu/68000/include/*.inc) \

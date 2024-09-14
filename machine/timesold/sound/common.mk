@@ -16,13 +16,13 @@ OBJS = $(OBJ_DIR)/cpu/z80/src/crc32.o \
        $(OBJ_DIR)/cpu/z80/src/tests/unexpected_irq.o \
        $(OBJ_DIR)/cpu/z80/src/tests/mad_rom.o \
        $(OBJ_DIR)/cpu/z80/src/tests/memory.o \
+       $(OBJ_DIR)/cpu/z80/src/tests/work_ram.o \
        $(OBJ_DIR)/cpu/z80/src/tests/yamaha/ym2203_iorq.o
 
 # code from this machine
 OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/footer.o \
         $(OBJ_DIR)/vector_table.o \
-        $(OBJ_DIR)/tests/ram.o \
         $(OBJ_DIR)/tests/ym2203.o
 
 INCS = $(wildcard include/*.inc) \

@@ -20,9 +20,9 @@ _start:
 		PSUB	mad_rom_address_test
 		jr	nz, .test_failed
 
-		PSUB	ram_tests
+		PSUB	auto_work_ram_tests
 
-		ld	sp, RAM_START + RAM_SIZE - 2
+		ld	sp, WORK_RAM_START + WORK_RAM_SIZE - 2
 
 		; need to see what a busted iorq latch looks like
 		;call	mcpu_latch_tests

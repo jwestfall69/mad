@@ -29,11 +29,11 @@ manual_work_ram_tests:
 		PSUB_INIT
 
 	.loop_next_pass:
+		WATCHDOG
 
 		SEEK_XY	12, 10
 		move.l	d6, d0
 		PSUB	print_hex_long
-
 
 		PSUB	auto_work_ram_tests
 		tst.b	d0

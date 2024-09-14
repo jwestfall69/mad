@@ -18,6 +18,7 @@ OBJS = $(OBJ_DIR)/cpu/z80/src/crc32.o \
        $(OBJ_DIR)/cpu/z80/src/tests/unexpected_irq.o \
        $(OBJ_DIR)/cpu/z80/src/tests/mad_rom.o \
        $(OBJ_DIR)/cpu/z80/src/tests/memory.o \
+       $(OBJ_DIR)/cpu/z80/src/tests/work_ram.o \
        $(OBJ_DIR)/cpu/z80/src/tests/oki/msm6295_mreq.o \
        $(OBJ_DIR)/cpu/z80/src/tests/yamaha/ym2203_mreq.o
 
@@ -28,7 +29,6 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/vector_table.o \
         $(OBJ_DIR)/tests/mcpu_latch.o \
         $(OBJ_DIR)/tests/msm6295.o \
-        $(OBJ_DIR)/tests/ram.o \
         $(OBJ_DIR)/tests/ym2203_1.o \
         $(OBJ_DIR)/tests/ym2203_2.o
 
