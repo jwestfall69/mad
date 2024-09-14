@@ -12,7 +12,7 @@ PALETTE_NUM		equ $1
 TILE_OFFSET_MASK	equ $fff
 
 fg_tile_viewer:
-		RSUB	screen_clear
+		RSUB	screen_init
 		bsr	fg_palette_setup
 
 		SEEK_XY	7, 3

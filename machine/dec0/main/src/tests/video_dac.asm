@@ -17,7 +17,7 @@
 ; extra logic in palette_setup_color and generate_tiles_table that other
 ; machines to have.
 video_dac_test:
-		RSUB	screen_clear
+		RSUB	screen_init
 
 		lea	d_screen_xys_list, a0
 		RSUB	print_xy_string_list

@@ -16,7 +16,7 @@ START_ROW	equ 6
 ;  y = start address
 memory_viewer_handler:
 		pshs	y
-		PSUB	screen_clear
+		PSUB	screen_init
 
 		ldy	#d_screen_xys_list
 		PSUB	print_xy_string_list

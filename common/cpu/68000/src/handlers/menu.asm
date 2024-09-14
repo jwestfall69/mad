@@ -100,7 +100,7 @@ menu_handler:
 
 		move.b	d4, r_menu_cursor
 
-		RSUB	screen_clear
+		RSUB	screen_init
 
 		move.l	r_menu_list, a1
 		move.l	d4, d0

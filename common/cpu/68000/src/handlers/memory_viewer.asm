@@ -15,7 +15,7 @@ START_ROW	equ 6
 memory_viewer_handler:
 
 		movem.l	a0-a1, -(a7)
-		RSUB	screen_clear
+		RSUB	screen_init
 
 		clr.b	r_read_mode
 

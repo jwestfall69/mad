@@ -11,7 +11,7 @@
 	section code
 
 video_dac_test:
-		RSUB	screen_clear
+		RSUB	screen_init
 
 		moveq	#$2, d0
 		bsr	fg_set_bank

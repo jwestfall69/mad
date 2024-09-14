@@ -5,7 +5,6 @@
 	include "machine.inc"
 	include "mad_rom.inc"
 
-	global screen_clear_dsub
 	global screen_init_dsub
 	global screen_seek_xy_dsub
 
@@ -13,24 +12,6 @@
 
 screen_clear_dsub:
 
-		lea	TILE1_RAM_START, a0
-		move.l	#TILE1_RAM_SIZE, d0
-		moveq	#0, d1
-		DSUB	memory_fill
-
-		SEEK_XY	0, 1
-		move.l	#'-', d0
-		moveq	#32, d1
-		DSUB	print_char_repeat
-
-	ifd _PRINT_COLUMN_
-		SEEK_XY	8, 0
-	else
-		SEEK_XY	9, 0
-	endif
-		lea	d_str_header, a0
-		DSUB	print_string
-		DSUB_RETURN
 
 screen_init_dsub:
 
@@ -55,26 +36,21 @@ screen_init_dsub:
 		move.w	#$0, (a0)+
 		move.w	#$1, (a0)+
 
-		; poison palette by making everything green
-		lea	PALETTE_RAM_START, a0
-		move.w	#PALETTE_RAM_SIZE, d0
-		; Disabling poison for now. There is some issue on hardware
-		; where its drawing a number of tiles or sprites on screen in
-		; green.  They have a weird strobe effect to them too. Not sure
-		; where its coming from since I'm zero'ing out all tile/sprite
-		; data/ram.
-		;move.w	#$ff00, d1
-		move.w	#$0, d1
-		DSUB	memory_fill
-
-		lea	PALETTE_EXT_RAM_START, a0
-		move.l	#PALETTE_EXT_RAM_SIZE, d0
-		moveq	#0, d1
-		DSUB	memory_fill
-
 		ROMSET_PALETTE_SETUP
 
-		bra	screen_clear_dsub
+		SEEK_XY	0, 1
+		move.l	#'-', d0
+		moveq	#32, d1
+		DSUB	print_char_repeat
+
+	ifd _PRINT_COLUMN_
+		SEEK_XY	8, 0
+	else
+		SEEK_XY	9, 0
+	endif
+		lea	d_str_header, a0
+		DSUB	print_string
+		DSUB_RETURN
 
 screen_seek_xy_dsub:
 		SEEK_XY	0, 0
@@ -110,6 +86,8 @@ d_memory_fill_list:
 		MEMORY_FILL_ENTRY TILE2_RAM_START, TILE2_RAM_SIZE, $0
 		MEMORY_FILL_ENTRY TILE3_RAM_START, TILE3_RAM_SIZE, $0
 		MEMORY_FILL_ENTRY SPRITE_RAM_START, SPRITE_RAM_SIZE, $0
+		MEMORY_FILL_ENTRY PALETTE_RAM_START, PALETTE_RAM_SIZE, $0
+		MEMORY_FILL_ENTRY PALETTE_EXT_RAM_START, PALETTE_EXT_RAM_SIZE, $0
 		MEMORY_FILL_LIST_END
 
 d_str_header:	STRING "DEC0 - MAD 0.1"

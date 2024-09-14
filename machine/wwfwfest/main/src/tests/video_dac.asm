@@ -11,7 +11,7 @@
 	section code
 
 video_dac_test:
-		RSUB	screen_clear
+		RSUB	screen_init
 
 		lea	d_screen_xys_list, a0
 		RSUB	print_xy_string_list

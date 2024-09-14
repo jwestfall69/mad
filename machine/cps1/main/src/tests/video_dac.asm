@@ -15,7 +15,7 @@ video_dac_test:
 		move.b	#$f, r_brightness
 
 	.loop_main:
-		RSUB	screen_clear
+		RSUB	screen_init
 
 
 		lea	d_screen_xys_list, a0

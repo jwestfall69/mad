@@ -4,16 +4,12 @@
 	include "machine.inc"
 	include "mad_rom.inc"
 
-	global screen_clear_dsub
 	global screen_init_dsub
 	global screen_seek_xy_dsub
 	global screen_update_dsub
 
 	section code
 
-; because of how memory is laid out its best to just
-; make these calls the same
-screen_clear_dsub:
 screen_init_dsub:
 		; clear everything but work ram
 		lea	NOT_WORK_RAM_START, a0
@@ -87,4 +83,3 @@ screen_update_dsub:
 	align 2
 
 d_str_header:	STRING "TOKI - MAD 0.1"
-

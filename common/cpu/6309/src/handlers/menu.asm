@@ -89,7 +89,7 @@ menu_handler:
 	.menu_entry_run:
 		ste	r_menu_cursor
 
-		PSUB	screen_clear
+		PSUB	screen_init
 
 		; convert into the array offset
 		; for the selected menu item

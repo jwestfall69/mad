@@ -4,14 +4,12 @@
 	include "machine.inc"
 	include "mad_rom.inc"
 
-	global screen_clear_dsub
 	global screen_init_dsub
 	global screen_seek_xy_dsub
 
 	section code
 
-screen_clear_dsub:
-
+screen_init_dsub:
 		lea	TILE_RAM_START, a0
 		move.l	#$1000, d0
 		move.w	#$10, d1
@@ -39,18 +37,6 @@ screen_clear_dsub:
 		move.b	#$0, $106e00
 		move.b	#$0, $106c00
 
-		SEEK_XY 13, 0
-		lea	d_str_header, a0
-		DSUB	print_string
-
-		SEEK_XY	0, 1
-		move.l	#'<', d0
-		moveq	#40, d1
-		DSUB	print_char_repeat
-		DSUB_RETURN
-
-screen_init_dsub:
-
 		lea	PALETTE_RAM_START, a0
 		move.l	#PALETTE_RAM_SIZE, d0
 		moveq	#0, d1
@@ -61,7 +47,16 @@ screen_init_dsub:
 		move.b	#$ff, PALETTE_RAM_START + $7
 		move.b	#$ff, PALETTE_RAM_START + $9
 		move.b	#$ff, PALETTE_RAM_START + $b
-		bra	screen_clear_dsub
+
+		SEEK_XY 13, 0
+		lea	d_str_header, a0
+		DSUB	print_string
+
+		SEEK_XY	0, 1
+		move.l	#'<', d0
+		moveq	#40, d1
+		DSUB	print_char_repeat
+		DSUB_RETURN
 
 ; in cases where we need to goto x, y location at runtime
 ; params:

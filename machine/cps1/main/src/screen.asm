@@ -9,7 +9,6 @@
 	global palette_init_dsub
 	global screen_init_dsub
 	global screen_init_workaround_dsub
-	global screen_clear_dsub
 	global screen_seek_xy_dsub
 
 	section code
@@ -41,7 +40,6 @@ screen_init_workaround_dsub:
 		DSUB	palette_init
 		dbra	d2, .loop_workaround
 
-screen_clear_dsub:
 screen_init_dsub:
 
 		lea	d_memory_fill_list, a0

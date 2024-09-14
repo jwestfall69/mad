@@ -13,7 +13,7 @@ PALETTE_NUM		equ $1
 TILE_OFFSET_MASK	equ $7ff
 
 fg_tile_viewer:
-		RSUB	screen_clear
+		RSUB	screen_init
 		bsr	fg_palette_setup
 
 		clr.b	r_fg_current_bank

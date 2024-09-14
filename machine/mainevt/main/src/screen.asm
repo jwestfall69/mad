@@ -3,28 +3,12 @@
 
 	include "machine.inc"
 
-	global screen_clear_psub
 	global screen_init_psub
 	global screen_seek_xy_psub
 
 	section code
 
 screen_init_psub:
-		ldx	#PALETTE_RAM_START
-		ldw	#PALETTE_RAM_SIZE
-		lda	#$00
-		PSUB	memory_fill
-
-		; txt color
-		lda	#$ff
-		sta	(PALETTE_RAM_START + $1c)
-		sta	(PALETTE_RAM_START + $1d)
-
-		; txt shadow ($2 $3)
-		; background ($100 $101)
-		bra	screen_clear_psub
-
-screen_clear_psub:
 		ldx	#TILE_RAM_START
 		ldw	#$1800
 		lda	#$01
@@ -49,6 +33,19 @@ screen_clear_psub:
 		ldw	#$400
 		lda	#$00
 		PSUB	memory_fill
+
+		ldx	#PALETTE_RAM_START
+		ldw	#PALETTE_RAM_SIZE
+		lda	#$00
+		PSUB	memory_fill
+
+		; txt color
+		lda	#$ff
+		sta	(PALETTE_RAM_START + $1c)
+		sta	(PALETTE_RAM_START + $1d)
+
+		; txt shadow ($2 $3)
+		; background ($100 $101)
 
 		SEEK_XY	9, 0
 		ldy	#d_str_header
