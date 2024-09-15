@@ -7,6 +7,7 @@
 	global print_byte_psub
 	global print_char_psub
 	global print_char_repeat_psub
+	global print_clear_line_psub
 	global print_hex_byte_psub
 	global print_hex_word_psub
 	global print_string_psub
@@ -99,6 +100,13 @@ print_char_repeat_psub:
 		decb
 		bne	.loop_next_char
 	PSUB_RETURN
+
+; params:
+;  x = start location in tile ram
+print_clear_line_psub:
+	lda	#$fe
+	ldb	#$24
+	bra	print_char_repeat_psub
 
 ; params:
 ;  a = byte

@@ -29,19 +29,9 @@ _start:
 
 
 		PSUB	screen_init
-
-		; need to do a manual PSUB test of work ram
-		; to do the limited number of registers on
-		; the CPU
-		SEEK_XY	3, 4
-		ldy	#d_str_testing_work_ram
-		PSUB	print_string
-
+		PSUB	auto_mad_rom_address_test
+		PSUB	auto_mad_rom_crc32_test
 		PSUB	auto_work_ram_tests
 
 		lds	#(WORK_RAM_START + WORK_RAM_SIZE - 2)
 		jsr	main_menu
-
-	section data
-
-d_str_testing_work_ram:	STRING "TESTING WORK RAM"

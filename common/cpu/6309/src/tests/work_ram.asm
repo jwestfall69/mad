@@ -12,9 +12,14 @@
 
 	section code
 
-; do to the limited number of registers on teh 6309 testing
-; work ram require some special processing.
 auto_work_ram_tests_psub:
+
+		SEEK_LN	4
+		PSUB	print_clear_line
+
+		SEEK_XY 3, 4
+		ldy	#d_str_testing_work_ram
+		PSUB	print_string
 
 		ldx	#WORK_RAM_START
 		PSUB	memory_output_test
@@ -25,7 +30,6 @@ auto_work_ram_tests_psub:
 		PSUB	memory_write_test
 		tsta
 		lbne	.test_failed_write
-
 
 		ldx	#WORK_RAM_START
 		ldd	#WORK_RAM_SIZE
@@ -191,7 +195,6 @@ manual_work_ram_tests:
 		std	NUM_PASSES
 		bra	.loop_next_pass
 
-
 	.test_exit:
 		clr	r_menu_cursor
 		jmp	main_menu
@@ -209,3 +212,5 @@ d_str_work_ram_data:		STRING "WORK RAM DATA   "
 d_str_work_ram_march:		STRING "WORK RAM MARCH  "
 d_str_work_ram_output:		STRING "WORK RAM OUTPUT "
 d_str_work_ram_write:		STRING "WORK RAM WRITE  "
+
+d_str_testing_work_ram: 	STRING "TESTING WORK RAM"

@@ -13,7 +13,8 @@ VLINK_FLAGS = -brawbin1 -T$(MAD_NAME).ld
 MKDIR = mkdir
 DD = dd
 
-OBJS = $(OBJ_DIR)/cpu/6309/src/input_update.o \
+OBJS = $(OBJ_DIR)/cpu/6309/src/crc32.o \
+       $(OBJ_DIR)/cpu/6309/src/input_update.o \
        $(OBJ_DIR)/cpu/6309/src/memory_fill.o \
        $(OBJ_DIR)/cpu/6309/src/print_error.o \
        $(OBJ_DIR)/cpu/6309/src/util.o \
@@ -25,11 +26,13 @@ OBJS = $(OBJ_DIR)/cpu/6309/src/input_update.o \
        $(OBJ_DIR)/cpu/6309/src/handlers/sound.o \
        $(OBJ_DIR)/cpu/6309/src/tests/input.o \
        $(OBJ_DIR)/cpu/6309/src/tests/memory.o \
+       $(OBJ_DIR)/cpu/6309/src/tests/mad_rom.o \
        $(OBJ_DIR)/cpu/6309/src/tests/work_ram.o
 
 # code from this machine
 OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/errors.o \
+        $(OBJ_DIR)/footer.o \
         $(OBJ_DIR)/print.o \
         $(OBJ_DIR)/screen.o \
         $(OBJ_DIR)/vector_table.o \

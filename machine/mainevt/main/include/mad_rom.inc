@@ -1,3 +1,6 @@
+MAD_ROM_START		equ $c000
+MAD_ROM_SIZE		equ $4000
+
 CURSOR_CHAR		equ $aa
 CURSOR_CLEAR_CHAR	equ $fe
 
