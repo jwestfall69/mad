@@ -184,10 +184,10 @@ memory_output_test_psub:
 		; of what that last byte will be (0x5a)
 
 		lda	$ffff
-		lde	#$ff
+		lde	#$7f
 	.loop_next_address:
 		ldb	, x
-		leax	1, x
+		leax	2, x
 		cmpr	a, b
 		bne	.test_passed
 
@@ -232,12 +232,12 @@ memory_output_behind_245_test_psub:
 		bne	.loop_delay
 		WATCHDOG
 
-		ldb	, x+
+		ldb	, x++
 		cmpb	#$ff
 		bne	.test_passed
 
 		inca
-		cmpa	#$ff
+		cmpa	#$7f
 		bne	.loop_next_address
 		WATCHDOG
 		lda	#$1

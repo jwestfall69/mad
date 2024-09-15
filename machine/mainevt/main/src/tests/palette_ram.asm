@@ -13,9 +13,36 @@
 	section code
 
 auto_palette_ram_tests:
+
+		; palette ram consists of 2x 8bit chips
+		; where 1 chip handles even addresses and
+		; the other odd.  We are manually testing
+		; output/write of the odd address and the
+		; normal memory test handler will handle
+		; the rest.
+
+		ldx	#PALETTE_RAM_START + 1
+		PSUB	memory_output_test
+		tsta
+		bne	.test_failed_output_odd
+
+		ldx	#PALETTE_RAM_START + 1
+		PSUB	memory_write_test
+		tsta
+		bne	.test_failed_write_odd
+
 		ldx	#d_mt_data
 		jsr	memory_tests_handler
 		rts
+
+	.test_failed_output_odd:
+		lda	#EC_PALETTE_RAM_OUTPUT
+		rts
+
+	.test_failed_write_odd:
+		lda	#EC_PALETTE_RAM_WRITE
+		rts
+
 
 manual_palette_ram_tests:
 		ldy	#d_screen_xys_list
