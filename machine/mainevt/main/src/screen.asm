@@ -9,27 +9,27 @@
 	section code
 
 screen_init_psub:
-		ldx	#TILE_RAM_START
+		ldx	#TILE1_RAM_START
 		ldw	#$1800
 		lda	#$01
 		PSUB	memory_fill
 
-		ldx	#TILE_RAM_START+$1800
+		ldx	#TILE1_RAM_START+$1800
 		ldw	#$400
 		lda	#$00
 		PSUB	memory_fill
 
-		ldx	#TILE_RAM_START+$2000
+		ldx	#TILE2_RAM_START
 		ldw	#$1800
 		lda	#$fe
 		PSUB	memory_fill
 
-		ldx	#TILE_RAM_START+$3808
+		ldx	#TILE2_RAM_START+$1808
 		ldw	#$400
 		lda	#$00
 		PSUB	memory_fill
 
-		ldx	#TILE_RAM_START+$3c00
+		ldx	#SPRITE_RAM_START
 		ldw	#$400
 		lda	#$00
 		PSUB	memory_fill

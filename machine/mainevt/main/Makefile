@@ -40,7 +40,10 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/menus/memory_viewer.o \
         $(OBJ_DIR)/tests/input.o \
         $(OBJ_DIR)/tests/palette_ram.o \
-        $(OBJ_DIR)/tests/sound.o
+        $(OBJ_DIR)/tests/sound.o \
+        $(OBJ_DIR)/tests/sprite_ram.o \
+        $(OBJ_DIR)/tests/tile1_ram.o \
+        $(OBJ_DIR)/tests/tile2_ram.o
 
 INCS = $(wildcard include/*.inc) \
        $(wildcard ../../../common/cpu/6309/include/*.inc) \
