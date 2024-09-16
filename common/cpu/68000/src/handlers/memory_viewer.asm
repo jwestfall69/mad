@@ -18,6 +18,7 @@ memory_viewer_handler:
 		RSUB	screen_init
 
 		clr.b	r_read_mode
+		clr.b	r_debug_memory
 
 		SEEK_XY	9, 3
 		lea	d_str_memory_viewer, a0
@@ -67,6 +68,16 @@ memory_viewer_handler:
 	.right_not_pressed:
 		btst	#INPUT_B1_BIT, d0
 		beq	.b1_not_pressed
+
+	ifd _DEBUG_MEMORY_
+		move.b	r_debug_memory, d0
+		move.b	d0, (a0)
+		move.b	d0, (1, a0)
+		move.b	d0, (2, a0)
+		move.b	d0, (3, a0)
+		addq.b	#$1, d0
+		move.b	d0, r_debug_memory
+	endif
 
 		movem.l	a0, -(a7)
 		move.b	r_read_mode, d0
@@ -187,3 +198,4 @@ d_str_read_mode_word:		STRING "WORD"
 ; ran out of registers in memory_dump so
 ; have to use ram for the read mode
 r_read_mode:	dc.b	$0
+r_debug_memory:	dc.b	$0
