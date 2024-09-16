@@ -27,14 +27,6 @@ memory_viewer_menu:
 
 		rts
 
-view_tile_ram:
-		lea	TILE_RAM_START, a0
-		bra	view_memory
-
-view_tile2_ram:
-		lea	TILE_RAM_START+$6000, a0
-		bra	view_memory
-
 view_mmio_input:
 		lea	$0a0000, a0
 		bra	view_memory
@@ -45,6 +37,18 @@ view_palette_ram:
 
 view_rom_space:
 		lea	$0, a0
+		bra	view_memory
+
+view_sprite_ram:
+		lea	SPRITE_RAM_START, a0
+		bra	view_memory
+
+view_tile_ram:
+		lea	TILE_RAM_START, a0
+		bra	view_memory
+
+view_tile2_ram:
+		lea	TILE_RAM_START+$6000, a0
 		bra	view_memory
 
 view_work_ram:
@@ -62,6 +66,7 @@ d_menu_list:
 	MENU_ENTRY view_mmio_input, d_str_mmio_input
 	MENU_ENTRY view_palette_ram, d_str_palette_ram
 	MENU_ENTRY view_rom_space, d_str_rom_space
+	MENU_ENTRY view_sprite_ram, d_str_sprite_ram
 	MENU_ENTRY view_tile_ram, d_str_tile_ram
 	MENU_ENTRY view_tile2_ram, d_str_tile2_ram
 	MENU_ENTRY view_work_ram, d_str_work_ram
@@ -73,6 +78,7 @@ d_str_menu_title:		STRING "MEMORY VIEWER MENU"
 d_str_mmio_input:		STRING "MMIO INPUT"
 d_str_palette_ram:		STRING "PALETTE RAM"
 d_str_rom_space:		STRING "ROM SPACE"
+d_str_sprite_ram:		STRING "SPRITE RAM"
 d_str_tile_ram:			STRING "TILE RAM"
 d_str_tile2_ram:		STRING "TILE2 RAM"
 d_str_work_ram:			STRING "WORK RAM"

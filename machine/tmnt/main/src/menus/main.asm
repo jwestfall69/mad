@@ -29,6 +29,7 @@ main_menu:
 
 d_menu_list:
 	MENU_ENTRY manual_palette_ram_tests, d_str_palette_ram_test
+	MENU_ENTRY manual_sprite_ram_tests, d_str_sprite_ram_test
 	MENU_ENTRY manual_tile_ram_tests, d_str_tile_ram_test
 	MENU_ENTRY manual_work_ram_tests, d_str_work_ram_test
 	MENU_ENTRY input_test, d_str_input_test
@@ -45,6 +46,7 @@ d_str_input_test:		STRING "INPUT TEST"
 d_str_memory_viewer:		STRING "MEMORY VIEWER"
 d_str_palette_ram_test:		STRING "PALETTE RAM TEST"
 d_str_sound_test:		STRING "SOUND TEST"
+d_str_sprite_ram_test:		STRING "SPRITE RAM TEST"
 d_str_tile_ram_test:		STRING "TILE RAM TEST"
 d_str_video_dac_test:		STRING "VIDEO DAC TEST"
 d_str_work_ram_test:		STRING "WORK RAM TEST"
