@@ -9,8 +9,7 @@
 	section code
 
 memory_viewer_menu:
-		clra
-		sta	r_menu_cursor
+		clr	r_menu_cursor
 
 	.loop_menu:
 		PSUB	screen_init
