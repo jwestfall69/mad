@@ -67,13 +67,13 @@ print_char_psub:
 		blt	.do_print
 
 		cmpa	#'9'
-		blt	.is_number
+		ble	.is_number
 
 		cmpa	#'A'
 		blt	.do_print
 
 		cmpa	#'Z'
-		blt	.is_char
+		ble	.is_char
 
 	.is_number:
 		adda	#$7c
@@ -187,13 +187,13 @@ print_string_psub:
 		blt	.do_print
 
 		cmpa	#'9'
-		blt	.is_number
+		ble	.is_number
 
 		cmpa	#'A'
 		blt	.do_print
 
 		cmpa	#'Z'
-		blt	.is_char
+		ble	.is_char
 
 	.is_number:
 		adda	#$7c
