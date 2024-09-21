@@ -38,7 +38,7 @@ REG_INPUT_DSW2			equ $1f9b
 REG_INPUT_DSW3			equ $1f98
 REG_INPUT_SYSTEM		equ $1f94
 
-CHAR_COLON			equ ':'
+CHAR_COLON			equ $fe		; empty
 
 ; note only 36 tiles are visable
 SCREEN_TILES_PER_LINE		equ 64

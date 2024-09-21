@@ -51,6 +51,12 @@ print_byte_psub:
 ;  x = location in tile ram
 print_char_psub:
 		; Deal with annoying tile font
+		cmpa	#' '
+		bne	.not_space
+		lda	#$fe
+		bra	.do_print
+
+	.not_space:
 		cmpa	#'-'
 		bne	.not_dash
 		lda	#$4c
@@ -171,6 +177,12 @@ print_string_psub:
 
 	; Deal with annoying tile font
 	.loop_next_char:
+		cmpa	#' '
+		bne	.not_space
+		lda	#$fe
+		bra	.do_print
+
+	.not_space:
 		cmpa	#'-'
 		bne	.not_dash
 		lda	#$4c
