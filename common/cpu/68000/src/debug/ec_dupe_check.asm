@@ -1,6 +1,7 @@
 	include "cpu/68000/include/dsub.inc"
 	include "cpu/68000/include/macros.inc"
 	include "cpu/68000/include/xy_string.inc"
+	include "global/include/screen.inc"
 
 	include "input.inc"
 	include "machine.inc"
@@ -19,7 +20,7 @@
 ; byte.  If we already see a bit set it means we have a dupe.
 ec_dupe_check:
 
-		SEEK_XY	3, 20
+		SEEK_XY	SCREEN_START_X, SCREEN_B2_Y
 		lea	d_str_b2_return, a0
 		RSUB	print_string
 
@@ -59,17 +60,17 @@ ec_dupe_check:
 		bra	.loop_ec_next_entry
 
 	.found_dupe:
-		SEEK_XY	3, 10
+		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 2)
 		lea	d_str_dupe_found, a0
 		RSUB	print_string
 
-		SEEK_XY	15, 10
+		SEEK_XY	(SCREEN_START_X + 14), (SCREEN_START_Y + 2)
 		move.b	(a1), d0
 		RSUB	print_hex_byte
 		bra	.loop_input
 
 	.ec_list_end:
-		SEEK_XY	3, 10
+		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 2)
 		lea	d_str_no_dupes, a0
 		RSUB	print_string
 

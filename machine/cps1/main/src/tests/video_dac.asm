@@ -1,6 +1,7 @@
 	include "cpu/68000/include/dsub.inc"
 	include "cpu/68000/include/macros.inc"
 	include "cpu/68000/include/xy_string.inc"
+	include "global/include/screen.inc"
 
 	include "input.inc"
 	include "mad_rom.inc"
@@ -26,7 +27,7 @@ video_dac_test:
 		bsr	draw_colors
 
 	.loop_input:
-		SEEK_XY	32, 20
+		SEEK_XY	(SCREEN_START_X + 29), (SCREEN_START_Y + 17)
 		move.b 	r_brightness, d0
 		RSUB	print_hex_nibble
 
@@ -171,8 +172,8 @@ generate_tiles_table:
 		dbra	d4, .loop_next_color
 		rts
 
-COLOR_BLOCK_START_X	equ 14
-COLOR_BLOCK_START_Y	equ 6
+COLOR_BLOCK_START_X	equ SCREEN_START_X + 11
+COLOR_BLOCK_START_Y	equ SCREEN_START_Y + 3
 draw_colors:
 		lea	r_tiles_table, a0
 		moveq	#COLOR_BLOCK_START_Y, d6
@@ -277,12 +278,12 @@ d_tiles_raw:
 	dc.w	VD_TILE_B0_NUM, VD_TILE_B1_NUM, VD_TILE_B2_NUM, VD_TILE_B3_NUM, VD_TILE_BA_NUM
 
 d_screen_xys_list:
-	XY_STRING 17,  2, "VIDEO DAC TEST"
-	XY_STRING 15,  5, "B0  B1  B2  B3  ALL"
-	XY_STRING 14, 20, "BRIGHTNESS LEVEL:"
-	XY_STRING  2, 23, "L/R - ADJUST BRIGHTNESS LEVEL"
-	XY_STRING  3, 24, "B1 - FULL SCREEN"
-	XY_STRING  3, 25, "B2 - RETURN TO MENU"
+	XY_STRING SCREEN_START_X, SCREEN_START_Y, "VIDEO DAC TEST"
+	XY_STRING (SCREEN_START_X + 12), (SCREEN_START_Y + 2), "B0  B1  B2  B3  ALL"
+	XY_STRING (SCREEN_START_X + 11), (SCREEN_START_Y + 17), "BRIGHTNESS LEVEL:"
+	XY_STRING SCREEN_START_X, (SCREEN_B1_Y - 1), "LR - ADJUST BRIGHTNESS LEVEL"
+	XY_STRING SCREEN_START_X, SCREEN_B1_Y, "B1 - FULL SCREEN"
+	XY_STRING SCREEN_START_X, SCREEN_B2_Y, "B2 - RETURN TO MENU"
 	XY_STRING_LIST_END
 
 	section bss

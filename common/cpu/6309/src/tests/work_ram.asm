@@ -2,6 +2,7 @@
 	include "cpu/6309/include/macros.inc"
 	include "cpu/6309/include/psub.inc"
 	include "cpu/6309/include/xy_string.inc"
+	include "global/include/screen.inc"
 
 	include "error_codes.inc"
 	include "input.inc"
@@ -14,10 +15,10 @@
 
 auto_work_ram_tests_psub:
 
-		SEEK_LN	4
+		SEEK_LN	SCREEN_START_Y
 		PSUB	print_clear_line
 
-		SEEK_XY 3, 4
+		SEEK_XY SCREEN_START_X, SCREEN_START_Y
 		ldy	#d_str_testing_work_ram
 		PSUB	print_string
 
@@ -80,7 +81,7 @@ auto_work_ram_tests_psub:
 	.test_failed_address:
 		PSUB	print_error_work_ram_memory
 
-		SEEK_XY	3, 4
+		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
 		ldy	#d_str_work_ram_address
 		PSUB	print_string
 
@@ -90,7 +91,7 @@ auto_work_ram_tests_psub:
 	.test_failed_data:
 		PSUB	print_error_work_ram_memory
 
-		SEEK_XY	3, 4
+		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
 		ldy	#d_str_work_ram_data
 		PSUB	print_string
 
@@ -100,7 +101,7 @@ auto_work_ram_tests_psub:
 	.test_failed_march:
 		PSUB	print_error_work_ram_memory
 
-		SEEK_XY	3, 4
+		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
 		ldy	#d_str_work_ram_march
 		PSUB	print_string
 
@@ -108,7 +109,7 @@ auto_work_ram_tests_psub:
 		bra	.do_error_code
 
 	.test_failed_output:
-		SEEK_XY	3, 4
+		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
 		ldy	#d_str_work_ram_output
 		PSUB	print_string
 
@@ -116,7 +117,7 @@ auto_work_ram_tests_psub:
 		bra	.do_error_code
 
 	.test_failed_write:
-		SEEK_XY	3, 4
+		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
 		ldy	#d_str_work_ram_write
 		PSUB	print_string
 		lda	#EC_WORK_RAM_WRITE
@@ -141,27 +142,27 @@ print_error_work_ram_memory_psub:
 		tfr	d, y
 		tfr	x, d
 
-		SEEK_XY	12, 7
+		SEEK_XY	(SCREEN_START_X + 10), (SCREEN_START_Y + 2)
 		PSUB	print_hex_word
 
 		tfr	y, d
-		SEEK_XY	14, 8
+		SEEK_XY	(SCREEN_START_X + 12), (SCREEN_START_Y + 3)
 		PSUB	print_hex_byte
 
 		tfr	y, d
 		exg	a, b
-		SEEK_XY	14, 9
+		SEEK_XY	(SCREEN_START_X + 12), (SCREEN_START_Y + 4)
 		PSUB	print_hex_byte
 
-		SEEK_XY	3,7
+		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 2)
 		ldy	#d_str_address
 		PSUB	print_string
 
-		SEEK_XY	3,8
+		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 3)
 		ldy	#d_str_expected
 		PSUB	print_string
 
-		SEEK_XY	3,9
+		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 4)
 		ldy	#d_str_actual
 		PSUB	print_string
 		PSUB_RETURN
@@ -180,7 +181,7 @@ manual_work_ram_tests:
 		std	NUM_PASSES
 
 	.loop_next_pass:
-		SEEK_XY	12, 10
+		SEEK_XY	SCREEN_PASSES_VALUE_X, SCREEN_PASSES_Y
 		ldd	NUM_PASSES
 		PSUB	print_hex_word
 
@@ -202,8 +203,8 @@ manual_work_ram_tests:
 	section data
 
 d_screen_xys_list:
-	XY_STRING 3, 10, "PASSES"
-	XY_STRING 3, 20, "B2 - RETURN TO MENU"
+	XY_STRING SCREEN_START_X, SCREEN_PASSES_Y, "PASSES"
+	XY_STRING SCREEN_START_X, SCREEN_B2_Y, "B2 - RETURN TO MENU"
 	XY_STRING_LIST_END
 
 ; These are padded so we fully overwrite "TESTING WORK RAM"

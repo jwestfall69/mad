@@ -2,6 +2,7 @@
 	include "cpu/68000/include/macros.inc"
 	include "cpu/68000/include/xy_string.inc"
 	include "cpu/68000/include/tests/input.inc"
+	include "global/include/screen.inc"
 
 	include "input.inc"
 	include "mad_rom.inc"
@@ -29,15 +30,15 @@ input_test:
 		lea	d_input_list, a0
 		jsr	print_input_list
 
-		SEEK_XY	20, 7
+		SEEK_XY	(SCREEN_START_X + 5), (SCREEN_START_Y + 8)
 		move.l	r_irq1_count, d0
 		RSUB	print_hex_3_bytes
 
-		SEEK_XY	20, 8
+		SEEK_XY	(SCREEN_START_X + 5), (SCREEN_START_Y + 9)
 		move.l	r_irq2_count, d0
 		RSUB	print_hex_3_bytes
 
-		SEEK_XY	20, 9
+		SEEK_XY	(SCREEN_START_X + 5), (SCREEN_START_Y + 10)
 		move.l	r_irq3_count, d0
 		RSUB	print_hex_3_bytes
 
@@ -53,20 +54,20 @@ input_test:
 	align 2
 
 d_input_list:
-	INPUT_ENTRY  7, REG_INPUT_P1
-	INPUT_ENTRY  8, REG_INPUT_P2
-	INPUT_ENTRY  9, REG_INPUT_DSW1
-	INPUT_ENTRY 10, REG_INPUT_DSW2
+	INPUT_ENTRY (SCREEN_START_Y + 3), REG_INPUT_P1
+	INPUT_ENTRY (SCREEN_START_Y + 4), REG_INPUT_P2
+	INPUT_ENTRY (SCREEN_START_Y + 5), REG_INPUT_DSW1
+	INPUT_ENTRY (SCREEN_START_Y + 6), REG_INPUT_DSW2
 	INPUT_LIST_END
 
 d_screen_xys_list:
-	XY_STRING  6,  6, "76543210"
-	XY_STRING  3,  7, "P1"
-	XY_STRING 15,  7, "IRQ1"
-	XY_STRING  3,  8, "P2"
-	XY_STRING 15,  8, "IRQ2"
-	XY_STRING  1,  9, "DSW1"
-	XY_STRING 15,  9, "IRQ3"
-	XY_STRING  1, 10, "DSW2"
-	XY_STRING  3, 20, "P1 B2+R - RETURN TO MENU"
+	XY_STRING (SCREEN_START_X + 5), (SCREEN_START_Y + 2), "76543210"
+	XY_STRING (SCREEN_START_X + 2), (SCREEN_START_Y + 3), "P1"
+	XY_STRING (SCREEN_START_Y + 2), (SCREEN_START_Y + 4), "P2"
+	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 5), "DSW1"
+	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 6), "DSW2"
+	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 8), "IRQ1"
+	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 9), "IRQ2"
+	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 10), "IRQ3"
+	XY_STRING SCREEN_START_X, SCREEN_B2_Y, "B2 R - RETURN TO MENU"
 	XY_STRING_LIST_END

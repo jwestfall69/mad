@@ -1,11 +1,11 @@
 	include "cpu/6309/include/macros.inc"
 	include "cpu/6309/include/psub.inc"
 	include "cpu/6309/include/print_error.inc"
+	include "global/include/screen.inc"
 
 	include "machine.inc"
 
 	global print_error_address
-	global print_error_crc32
 	global print_error_hex_byte
 	global print_error_invalid
 	global print_error_memory
@@ -29,22 +29,19 @@
 ;  r_pe_string_ptr = error description
 print_error_address:
 
-		; address
-		SEEK_XY	14, 8
-		ldd	r_pe_data_x
-		PSUB	print_hex_word
-
 		; error
-		SEEK_XY	4, 5
+		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
 		ldy	r_pe_string_ptr
 		PSUB	print_string
 
-		SEEK_XY	4, 8
+		; address
+		SEEK_XY	(SCREEN_START_X + 10), (SCREEN_START_Y + 2)
+		ldd	r_pe_data_x
+		PSUB	print_hex_word
+
+		SEEK_XY	SCREEN_START_Y, (SCREEN_START_Y + 2)
 		ldy	#d_str_address
 		PSUB	print_string
-		rts
-
-print_error_crc32:
 		rts
 
 ; params:
@@ -53,22 +50,27 @@ print_error_crc32:
 ;  r_pe_string_ptr = error description
 print_error_hex_byte:
 
+		; error
+		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
+		ldy	r_pe_string_ptr
+		PSUB	print_string
+
 		; expected
-		SEEK_XY	14, 10
+		SEEK_XY (SCREEN_START_X + 12), (SCREEN_START_Y + 2)
 		lda	r_pe_data_e
 		PSUB	print_hex_byte
 
 		; actual
-		SEEK_XY	14, 8
+		SEEK_XY	(SCREEN_START_X + 12), (SCREEN_START_Y + 3)
 		lda	r_pe_data_a
 		PSUB	print_hex_byte
 
-		SEEK_XY	4, 8
-		ldy	#d_str_actual
+		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 2)
+		ldy	#d_str_expected
 		PSUB	print_string
 
-		SEEK_XY	4, 10
-		ldy	#d_str_expected
+		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 3)
+		ldy	#d_str_actual
 		PSUB	print_string
 		rts
 
@@ -78,24 +80,24 @@ print_error_hex_byte:
 print_error_invalid:
 
 		; error code
-		SEEK_XY	20, 6
+		SEEK_XY	(SCREEN_START_X + 16), (SCREEN_START_Y + 2)
 		lda	r_pe_data_a
 		PSUB	print_hex_byte
 
 		; function id
-		SEEK_XY	20, 7
+		SEEK_XY	(SCREEN_START_X + 16), (SCREEN_START_Y + 3)
 		lda	r_pe_data_b
 		PSUB	print_hex_byte
 
-		SEEK_XY	2, 4
+		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
 		ldy	#d_str_invalid_error
 		PSUB	print_string
 
-		SEEK_XY	2, 6
+		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 2)
 		ldy	#d_str_error_code
 		PSUB	print_string
 
-		SEEK_XY	2, 7
+		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 3)
 		ldy	#d_str_print_function
 		PSUB	print_string
 		rts
@@ -107,43 +109,43 @@ print_error_invalid:
 ;  r_pe_string_ptr = error description
 print_error_memory:
 
-		; address
-		SEEK_XY	14, 8
-		ldd	r_pe_data_x
-		PSUB	print_hex_word
-
-		; actual
-		SEEK_XY	16, 10
-		lda	r_pe_data_b
-		PSUB	print_hex_byte
-
-		; expected
-		SEEK_XY	16, 12
-		lda	r_pe_data_e
-		PSUB	print_hex_byte
-
 		; description
-		SEEK_XY	4, 5
+		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
 		ldy	r_pe_string_ptr
 		PSUB	print_string
 
-		SEEK_XY	4, 8
+		; address
+		SEEK_XY	(SCREEN_START_X + 10), (SCREEN_START_Y + 2)
+		ldd	r_pe_data_x
+		PSUB	print_hex_word
+
+		; expected
+		SEEK_XY	(SCREEN_START_X + 12), (SCREEN_START_Y + 3)
+		lda	r_pe_data_e
+		PSUB	print_hex_byte
+
+		; actual
+		SEEK_XY	(SCREEN_START_X + 12), (SCREEN_START_Y + 4)
+		lda	r_pe_data_b
+		PSUB	print_hex_byte
+
+		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 2)
 		ldy	#d_str_address
 		PSUB	print_string
 
-		SEEK_XY	4, 10
-		ldy	#d_str_actual
+		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 3)
+		ldy	#d_str_expected
 		PSUB	print_string
 
-		SEEK_XY	4, 12
-		ldy	#d_str_expected
+		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 4)
+		ldy	#d_str_actual
 		PSUB	print_string
 		rts
 
 ; params:
 ;  r_pe_string_ptr = error description
 print_error_string:
-		SEEK_XY	4, 5
+		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
 		ldy	r_pe_string_ptr
 		PSUB	print_string
 		rts
@@ -152,7 +154,6 @@ print_error_string:
 
 d_ec_print_list:
 	EC_PRINT_ENTRY PRINT_ERROR_ADDRESS, print_error_address
-	EC_PRINT_ENTRY PRINT_ERROR_CRC32, print_error_crc32
 	EC_PRINT_ENTRY PRINT_ERROR_HEX_BYTE, print_error_hex_byte
 	EC_PRINT_ENTRY PRINT_ERROR_MEMORY, print_error_memory
 	EC_PRINT_ENTRY PRINT_ERROR_STRING, print_error_string

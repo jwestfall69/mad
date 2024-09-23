@@ -2,6 +2,7 @@
 	include "cpu/68000/include/macros.inc"
 	include "cpu/68000/include/xy_string.inc"
 	include "cpu/68000/include/handlers/memory_tests.inc"
+	include "global/include/screen.inc"
 
 	include "error_codes.inc"
 	include "input.inc"
@@ -31,7 +32,7 @@ manual_work_ram_tests:
 	.loop_next_pass:
 		WATCHDOG
 
-		SEEK_XY	12, 10
+		SEEK_XY	SCREEN_PASSES_VALUE_X, SCREEN_PASSES_Y
 		move.l	d6, d0
 		PSUB	print_hex_long
 
@@ -62,6 +63,6 @@ d_mt_data:
 	MT_PARAMS WORK_RAM_START, MT_NULL_ADDRESS_LIST, WORK_RAM_SIZE, WORK_RAM_ADDRESS_LINES, WORK_RAM_MASK, MT_TEST_BOTH, WORK_RAM_BASE_EC
 
 d_screen_xys_list:
-	XY_STRING 3, 10, "PASSES"
-	XY_STRING 3, 20, "B2 - RETURN TO MENU"
+	XY_STRING SCREEN_START_X, SCREEN_PASSES_Y, "PASSES"
+	XY_STRING SCREEN_START_X, SCREEN_B2_Y, "B2 - RETURN TO MENU"
 	XY_STRING_LIST_END

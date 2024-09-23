@@ -1,6 +1,7 @@
 	include "cpu/6309/include/error_codes.inc"
 	include "cpu/6309/include/macros.inc"
 	include "cpu/6309/include/psub.inc"
+	include "global/include/screen.inc"
 
 	include "machine.inc"
 	include "mad_rom.inc"
@@ -17,10 +18,10 @@
 ; mirrors.
 auto_mad_rom_address_test_psub:
 
-		SEEK_LN	4
+		SEEK_LN	SCREEN_START_Y
 		PSUB	print_clear_line
 
-		SEEK_XY	3, 4
+		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
 		ldy	#d_str_testing_mad_rom_address
 		PSUB	print_string
 
@@ -43,28 +44,28 @@ auto_mad_rom_address_test_psub:
 	.test_failed:
 
 		; expected
-		SEEK_XY	14, 10
+		SEEK_XY	(SCREEN_START_X + 12), (SCREEN_START_Y + 2)
 		tfr	b, a
 		PSUB	print_hex_byte
 
 		; actual
-		SEEK_XY	14, 8
+		SEEK_XY	(SCREEN_START_X + 12), (SCREEN_START_Y + 3)
 		tfr	f, a
 		PSUB	print_hex_byte
 
-		SEEK_LN	4
+		SEEK_LN	SCREEN_START_Y
 		PSUB	print_clear_line
 
-		SEEK_XY	4, 4
+		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
 		ldy	#d_str_mad_rom_address
 		PSUB	print_string
 
-		SEEK_XY	4, 8
-		ldy	#d_str_actual
+		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 2)
+		ldy	#d_str_expected
 		PSUB	print_string
 
-		SEEK_XY	4, 10
-		ldy	#d_str_expected
+		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 3)
+		ldy	#d_str_actual
 		PSUB	print_string
 
 		lda	#EC_MAD_ROM_ADDRESS
@@ -75,13 +76,12 @@ auto_mad_rom_address_test_psub:
 		STALL
 
 
-
 auto_mad_rom_crc32_test_psub:
 
-		SEEK_LN	4
+		SEEK_LN	SCREEN_START_Y
 		PSUB	print_clear_line
 
-		SEEK_XY	3, 4
+		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
 		ldy	#d_str_testing_mad_rom_crc32
 		PSUB	print_string
 
@@ -102,7 +102,7 @@ crc32_return:
 		cmpd	MAD_ROM_CRC32_ADDRESS
 		bne	.test_failed
 
-		cmpw	MAD_ROM_CRC32_ADDRESS+2
+		cmpw	MAD_ROM_CRC32_ADDRESS + 2
 		bne	.test_failed
 
 		PSUB_RETURN
@@ -110,34 +110,36 @@ crc32_return:
 	.test_failed:
 		tfr	w, y
 
-		SEEK_XY	14, 10
+		; actual
+		SEEK_XY	(SCREEN_START_X + 12), (SCREEN_START_Y + 3)
 		PSUB	print_hex_word
 
-		SEEK_XY	18, 10
+		SEEK_XY	(SCREEN_START_X + 16), (SCREEN_START_Y + 3)
 		tfr	y, d
 		PSUB	print_hex_word
 
-		SEEK_XY	14, 8
+		; expected
+		SEEK_XY	(SCREEN_START_X + 12), (SCREEN_START_Y + 2)
 		ldd	MAD_ROM_CRC32_ADDRESS
 		PSUB	print_hex_word
 
-		SEEK_XY	18, 8
-		ldd	MAD_ROM_CRC32_ADDRESS+2
+		SEEK_XY	(SCREEN_START_X + 16), (SCREEN_START_Y + 2)
+		ldd	MAD_ROM_CRC32_ADDRESS + 2
 		PSUB	print_hex_word
 
-		SEEK_LN	4
+		SEEK_LN	SCREEN_START_Y
 		PSUB	print_clear_line
 
-		SEEK_XY	4, 4
+		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
 		ldy	#d_str_mad_rom_crc32
 		PSUB	print_string
 
-		SEEK_XY 4, 10
-		ldy	#d_str_actual
+		SEEK_XY SCREEN_START_X, (SCREEN_START_Y + 2)
+		ldy	#d_str_expected
 		PSUB	print_string
 
-		SEEK_XY 4, 8
-		ldy	#d_str_expected
+		SEEK_XY SCREEN_START_X, (SCREEN_START_Y + 3)
+		ldy	#d_str_actual
 		PSUB	print_string
 
 		lda	#EC_MAD_ROM_CRC32
@@ -154,4 +156,3 @@ d_str_mad_rom_address:		STRING "MAD ROM ADDRESS ERROR"
 
 d_str_testing_mad_rom_address:	STRING "TESTING MAD ROM ADDRESS"
 d_str_testing_mad_rom_crc32:	STRING "TESTING MAD ROM CRC32"
-

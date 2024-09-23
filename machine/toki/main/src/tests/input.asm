@@ -2,6 +2,7 @@
 	include "cpu/68000/include/macros.inc"
 	include "cpu/68000/include/xy_string.inc"
 	include "cpu/68000/include/tests/input.inc"
+	include "global/include/screen.inc"
 
 	include "input.inc"
 	include "machine.inc"
@@ -29,12 +30,12 @@ input_test:
 		move.w	REG_INPUT_P2, d0
 		not.w	d0
 
-		SEEK_XY	6, 7
+		SEEK_XY	(SCREEN_START_X + 5), (SCREEN_START_Y + 3)
 		movem.w	d0, -(a7)
 		RSUB	print_bits_byte
 		movem.w	(a7)+, d0
 
-		SEEK_XY	6, 8
+		SEEK_XY	(SCREEN_START_X + 5), (SCREEN_START_Y + 4)
 		lsr.w	#$8, d0
 		RSUB	print_bits_byte
 
@@ -42,19 +43,19 @@ input_test:
 		move.w	REG_INPUT_DSW2, d0
 		not.w	d0
 
-		SEEK_XY	6, 9
+		SEEK_XY	(SCREEN_START_X + 5), (SCREEN_START_Y + 5)
 		movem.w	d0, -(a7)
 		RSUB	print_bits_byte
 		movem.w	(a7)+, d0
 
-		SEEK_XY	6, 10
+		SEEK_XY	(SCREEN_START_X + 5), (SCREEN_START_Y + 6)
 		lsr.w	#$8, d0
 		RSUB	print_bits_byte
 
 		; odd address, byte read is ok
 		move.b	REG_INPUT_SYSTEM, d0
 		not.b	d0
-		SEEK_XY	6, 11
+		SEEK_XY	(SCREEN_START_X + 5), (SCREEN_START_Y + 7)
 		RSUB	print_bits_byte
 
 		; p1/system are both odd addresses, byte read is ok
@@ -69,11 +70,11 @@ input_test:
 	align 2
 
 d_screen_xys_list:
-	XY_STRING 6,  6, "76543210"
-	XY_STRING 3,  7, "P1"
-	XY_STRING 3,  8, "P2"
-	XY_STRING 1,  9, "DSW1"
-	XY_STRING 1, 10, "DSW2"
-	XY_STRING 2, 11, "SYS"
-	XY_STRING 3, 20, "P1 B2+RIGHT - RETURN TO MENU"
+	XY_STRING (SCREEN_START_X + 5), (SCREEN_START_Y + 2), "76543210"
+	XY_STRING (SCREEN_START_X + 2), (SCREEN_START_Y + 3), "P1"
+	XY_STRING (SCREEN_START_X + 2), (SCREEN_START_Y + 4), "P2"
+	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 5), "DSW1"
+	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 6), "DSW2"
+	XY_STRING (SCREEN_START_X + 1), (SCREEN_START_Y + 7), "SYS"
+	XY_STRING SCREEN_START_X, SCREEN_B2_Y, "B2+RIGHT - RETURN TO MENU"
 	XY_STRING_LIST_END

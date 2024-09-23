@@ -2,6 +2,7 @@
 	include "cpu/68000/include/macros.inc"
 	include "cpu/68000/include/xy_string.inc"
 	include "cpu/68000/include/handlers/memory_tests.inc"
+	include "global/include/screen.inc"
 
 	include "error_codes.inc"
 	include "machine.inc"
@@ -32,16 +33,15 @@ manual_ram_tests:
 		tst.b	d0
 		bne	.test_failed
 
-		SCREEN_UPDATE
-
 		addq.l	#1, d6
+
+		SCREEN_UPDATE
 
 		btst	#P1_B1_BIT, REG_INPUT_P1
 		beq	.test_pause
 
 		btst	#P1_B2_BIT, REG_INPUT_P1
 		beq	.test_exit
-
 		bra	.loop_next_pass
 
 	.test_pause:
@@ -50,7 +50,7 @@ manual_ram_tests:
 		lea	d_screen_xys_list, a0
 		PSUB	print_xy_string_list
 
-		SEEK_XY	12, 10
+		SEEK_XY	SCREEN_PASSES_VALUE_X, SCREEN_PASSES_Y
 		move.l	d6, d0
 		PSUB	print_hex_long
 
@@ -76,10 +76,10 @@ d_mt_data:
 	MT_PARAMS RAM_START, MT_NULL_ADDRESS_LIST, RAM_SIZE, RAM_ADDRESS_LINES, RAM_MASK, MT_TEST_BOTH, RAM_BASE_EC
 
 d_screen_xys_list:
-	XY_STRING 3,  4, "RAM TEST"
-	XY_STRING 3, 10, "PASSES"
-	XY_STRING 3, 19, "B1 - PAUSE"
-	XY_STRING 3, 20, "B2 - RETURN TO MENU"
+	XY_STRING SCREEN_START_X, SCREEN_START_Y, "RAM TEST"
+	XY_STRING SCREEN_START_X, SCREEN_PASSES_Y, "PASSES"
+	XY_STRING SCREEN_START_X, SCREEN_B1_Y, "B1 - PAUSE"
+	XY_STRING SCREEN_START_X, SCREEN_B2_Y, "B2 - RETURN TO MENU"
 	XY_STRING_LIST_END
 
 d_str_ram_test:		STRING "RAM TEST"

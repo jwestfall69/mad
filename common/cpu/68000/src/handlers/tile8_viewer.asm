@@ -1,14 +1,15 @@
 	include "cpu/68000/include/dsub.inc"
 	include "cpu/68000/include/macros.inc"
 	include "cpu/68000/include/xy_string.inc"
+	include "global/include/screen.inc"
 
 	include "input.inc"
 	include "machine.inc"
 
 	global tile8_viewer_handler
 
-START_COLUMN	equ $4
-START_ROW	equ $9
+START_COLUMN	equ SCREEN_START_X
+START_ROW	equ SCREEN_START_Y + 6
 
 	section code
 
@@ -26,7 +27,7 @@ tile8_viewer_handler:
 		lea	d_screen_xys_list, a0
 		RSUB	print_xy_string_list
 
-		SEEK_XY	6, 7
+		SEEK_XY	(START_COLUMN + 2), (SCREEN_START_Y + 4)
 		lea	d_str_0f, a0
 		RSUB	print_string
 
@@ -74,7 +75,7 @@ tile8_viewer_handler:
 	.loop_input:
 		WATCHDOG
 
-		SEEK_XY	16, 5
+		SEEK_XY	(SCREEN_START_X + 8), (SCREEN_START_Y + 2)
 		move.w	r_tile_offset, d0
 		RSUB	print_hex_word
 
@@ -113,8 +114,8 @@ tile8_viewer_handler:
 	align 2
 
 d_screen_xys_list:
-	XY_STRING 8,  5, <"OFFSET",CHAR_COLON>
-	XY_STRING 3, 26, "B2 - RETURN TO MENU"
+	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 2), <"OFFSET",CHAR_COLON>
+	XY_STRING SCREEN_START_X, SCREEN_B2_Y, "B2 - RETURN TO MENU"
 	XY_STRING_LIST_END
 
 ; not part of d_screen_xys_list so we can use in row headers

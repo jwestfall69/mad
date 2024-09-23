@@ -1,5 +1,6 @@
 	include "cpu/6309/include/macros.inc"
 	include "cpu/6309/include/psub.inc"
+	include "global/include/screen.inc"
 
 	include "input.inc"
 	include "machine.inc"
@@ -16,7 +17,7 @@ sound_test_handler:
 		tfr	a, f
 
 	.update_byte:
-		SEEK_XY	14, 10
+		SEEK_XY	(SCREEN_START_X + 12), (SCREEN_START_Y + 6)
 		tfr	f, a
 		PSUB	print_hex_byte
 

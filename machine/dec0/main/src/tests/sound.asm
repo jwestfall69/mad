@@ -1,6 +1,7 @@
 	include "cpu/68000/include/dsub.inc"
 	include "cpu/68000/include/macros.inc"
 	include "cpu/68000/include/xy_string.inc"
+	include "global/include/screen.inc"
 
 	include "machine.inc"
 	include "mad_rom.inc"
@@ -21,7 +22,7 @@ sound_test:
 	align 2
 
 d_screen_xys_list:
-	XY_STRING 3, 10, "SOUND NUM:"
-	XY_STRING 3, 19, "B1 - PLAY SOUND"
-	XY_STRING 3, 20, "B2 - RETURN TO MENU"
+	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 6), <"SOUND NUM", CHAR_COLON>
+	XY_STRING SCREEN_START_X, SCREEN_B1_Y, "B1 - PLAY SOUND"
+	XY_STRING SCREEN_START_X, SCREEN_B2_Y, "B2 - RETURN TO MENU"
 	XY_STRING_LIST_END

@@ -1,6 +1,7 @@
 	include "cpu/68000/include/dsub.inc"
 	include "cpu/68000/include/macros.inc"
 	include "cpu/68000/include/xy_string.inc"
+	include "global/include/screen.inc"
 
 	include "machine.inc"
 
@@ -18,7 +19,7 @@ fg_tile_viewer:
 
 		clr.b	r_fg_current_bank
 
-		SEEK_XY	7, 3
+		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
 		lea	d_str_title, a0
 		RSUB	print_string
 

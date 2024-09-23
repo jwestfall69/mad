@@ -1,4 +1,5 @@
 	include "cpu/68000/include/dsub.inc"
+	include "global/include/screen.inc"
 
 	include "machine.inc"
 
@@ -14,7 +15,7 @@ print_input_list:
 		beq	.list_end
 
 		and.l	#$ff, d1
-		moveq	#6, d0
+		moveq	#(SCREEN_START_X + 5), d0
 		RSUB	screen_seek_xy
 
 		move.l	(a0)+, a1

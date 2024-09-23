@@ -1,6 +1,7 @@
 	include "cpu/68000/include/dsub.inc"
 	include "cpu/68000/include/macros.inc"
 	include "cpu/68000/include/handlers/menu.inc"
+	include "global/include/screen.inc"
 
 	include "machine.inc"
 	include "mad_rom.inc"
@@ -15,7 +16,7 @@ main_menu:
 	.loop_menu:
 		RSUB	screen_init
 
-		SEEK_XY	3, 3
+		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
 		lea	d_str_menu_title, a0
 		RSUB	print_string
 

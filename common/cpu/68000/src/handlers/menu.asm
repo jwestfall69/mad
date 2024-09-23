@@ -1,6 +1,7 @@
 	include "cpu/68000/include/dsub.inc"
 	include "cpu/68000/include/macros.inc"
 	include "cpu/68000/include/handlers/menu.inc"
+	include "global/include/screen.inc"
 
 	include "input.inc"
 	include "machine.inc"
@@ -9,13 +10,13 @@
 	global menu_handler
 	global r_menu_cursor
 
-MENU_X_OFFSET		equ $2
-MENU_Y_OFFSET		equ $5
+MENU_X_OFFSET		equ SCREEN_START_X - 1	; cursor is 1 less then start x
+MENU_Y_OFFSET		equ SCREEN_START_Y + 2
 
 	section code
 
 ; params:
-;  a0 = menu struct { menu_title_ptr, menu_entry's }
+;  a0 = array of menu entries
 ; returns:
 ;  d0 = 0 (function ran) or 1 (menu exit)
 menu_handler:
@@ -109,7 +110,7 @@ menu_handler:
 
 		move.l	s_me_name_ptr(a1), a0
 
-		SEEK_XY	3, 4
+		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
 		RSUB	print_string
 
 		move.b	r_menu_cursor, -(a7)

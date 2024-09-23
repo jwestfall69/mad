@@ -1,6 +1,7 @@
 	include "cpu/6309/include/macros.inc"
 	include "cpu/6309/include/psub.inc"
 	include "cpu/6309/include/xy_string.inc"
+	include "global/include/screen.inc"
 
 	include "input.inc"
 	include "mad_rom.inc"
@@ -182,8 +183,8 @@ generate_tiles_table:
 		rts
 
 
-COLOR_BLOCK_START_X	equ 6
-COLOR_BLOCK_START_Y	equ 6
+COLOR_BLOCK_START_X	equ SCREEN_START_X + 3
+COLOR_BLOCK_START_Y	equ SCREEN_START_X + 3
 draw_colors:
 		ldy	#r_tiles_table
 		lda	#COLOR_BLOCK_START_Y
@@ -283,10 +284,10 @@ d_tiles_raw:
 	dc.w	VD_TILE_B0_NUM, VD_TILE_B1_NUM, VD_TILE_B2_NUM, VD_TILE_B3_NUM, VD_TILE_B4_NUM, VD_TILE_BA_NUM
 
 d_screen_xys_list:
-	XY_STRING 11,  2, "VIDEO DAC TEST"
-	XY_STRING  7,  5, "B0  B1  B2  B3  B4  ALL"
-	XY_STRING  3, 24, "B1 - FULL SCREEN"
-	XY_STRING  3, 25, "B2 - RETURN TO MENU"
+	XY_STRING SCREEN_START_X, SCREEN_START_Y, "VIDEO DAC TEST"
+	XY_STRING (SCREEN_START_X + 4), (SCREEN_START_Y + 2), "B0  B1  B2  B3  B4  ALL"
+	XY_STRING SCREEN_START_X, SCREEN_B1_Y, "B1 - FULL SCREEN"
+	XY_STRING SCREEN_START_X, SCREEN_B2_Y, "B2 - RETURN TO MENU"
 	XY_STRING_LIST_END
 
 	section bss

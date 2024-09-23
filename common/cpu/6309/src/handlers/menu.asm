@@ -1,6 +1,7 @@
 	include "cpu/6309/include/macros.inc"
 	include "cpu/6309/include/psub.inc"
 	include "cpu/6309/include/handlers/menu.inc"
+	include "global/include/screen.inc"
 
 	include "input.inc"
 	include "machine.inc"
@@ -9,8 +10,8 @@
 	global menu_handler
 	global r_menu_cursor
 
-MENU_X_OFFSET		equ $2
-MENU_Y_OFFSET		equ $5
+MENU_X_OFFSET		equ SCREEN_START_X - 1	; cursor is 1 less then start x
+MENU_Y_OFFSET		equ SCREEN_START_Y + 2
 
 	section code
 
@@ -104,7 +105,7 @@ menu_handler:
 		pshs	y
 		ldy	s_me_name_ptr, y
 
-		SEEK_XY 3, 4
+		SEEK_XY SCREEN_START_X, SCREEN_START_Y
 		PSUB	print_string
 		puls	y
 

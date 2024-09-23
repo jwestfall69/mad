@@ -1,5 +1,6 @@
 	include "cpu/68000/include/dsub.inc"
 	include "cpu/68000/include/macros.inc"
+	include "global/include/screen.inc"
 
 	include "machine.inc"
 	include "input.inc"
@@ -9,7 +10,7 @@
 	section code
 
 NUM_ROWS	equ 20
-START_ROW	equ 6
+START_ROW	equ SCREEN_START_Y + 3
 
 ; a0 = start memory location
 memory_viewer_handler:
@@ -20,16 +21,16 @@ memory_viewer_handler:
 		clr.b	r_read_mode
 		clr.b	r_debug_memory
 
-		SEEK_XY	9, 3
+		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
 		lea	d_str_memory_viewer, a0
 		RSUB	print_string
 
-		SEEK_XY 16, 4
-		lea	d_str_read_mode, a0
+		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 1)
+		lea	d_str_read_mode_word, a0
 		RSUB	print_string
 
-		SEEK_XY	11, 4
-		lea	d_str_read_mode_word, a0
+		SEEK_XY (SCREEN_START_X + 5), (SCREEN_START_Y + 1)
+		lea	d_str_read_mode, a0
 		RSUB	print_string
 
 		movem.l	(a7)+, a0-a1
@@ -93,7 +94,7 @@ memory_viewer_handler:
 		lea	d_str_read_mode_word, a0
 
 	.print_read_mode:
-		SEEK_XY	11, 4
+		SEEK_XY	(SCREEN_START_X + 5), (SCREEN_START_Y + 1)
 		RSUB	print_string
 		movem.l	(a7)+, a0
 
@@ -120,14 +121,14 @@ memory_dump:
 
 	.loop_start_address:
 
-		moveq	#4, d0
+		moveq	#SCREEN_START_X, d0
 		move.w	d3, d1
 		RSUB	screen_seek_xy
 
 		move.l	a0, d0
 		RSUB	print_hex_3_bytes	; address
 
-		moveq	#17, d0
+		moveq	#(SCREEN_START_X + 13), d0
 		move.w	d3, d1
 		RSUB	screen_seek_xy
 
@@ -149,18 +150,18 @@ memory_dump:
 
 	.read_done:
 		move.l	d0, d5
-		RSUB	print_hex_word		; lower word
+		RSUB	print_hex_word			; lower word
 
-		moveq	#12, d0
+		moveq	#(SCREEN_START_X + 8), d0
 		move.w	d3, d1
 		RSUB	screen_seek_xy
 
 		move.l	d5, d0
 		swap	d0
-		RSUB	print_hex_word		; upper word
+		RSUB	print_hex_word			; upper word
 
-		moveq	#26, d2			; x offset
-		moveq	#3, d6			; num of chars
+		moveq	#SCREEN_START_X + 22, d2	; x offset
+		moveq	#3, d6				; num of chars
 
 	.loop_next_char:
 		move.w	d2, d0

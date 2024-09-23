@@ -1,6 +1,7 @@
 	include "cpu/68000/include/dsub.inc"
 	include "cpu/68000/include/macros.inc"
 	include "cpu/68000/include/xy_string.inc"
+	include "global/include/screen.inc"
 
 	include "input.inc"
 	include "mad_rom.inc"
@@ -274,15 +275,14 @@ d_tiles_raw:
 	dc.w	VD_TILE_B036_NUM, VD_TILE_B147_NUM, VD_TILE_B25A_NUM
 
 d_screen_xys_list:
+	XY_STRING SCREEN_START_X, SCREEN_START_Y, "VIDEO DAC TEST"
 	ifd _PRINT_COLUMN_
-		XY_STRING 8, 2, "VIDEO DAC TEST"
-		XY_STRING 2, 5, "0  1  2  3  4  5  6  7 ALL"
+		XY_STRING (SCREEN_START_X - 1), (SCREEN_START_Y + 2), "0  1  2  3  4  5  6  7 ALL"
 	else
-		XY_STRING 9, 2, "VIDEO DAC TEST"
-		XY_STRING 3, 5, "0  1  2  3  4  5  6  7 ALL"
+		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 2), "0  1  2  3  4  5  6  7 ALL"
 	endif
-	XY_STRING 3, 24, "B1 - FULL SCREEN"
-	XY_STRING 3, 25, "B2 - RETURN TO MENU"
+	XY_STRING SCREEN_START_X, SCREEN_B1_Y, "B1 - FULL SCREEN"
+	XY_STRING SCREEN_START_X, SCREEN_B2_Y, "B2 - RETURN TO MENU"
 	XY_STRING_LIST_END
 
 	section bss

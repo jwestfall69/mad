@@ -1,8 +1,9 @@
 	include "cpu/68000/include/dsub.inc"
+	include "cpu/68000/include/macros.inc"
+	include "global/include/screen.inc"
 
 	include "input.inc"
 	include "machine.inc"
-
 
 	global sound_test_handler
 
@@ -15,7 +16,7 @@ sound_test_handler:
 		movea.l	a0, a1
 
 	.update_byte:
-		SEEK_XY	14, 10
+		SEEK_XY	(SCREEN_START_X + 12), (SCREEN_START_Y + 6)
 		move.b	d4, d0
 		DSUB	print_hex_byte
 

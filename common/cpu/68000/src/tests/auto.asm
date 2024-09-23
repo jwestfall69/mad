@@ -1,6 +1,7 @@
 	include "cpu/68000/include/dsub.inc"
 	include "cpu/68000/include/macros.inc"
 	include "cpu/68000/include/tests/auto.inc"
+	include "global/include/screen.inc"
 
 	include "machine.inc"
 
@@ -21,10 +22,10 @@ auto_dsub_tests_dsub:
 		cmp.l	#0, a0					; table is null terminated
 		beq	.all_tests_done
 
-		SEEK_LN	5
+		SEEK_LN	SCREEN_START_Y
 		DSUB	print_clear_line
 
-		SEEK_XY	4, 5
+		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
 		DSUB	print_string
 
 		lea	d_auto_dsub_list, a2		; test dsub offset
@@ -55,11 +56,11 @@ auto_func_tests:
 		tst.l	(a1)			; table is null terminated
 		beq	.all_tests_done
 
-		SEEK_LN	5
+		SEEK_LN	SCREEN_START_Y
 		RSUB	print_clear_line
 
+		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
 		move.l	s_ae_name_ptr(a1), a0
-		SEEK_XY	4, 5
 		RSUB	print_string
 
 		move.l	(a1), a0		; test function

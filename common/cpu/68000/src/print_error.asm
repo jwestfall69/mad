@@ -1,6 +1,7 @@
 	include "cpu/68000/include/dsub.inc"
 	include "cpu/68000/include/macros.inc"
 	include "cpu/68000/include/print_error.inc"
+	include "global/include/screen.inc"
 
 	include "machine.inc"
 
@@ -20,16 +21,16 @@
 ;  a1 = error description
 print_error_address_dsub:
 		; address value
-		SEEK_XY	14, 8
+		SEEK_XY	SCREEN_START_Y, (SCREEN_START_Y + 2)
 		move.l	a0, d0
 		DSUB	print_hex_3_bytes
 
 		; error description
-		SEEK_XY	4, 5
+		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
 		movea.l	a1, a0
 		DSUB	print_string
 
-		SEEK_XY	4, 8
+		SEEK_XY	(SCREEN_START_X + 10), (SCREEN_START_Y + 2)
 		lea	d_str_address, a0
 		DSUB	print_string
 
@@ -44,29 +45,29 @@ print_error_crc32_dsub:
 		move.l	d2, d4
 
 		; expected value
-		SEEK_XY	14, 10
+		SEEK_XY (SCREEN_START_X + 12), (SCREEN_START_Y + 2)
 		move.l	d1, d0
 		DSUB	print_hex_long
 
 		; actual value
-		SEEK_XY	14, 8
+		SEEK_XY (SCREEN_START_X + 12), (SCREEN_START_Y + 3)
 		move.l	d4, d0
 		DSUB	print_hex_long
 
-		SEEK_LN	5
+		SEEK_LN	SCREEN_START_Y
 		DSUB	print_clear_line
 
 		; error description
-		SEEK_XY	4, 5
+		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
 		movea.l	a1, a0
 		DSUB	print_string
 
-		SEEK_XY	4, 8
-		lea	d_str_actual, a0
+		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 2)
+		lea	d_str_expected, a0
 		DSUB	print_string
 
-		SEEK_XY	4, 10
-		lea	d_str_expected, a0
+		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 3)
+		lea	d_str_actual, a0
 		DSUB	print_string
 		DSUB_RETURN
 
@@ -79,29 +80,29 @@ print_error_crc32_dsub:
 print_error_hex_byte_dsub:
 
 		; expected value
-		SEEK_XY	14, 10
+		SEEK_XY	(SCREEN_START_X + 12), (SCREEN_START_Y + 2)
 		move.b	d1, d0
 		DSUB	print_hex_byte
 
 		; actual value
-		SEEK_XY	14, 8
+		SEEK_XY	(SCREEN_START_X + 12), (SCREEN_START_Y + 3)
 		move.b	d2, d0
 		DSUB	print_hex_byte
 
-		SEEK_LN	5
+		SEEK_LN	SCREEN_START_Y
 		DSUB	print_clear_line
 
 		; error description
-		SEEK_XY	4, 5
+		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
 		movea.l	a1, a0
 		DSUB	print_string
 
-		SEEK_XY	4, 8
-		lea	d_str_actual, a0
+		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 2)
+		lea	d_str_expected, a0
 		DSUB	print_string
 
-		SEEK_XY	4, 10
-		lea	d_str_expected, a0
+		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 3)
+		lea	d_str_actual, a0
 		DSUB	print_string
 		DSUB_RETURN
 
@@ -113,26 +114,26 @@ print_error_invalid_dsub:
 		move.b	d1, d4
 
 		; error code
-		SEEK_XY	20, 6
+		SEEK_XY	(SCREEN_START_X + 16), (SCREEN_START_Y + 2)
 		DSUB	print_hex_byte
 
 		; print dsub id
-		SEEK_XY	20, 7
+		SEEK_XY	(SCREEN_START_X + 16), (SCREEN_START_Y + 3)
 		move.b	d4, d0
 		DSUB	print_hex_byte
 
-		SEEK_LN	5
+		SEEK_LN	SCREEN_START_Y
 		DSUB	print_clear_line
 
-		SEEK_XY	2, 4
+		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
 		lea	d_str_invalid_error, a0
 		DSUB	print_string
 
-		SEEK_XY	2, 6
+		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 2)
 		lea	d_str_error_code, a0
 		DSUB	print_string
 
-		SEEK_XY	2, 7
+		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 3)
 		lea	d_str_print_function, a0
 		DSUB	print_string
 		DSUB_RETURN
@@ -148,45 +149,45 @@ print_error_memory_dsub:
 		move.w	d2, d4
 
 		; address value
-		SEEK_XY	14, 8
+		SEEK_XY	(SCREEN_START_X + 10), (SCREEN_START_Y + 2)
 		move.l	a0, d0
 		DSUB	print_hex_3_bytes
 
-		; actual value
-		SEEK_XY	14, 10
-		move.w	d4, d0
-		DSUB	print_hex_word
-
 		; expected value
-		SEEK_XY	14, 12
+		SEEK_XY	(SCREEN_START_X + 12), (SCREEN_START_Y + 3)
 		move.w	d3, d0
 		DSUB	print_hex_word
 
-		SEEK_LN	5
+		; actual value
+		SEEK_XY	(SCREEN_START_X + 12), (SCREEN_START_Y + 4)
+		move.w	d4, d0
+		DSUB	print_hex_word
+
+		SEEK_LN	SCREEN_START_Y
 		DSUB	print_clear_line
 
 		; error description
-		SEEK_XY	4, 5
+		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
 		movea.l	a1, a0
 		DSUB	print_string
 
-		SEEK_XY	4, 8
+		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 2)
 		lea	d_str_address, a0
 		DSUB	print_string
 
-		SEEK_XY	4, 10
-		lea	d_str_actual, a0
+		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 3)
+		lea	d_str_expected, a0
 		DSUB	print_string
 
-		SEEK_XY	4, 12
-		lea	d_str_expected, a0
+		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 4)
+		lea	d_str_actual, a0
 		DSUB	print_string
 		DSUB_RETURN
 
 ; params:
 ;  a1 = error description
 print_error_string_dsub:
-		SEEK_XY	4, 5
+		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
 		movea.l	a1, a0
 		DSUB	print_string
 		DSUB_RETURN

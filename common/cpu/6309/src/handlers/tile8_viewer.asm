@@ -1,14 +1,15 @@
 	include "cpu/6309/include/macros.inc"
 	include "cpu/6309/include/psub.inc"
 	include "cpu/6309/include/xy_string.inc"
+	include "global/include/screen.inc"
 
 	include "input.inc"
 	include "machine.inc"
 
 	global tile8_viewer_handler
 
-START_COLUMN	equ $4
-START_ROW	equ $9
+START_COLUMN	equ SCREEN_START_X
+START_ROW	equ SCREEN_START_Y + 6
 
 	section code
 
@@ -26,7 +27,7 @@ tile8_viewer_handler:
 		ldy	#d_screen_xys_list
 		PSUB	print_xy_string_list
 
-		SEEK_XY	6, 7
+		SEEK_XY	(START_COLUMN + 2), (SCREEN_START_Y + 4)
 		ldy	#d_str_0f
 		PSUB	print_string
 
@@ -38,7 +39,7 @@ tile8_viewer_handler:
 		std	r_tile_offset
 		std	r_current_tile
 
-		SEEK_XY	16, 5
+		SEEK_XY	(SCREEN_START_X + 8), (SCREEN_START_Y + 2)
 		PSUB	print_hex_word
 
 		ldf	#$10	; number or rows
@@ -125,8 +126,8 @@ tile8_viewer_handler:
 
 		STALL
 d_screen_xys_list:
-	XY_STRING 8,  5, <"OFFSET",CHAR_COLON>
-	XY_STRING 3, 26, "B2 - RETURN TO MENU"
+	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 2), <"OFFSET",CHAR_COLON>
+	XY_STRING SCREEN_START_X, SCREEN_B2_Y, "B2 - RETURN TO MENU"
 	XY_STRING_LIST_END
 
 ; not part of d_screen_xys_list so we can use in row headers
