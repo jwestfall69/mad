@@ -25,6 +25,7 @@ OBJS = $(OBJ_DIR)/cpu/6309/src/crc32.o \
        $(OBJ_DIR)/cpu/6309/src/handlers/menu.o \
        $(OBJ_DIR)/cpu/6309/src/handlers/sound.o \
        $(OBJ_DIR)/cpu/6309/src/handlers/tile8_viewer.o \
+       $(OBJ_DIR)/cpu/6309/src/tests/auto.o \
        $(OBJ_DIR)/cpu/6309/src/tests/input.o \
        $(OBJ_DIR)/cpu/6309/src/tests/memory.o \
        $(OBJ_DIR)/cpu/6309/src/tests/mad_rom.o \
@@ -41,6 +42,7 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/menus/debug.o \
         $(OBJ_DIR)/menus/main.o \
         $(OBJ_DIR)/menus/memory_viewer.o \
+        $(OBJ_DIR)/tests/auto.o \
         $(OBJ_DIR)/tests/input.o \
         $(OBJ_DIR)/tests/palette_ram.o \
         $(OBJ_DIR)/tests/sound.o \

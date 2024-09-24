@@ -2,6 +2,7 @@
 	include "cpu/6309/include/psub.inc"
 
 	include "machine.inc"
+	include "mad_rom.inc"
 
 	global _start
 
@@ -27,6 +28,7 @@ _start:
 		sta	$1e80	; screen flip
 		stb	$3800	; irq?
 
+		SOUND_STOP
 
 		PSUB	screen_init
 		PSUB	auto_mad_rom_address_test
@@ -34,4 +36,9 @@ _start:
 		PSUB	auto_work_ram_tests
 
 		lds	#(WORK_RAM_START + WORK_RAM_SIZE - 2)
+		jsr	auto_func_tests
+
+		lda	#SOUND_NUM_SUCCESS
+		SOUND_PLAY
+
 		jsr	main_menu
