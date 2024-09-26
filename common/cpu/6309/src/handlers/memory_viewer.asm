@@ -1,6 +1,7 @@
 	include "cpu/6309/include/macros.inc"
 	include "cpu/6309/include/psub.inc"
 	include "cpu/6309/include/xy_string.inc"
+	include "global/include/screen.inc"
 
 	include "machine.inc"
 	include "input.inc"
@@ -10,7 +11,7 @@
 	section code
 
 NUM_ROWS	equ 20
-START_ROW	equ 6
+START_ROW	equ SCREEN_START_Y + 3
 
 ; params:
 ;  y = start address
@@ -71,49 +72,49 @@ memory_dump:
 
 	.loop_next_address:
 		; address
-		lda	#4
+		lda	#SCREEN_START_X
 		ldb	r_current_row
 		PSUB	screen_seek_xy
 		tfr	y, d
 		PSUB	print_hex_word
 
 		; 1st word
-		lda	#11
+		lda	#(SCREEN_START_X + 6)
 		ldb	r_current_row
 		PSUB	screen_seek_xy
 		ldd	0, y
 		PSUB	print_hex_word
 
 		; 2nd word
-		lda	#16
+		lda	#(SCREEN_START_X + 11)
 		ldb	r_current_row
 		PSUB	screen_seek_xy
 		ldd	2, y
 		PSUB	print_hex_word
 
 		; 1st byte
-		lda	#23
+		lda	#(SCREEN_START_X + 17)
 		ldb	r_current_row
 		PSUB	screen_seek_xy
 		lda	0, y
 		PSUB	print_byte
 
 		; 2nd byte
-		lda	#24
+		lda	#(SCREEN_START_X + 18)
 		ldb	r_current_row
 		PSUB	screen_seek_xy
 		lda	1, y
 		PSUB	print_byte
 
 		; 3rd byte
-		lda	#25
+		lda	#(SCREEN_START_X + 19)
 		ldb	r_current_row
 		PSUB	screen_seek_xy
 		lda	2, y
 		PSUB	print_byte
 
 		; 4th btye
-		lda	#26
+		lda	#(SCREEN_START_X + 20)
 		ldb	r_current_row
 		PSUB	screen_seek_xy
 		lda	3, y
@@ -129,10 +130,10 @@ memory_dump:
 	section data
 
 d_screen_xys_list:
-	XY_STRING  9, 3, "MEMORY_VIEWER"
-	XY_STRING  4, 4, "ADDR"
-	XY_STRING 13, 4, "DATA"
-	XY_STRING 23, 4, "CHAR"
+	XY_STRING SCREEN_START_X, SCREEN_START_Y, "MEMORY VIEWER"
+	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 2), "ADDR"
+	XY_STRING (SCREEN_START_X + 8), (SCREEN_START_Y + 2), "DATA"
+	XY_STRING (SCREEN_START_X + 17), (SCREEN_START_Y + 2), "CHAR"
 	XY_STRING_LIST_END
 
 	section bss
