@@ -34,7 +34,7 @@ d_menu_list:
 	MENU_ENTRY manual_tile2_ram_tests, d_str_tile2_ram_test
 	MENU_ENTRY manual_tile3_ram_tests, d_str_tile3_ram_test
 	MENU_ENTRY manual_work_ram_tests, d_str_work_ram_test
-;	MENU_ENTRY input_test, d_str_input_test
+	MENU_ENTRY input_test, d_str_input_test
 	MENU_ENTRY memory_viewer_menu, d_str_memory_viewer
 ;	MENU_ENTRY sound_test, d_str_sound_test
 ;	MENU_ENTRY video_dac_test, d_str_video_dac_test

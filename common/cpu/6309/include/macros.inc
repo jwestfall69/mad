@@ -2,7 +2,8 @@
 		dc.b \1, $0
 	endm
 
-	macro	STALL
+
+	macro STALL
 	.\@:
 		WATCHDOG
 	ifd _STALL_DELAY_
@@ -10,4 +11,14 @@
 		PSUB	delay
 	endif
 		jmp	.\@
+	endm
+
+
+	macro INTS_ENABLE
+		andcc	#$af
+	endm
+
+
+	macro INTS_DISABLE
+		orcc	#$50
 	endm

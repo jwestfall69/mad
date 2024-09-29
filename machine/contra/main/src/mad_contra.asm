@@ -10,7 +10,7 @@
 
 _start:
 		clra
-		sta	$000f	; K007121 #1 - nmi/irq/flip enable/disable
+		sta	$000f	; K007452
 		sta	$00f0	; ?
 		WATCHDOG
 		sta	$7000	; bank switch
@@ -39,7 +39,7 @@ _start:
 
 		lda	#$10
 		sta	$0066	; K007121 #2 - tile stuff??
-		sta	$0067	; K007121 #2 - tile stuff??
+		sta	$0067	; K007121 #2 - nmi/irq/flip enable/disable
 		sta	$00fd	; ?
 
 		clra

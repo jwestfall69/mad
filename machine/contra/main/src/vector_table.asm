@@ -1,3 +1,5 @@
+	global r_irq_vblank_count
+
 	section vectors
 
 		dc.w	swi_handler
@@ -15,8 +17,20 @@ reset_handler:
 
 	section code
 
-nmi_handler:
 irq_handler:
+		pshs	d
+		ldd	r_irq_vblank_count
+		incd
+		std	r_irq_vblank_count
+		puls	d
+		rti
+
+nmi_handler:
 firq_handler:
 swi_handler:
 		rti
+
+	section bss
+
+r_irq_vblank_count:
+	dc.w	1
