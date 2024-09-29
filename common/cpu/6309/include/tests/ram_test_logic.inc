@@ -1,7 +1,10 @@
-	; feels like a bit of an abuse of macros
+RTL_FLAG_NONE		equ $0
+RTL_FLAG_PAUSE_REDRAW	equ $1	; force a full screen redraw on pause
+
 	; params:
 	;  1 = lowercase of the ram name
 	;  2 = uppercase of the ram name
+	;  3 = flags
 	macro RAM_TEST_LOGIC
 
 	global auto_\1_ram_tests
@@ -49,6 +52,8 @@ manual_\1_ram_tests:
 		STALL
 
 	.test_paused:
+
+	if \3 & RTL_FLAG_PAUSE_REDRAW
 		PSUB	screen_init
 
 		ldy	#d_screen_xys_list
@@ -58,6 +63,7 @@ manual_\1_ram_tests:
 		puls	d
 		pshs	d
 		PSUB	print_hex_word
+	endif
 
 	.loop_paused:
 		WATCHDOG
@@ -79,7 +85,9 @@ d_mt_data:
 	MT_PARAMS \2_RAM_START, \2_RAM_SIZE, \2_RAM_ADDRESS_LINES, \2_RAM_BASE_EC
 
 d_screen_xys_list:
-	XY_STRING SCREEN_START_X, SCREEN_START_Y, "\2 RAM TEST"
+	if \3 & RTL_FLAG_PAUSE_REDRAW
+		XY_STRING SCREEN_START_X, SCREEN_START_Y, "\2 RAM TEST"
+	endif
 	XY_STRING SCREEN_START_X, SCREEN_PASSES_Y, "PASSES"
 	XY_STRING SCREEN_START_X, SCREEN_B1_Y, "B1 - PAUSE"
 	XY_STRING SCREEN_START_X, SCREEN_B2_Y, "B2 - RETURN TO MENU"

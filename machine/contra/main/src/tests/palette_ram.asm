@@ -9,4 +9,4 @@
 	include "input.inc"
 	include "machine.inc"
 
-	RAM_TEST_LOGIC palette, PALETTE
+	RAM_TEST_LOGIC palette, PALETTE, RTL_FLAG_PAUSE_REDRAW

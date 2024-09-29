@@ -9,4 +9,4 @@
 	include "input.inc"
 	include "machine.inc"
 
-	RAM_TEST_LOGIC sprite2, SPRITE2
+	RAM_TEST_LOGIC sprite2, SPRITE2, RTL_FLAG_NONE
