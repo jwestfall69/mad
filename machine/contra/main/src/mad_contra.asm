@@ -58,4 +58,6 @@ _start:
 		PSUB	auto_work_ram_tests
 
 		lds	#(WORK_RAM_START + WORK_RAM_SIZE - 2)
+		jsr	auto_func_tests
+
 		jsr	main_menu

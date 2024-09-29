@@ -24,20 +24,15 @@ main_menu:
 
 		bra	.loop_menu
 
-
-manual_palette_ram_tests:
-		rts
-
-manual_sprite_ram_tests:
-		rts
-
 	section data
 
 d_menu_list:
-;	MENU_ENTRY manual_palette_ram_tests, d_str_palette_ram_test
-;	MENU_ENTRY manual_sprite_ram_tests, d_str_sprite_ram_test
-;	MENU_ENTRY manual_tile1_ram_tests, d_str_tile1_ram_test
-;	MENU_ENTRY manual_tile2_ram_tests, d_str_tile2_ram_test
+	MENU_ENTRY manual_palette_ram_tests, d_str_palette_ram_test
+	MENU_ENTRY manual_sprite1_ram_tests, d_str_sprite1_ram_test
+	MENU_ENTRY manual_sprite2_ram_tests, d_str_sprite2_ram_test
+	MENU_ENTRY manual_tile1_ram_tests, d_str_tile1_ram_test
+	MENU_ENTRY manual_tile2_ram_tests, d_str_tile2_ram_test
+	MENU_ENTRY manual_tile3_ram_tests, d_str_tile3_ram_test
 	MENU_ENTRY manual_work_ram_tests, d_str_work_ram_test
 ;	MENU_ENTRY input_test, d_str_input_test
 	MENU_ENTRY memory_viewer_menu, d_str_memory_viewer
@@ -53,8 +48,10 @@ d_str_input_test:		STRING "INPUT TEST"
 d_str_memory_viewer:		STRING "MEMORY VIEWER"
 d_str_palette_ram_test:		STRING "PALETTE RAM TEST"
 d_str_sound_test:		STRING "SOUND TEST"
-d_str_sprite_ram_test:		STRING "SPRITE RAM TEST"
+d_str_sprite1_ram_test:		STRING "SPRITE1 RAM TEST"
+d_str_sprite2_ram_test:		STRING "SPRITE2 RAM TEST"
 d_str_tile1_ram_test:		STRING "TILE1 RAM TEST"
 d_str_tile2_ram_test:		STRING "TILE2 RAM TEST"
+d_str_tile3_ram_test:		STRING "TILE3 RAM TEST"
 d_str_video_dac_test:		STRING "VIDEO DAC TEST"
 d_str_work_ram_test:		STRING "WORK RAM TEST"
