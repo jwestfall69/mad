@@ -3,6 +3,7 @@
 	include "cpu/68000/include/xy_string.inc"
 	include "cpu/68000/include/handlers/memory_tests.inc"
 	include "cpu/68000/include/tests/memory.inc"
+	include "cpu/68000/include/tests/ram_test_logic.inc"
 	include "global/include/screen.inc"
 
 	include "error_codes.inc"
@@ -10,59 +11,7 @@
 	include "machine.inc"
 	include "mad_rom.inc"
 
-	global auto_gfx_ram_tests
-	global manual_gfx_ram_tests
-
-	section code
-
-auto_gfx_ram_tests:
-		lea	d_mt_data, a0
-		DSUB	memory_tests_handler
-		rts
-
-manual_gfx_ram_tests:
-
-		lea	d_screen_xys_list, a0
-		RSUB	print_xy_string_list
-
-		moveq	#0, d6		; passes, memory tests don't touch it
-
-	.loop_next_pass:
-
-		bsr	auto_gfx_ram_tests
-		tst.b	d0
-		bne	.test_failed
-
-		addq.l	#1, d6
-
-		btst	#INPUT_B1_BIT, REG_INPUT
-		beq	.test_pause
-
-		btst	#INPUT_B2_BIT, REG_INPUT
-		beq	.test_exit
-		bra	.loop_next_pass
-
-	.test_pause:
-		RSUB	screen_init
-
-		lea	d_screen_xys_list, a0
-		RSUB	print_xy_string_list
-
-		SEEK_XY	SCREEN_PASSES_VALUE_X, SCREEN_PASSES_Y
-		move.l	d6, d0
-		RSUB	print_hex_long
-
-		moveq	#INPUT_B1_BIT, d0
-		RSUB	wait_button_release
-
-		bra	.loop_next_pass
-
-	.test_failed:
-		RSUB	error_handler
-		STALL
-
-	.test_exit:
-		rts
+	RAM_TEST_LOGIC gfx, GFX, (RTL_FLAG_PAUSE_REDRAW | RTL_FLAG_ADDRESS_LIST)
 
 	section data
 	align 2
@@ -71,13 +20,3 @@ manual_gfx_ram_tests:
 d_memory_address_list:
 	MEMORY_ADDRESS_ENTRY GFX_RAM_START
 	MEMORY_ADDRESS_LIST_END
-
-d_mt_data:
-	MT_PARAMS GFX_RAM_START, d_memory_address_list, GFX_RAM_SIZE, GFX_RAM_ADDRESS_LINES, GFX_RAM_MASK, $0, GFX_RAM_BASE_EC
-
-d_screen_xys_list:
-	XY_STRING SCREEN_START_X, SCREEN_START_Y, "GFX RAM TEST"
-	XY_STRING SCREEN_START_X, SCREEN_PASSES_Y, "PASSES"
-	XY_STRING SCREEN_START_X, SCREEN_B1_Y, "B1 - PAUSE"
-	XY_STRING SCREEN_START_X, SCREEN_B2_Y, "B2 - RETURN TO MENU"
-	XY_STRING_LIST_END
