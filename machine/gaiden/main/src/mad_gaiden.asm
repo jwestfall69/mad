@@ -50,7 +50,7 @@ _start:
 		PSUB	auto_dsub_tests
 
 		RSUB_INIT
-		;bsr	auto_func_tests
+		bsr	auto_func_tests
 
 		move.w	#SOUND_NUM_SUCCESS, d0
 		SOUND_PLAY
