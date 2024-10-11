@@ -13,6 +13,9 @@ _start:
 
 		SOUND_STOP
 
+		move.w	#$0, REG_SCROLL_X
+		move.w	#$0, REG_SCROLL_Y
+
 		PSUB_INIT
 		PSUB	screen_init
 		PSUB	auto_dsub_tests
