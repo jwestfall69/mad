@@ -21,7 +21,7 @@
 ;  a1 = error description
 print_error_address_dsub:
 		; address value
-		SEEK_XY	SCREEN_START_Y, (SCREEN_START_Y + 2)
+		SEEK_XY	(SCREEN_START_Y + 10), (SCREEN_START_Y + 2)
 		move.l	a0, d0
 		DSUB	print_hex_3_bytes
 
@@ -30,7 +30,7 @@ print_error_address_dsub:
 		movea.l	a1, a0
 		DSUB	print_string
 
-		SEEK_XY	(SCREEN_START_X + 10), (SCREEN_START_Y + 2)
+		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 2)
 		lea	d_str_address, a0
 		DSUB	print_string
 
