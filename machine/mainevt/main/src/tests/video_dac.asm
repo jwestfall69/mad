@@ -184,7 +184,7 @@ generate_tiles_table:
 
 
 COLOR_BLOCK_START_X	equ SCREEN_START_X + 3
-COLOR_BLOCK_START_Y	equ SCREEN_START_X + 3
+COLOR_BLOCK_START_Y	equ SCREEN_START_Y + 3
 draw_colors:
 		ldy	#r_tiles_table
 		lda	#COLOR_BLOCK_START_Y
