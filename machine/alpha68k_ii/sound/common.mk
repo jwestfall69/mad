@@ -1,6 +1,8 @@
-MAD_NAME=mad_timesold
+MAD_NAME=mad_alpha68k_ii
+
 ROM_SIZE=65536
-ROM=bf.7
+OBJ_DIR=$(BUILD_DIR)/obj
+WORK_DIR=$(BUILD_DIR)/work
 
 VASM = vasmz80_mot
 VASM_FLAGS = -Fvobj -spaces -chklabels -Iinclude -I../../../common  -quiet

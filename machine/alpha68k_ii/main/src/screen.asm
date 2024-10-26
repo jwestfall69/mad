@@ -14,17 +14,10 @@ screen_init_dsub:
 		lea	MEMORY_FILL_LIST, a0
 		DSUB	memory_fill_list
 
-		; text color
-		lea	PALETTE_RAM_START + $2, a0
-		move.w	#$0fff, (a0)
-
-		; text shadow
-		lea	PALETTE_RAM_START + $a, a0
-		move.w	#$0111, (a0)
-
+		ROMSET_PALETTE_SETUP
 		; background color ($ffe)
 
-		SEEK_XY	2, 0
+		SEEK_XY	3, 0
 		lea	STR_HEADER, a0
 		DSUB	print_string
 
@@ -59,4 +52,4 @@ MEMORY_FILL_LIST:
 	MEMORY_FILL_ENTRY PALETTE_RAM_START, PALETTE_RAM_SIZE, $0
 	MEMORY_FILL_LIST_END
 
-STR_HEADER:	STRING "TIME SOLDIERS - MAD 0.01"
+STR_HEADER:	STRING "ALPHA68K II - MAD 0.01"

@@ -1,0 +1,5 @@
+ROM=ss.7
+BUILD_DIR=build/skysoldr/mame
+BUILD_FLAGS=-D_YM2203_NO_READ_ -D_MAME_BUILD_
+
+include common.mk

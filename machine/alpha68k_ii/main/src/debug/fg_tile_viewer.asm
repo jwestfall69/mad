@@ -11,7 +11,7 @@
 
 PALETTE_NUM		equ $1
 ; There is some bank switching stuff that I need to look into.
-TILE_OFFSET_MASK	equ $7ff
+TILE_OFFSET_MASK	equ ROMSET_TILE_OFFSET_MASK
 
 fg_tile_viewer:
 		RSUB	screen_init

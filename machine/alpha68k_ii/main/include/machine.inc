@@ -1,3 +1,5 @@
+	include "romset.inc"
+
 TILE_RAM_START			equ $100000
 TILE_RAM_SIZE			equ $1000
 TILE_RAM_ADDRESS_LINES		equ 12

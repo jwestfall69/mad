@@ -1,12 +1,8 @@
-MAD_NAME=mad_timesold
-ROM_SIZE=131072
-ROMA=bf.3
-ROMB=bf.4
+MAD_NAME=mad_alpha68k_ii
 
-BUILD_DIR=build
+BUILD_DIR=build/$(ROMSET)
 OBJ_DIR=$(BUILD_DIR)/obj
 WORK_DIR=$(BUILD_DIR)/work
-BUILD_FLAGS=
 
 VASM = vasmm68k_mot
 VASM_FLAGS = -Fvobj -m68000 -spaces -chklabels -Iinclude -I../../../common  -quiet

@@ -1,0 +1,7 @@
+ROMSET=timesold
+BUILD_FLAGS=-D_ROMSET_TIMESOLD_
+ROM_SIZE=131072
+ROMA=bf.3
+ROMB=bf.4
+
+include common.mk

@@ -1,0 +1,7 @@
+ROMSET=skysoldr
+BUILD_FLAGS=-D_ROMSET_SKYSOLDR_
+ROM_SIZE=131072
+ROMA=ss.3
+ROMB=ss.4
+
+include common.mk
