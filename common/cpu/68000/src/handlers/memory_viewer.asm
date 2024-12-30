@@ -15,7 +15,7 @@ START_ROW	equ SCREEN_START_Y + 3
 ; a0 = start memory location
 memory_viewer_handler:
 
-		movem.l	a0-a1, -(a7)
+		movem.l	a0, -(a7)
 		RSUB	screen_init
 
 		clr.b	r_read_mode
@@ -33,9 +33,7 @@ memory_viewer_handler:
 		lea	d_str_read_mode, a0
 		RSUB	print_string
 
-		movem.l	(a7)+, a0-a1
-
-		movea.l	a1, a2
+		movem.l	(a7)+, a0
 
 	.loop_next_input:
 		WATCHDOG
@@ -179,7 +177,6 @@ memory_dump:
 
 		adda.l	#4, a0
 		dbra	d4, .loop_next_address
-
 
 		movem.l (a7)+, d0-d6/a0
 		rts
