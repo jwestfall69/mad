@@ -43,7 +43,7 @@ screen_init_dsub:
 		moveq	#32, d1
 		DSUB	print_char_repeat
 
-	ifd _PRINT_COLUMN_
+	ifd _SCREEN_TATE_
 		SEEK_XY	8, 0
 	else
 		SEEK_XY	9, 0
@@ -57,7 +57,7 @@ screen_seek_xy_dsub:
 		and.l	#$ff, d0
 		and.l	#$ff, d1
 
-	ifd _PRINT_COLUMN_
+	ifd _SCREEN_TATE_
 		lsl.w	#6, d0
 		lsl.w	#1, d1
 		add.l	d0, a6

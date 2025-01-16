@@ -1,12 +1,5 @@
 	include "romset.inc"
 
-	ifd _PRINT_COLUMN_
-		include "print_column.inc"
-	else
-		include "print_normal.inc"
-	endif
-
-
 ROM_START			equ $0
 ROM_SIZE			equ $20000
 
@@ -98,3 +91,24 @@ SCREEN_BYTES_PER_LINE		equ (SCREEN_BYTES_PER_TILE * SCREEN_TILES_PER_LINE)
 
 	macro WATCHDOG
 	endm
+
+	ifd _SCREEN_TATE_
+		; in order to print a string, you have to put each char $40 bytes apart
+		macro SEEK_XY
+			lea	((TILE1_RAM_START + $207e + (\1 * SCREEN_BYTES_PER_LINE)) - (\2 * SCREEN_BYTES_PER_TILE)), a6
+		endm
+
+		macro SEEK_LN
+			lea	((TILE1_RAM_START + $207e) - (\1 * SCREEN_BYTES_PER_TILE)), a6
+		endm
+
+	else
+		; normal style printing
+		macro SEEK_XY
+			lea	(TILE1_RAM_START + $2040 + (\1 * SCREEN_BYTES_PER_TILE) + (\2 * SCREEN_BYTES_PER_LINE)), a6
+		endm
+
+		macro SEEK_LN
+			lea	(TILE1_RAM_START + $2040 + (\1 * SCREEN_BYTES_PER_LINE)), a6
+		endm
+	endif

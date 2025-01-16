@@ -25,7 +25,7 @@
 print_bits_byte_dsub:
 
 	; printing backwards to need to shift over
-	ifd _PRINT_COLUMN_
+	ifd _SCREEN_TATE_
 		lea	($1c0, a6), a6
 	else
 		lea	($10, a6), a6
@@ -39,7 +39,7 @@ print_bits_byte_dsub:
 		addq.b	#1, d1
 
 	.do_print:
-	ifd _PRINT_COLUMN_
+	ifd _SCREEN_TATE_
 		move.w	d1, (a6)
 		lea	(-$40, a6), a6
 	else
@@ -65,7 +65,7 @@ print_char_repeat_dsub:
 		subq.w	#1, d1
 		and.l	#$ff, d0
 	.loop_next_address:
-	ifd _PRINT_COLUMN_
+	ifd _SCREEN_TATE_
 		move.w	d0, (a6)
 		lea	($40, a6), a6
 	else
@@ -112,7 +112,7 @@ print_hex_dsub:
 		; location based on the number of nibbles we will
 		; be printing
 		move.l	d1, d2
-	ifd _PRINT_COLUMN_
+	ifd _SCREEN_TATE_
 		subq.l	#1, d2
 		mulu	#$40, d2
 	else
@@ -125,7 +125,7 @@ print_hex_dsub:
 		moveq	#$f, d2
 		and.b	d0, d2
 		move.b	(HEX_LOOKUP,PC,d2.w), d2
-	ifd _PRINT_COLUMN_
+	ifd _SCREEN_TATE_
 		move.w	d2, (a6)
 		lea	(-$40, a6), a6
 	else
@@ -144,7 +144,7 @@ print_string_dsub:
 		move.b	(a0)+, d0
 
 	.loop_next_char:
-	ifd _PRINT_COLUMN_
+	ifd _SCREEN_TATE_
 		move.w	d0, (a6)
 		lea	($40, a6), a6
 	else

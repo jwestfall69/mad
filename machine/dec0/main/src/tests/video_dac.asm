@@ -180,7 +180,7 @@ generate_tiles_table:
 		dbra	d4, .loop_next_color
 		rts
 
-	ifd _PRINT_COLUMN_
+	ifd _SCREEN_TATE_
 COLOR_BLOCK_START_X	equ 1
 COLOR_BLOCK_START_Y	equ 8
 	else
@@ -215,7 +215,7 @@ draw_colors:
 ; draws an individual color bit
 ; params:
 ;  d0 = tile
-; Note: in _PRINT_COLUMN_ mode the color block is being written
+; Note: in _SCREEN_TATE_ mode the color block is being written
 ; by column instead of row.
 draw_color_bit:
 		moveq	#(VD_COLOR_BLOCK_HEIGHT - 1), d1
@@ -276,7 +276,7 @@ d_tiles_raw:
 
 d_screen_xys_list:
 	XY_STRING SCREEN_START_X, SCREEN_START_Y, "VIDEO DAC TEST"
-	ifd _PRINT_COLUMN_
+	ifd _SCREEN_TATE_
 		XY_STRING (SCREEN_START_X - 1), (SCREEN_START_Y + 2), "0  1  2  3  4  5  6  7 ALL"
 	else
 		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 2), "0  1  2  3  4  5  6  7 ALL"
