@@ -23,7 +23,11 @@
 ;  a6 = address in fg ram to start printing at
 print_bits_byte_dsub:
 		; printing backwards to need to shift over
+	ifd _SCREEN_TATE_
+		add.l	#$7*$4, a6
+	else
 		add.l	#$7*$80, a6
+	endif
 		moveq	#7, d2
 	.loop_next_bit:
 		btst	#0, d0
@@ -39,7 +43,13 @@ print_bits_byte_dsub:
 	.do_print:
 		or.w	#(ROMSET_TEXT_TILE_GROUP << 8), d1
 		move.w	d1, (a6)
-		sub.l	#$80, a6
+		move.w	#0, (2, a6)
+
+	ifd _SCREEN_TATE_
+		suba.l	#$4, a6
+	else
+		suba.l	#$80, a6
+	endif
 		lsr.b	#1, d0
 		dbra	d2, .loop_next_bit
 		DSUB_RETURN
@@ -52,6 +62,7 @@ print_char_dsub:
 		and.l	#$ff, d0
 		or.w	#(ROMSET_TEXT_TILE_GROUP << 8), d0
 		move.w	d0, (a6)
+		move.w	#0, (2, a6)
 		DSUB_RETURN
 ; params:
 ;  d0 = char
@@ -63,7 +74,12 @@ print_char_repeat_dsub:
 		or.w	#(ROMSET_TEXT_TILE_GROUP << 8), d0
 	.loop_next_address:
 		move.w	d0, (a6)
-		lea	($80, a6), a6
+		move.w	#0, (2, a6)
+	ifd _SCREEN_TATE_
+		adda.l	#$4, a6
+	else
+		adda.l	#$80, a6
+	endif
 		dbra	d1, .loop_next_address
 		DSUB_RETURN
 
@@ -106,7 +122,11 @@ print_hex_dsub:
 		; be printing
 		move.l	d1, d2
 		subq.l	#1, d2
+	ifd _SCREEN_TATE_
+		mulu	#$4, d2
+	else
 		mulu	#$80, d2
+	endif
 		adda.l	d2, a6
 		sub.b	#1, d1
 
@@ -116,7 +136,13 @@ print_hex_dsub:
 		move.b	(HEX_LOOKUP,PC,d2.w), d2
 		or.w	#(ROMSET_TEXT_TILE_GROUP << 8), d2
 		move.w	d2, (a6)
-		lea	(-$80, a6), a6
+		move.w	#0, (2, a6)
+
+	ifd _SCREEN_TATE_
+		suba.l	#$4, a6
+	else
+		suba.l	#$80, a6
+	endif
 		lsr.l	#4, d0
 		dbra	d1, .loop_next_hex
 		DSUB_RETURN
@@ -132,7 +158,11 @@ print_string_dsub:
 	.loop_next_char:
 		move.w	d0, (a6)
 		move.w	#0, (2, a6)
-		lea	($80, a6), a6
+	ifd _SCREEN_TATE_
+		adda.l	#$4, a6
+	else
+		adda.l	#$80, a6
+	endif
 		move.b	(a0)+, d0
 		bne	.loop_next_char
 		DSUB_RETURN

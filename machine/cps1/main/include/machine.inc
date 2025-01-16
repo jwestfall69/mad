@@ -56,13 +56,23 @@ SCREEN_TILES_PER_LINE		equ 32
 SCREEN_BYTES_PER_TILE		equ 4
 SCREEN_BYTES_PER_LINE		equ (SCREEN_BYTES_PER_TILE * SCREEN_TILES_PER_LINE)
 
-	macro SEEK_XY
-		lea	(SCROLL1_RAM_START + $8 + (\1 * SCREEN_BYTES_PER_LINE)) + (\2 * SCREEN_BYTES_PER_TILE), a6
-	endm
+	ifd _SCREEN_TATE_
+		macro SEEK_XY
+			lea	(SCROLL1_RAM_START + $1788 - ((\2 * SCREEN_BYTES_PER_LINE)) + (\1 * SCREEN_BYTES_PER_TILE)), a6
+		endm
 
-	macro SEEK_LN
-		lea	(SCROLL1_RAM_START + $8 + (\1 * SCREEN_BYTES_PER_TILE)), a6
-	endm
+		macro SEEK_LN
+			lea	(SCROLL1_RAM_START + $1788 - (\1 * SCREEN_BYTES_PER_LINE)), a6
+		endm
+	else
+		macro SEEK_XY
+			lea	(SCROLL1_RAM_START + $8 + (\1 * SCREEN_BYTES_PER_LINE)) + (\2 * SCREEN_BYTES_PER_TILE), a6
+		endm
+
+		macro SEEK_LN
+			lea	(SCROLL1_RAM_START + $8 + (\1 * SCREEN_BYTES_PER_TILE)), a6
+		endm
+	endif
 
 	macro SOUND_PLAY
 		DSUB	sound_play

@@ -46,13 +46,21 @@ screen_init_dsub:
 		DSUB	memory_fill_list
 		DSUB	palette_init
 
+	ifd _SCREEN_TATE_
+		SEEK_XY	7, 0
+	else
 		SEEK_XY	17, 0
+	endif
 		lea	d_str_header, a0
 		DSUB	print_string
 
 		SEEK_LN	1
 		move.l	#'-', d0
+	ifd _SCREEN_TATE_
+		moveq	#28, d1
+	else
 		moveq	#48, d1
+	endif
 		DSUB	print_char_repeat
 		DSUB_RETURN
 
@@ -79,17 +87,27 @@ screen_seek_xy_dsub:
 		SEEK_XY	0, 0
 		and.l	#$ff, d0
 		and.l	#$ff, d1
+	ifd _SCREEN_TATE_
+		lsl.l	#2, d0
+		lsl.l	#7, d1
+		adda.l	d0, a6
+		suba.l	d1, a6
+	else
 		lsl.l	#7, d0
 		lsl.l	#2, d1
 		adda.l	d0, a6
 		adda.l	d1, a6
+	endif
 		DSUB_RETURN
 
 	section data
 	align 2
 
 d_memory_fill_list
-	MEMORY_FILL_ENTRY SCROLL1_RAM_START, SCROLL1_RAM_SIZE, $0
+	; this first one being $20 is a bit of a hack for now, its
+	; because mercs uses tile_group $0 so filling with $0 results
+	; in the screen being filled with "0" tiles.
+	MEMORY_FILL_ENTRY SCROLL1_RAM_START, SCROLL1_RAM_SIZE, $20
 	MEMORY_FILL_ENTRY SCROLL2_RAM_START, SCROLL2_RAM_SIZE, $0
 	MEMORY_FILL_ENTRY SCROLL3_RAM_START, SCROLL3_RAM_SIZE, $0
 	MEMORY_FILL_ENTRY OBJECT_RAM_START, OBJECT_RAM_SIZE, $0

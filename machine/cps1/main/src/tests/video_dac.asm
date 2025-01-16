@@ -27,7 +27,11 @@ video_dac_test:
 		bsr	draw_colors
 
 	.loop_input:
+	ifd _SCREEN_TATE_
+		SEEK_XY	(SCREEN_START_X + 18), (SCREEN_START_Y + 17)
+	else
 		SEEK_XY	(SCREEN_START_X + 29), (SCREEN_START_Y + 17)
+	endif
 		move.b 	r_brightness, d0
 		RSUB	print_hex_nibble
 
@@ -172,8 +176,13 @@ generate_tiles_table:
 		dbra	d4, .loop_next_color
 		rts
 
+	ifd _SCREEN_TATE_
+COLOR_BLOCK_START_X	equ SCREEN_START_X
+COLOR_BLOCK_START_Y	equ SCREEN_START_Y + 3
+	else
 COLOR_BLOCK_START_X	equ SCREEN_START_X + 11
 COLOR_BLOCK_START_Y	equ SCREEN_START_Y + 3
+	endif
 draw_colors:
 		lea	r_tiles_table, a0
 		moveq	#COLOR_BLOCK_START_Y, d6
@@ -211,7 +220,12 @@ draw_color_bit:
 		move.l	d0, (a6, d2.w)
 		move.l	d0, 4(a6, d2.w)
 		move.l	d0, 8(a6, d2.w)
+	ifd _SCREEN_TATE_
+		move.l	d0, 12(a6, d2.w)
+		sub.w	#SCREEN_BYTES_PER_LINE, d2	; next row
+	else
 		add.w	#SCREEN_BYTES_PER_LINE, d2	; next row
+	endif
 		dbra	d1, .loop_next_column
 		rts
 
@@ -279,9 +293,16 @@ d_tiles_raw:
 
 d_screen_xys_list:
 	XY_STRING SCREEN_START_X, SCREEN_START_Y, "VIDEO DAC TEST"
-	XY_STRING (SCREEN_START_X + 12), (SCREEN_START_Y + 2), "B0  B1  B2  B3  ALL"
-	XY_STRING (SCREEN_START_X + 11), (SCREEN_START_Y + 17), "BRIGHTNESS LEVEL:"
-	XY_STRING SCREEN_START_X, (SCREEN_B1_Y - 1), "LR - ADJUST BRIGHTNESS LEVEL"
+
+	ifd _SCREEN_TATE_
+		XY_STRING (SCREEN_START_X + 1), (SCREEN_START_Y + 2), "B0  B1  B2  B3  ALL"
+		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 17), "BRIGHTNESS LEVEL:"
+	else
+		XY_STRING (SCREEN_START_X + 12), (SCREEN_START_Y + 2), "B0  B1  B2  B3  ALL"
+		XY_STRING (SCREEN_START_X + 11), (SCREEN_START_Y + 17), "BRIGHTNESS LEVEL:"
+	endif
+
+	XY_STRING SCREEN_START_X, (SCREEN_B1_Y - 1), "LR - ADJUST BRIGHTNESS"
 	XY_STRING SCREEN_START_X, SCREEN_B1_Y, "B1 - FULL SCREEN"
 	XY_STRING SCREEN_START_X, SCREEN_B2_Y, "B2 - RETURN TO MENU"
 	XY_STRING_LIST_END

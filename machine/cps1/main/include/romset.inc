@@ -11,6 +11,10 @@
 		include "romset/ghouls.inc"
 	endif
 
+	ifd _ROMSET_MERCS_
+		include "romset/mercs.inc"
+	endif
+
 	ifd _ROMSET_SF2_
 		include "romset/sf2.inc"
 	endif
