@@ -22,6 +22,10 @@ Below is the list of boards that I'm currently using to develope MAD.  These wer
 **Street Fighter II: The World Warrior** (sf2 with cps_b11)<br>
 ![cps1 sf2](docs/images/cps1/sf2.png)
 
+### CPS2 (suicided boards)
+**1944 suicided**<br>
+![cps2 1944](docs/images/cps2/1944d.png)
+
 ### dec0 based games
 **Bad Dudes vs. Dragonninja** (baddudes)<br>
 ![dec0 baddudes](docs/images/dec0/baddudes.png)
