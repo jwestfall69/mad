@@ -37,11 +37,11 @@ view_gfx_ram:
 		bra	view_memory
 
 view_cps_a_reg:
-		lea	$800100, a0
+		lea	REGA_BASE, a0
 		bra	view_memory
 
 view_cps_b_reg:
-		lea	$800140, a0
+		lea	REGB_BASE, a0
 		bra	view_memory
 
 view_mmio:
