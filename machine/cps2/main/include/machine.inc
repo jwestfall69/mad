@@ -81,5 +81,14 @@ SCREEN_BYTES_PER_LINE		equ (SCREEN_BYTES_PER_TILE * SCREEN_TILES_PER_LINE)
 	macro SOUND_STOP
 	endm
 
-	macro WATCHDOG
+	; This comes from razoola's suicided tester /
+	; phoenix roms.
+	macro SUICIDE_INIT
+		move.w	#$0, $8040a0
+		move.w	#$7000, $fffff0
+		move.w	#$807d, $fffff2
+		move.w	#$0, $fffff4
+		move.w	#$0, $fffff6
+		move.w	#$0, $fffff8
+		move.w	#$0, $fffffa
 	endm

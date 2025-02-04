@@ -1,0 +1,8 @@
+ROMSET=1944
+KEY_FILE=$(ROMSET).key
+BUILD_FLAGS=-D_ROMSET_1944_
+ROM=nffe.03
+ROM_SIZE=524288
+
+include common.mk
+

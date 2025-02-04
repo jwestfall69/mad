@@ -27,6 +27,8 @@ video_dac_test:
 		bsr	draw_colors
 
 	.loop_input:
+		WATCHDOG
+
 	ifd _SCREEN_TATE_
 		SEEK_XY	(SCREEN_START_X + 18), (SCREEN_START_Y + 17)
 	else
@@ -103,6 +105,7 @@ full_screen:
 		dbra	d0, .loop_next_address
 
 	.loop_input:
+		WATCHDOG
 		bsr	input_update
 		move.b	r_input_edge, d0
 

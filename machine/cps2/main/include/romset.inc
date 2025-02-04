@@ -1,21 +1,12 @@
-ROMSET_LAYER_CTRL		equ $12e2
-ROMSET_VIDEO_CTRL		equ $003e
-ROMSET_PALETTE_CTRL		equ $003e
+	ifd _ROMSET_GENERIC_
+		include "romset/generic.inc"
+	endif
 
-CURSOR_CHAR			equ '*'
-CURSOR_CLEAR_CHAR		equ ' '
+	ifd _ROMSET_1944_
+		include "romset/1944.inc"
+	endif
 
-SOUND_NUM_BIT_ZERO		equ $04	; punch
-SOUND_NUM_BIT_ONE		equ $02	; whip?
+	ifd _ROMSET_XMCOTAA_
+		include "romset/xmcotaa.inc"
+	endif
 
-; video dac
-VD_TILE_B0_NUM			equ $10
-VD_TILE_B0_PAL_OFFSET		equ $0
-VD_TILE_B1_NUM			equ $11
-VD_TILE_B1_PAL_OFFSET		equ $2
-VD_TILE_B2_NUM			equ $12
-VD_TILE_B2_PAL_OFFSET		equ $4
-VD_TILE_B3_NUM			equ $13
-VD_TILE_B3_PAL_OFFSET		equ $6
-VD_TILE_BA_NUM			equ $14
-VD_TILE_BA_PAL_OFFSET		equ $8

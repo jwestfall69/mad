@@ -11,21 +11,21 @@
 _start:
 		INTS_DISABLE
 
-		move.w	#$0, $8040a0
+		; doing it like this so the same compiled rom
+		; can be used to make a suicided rom or encrypted
+		cmp.l	#(WORK_RAM_START + WORK_RAM_SIZE), $0
+		beq	.suicide
 
-		; This comes from razoola's suicided tester /
-		; phoenix roms.  Its unclear what this is actually
-		; doing since the the destination is ram.  Without
-		; it the screen will remain purple like a normally
-		; suicided board.  Assuming it has something to do
-		; with bypassing the cps2's watchdog instruction.
-		move.w	#$7000, $fffff0
-		move.w	#$807d, $fffff2
-		move.w	#$1234, $fffff4
-		move.w	#$0, $fffff6
-		move.w	#$40, $fffff8
-		move.w	#$10, $fffffa
+		; unclear at this point if this might be required
+		; to be different depending on romset or if we
+		; could get away with them all being the same
+		ROMSET_INIT
+		bra	.init_done
 
+	.suicide:
+		SUICIDE_INIT
+
+	.init_done:
 		move.w	#$ffc0, REGA_SCROLL1_X
 		move.w	#$0, REGA_SCROLL1_Y
 
@@ -35,7 +35,10 @@ _start:
 		PSUB	screen_init
 		PSUB	auto_dsub_tests
 
-		RSUB_INIT
+		;RSUB_INIT
+		moveq	#$1c, d7
+		move.l	#SP_INIT_ADDR, sp
+
 		bsr	auto_func_tests
 
 		clr.b	r_menu_cursor

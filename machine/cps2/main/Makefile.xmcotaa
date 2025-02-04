@@ -1,0 +1,8 @@
+ROMSET=xmcotaa
+KEY_FILE=$(ROMSET).key
+BUILD_FLAGS=-D_ROMSET_XMCOTAA_
+ROM=xmna.03e
+ROM_SIZE=524288
+
+include common.mk
+

@@ -10,7 +10,7 @@ SECTIONS {
 	.code 0x80: {
 		*(code)
 	} > ROM
-	.rodata: {
+	.rodata 0x2000: {
 		*(data)
 	} > ROM
 	.error_addresses 0x6000: {

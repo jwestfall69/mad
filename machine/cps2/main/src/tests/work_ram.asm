@@ -47,7 +47,9 @@ manual_work_ram_tests:
 		STALL
 
 	.test_exit:
-		RSUB_INIT
+;		RSUB_INIT
+		moveq	#$1c, d7
+		move.l	#SP_INIT_ADDR, sp
 		bra	main_menu
 
 	section data

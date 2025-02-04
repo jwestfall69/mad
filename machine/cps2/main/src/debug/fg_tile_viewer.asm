@@ -42,6 +42,7 @@ fg_palette_setup:
 		move.w	(a1)+, d1
 		move.w	d1, (a0)+
 		dbra	d0, .loop_next_color
+		RSUB	screen_update_palette
 		rts
 
 fg_seek_xy_cb:

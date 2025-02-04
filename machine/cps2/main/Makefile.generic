@@ -1,0 +1,11 @@
+# since this is using the suicide.key (phoenix) the
+# resulting encrypted and suicided roms will be the
+# same.
+ROMSET=generic
+KEY_FILE=suicide.key
+BUILD_FLAGS=-D_ROMSET_GENERIC_
+ROM=generic.03
+ROM_SIZE=524288
+
+include common.mk
+

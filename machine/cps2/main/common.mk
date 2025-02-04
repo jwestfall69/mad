@@ -1,6 +1,3 @@
-BUILD_FLAGS=
-ROM=mad_cps2.03
-ROM_SIZE=524288
 MAD_NAME=mad_cps2
 
 BUILD_DIR=build/$(ROMSET)
@@ -13,10 +10,10 @@ VLINK = vlink
 VLINK_FLAGS = -brawbin1 -T$(MAD_NAME).ld
 MKDIR = mkdir
 DD = dd
+COPY = cp
 
 OBJS = $(OBJ_DIR)/cpu/68000/src/crc32.o \
        $(OBJ_DIR)/cpu/68000/src/dsub.o \
-       $(OBJ_DIR)/cpu/68000/src/error_address.o \
        $(OBJ_DIR)/cpu/68000/src/input_update.o \
        $(OBJ_DIR)/cpu/68000/src/memory_fill.o \
        $(OBJ_DIR)/cpu/68000/src/print_error.o \
@@ -36,6 +33,7 @@ OBJS = $(OBJ_DIR)/cpu/68000/src/crc32.o \
 
 # code from this machine
 OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
+        $(OBJ_DIR)/error_address.o \
         $(OBJ_DIR)/errors.o \
         $(OBJ_DIR)/footer.o \
         $(OBJ_DIR)/print.o \
@@ -53,13 +51,22 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/tests/video_dac.o
 
 INCS = $(wildcard include/*.inc) \
+       $(wildcard include/romset/*.inc) \
        $(wildcard ../../../common/cpu/68000/include/*.inc) \
        $(wildcard ../../../common/cpu/68000/include/tests/*.inc)
 
 $(WORK_DIR)/$(MAD_NAME).bin: include/error_codes.inc $(WORK_DIR) $(OBJ_DIR) $(BUILD_DIR) $(OBJS)
 	$(VLINK) $(VLINK_FLAGS) -o $(WORK_DIR)/$(MAD_NAME).bin $(OBJS)
-	../../../util/rom-inject-crc-mirror -f $(WORK_DIR)/$(MAD_NAME).bin -e big -t $(ROM_SIZE)
-	$(DD) if=$(WORK_DIR)/$(MAD_NAME).bin of=$(BUILD_DIR)/$(ROM) conv=swab
+	# suicide rom
+	$(COPY)  $(WORK_DIR)/$(MAD_NAME).bin $(WORK_DIR)/$(MAD_NAME).nokey
+	../../../util/rom-inject-crc-mirror -f $(WORK_DIR)/$(MAD_NAME).nokey -e big -t $(ROM_SIZE)
+	$(DD) if=$(WORK_DIR)/$(MAD_NAME).nokey of=$(BUILD_DIR)/suicide-$(ROM) conv=swab
+	# encrypted rom
+	$(DD) if=$(WORK_DIR)/$(MAD_NAME).bin of=$(WORK_DIR)/$(MAD_NAME).bin.swab conv=swab
+	../../../util/rom-cps2-encrypt -k keys/$(KEY_FILE) -i $(WORK_DIR)/$(MAD_NAME).bin.swab -o $(WORK_DIR)/$(MAD_NAME).bin.swab.enc
+	$(DD) if=$(WORK_DIR)/$(MAD_NAME).bin.swab.enc of=$(WORK_DIR)/$(MAD_NAME).enc conv=swab
+	../../../util/rom-inject-crc-mirror -f $(WORK_DIR)/$(MAD_NAME).enc -e big -t $(ROM_SIZE)
+	$(DD) if=$(WORK_DIR)/$(MAD_NAME).enc of=$(BUILD_DIR)/encrypted-$(ROM) conv=swab
 
 include/error_codes.inc: include/error_codes.cfg
 	../../../util/gen-error-codes -b 8 include/error_codes.cfg include/error_codes.inc

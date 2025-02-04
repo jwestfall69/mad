@@ -24,13 +24,7 @@ screen_init_dsub:
 		move.w	#ROMSET_PALETTE_CTRL, REGB_PALETTE_CTRL
 		move.w	#ROMSET_VIDEO_CTRL, REGA_VIDEO_CONTROL
 
-		move.w	#PALETTE_TEXT_COLOR, PALETTE_RAM_START + $10
-		move.w	#PALETTE_TEXT_COLOR, PALETTE_RAM_START + $12
-		move.w	#PALETTE_TEXT_COLOR, PALETTE_RAM_START + $14
-		move.w	#PALETTE_TEXT_COLOR, PALETTE_RAM_START + $16
-		move.w	#PALETTE_TEXT_COLOR, PALETTE_RAM_START + $18
-		move.w	#PALETTE_TEXT_COLOR, PALETTE_RAM_START + $1c
-		move.w	#PALETTE_BACKGROUND_COLOR, PALETTE_RAM_START + $13fe
+		ROMSET_PALLETE_SETUP
 
 		SEEK_XY	17, 0
 		lea	d_str_header, a0
@@ -41,6 +35,10 @@ screen_init_dsub:
 		moveq	#48, d1
 		DSUB	print_char_repeat
 
+; this function doesn't appear to be safe to run on
+; hardware when interrupts are enabled.  Presumably
+; the vblank interrupt is firing while the scanline is
+; 262.
 screen_update_palette_dsub:
 		move.w	REGB_SCANLINE, D0
 		cmp.w	#262, D0
