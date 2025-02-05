@@ -13,6 +13,7 @@ error_address_dsub:
 		lsl.l	#5, d0
 		or.l	#$6000, d0
 		move.l	d0, a0
+		moveq	#0, d0
 		jmp	(a0)
 
 
@@ -22,10 +23,18 @@ error_address_dsub:
 	; before $8000.
 	section error_addresses
 
-	rept $1fe2 / 8
+	; error addresses are every 32 bytes, so we need to the repeated
+	; code block to align with that.  The below block is 16 bytes
+	; making it align.  Additionally doing the WATCHDOG instruction
+	; to fast will not ping the watchdog, so the delay was added.
+	rept $1ff0 / 16
 	inline
 	.loop:
-		WATCHDOG	; should be 6 bytes
-		bra .loop	; 2 bytes
+		WATCHDOG		; should be 6 bytes
+		move.w	#$1fff, d0	; 0x303c 1fff
+	.delay:
+		subq.l	#1, d0		; 0x5380
+		bne	.delay		; 0x66fc
+		bra	.loop		; 0x60f0
 	einline
 	endr

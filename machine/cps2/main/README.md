@@ -21,3 +21,13 @@ and should be placed in the keys/ directory.
 
 ### MAD eeproms
 27c4096 goes into rom slot 03 on B board
+
+### Error Address
+Easiest to read the error address off the address lines of 03 rom on the B 
+board.
+* 0's will be address lines that are pulsing
+* 1's will be address lines that are solid high
+
+### Object Ram
+* 2x CY6264-70SC (8K x 8bit each)
+* A4 (lower) and A3 (upper) on B board (right above 03 rom location)
