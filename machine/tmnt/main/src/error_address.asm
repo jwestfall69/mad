@@ -34,11 +34,12 @@ error_address_dsub:
 
 	; error addresses are every 32 bytes, so we need to the repeated
 	; code block to align with that.  The nop instruction pads the code
-	; block so the total size is 16 bytes.
-	rept $1ff
+	; block so the total size is 16 bytes.   Additionally doing the
+	; WATCHDOG to fast will not ping the watchdog, so the delay was added.
+	rept $1ff0 / 16
 	inline
 	.loop:
-		move.b	d0, (a1)	; 0x1280
+		move.b	d0, (a1)	; 0x1280 (watchdog)
 		move.l	#$1fff, d0	; 0x203c 0000 1fff
 	.delay:
 		nop			; 0x4e71
