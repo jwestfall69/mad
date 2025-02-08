@@ -428,6 +428,7 @@ memory_write_list_test_dsub:
 	.tests_passed:
 		DSUB_RETURN
 
+	section data
 
 DATA_PATTERNS:
 	dc.w	$0000, $5555, $aaaa, $ffff
