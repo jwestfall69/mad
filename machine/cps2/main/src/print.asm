@@ -115,7 +115,15 @@ print_hex_dsub:
 	.loop_next_hex:
 		moveq	#$f, d2
 		and.b	d0, d2
-		move.b	(HEX_LOOKUP,PC,d2.w), d2
+		cmp.b	#$a, d2
+		blt	.is_digit
+		add.b	#('A' - $a), d2
+		bra	.do_print
+
+	.is_digit:
+		add.b	#'0', d2
+
+	.do_print:
 		move.w	d2, (a6)
 		move.w	#0, (2, a6)
 
@@ -123,8 +131,6 @@ print_hex_dsub:
 		lsr.l	#4, d0
 		dbra	d1, .loop_next_hex
 		DSUB_RETURN
-
-HEX_LOOKUP:	dc.b	"0123456789ABCDEF"
 
 ; a1 = address of string
 ; a6 = address in fg ram to start printing at
