@@ -53,6 +53,12 @@ d_ec_list:
 	EC_ENTRY EC_OBJECT_RAM_WRITE_UPPER, PRINT_ERROR_ADDRESS, d_str_object_ram_write_upper
 	EC_ENTRY EC_OBJECT_RAM_WRITE_BOTH, PRINT_ERROR_ADDRESS, d_str_object_ram_write_both
 
+	EC_ENTRY EC_QSOUND_RAM_ADDRESS, PRINT_ERROR_MEMORY, d_str_qsound_ram_address
+	EC_ENTRY EC_QSOUND_RAM_DATA, PRINT_ERROR_MEMORY, d_str_qsound_ram_data
+	EC_ENTRY EC_QSOUND_RAM_MARCH, PRINT_ERROR_MEMORY, d_str_qsound_ram_march
+	EC_ENTRY EC_QSOUND_RAM_OUTPUT, PRINT_ERROR_ADDRESS, d_str_qsound_ram_output
+	EC_ENTRY EC_QSOUND_RAM_WRITE, PRINT_ERROR_ADDRESS, d_str_qsound_ram_write
+
 	EC_ENTRY EC_MAD_ROM_CRC32, PRINT_ERROR_CRC32, d_str_mad_rom_crc32
 	EC_ENTRY EC_MAD_ROM_ADDRESS, PRINT_ERROR_HEX_BYTE, d_str_mad_rom_address
 	EC_LIST_END
@@ -71,19 +77,25 @@ d_str_gfx_ram_write_lower:	STRING "GFX RAM WRITE (LOWER)"
 d_str_gfx_ram_write_upper:	STRING "GFX RAM WRITE (UPPER)"
 d_str_gfx_ram_write_both:	STRING "GFX RAM WRITE (BOTH)"
 
-d_str_object_ram_address:	STRING "OBJ RAM ADDRESS"
-d_str_object_ram_data_lower:	STRING "OBJ RAM DATA (LOWER)"
-d_str_object_ram_data_upper:	STRING "OBJ RAM DATA (UPPER)"
-d_str_object_ram_data_both:	STRING "OBJ RAM DATA (BOTH)"
-d_str_object_ram_march_lower:	STRING "OBJ RAM MARCH (LOWER)"
-d_str_object_ram_march_upper:	STRING "OBJ RAM MARCH (UPPER)"
-d_str_object_ram_march_both:	STRING "OBJ RAM MARCH (BOTH)"
-d_str_object_ram_output_lower:	STRING "OBJ RAM DEAD OUTPUT (LOWER)"
-d_str_object_ram_output_upper:	STRING "OBJ RAM DEAD OUTPUT (UPPER)"
-d_str_object_ram_output_both:	STRING "OBJ RAM DEAD OUTPUT (BOTH)"
-d_str_object_ram_write_lower:	STRING "OBJ RAM WRITE (LOWER)"
-d_str_object_ram_write_upper:	STRING "OBJ RAM WRITE (UPPER)"
-d_str_object_ram_write_both:	STRING "OBJ RAM WRITE (BOTH)"
+d_str_object_ram_address:	STRING "OBJECT RAM ADDRESS"
+d_str_object_ram_data_lower:	STRING "OBJECT RAM DATA (LOWER)"
+d_str_object_ram_data_upper:	STRING "OBJECT RAM DATA (UPPER)"
+d_str_object_ram_data_both:	STRING "OBJECT RAM DATA (BOTH)"
+d_str_object_ram_march_lower:	STRING "OBJECT RAM MARCH (LOWER)"
+d_str_object_ram_march_upper:	STRING "OBJECT RAM MARCH (UPPER)"
+d_str_object_ram_march_both:	STRING "OBJECT RAM MARCH (BOTH)"
+d_str_object_ram_output_lower:	STRING "OBJECT RAM DEAD OUTPUT (LOWER)"
+d_str_object_ram_output_upper:	STRING "OBJECT RAM DEAD OUTPUT (UPPER)"
+d_str_object_ram_output_both:	STRING "OBJECT RAM DEAD OUTPUT (BOTH)"
+d_str_object_ram_write_lower:	STRING "OBJECT RAM WRITE (LOWER)"
+d_str_object_ram_write_upper:	STRING "OBJECT RAM WRITE (UPPER)"
+d_str_object_ram_write_both:	STRING "OBJECT RAM WRITE (BOTH)"
+
+d_str_qsound_ram_address:	STRING "QSOUND RAM ADDRESS"
+d_str_qsound_ram_data:		STRING "QSOUND RAM DATA"
+d_str_qsound_ram_march:		STRING "QSOUND RAM MARCH"
+d_str_qsound_ram_output:	STRING "QSOUND RAM DEAD OUTPUT"
+d_str_qsound_ram_write:		STRING "QSOUND RAM WRITE"
 
 d_str_work_ram_address:		STRING "WORK RAM ADDRESS"
 d_str_work_ram_data_lower:	STRING "WORK RAM DATA (LOWER)"

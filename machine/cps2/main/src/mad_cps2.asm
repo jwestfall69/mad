@@ -29,6 +29,13 @@ _start:
 		move.w	#$ffc0, REGA_SCROLL1_X
 		move.w	#$0, REGA_SCROLL1_Y
 
+		; At power up the z80 cpu is held in RESET until
+		; we send the following command to the eeprom port.
+		; If you attempt to access the shared qsound ram
+		; while the z80 is held in RESET the 68k cpu will
+		; stall.
+		move.w	#$f08, REG_EEPROM_PORT
+
 		;SOUND_STOP
 
 		PSUB_INIT

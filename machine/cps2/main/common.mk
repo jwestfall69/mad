@@ -47,6 +47,7 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/tests/gfx_ram.o \
         $(OBJ_DIR)/tests/input.o \
         $(OBJ_DIR)/tests/object_ram.o \
+        $(OBJ_DIR)/tests/qsound_ram.o \
         $(OBJ_DIR)/tests/work_ram.o \
         $(OBJ_DIR)/tests/video_dac.o
 

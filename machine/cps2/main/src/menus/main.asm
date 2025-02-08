@@ -1,5 +1,6 @@
 	include "cpu/68000/include/dsub.inc"
 	include "cpu/68000/include/macros.inc"
+	include "cpu/68000/include/xy_string.inc"
 	include "cpu/68000/include/handlers/menu.inc"
 	include "global/include/screen.inc"
 
@@ -31,6 +32,7 @@ main_menu:
 d_menu_list:
 	MENU_ENTRY manual_gfx_ram_tests, d_str_gfx_ram_test
 	MENU_ENTRY manual_object_ram_tests, d_str_object_ram_test
+	MENU_ENTRY manual_qsound_ram_tests, d_str_qsound_ram_test
 	MENU_ENTRY manual_work_ram_tests, d_str_work_ram_test
 	MENU_ENTRY input_test, d_str_input_test
 	MENU_ENTRY memory_viewer_menu, d_str_memory_viewer
@@ -46,6 +48,7 @@ d_str_gfx_ram_test:		STRING "GFX RAM TEST"
 d_str_input_test:		STRING "INPUT TEST"
 d_str_memory_viewer:		STRING "MEMORY VIEWER"
 d_str_object_ram_test:		STRING "OBJECT RAM TEST"
+d_str_qsound_ram_test:		STRING "QSOUND RAM TEST"
 d_str_sound_test:		STRING "SOUND TEST"
 d_str_video_dac_test:		STRING "VIDEO DAC TEST"
 d_str_work_ram_test:		STRING "WORK RAM TEST"

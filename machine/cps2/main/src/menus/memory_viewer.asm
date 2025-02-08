@@ -56,6 +56,10 @@ view_palette_ram:
 		lea	PALETTE_RAM_START, a0
 		bra	view_memory
 
+view_qsound_ram:
+		lea	QSOUND_RAM_START, a0
+		bra	view_memory
+
 view_rom_space:
 		lea	$0, a0
 		bra	view_memory
@@ -94,6 +98,7 @@ d_menu_list:
 	MENU_ENTRY view_mmio, d_str_mmio
 	MENU_ENTRY view_object_ram, d_str_object_ram
 	MENU_ENTRY view_palette_ram, d_str_palette_ram
+	MENU_ENTRY view_qsound_ram, d_str_qsound_ram
 	MENU_ENTRY view_rom_space, d_str_rom_space
 	MENU_ENTRY view_row_scroll_ram, d_str_row_scroll_ram
 	MENU_ENTRY view_scroll1_ram, d_str_scroll1_ram
@@ -110,6 +115,7 @@ d_str_gfx_ram:		STRING "GFX RAM"
 d_str_mmio:		STRING "MMIO"
 d_str_object_ram:	STRING "OBJECT RAM"
 d_str_palette_ram:	STRING "PALETTE RAM"
+d_str_qsound_ram:	STRING "QSOUND RAM"
 d_str_rom_space:	STRING "ROM SPACE"
 d_str_row_scroll_ram:	STRING "ROW SCROLL RAM"
 d_str_scroll1_ram:	STRING "SCROLL1 RAM"
