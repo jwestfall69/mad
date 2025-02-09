@@ -1,6 +1,8 @@
 	include	"machine.inc"
 	include "mad_rom.inc"
 
+	global r_irq_vblank_count
+
 	section vectors, data
 
 		dc.l	SP_INIT_ADDR
@@ -13,5 +15,10 @@
 
 ; vblank
 irq2_handler:
-		move.w	#PALETTE_RAM_START / 256, REGA_PALETTE_RAM_BASE
+		addq.l	#1, r_irq_vblank_count
 		rte
+
+	section bss
+	align 2
+
+r_irq_vblank_count:	dc.l	$0

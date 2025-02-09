@@ -16,7 +16,19 @@ input_test:
 		lea	d_screen_xys_list, a0
 		RSUB	print_xy_string_list
 
+		clr.l	r_irq_vblank_count
+		INTS_ENABLE
+
 	.loop_test:
+
+		SEEK_XY	(SCREEN_START_X + 20), (SCREEN_START_Y + 3)
+		move.l	r_irq_vblank_count, d0
+		RSUB	print_hex_3_bytes
+
+		moveq	#0, d0
+		SEEK_XY (SCREEN_START_X + 20), (SCREEN_START_Y + 4)
+		move.w	REGB_SCANLINE, d0
+		RSUB	print_hex_3_bytes
 
 		lea	d_input_list, a0
 		jsr	print_input_list
@@ -26,6 +38,7 @@ input_test:
 		cmp.b	#(INPUT_B2|INPUT_RIGHT), d0
 		bne	.loop_test
 
+		INTS_DISABLE
 		rts
 
 	section data
@@ -43,7 +56,9 @@ d_input_list:
 d_screen_xys_list:
 	XY_STRING (SCREEN_START_X + 5), (SCREEN_START_Y + 2), "76543210"
 	XY_STRING (SCREEN_START_X + 2), (SCREEN_START_Y + 3), "P1"
+	XY_STRING (SCREEN_START_X + 16), (SCREEN_START_Y + 3), "VBI"
 	XY_STRING (SCREEN_START_X + 2), (SCREEN_START_Y + 4), "P2"
+	XY_STRING (SCREEN_START_X + 17), (SCREEN_START_Y + 4), "SL"
 	XY_STRING (SCREEN_START_X + 2), (SCREEN_START_Y + 5), "P3"
 	XY_STRING (SCREEN_START_X + 2), (SCREEN_START_Y + 6), "P4"
 	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 7), "SYS1"
