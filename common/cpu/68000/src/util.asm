@@ -46,11 +46,11 @@ sound_play_byte_dsub:
 		WATCHDOG
 		lsl.b	d3
 		bcc	.is_zero
-		move.b	#SOUND_NUM_BIT_ONE, d0
+		move.w	#SOUND_NUM_BIT_ONE, d0
 		bra	.sound_play
 
 	.is_zero:
-		move.b	#SOUND_NUM_BIT_ZERO, d0
+		move.w	#SOUND_NUM_BIT_ZERO, d0
 
 	.sound_play:
 		SOUND_PLAY
