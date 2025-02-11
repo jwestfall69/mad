@@ -5,8 +5,8 @@ ROMSET_PALETTE_CTRL		equ $003e
 CURSOR_CHAR			equ '*'
 CURSOR_CLEAR_CHAR		equ ' '
 
-SOUND_NUM_BIT_ZERO		equ $0
-SOUND_NUM_BIT_ONE		equ $0
+SOUND_NUM_BIT_ZERO		equ $f4
+SOUND_NUM_BIT_ONE		equ $ef
 
 ; video dac
 VD_TILE_B0_NUM			equ $10

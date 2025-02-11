@@ -83,10 +83,24 @@ SCREEN_BYTES_PER_LINE		equ (SCREEN_BYTES_PER_TILE * SCREEN_TILES_PER_LINE)
 		endm
 	endif
 
+	macro SOUND_INIT
+		move.b	#$88, $619ffb
+		move.b	#$ff, $619ffd
+		move.b	#$ff, $619fff
+		SOUND_STOP
+	endm
+
 	macro SOUND_PLAY
+		move.b	d0, $618003
+		lsr.w	#$8, d0
+		move.b	d0, $618001
+		move.b	#$0, $61801f
 	endm
 
 	macro SOUND_STOP
+		move.b	#$ff, $618001
+		move.b	#$0, $618003
+		move.b	#$0, $61801f
 	endm
 
 	; This comes from razoola's suicided tester /

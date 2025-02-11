@@ -36,10 +36,11 @@ _start:
 		; stall.
 		move.w	#$f08, REG_EEPROM_PORT
 
-		;SOUND_STOP
-
 		PSUB_INIT
 		PSUB	screen_init
+
+		SOUND_INIT
+
 		PSUB	auto_dsub_tests
 
 		;RSUB_INIT

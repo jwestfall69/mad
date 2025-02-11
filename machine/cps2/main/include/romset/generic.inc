@@ -5,8 +5,11 @@ ROMSET_PALETTE_CTRL		equ $003e
 CURSOR_CHAR			equ '*'
 CURSOR_CLEAR_CHAR		equ ' '
 
-SOUND_NUM_BIT_ZERO		equ $0
-SOUND_NUM_BIT_ONE		equ $0
+; disables beep codes since we don't know
+; what sounds to play on a random suicided
+; game
+SOUND_NUM_BIT_ZERO		equ $ff00
+SOUND_NUM_BIT_ONE		equ $ff00
 
 ; video dac
 VD_TILE_B0_NUM			equ $10
