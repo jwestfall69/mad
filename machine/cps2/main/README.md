@@ -7,7 +7,7 @@ Hardware thats be used for testing so far:
 1944 (suicided)<br>
 xmcotaa (encrypted)
 
-#### Makefiles
+### Makefiles
 Makefile.generic will make a generic version that should mostly work on suicided
 boards.  The font maybe screwy. Note this make file will also compile encrypted
 and suicided versions of mad rom but they are the same.
@@ -21,6 +21,11 @@ and should be placed in the keys/ directory.
 
 ### MAD eeproms
 27c4096 goes into rom slot 03 on B board
+
+### Beep Codes
+Beep codes are disabled on the generic suicide build.  Each game has its own
+sounds so its impossible to pick the same sound numbers for 0/1 that will work
+on all games.  If you need beep codes you will need to use a romset specific build.
 
 ### Error Address
 Easiest to read the error address off the address lines of 03 rom on the B 

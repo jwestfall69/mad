@@ -1,13 +1,25 @@
 # MAD - Multiple Arcade Diagnostic
-**IMPORTANT**: This is an experiment at this point.  There maybe large changes as I get things figured out.
+**IMPORTANT**: This is an experiment at this point.  There maybe
+large changes as I get things figured out.
 
-Having created a couple different diagnostic roms/bios for arcade boards I wanted to look into making it easier/faster to write new ones.  The idea behind this project is to have a framework that contains all of the common code that exists between diag roms from different boards.  Stuff like ram tests, menu systems, memory viewer, displaying player/dsw inputs, sending a byte to the sound latch, etc.
+Having created a couple different diagnostic roms/bios for arcade boards I
+wanted to look into making it easier/faster to write new ones.  The idea behind
+this project is to have a framework that contains all of the common code that
+exists between diag roms from different boards.  Stuff like ram tests, menu
+systems, memory viewer, displaying player/dsw inputs, sending a byte to the
+sound latch, etc.
 
-Currently I've been soley focusing on m68k based boards.  Once I'm satisfied with the m68k code and layout I want to look into adding other cpus.  I think ideally I would want to be able to have diag roms for both the main cpu and the sound cpu for each board.  But thats a long way off.
+In general adding a new board entails understanding how to initialize the
+hardware, figuring out how to print to the screen (including palette setup),
+then just hooking up the common tests (ram, io, sound, etc).  MAD has already
+helped me track down issues in my toki (bad joystick inputs) and wwfsstar
+(failed palette upper ram chip) boards.
 
-In general adding a new board entails understanding how to initialize the hardware, figuring out how to print to the screen (including palette setup), then just hooking up the commom tests (ram, io, sound, etc).  MAD has already helped me track down issues in my toki (bad joystick inputs) and wwfsstar (failed palette upper ram chip) boards.
-
-Below is the list of boards that I'm currently using to develope MAD.  These were picked because I have them and its a good mix of manufacturers, individual game boards vs multiple games (rom boards) on a single platform.  This has been to help me understand what all can be merged into common code and what type of one-offs may exist and how to deal with them.
+Below is the list of boards that I'm currently using to develop MAD.  These
+were picked because I have them and its a good mix of manufacturers, individual
+game boards vs multiple games (rom boards) on a single platform.  This has been
+to help me understand what all can be merged into common code and what type of
+one-offs may exist and how to deal with them.
 
 ### CPS1
 **Three Wonders** (3wonders with cps_b21_bts1)<br>
@@ -22,9 +34,12 @@ Below is the list of boards that I'm currently using to develope MAD.  These wer
 **Street Fighter II: The World Warrior** (sf2 with cps_b11)<br>
 ![cps1 sf2](docs/images/cps1/sf2.png)
 
-### CPS2 (suicided boards)
-**1944 suicided**<br>
+### CPS2 (suicided & encrypted boards)
+**1944 suicided** (1944d)<br>
 ![cps2 1944](docs/images/cps2/1944d.png)
+
+**X-Men: Children of the Atom (Asia 950105) encrypted** (xmcotaa)<br>
+![cps2 xmcotaa](docs/images/cps2/xmcotaa.png)
 
 ### dec0 based games
 **Bad Dudes vs. Dragonninja** (baddudes)<br>
@@ -52,7 +67,9 @@ Below is the list of boards that I'm currently using to develope MAD.  These wer
 ![wwfwfest](docs/images/wwfwfest.png)
 
 ## Building
-I've been doing most of my developemnt in window subsystem for linux (wsl).  This makes it easy to compile, test in mame, and then burn to an eprom for testing on hardware.
+I've been doing most of my development in window subsystem for linux (wsl).
+This makes it easy to compile, test in mame, and then burn to an eprom for
+testing on hardware.
 
 I'm using debian wsl.  You will want to `apt-get install build-essential` to get gcc/make.
 
@@ -61,7 +78,9 @@ vasm and vlink are need to for compiling the m68k source code, which are availab
 http://sun.hasenbraten.de/vasm/<br>
 http://sun.hasenbraten.de/vlink/
 
-For vasm you will need the vasm6809_mot, vasmm68k_mot and vasmz80_mot variants.  If you are building vasm from source, you can build it with the following commands from where ever you decompressed vasm.tar.gz.
+For vasm you will need the vasm6809_mot, vasmm68k_mot and vasmz80_mot variants.
+If you are building vasm from source, you can build it with the following
+commands from where ever you decompressed vasm.tar.gz.
 
 ```
 $ make CPU=6809 SYNTAX=mot
@@ -69,9 +88,11 @@ $ make CPU=m68k SYNTAX=mot
 $ make CPU=z80 SYNTAX=mot
 ```
 
-Copy the resulting vasm6809_mot, vasmm68k_mot and vasmz80_mot (and vlink, when you get that compiled) so they are within your $PATH (ie: /usr/local/bin/)
+Copy the resulting vasm6809_mot, vasmm68k_mot and vasmz80_mot (and vlink, when
+you get that compiled) so they are within your $PATH (ie: /usr/local/bin/)
 
-The first thing you will want to is run `make` in the `util` dir, which has a couple utils that deal with crc/mirror injection and rom splitting.
+The first thing you will want to is run `make` in the `util` dir, which has a
+couple utils that deal with crc/mirror injection and rom splitting.
 
 Under the machine/ directory are the available board types:
 
@@ -87,7 +108,14 @@ drwxrwxrwx 1 jwestfall jwestfall 4096 May 12 14:21 wwfsstar
 drwxrwxrwx 1 jwestfall jwestfall 4096 May 12 14:19 wwfwfest
 ```
 
-Inside of these will be a `main` directory and sometimes a `sound` directory.  The former is the diag rom for the main cpu, and the latter the sound cpu.  In side those directories will be Makefiles for generating the roms for the given board/romset.  In some cases there will be different Makefiles for mame vs hardware. These will be do to a behavior difference between mame vs hardware.  The most common case is mame not allowing reads on some memory regions while its allowed on hardware.  The mame build will have the corresponding tests disabled to prevent false errors.
+Inside of these will be a `main` directory and sometimes a `sound` directory.
+The former is the diag rom for the main cpu, and the latter the sound cpu.  In
+side those directories will be Makefiles for generating the roms for the given
+board/romset.  In some cases there will be different Makefiles for mame vs
+hardware. These will be do to a behavior difference between mame vs hardware.
+The most common case is mame not allowing reads on some memory regions while its
+allowed on hardware.  The mame build will have the corresponding tests disabled
+to prevent false errors.
 
 ```
 jwestfall@DESKTOP-7LADK23:/mnt/c/Users/jwestfall/Desktop/mad/machine/dec0/main$ ls -la
@@ -114,7 +142,9 @@ drwxrwxrwx 1 jwestfall jwestfall 4096 May 17 18:03 include
 drwxrwxrwx 1 jwestfall jwestfall 4096 May 17 18:47 src
 ```
 
-The build*.sh are specific to my setup and may not work for you.  They build the roms then copy them into my mame's roms/[romset]/ directory.  However you can just run `make -f Makefile.xxx` to build the roms for the specific board/romset.
+The build*.sh are specific to my setup and may not work for you.  They build the
+roms then copy them into my mame's roms/[romset]/ directory.  However you can
+just run `make -f Makefile.xxx` to build the roms for the specific board/romset.
 
 ```
 jwestfall@DESKTOP-7LADK23:/mnt/c/Users/jwestfall/Desktop/mad/machine/dec0/main$ make -f Makefile.robocop-hardware
@@ -146,4 +176,5 @@ Output ROM #2: build/hardware/robocop/ep01-4.11b (65536 bytes)
 make: warning:  Clock skew detected.  Your build may be incomplete.
 ```
 
-From there you can use the Output ROMs in the build/ directory with mame or burn them to eproms to use on the hardware.
+From there you can use the Output ROMs in the build/ directory with mame or burn
+them to eproms to use on the hardware.
