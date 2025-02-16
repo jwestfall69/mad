@@ -28,6 +28,7 @@ _start:
 	.init_done:
 		move.w	#$ffc0, REGA_SCROLL1_X
 		move.w	#$0, REGA_SCROLL1_Y
+		move.b	#$0, REG_OBJECT_RAM_BANK
 
 		; At power up the z80 cpu is held in RESET until
 		; we send the following command to the eeprom port.

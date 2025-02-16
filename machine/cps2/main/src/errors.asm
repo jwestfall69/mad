@@ -52,6 +52,7 @@ d_ec_list:
 	EC_ENTRY EC_OBJECT_RAM_WRITE_LOWER, PRINT_ERROR_ADDRESS, d_str_object_ram_write_lower
 	EC_ENTRY EC_OBJECT_RAM_WRITE_UPPER, PRINT_ERROR_ADDRESS, d_str_object_ram_write_upper
 	EC_ENTRY EC_OBJECT_RAM_WRITE_BOTH, PRINT_ERROR_ADDRESS, d_str_object_ram_write_both
+	EC_ENTRY EC_OBJECT_RAM_BANK, PRINT_ERROR_MEMORY, d_str_object_ram_bank
 
 	EC_ENTRY EC_QSOUND_RAM_ADDRESS, PRINT_ERROR_MEMORY, d_str_qsound_ram_address
 	EC_ENTRY EC_QSOUND_RAM_DATA, PRINT_ERROR_MEMORY, d_str_qsound_ram_data
@@ -90,6 +91,7 @@ d_str_object_ram_output_both:	STRING "OBJECT RAM DEAD OUTPUT (BOTH)"
 d_str_object_ram_write_lower:	STRING "OBJECT RAM WRITE (LOWER)"
 d_str_object_ram_write_upper:	STRING "OBJECT RAM WRITE (UPPER)"
 d_str_object_ram_write_both:	STRING "OBJECT RAM WRITE (BOTH)"
+d_str_object_ram_bank:		STRING "OBJECT RAM BANK SWITCH FAILED"
 
 d_str_qsound_ram_address:	STRING "QSOUND RAM ADDRESS"
 d_str_qsound_ram_data:		STRING "QSOUND RAM DATA"
