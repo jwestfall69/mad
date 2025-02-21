@@ -4,6 +4,7 @@
 	include "mad_rom.inc"
 
 	global delay_psub
+	global memory_rewrite_psub
 	global sound_play_byte_psub
 
 	section code
@@ -23,6 +24,17 @@ delay_psub:
 		cmpd	#0		; 4 cycles
 		decw			; 3 cycles
 		bne	 delay_psub 	; 2 cycles
+		PSUB_RETURN
+
+; params:
+;  w = size
+;  x = start address
+memory_rewrite_psub:
+		WATCHDOG
+		lda	,x
+		sta	,x+
+		decw
+		bne	memory_rewrite_psub
 		PSUB_RETURN
 
 ; params:
