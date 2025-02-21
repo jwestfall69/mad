@@ -59,8 +59,8 @@ screen_init_psub:
 		sta	(PALETTE_RAM_START + $3e)
 		sta	(PALETTE_RAM_START + $3f)
 
-		SEEK_XY	6, 0
-		ldy	#d_str_header
+		SEEK_XY	2, 0
+		ldy	#d_str_version
 		PSUB	print_string
 
 		SEEK_LN	1
@@ -92,7 +92,3 @@ screen_seek_xy_psub:
 		negd
 		leax	d, x
 		PSUB_RETURN
-
-	section data
-
-d_str_header:	STRING <"CONTRA ",$0c," MAD 0",$0d,"1">

@@ -48,8 +48,8 @@ screen_init_dsub:
 		move.b	#$ff, PALETTE_RAM_START + $9
 		move.b	#$ff, PALETTE_RAM_START + $b
 
-		SEEK_XY 13, 0
-		lea	d_str_header, a0
+		SEEK_XY 10, 0
+		lea	d_str_version, a0
 		DSUB	print_string
 
 		SEEK_XY	0, 1
@@ -91,8 +91,3 @@ memory_fill_tile_dsub:
 		bne	.loop_next_address
 		WATCHDOG
 		DSUB_RETURN
-
-	section data
-	align 2
-
-d_str_header:	STRING "TMNT < MAD 0=1"

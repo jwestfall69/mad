@@ -44,11 +44,11 @@ screen_init_dsub:
 		DSUB	print_char_repeat
 
 	ifd _SCREEN_TATE_
-		SEEK_XY	8, 0
+		SEEK_XY	4, 0
 	else
-		SEEK_XY	9, 0
+		SEEK_XY	5, 0
 	endif
-		lea	d_str_header, a0
+		lea	d_str_version, a0
 		DSUB	print_string
 		DSUB_RETURN
 
@@ -89,5 +89,3 @@ d_memory_fill_list:
 		MEMORY_FILL_ENTRY PALETTE_RAM_START, PALETTE_RAM_SIZE, $0
 		MEMORY_FILL_ENTRY PALETTE_EXT_RAM_START, PALETTE_EXT_RAM_SIZE, $0
 		MEMORY_FILL_LIST_END
-
-d_str_header:	STRING "DEC0 - MAD 0.1"

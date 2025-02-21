@@ -17,8 +17,8 @@ screen_init_dsub:
 		ROMSET_PALETTE_SETUP
 		; background color ($ffe)
 
-		SEEK_XY	3, 0
-		lea	d_str_header, a0
+		SEEK_XY	0, 0
+		lea	d_str_version, a0
 		DSUB	print_string
 
 		SEEK_XY	0, 1
@@ -51,5 +51,3 @@ d_memory_fill_list:
 	MEMORY_FILL_ENTRY SPRITE_RAM_START, SPRITE_RAM_SIZE, $0
 	MEMORY_FILL_ENTRY PALETTE_RAM_START, PALETTE_RAM_SIZE, $0
 	MEMORY_FILL_LIST_END
-
-d_str_header:	STRING "ALPHA68K II - MAD 0.01"

@@ -1,0 +1,7 @@
+	include "cpu/68000/include/macros.inc"
+
+	global d_str_version
+
+	section data
+
+d_str_version:		STRING "MAD %MACHINE% - %GIT_DATE%%GIT_DIRTY%"

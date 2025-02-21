@@ -11,49 +11,26 @@
 screen_init_psub:
 		ldx	#TILE1_RAM_START
 		ldw	#$1800
-		lda	#$01
-		PSUB	memory_fill
-
-		ldx	#TILE1_RAM_START+$1800
-		ldw	#$400
-		lda	#$00
-		PSUB	memory_fill
-
-		ldx	#TILE2_RAM_START
-		ldw	#$1800
-		lda	#$fe
-		PSUB	memory_fill
-
-		ldx	#TILE2_RAM_START+$1808
-		ldw	#$400
-		lda	#$00
+		lda	#$0
 		PSUB	memory_fill
 
 		ldx	#SPRITE_RAM_START
-		ldw	#$400
-		lda	#$00
+		ldw	#SPRITE_RAM_SIZE
+		lda	#$0
 		PSUB	memory_fill
 
-		ldx	#PALETTE_RAM_START
-		ldw	#PALETTE_RAM_SIZE
-		lda	#$00
+		ldx	#VIDEO_RAM_START
+		ldw	#VIDEO_RAM_SIZE
+		lda	#$0
 		PSUB	memory_fill
 
-		; txt color
-		lda	#$ff
-		sta	(PALETTE_RAM_START + $1c)
-		sta	(PALETTE_RAM_START + $1d)
-
-		; txt shadow ($2 $3)
-		; background ($100 $101)
-
-		SEEK_XY	6, 0
+		SEEK_XY	4, 0
 		ldy	#d_str_version
 		PSUB	print_string
 
 		SEEK_LN	1
-		lda	#$4c
-		ldb	#$24
+		lda	#'-'
+		ldb	#$20
 		PSUB	print_char_repeat
 		PSUB_RETURN
 
@@ -63,6 +40,7 @@ screen_init_psub:
 screen_seek_xy_psub:
 		SEEK_XY 0, 0
 
+		lsla
 		leax	a, x
 		tfr	b, a
 		clrb

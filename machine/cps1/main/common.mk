@@ -39,6 +39,7 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/screen.o \
         $(OBJ_DIR)/sound.o \
         $(OBJ_DIR)/vector_table.o \
+        $(OBJ_DIR)/version.o \
         $(OBJ_DIR)/debug/fg_tile_viewer.o \
         $(OBJ_DIR)/menus/debug.o \
         $(OBJ_DIR)/menus/main.o \
@@ -70,6 +71,9 @@ endif
 include/error_codes.inc: include/error_codes.cfg
 	../../../util/gen-error-codes -b 8 include/error_codes.cfg include/error_codes.inc
 
+src/version.asm:
+	../../../util/gen-version-asm-file -m CPS1 -i ../../../common/cpu/68000/src/version.asm.in -o src/version.asm
+
 $(OBJ_DIR)/%.o: src/%.asm $(INCS)
 	$(VASM) $(VASM_FLAGS) $(BUILD_FLAGS) -o $@ $<
 
@@ -81,6 +85,8 @@ $(WORK_DIR):
 
 $(OBJ_DIR):
 	$(MKDIR) -p $(OBJ_DIR)/debug $(OBJ_DIR)/menus $(OBJ_DIR)/tests $(OBJ_DIR)/cpu/68000/src/debug $(OBJ_DIR)/cpu/68000/src/handlers $(OBJ_DIR)/cpu/68000/src/tests
+
+.PHONY: src/version.asm
 
 clean:
 	rm -fr $(BUILD_DIR)/

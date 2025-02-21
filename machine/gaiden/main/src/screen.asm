@@ -24,8 +24,8 @@ screen_init_dsub:
 		; background color ($400)
 		; background color ($1600)
 
-		SEEK_XY	7, 0
-		lea	d_str_header, a0
+		SEEK_XY	5, 0
+		lea	d_str_version, a0
 		DSUB	print_string
 
 		SEEK_XY	0, 1
@@ -59,5 +59,3 @@ d_memory_fill_list:
 	MEMORY_FILL_ENTRY TXT_RAM_START, TXT_RAM_SIZE, $0
 	MEMORY_FILL_ENTRY PALETTE_RAM_START, PALETTE_RAM_SIZE, $0
 	MEMORY_FILL_LIST_END
-
-d_str_header:	STRING "GAIDEN  MAD 0\01"

@@ -26,8 +26,8 @@ screen_init_dsub:
 
 		ROMSET_PALLETE_SETUP
 
-		SEEK_XY	17, 0
-		lea	d_str_header, a0
+		SEEK_XY	13, 0
+		lea	d_str_version, a0
 		DSUB	print_string
 
 		SEEK_LN	1
@@ -74,5 +74,3 @@ d_memory_fill_list
 	MEMORY_FILL_ENTRY ROW_SCROLL_RAM_START, ROW_SCROLL_RAM_SIZE, $0
 	MEMORY_FILL_ENTRY PALETTE_RAM_START, PALETTE_RAM_SIZE, $0
 	MEMORY_FILL_LIST_END
-
-d_str_header:	STRING "CPS2 - MAD 0.1"

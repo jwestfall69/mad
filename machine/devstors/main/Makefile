@@ -38,6 +38,7 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/print.o \
         $(OBJ_DIR)/screen.o \
         $(OBJ_DIR)/vector_table.o \
+        $(OBJ_DIR)/version.o \
         $(OBJ_DIR)/debug/fg_tile_viewer.o \
         $(OBJ_DIR)/menus/debug.o \
         $(OBJ_DIR)/menus/main.o \
@@ -64,6 +65,9 @@ $(WORK_DIR)/$(MAD_NAME).bin: include/error_codes.inc $(WORK_DIR) $(OBJ_DIR) $(BU
 include/error_codes.inc: include/error_codes.cfg
 	../../../util/gen-error-codes -b 6 include/error_codes.cfg include/error_codes.inc
 
+src/version.asm:
+	../../../util/gen-version-asm-file -m DEVSTORS -i ../../../common/cpu/6309/src/version.asm.in -o src/version.asm
+
 $(OBJ_DIR)/%.o: src/%.asm $(INCS)
 	$(VASM) $(VASM_FLAGS) $(BUILD_FLAGS) -o $@ $<
 
@@ -75,6 +79,8 @@ $(WORK_DIR):
 
 $(OBJ_DIR):
 	$(MKDIR) -p $(OBJ_DIR)/debug $(OBJ_DIR)/menus $(OBJ_DIR)/tests $(OBJ_DIR)/cpu/6309/src/debug $(OBJ_DIR)/cpu/6309/src/handlers $(OBJ_DIR)/cpu/6309/src/tests
+
+.PHONY: src/version.asm
 
 clean:
 	rm -fr $(BUILD_DIR)/

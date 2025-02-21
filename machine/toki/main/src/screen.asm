@@ -43,8 +43,8 @@ screen_init_dsub:
 		; background color
 		move.w	#0, PALETTE_RAM_START + $61e
 
-		SEEK_XY	9, 0
-		lea	d_str_header, a0
+		SEEK_XY	5, 0
+		lea	d_str_version, a0
 		DSUB	print_string
 
 		SEEK_XY	0, 1
@@ -78,8 +78,3 @@ screen_update_dsub:
 
 	.skip_update:
 		DSUB_RETURN
-
-	section data
-	align 2
-
-d_str_header:	STRING "TOKI - MAD 0.1"

@@ -48,8 +48,8 @@ screen_init_psub:
 		; txt shadow ($8 $9)
 		; background ($100 $101)
 
-		SEEK_XY	5, 0
-		ldy	#d_str_header
+		SEEK_XY	1, 0
+		ldy	#d_str_version
 		PSUB	print_string
 
 		SEEK_LN	1
@@ -71,7 +71,3 @@ screen_seek_xy_psub:
 		negd
 		leax	d, x
 		PSUB_RETURN
-
-	section data
-
-d_str_header:	STRING "DEVSTORS - MAD 0.1"

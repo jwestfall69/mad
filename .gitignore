@@ -2,7 +2,9 @@ util/rom-byte-split
 util/rom-cps2-encrypt
 util/rom-inject-crc-mirror
 machine/*/main/build/*
+machine/*/main/src/version.asm
 machine/*/sound/build/*
+machine/*/sound/src/version.asm
 machine/cps2/main/keys/*
 !machine/cps2/main/keys/suicide.key
 *.swp
