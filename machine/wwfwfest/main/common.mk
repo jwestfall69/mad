@@ -13,6 +13,7 @@ OBJS = $(OBJ_DIR)/cpu/68000/src/crc32.o \
        $(OBJ_DIR)/cpu/68000/src/util.o \
        $(OBJ_DIR)/cpu/68000/src/xy_string.o \
        $(OBJ_DIR)/cpu/68000/src/debug/ec_dupe_check.o \
+       $(OBJ_DIR)/cpu/68000/src/debug/mad_git_hash.o \
        $(OBJ_DIR)/cpu/68000/src/handlers/error.o \
        $(OBJ_DIR)/cpu/68000/src/handlers/memory_tests.o \
        $(OBJ_DIR)/cpu/68000/src/handlers/memory_viewer.o \
