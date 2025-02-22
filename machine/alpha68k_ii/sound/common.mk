@@ -25,6 +25,7 @@ OBJS = $(OBJ_DIR)/cpu/z80/src/crc32.o \
 OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/footer.o \
         $(OBJ_DIR)/vector_table.o \
+        $(OBJ_DIR)/version.o \
         $(OBJ_DIR)/tests/ym2203.o
 
 INCS = $(wildcard include/*.inc) \
@@ -40,6 +41,9 @@ $(WORK_DIR)/$(MAD_NAME).bin: include/error_codes.inc $(WORK_DIR) $(OBJ_DIR) $(BU
 include/error_codes.inc: include/error_codes.cfg
 	../../../util/gen-error-codes -b 6 include/error_codes.cfg include/error_codes.inc
 
+src/version.asm:
+	../../../util/gen-version-asm-file -m ALPHA68KII -i ../../../common/cpu/z80/src/version.asm.in -o src/version.asm
+
 $(OBJ_DIR)/%.o: src/%.asm $(INCS)
 	$(VASM) $(VASM_FLAGS) $(BUILD_FLAGS) -o $@ $<
 
@@ -51,6 +55,8 @@ $(WORK_DIR):
 
 $(OBJ_DIR):
 	$(MKDIR) -p $(OBJ_DIR)/tests $(OBJ_DIR)/cpu/z80/src/tests/oki $(OBJ_DIR)/cpu/z80/src/tests/yamaha
+
+.PHONY: src/version.asm
 
 clean:
 	rm -fr $(BUILD_DIR)/
