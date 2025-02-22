@@ -14,7 +14,7 @@
 ; palette number as what we use for text.
 
 PALETTE_NUM		equ $1
-TILE_OFFSET_MASK	equ $fff
+TILE_OFFSET_MASK	equ $1fff
 
 fg_tile_viewer:
 		PSUB	screen_init
@@ -54,6 +54,7 @@ fg_seek_xy_cb:
 ; params:
 ;  d = tile (word)
 ;  x = already at location in tile ram
+; TTTT T??? TTTT TTTT
 fg_draw_tile_cb:
 		exg	b, a
 		PSUB	print_byte
@@ -61,8 +62,6 @@ fg_draw_tile_cb:
 		lslb
 		lslb
 		lslb
-		lslb
-		orb	#PALETTE_NUM
 	.not_set:
 		stb	-$400, x
 		rts
