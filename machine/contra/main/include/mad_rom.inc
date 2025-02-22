@@ -4,9 +4,9 @@ MAD_ROM_SIZE		equ $4000
 CURSOR_CHAR		equ $0f
 CURSOR_CLEAR_CHAR	equ $10
 
-SOUND_NUM_SUCCESS	equ $21
-SOUND_NUM_BIT_ZERO	equ $0f ; insert coin?
-SOUND_NUM_BIT_ONE	equ $11	; camera shutter
+SOUND_NUM_SUCCESS	equ $4d
+SOUND_NUM_BIT_ZERO	equ $07 ; ?
+SOUND_NUM_BIT_ONE	equ $13	; insert coin?
 
 
 	macro SOUND_BIT_DELAY

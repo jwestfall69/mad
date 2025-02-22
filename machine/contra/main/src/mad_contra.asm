@@ -60,4 +60,7 @@ _start:
 		lds	#(WORK_RAM_START + WORK_RAM_SIZE - 2)
 		jsr	auto_func_tests
 
+		lda	#SOUND_NUM_SUCCESS
+		SOUND_PLAY
+
 		jsr	main_menu
