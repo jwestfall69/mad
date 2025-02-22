@@ -39,6 +39,8 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/screen.o \
         $(OBJ_DIR)/vector_table.o \
         $(OBJ_DIR)/version.o \
+        $(OBJ_DIR)/debug/fg_tile_viewer.o \
+        $(OBJ_DIR)/menus/debug.o \
         $(OBJ_DIR)/menus/main.o \
         $(OBJ_DIR)/menus/memory_viewer.o \
         $(OBJ_DIR)/tests/auto.o \
