@@ -114,13 +114,13 @@ tile16_viewer_handler:
 
 		btst	#INPUT_UP_BIT, d0
 		beq	.up_not_pressed
-		sub.w	#$100, r_tile_offset
+		add.w	#$100, r_tile_offset
 		bra	.loop_redraw
 	.up_not_pressed:
 
 		btst	#INPUT_DOWN_BIT, d0
 		beq	.down_not_pressed
-		add.w	#$100, r_tile_offset
+		sub.w	#$100, r_tile_offset
 		bra	.loop_redraw
 	.down_not_pressed:
 

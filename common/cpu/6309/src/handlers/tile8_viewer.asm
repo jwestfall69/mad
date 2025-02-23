@@ -91,7 +91,7 @@ tile8_viewer_handler:
 		bita	#INPUT_UP
 		beq	.up_not_pressed
 		ldd	r_tile_offset
-		subd	#$100
+		addd	#$100
 		std	r_tile_offset
 		lbra	.loop_redraw
 
@@ -99,7 +99,7 @@ tile8_viewer_handler:
 		bita	#INPUT_DOWN
 		beq	.down_not_pressed
 		ldd	r_tile_offset
-		addd	#$100
+		subd	#$100
 		std	r_tile_offset
 		lbra	.loop_redraw
 
