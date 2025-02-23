@@ -3,7 +3,7 @@
 	include "cpu/68000/include/memory_fill.inc"
 
 	include "machine.inc"
-	include "mad_rom.inc"
+	include "mad.inc"
 
 	global cps_a_init_dsub
 	global palette_init_dsub

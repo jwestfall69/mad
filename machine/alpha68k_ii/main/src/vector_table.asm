@@ -1,5 +1,5 @@
 	include "machine.inc"
-	include "mad_rom.inc"
+	include "mad.inc"
 
 	global r_irq1_count
 	global r_irq2_count

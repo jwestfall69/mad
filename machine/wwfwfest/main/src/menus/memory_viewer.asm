@@ -3,7 +3,7 @@
 	include "cpu/68000/include/handlers/menu.inc"
 	include "global/include/screen.inc"
 
-	include "mad_rom.inc"
+	include "mad.inc"
 	include "machine.inc"
 
 	global memory_viewer_menu

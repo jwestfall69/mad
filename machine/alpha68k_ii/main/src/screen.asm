@@ -3,7 +3,7 @@
 	include "cpu/68000/include/memory_fill.inc"
 
 	include "machine.inc"
-	include "mad_rom.inc"
+	include "mad.inc"
 
 	global screen_init_dsub
 	global screen_seek_xy_dsub

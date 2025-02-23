@@ -5,7 +5,7 @@
 
 	include "input.inc"
 	include "machine.inc"
-	include "mad_rom.inc"
+	include "mad.inc"
 
 	global menu_handler
 	global r_menu_cursor

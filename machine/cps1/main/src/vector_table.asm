@@ -1,5 +1,5 @@
 	include	"machine.inc"
-	include "mad_rom.inc"
+	include "mad.inc"
 
 	section vectors, data
 

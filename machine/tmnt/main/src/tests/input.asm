@@ -6,7 +6,7 @@
 
 	include "input.inc"
 	include "machine.inc"
-	include "mad_rom.inc"
+	include "mad.inc"
 
 	global input_test
 

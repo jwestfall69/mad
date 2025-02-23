@@ -2,7 +2,7 @@
 
 	include "input.inc"
 	include "machine.inc"
-	include "mad_rom.inc"
+	include "mad.inc"
 
 	global delay_dsub
 	global memory_rewrite_dsub

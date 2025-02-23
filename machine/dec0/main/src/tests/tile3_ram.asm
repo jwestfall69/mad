@@ -9,7 +9,7 @@
 	include "error_codes.inc"
 	include "input.inc"
 	include "machine.inc"
-	include "mad_rom.inc"
+	include "mad.inc"
 
 	ifd _MAME_BUILD_
 		RAM_TEST_LOGIC tile3, TILE1, (RTL_FLAG_PAUSE_REDRAW | RTL_FLAG_MAME_DISABLE)

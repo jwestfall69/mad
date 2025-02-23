@@ -2,7 +2,7 @@
 	include "cpu/68000/include/macros.inc"
 
 	include "machine.inc"
-	include "mad_rom.inc"
+	include "mad.inc"
 
 	global _start
 

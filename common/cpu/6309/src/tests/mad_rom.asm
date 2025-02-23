@@ -4,7 +4,7 @@
 	include "global/include/screen.inc"
 
 	include "machine.inc"
-	include "mad_rom.inc"
+	include "mad.inc"
 
 	global auto_mad_rom_address_test_psub
 	global auto_mad_rom_crc32_test_psub

@@ -9,6 +9,6 @@
 	include "error_codes.inc"
 	include "input.inc"
 	include "machine.inc"
-	include "mad_rom.inc"
+	include "mad.inc"
 
 	RAM_TEST_LOGIC palette_ext, PALETTE_EXT, (RTL_FLAG_PAUSE_REDRAW | RTL_FLAG_LOWER_ONLY)

@@ -3,7 +3,7 @@
 	include "cpu/z80/include/psub.inc"
 
 	include "machine.inc"
-	include "mad_rom.inc"
+	include "mad.inc"
 
 	global mad_rom_crc32_test_psub
 	global mad_rom_address_test_psub

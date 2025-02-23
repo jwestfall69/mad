@@ -4,7 +4,7 @@
 	include "global/include/screen.inc"
 
 	include "input.inc"
-	include "mad_rom.inc"
+	include "mad.inc"
 	include "machine.inc"
 
 	global video_dac_test

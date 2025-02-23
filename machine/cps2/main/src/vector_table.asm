@@ -1,5 +1,5 @@
 	include	"machine.inc"
-	include "mad_rom.inc"
+	include "mad.inc"
 
 	global r_irq_vblank_count
 

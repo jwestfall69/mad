@@ -2,7 +2,7 @@
 	include "cpu/68000/include/macros.inc"
 
 	include "machine.inc"
-	include "mad_rom.inc"
+	include "mad.inc"
 
 	global print_bits_byte_dsub
 	global print_byte_dsub

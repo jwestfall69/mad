@@ -2,7 +2,7 @@
 	include "cpu/68000/include/error_codes.inc"
 	include "cpu/68000/include/macros.inc"
 
-	include "mad_rom.inc"
+	include "mad.inc"
 	include "machine.inc"
 
 	global auto_mad_rom_crc32_test_dsub

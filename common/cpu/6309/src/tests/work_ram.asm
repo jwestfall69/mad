@@ -7,7 +7,7 @@
 	include "error_codes.inc"
 	include "input.inc"
 	include "machine.inc"
-	include "mad_rom.inc"
+	include "mad.inc"
 
 	global	auto_work_ram_tests_psub
 	global	manual_work_ram_tests

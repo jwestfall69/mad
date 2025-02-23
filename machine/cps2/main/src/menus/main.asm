@@ -5,7 +5,7 @@
 	include "global/include/screen.inc"
 
 	include "machine.inc"
-	include "mad_rom.inc"
+	include "mad.inc"
 
 	global main_menu
 

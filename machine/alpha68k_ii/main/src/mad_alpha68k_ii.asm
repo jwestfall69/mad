@@ -3,7 +3,7 @@
 
 	include "error_codes.inc"
 	include "machine.inc"
-	include "mad_rom.inc"
+	include "mad.inc"
 
 	global _start
 
