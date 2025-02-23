@@ -8,6 +8,10 @@ SOUND_NUM_SUCCESS	equ $53
 SOUND_NUM_BIT_ZERO	equ $09
 SOUND_NUM_BIT_ONE	equ $0a
 
+; There aren't enough registers to save the number of passes
+; work ram tests have run and we can't store it in work ram.
+; Instead we need to store it in some other location..
+R_WORK_RAM_PASSES	equ PALETTE_RAM_START + PALETTE_SIZE
 
 	macro SOUND_BIT_DELAY
 		lda	#$7f

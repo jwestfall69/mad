@@ -7,6 +7,7 @@
 	include "error_codes.inc"
 	include "input.inc"
 	include "machine.inc"
+	include "mad_rom.inc"
 
 	global	auto_work_ram_tests_psub
 	global	manual_work_ram_tests
@@ -167,22 +168,16 @@ print_error_work_ram_memory_psub:
 		PSUB	print_string
 		PSUB_RETURN
 
-; We can't use work ram and we don't have enough
-; registers to track the number of passes.  So
-; we just blindly using part of palette ram to
-; do it.
-NUM_PASSES		equ PALETTE_RAM_START + PALETTE_SIZE
-
 manual_work_ram_tests:
 		ldy	#d_screen_xys_list
 		PSUB	print_xy_string_list
 
 		clrd
-		std	NUM_PASSES
+		std	R_WORK_RAM_PASSES
 
 	.loop_next_pass:
 		SEEK_XY	SCREEN_PASSES_VALUE_X, SCREEN_PASSES_Y
-		ldd	NUM_PASSES
+		ldd	R_WORK_RAM_PASSES
 		PSUB	print_hex_word
 
 		PSUB	auto_work_ram_tests
@@ -191,9 +186,9 @@ manual_work_ram_tests:
 		bita	#INPUT_B2
 		beq	.test_exit
 
-		ldd	NUM_PASSES
+		ldd	R_WORK_RAM_PASSES
 		incd
-		std	NUM_PASSES
+		std	R_WORK_RAM_PASSES
 		bra	.loop_next_pass
 
 	.test_exit:
