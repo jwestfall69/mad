@@ -124,7 +124,8 @@ tile8_viewer_handler:
 		lbeq	.loop_next_input
 		rts
 
-		STALL
+	section data
+
 d_screen_xys_list:
 	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 2), <"OFFSET",CHAR_COLON>
 	XY_STRING SCREEN_START_X, SCREEN_B2_Y, "B2 - RETURN TO MENU"
@@ -134,7 +135,6 @@ d_screen_xys_list:
 d_str_0f:		STRING "0123456789ABCDEF"
 
 	section bss
-	align 2
 
 r_current_column:	dc.b	$0
 r_current_row:		dc.b	$0
