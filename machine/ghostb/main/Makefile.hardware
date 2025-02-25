@@ -1,0 +1,4 @@
+BUILD_FLAGS=
+BUILD_DIR=build/hardware
+
+include common.mk
