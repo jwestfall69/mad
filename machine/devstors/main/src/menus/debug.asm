@@ -21,6 +21,9 @@ debug_menu:
 
 		ldy	#d_menu_list
 		jsr	menu_handler
+
+		cmpa	#MENU_CONTINUE
+		beq	.loop_menu
 		rts
 
 	section data

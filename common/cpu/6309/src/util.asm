@@ -1,3 +1,4 @@
+	include "cpu/6309/include/macros.inc"
 	include "cpu/6309/include/psub.inc"
 
 	include "machine.inc"
@@ -6,6 +7,7 @@
 	global delay_psub
 	global memory_rewrite_psub
 	global sound_play_byte_psub
+	global wait_button_release
 
 	section code
 
@@ -66,3 +68,22 @@ sound_play_byte_psub:
 		dece
 		bne	.loop_next_bit
 		PSUB_RETURN
+
+; params:
+;  a = button bit
+wait_button_release:
+		pshsw
+
+	.loop_input:
+		WATCHDOG
+		ldb	REG_INPUT_P1
+		andr	a, b
+		bne	.released
+
+		ldw	#$1ff
+		PSUB	delay
+		bra	.loop_input
+
+	.released:
+		pulsw
+		rts

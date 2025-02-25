@@ -28,6 +28,12 @@ menu_handler:
 		tfr	e, f		; f = previous
 		bra	.update_cursor	; force initial cursor draw
 
+		; This prevents us from exiting all the way back
+		; to the main menu, when exiting a function in a
+		; submenu
+		lda	#INPUT_B1
+		jsr	wait_button_release
+
 	.loop_menu_input:
 		WATCHDOG
 		pshs	b
