@@ -69,9 +69,11 @@ sound_play_byte_psub:
 		bne	.loop_next_bit
 		PSUB_RETURN
 
+; stall until the passed button is not being pressed
 ; params:
-;  a = button bit
+;  a = button bit mask
 wait_button_release:
+		pshs	b
 		pshsw
 
 	.loop_input:
@@ -86,4 +88,5 @@ wait_button_release:
 
 	.released:
 		pulsw
+		puls	b
 		rts

@@ -26,13 +26,14 @@ menu_handler:
 		subb	#$1		; convert to 0 index
 		lde	r_menu_cursor	; e = current menu entry
 		tfr	e, f		; f = previous
-		bra	.update_cursor	; force initial cursor draw
 
 		; This prevents us from exiting all the way back
 		; to the main menu, when exiting a function in a
 		; submenu
-		lda	#INPUT_B1
+		lda	#INPUT_B2
 		jsr	wait_button_release
+
+		bra	.update_cursor	; force initial cursor draw
 
 	.loop_menu_input:
 		WATCHDOG
