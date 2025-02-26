@@ -89,13 +89,9 @@ manual_palette_ram_tests:
 		pshs	d
 		PSUB	print_hex_word
 
-	.loop_paused:
-		WATCHDOG
-		ldw	#$1ff
-		PSUB	delay
-		lda	REG_INPUT
-		bita	#INPUT_B1
-		beq	.loop_paused
+		lda	#INPUT_B1
+		jsr	wait_button_release
+
 		puls	d
 		jmp	.loop_next_pass
 

@@ -20,12 +20,8 @@ mad_git_hash:
 		lea	d_str_git_hash, a0
 		RSUB	print_string
 
-	.loop_input:
-		WATCHDOG
-		bsr	input_update
-		move.b	r_input_edge, d0
-		btst	#INPUT_B2_BIT, d0
-		beq	.loop_input
+		moveq	#INPUT_B2_BIT, d0
+		RSUB	wait_button_press
 		rts
 
 	section data

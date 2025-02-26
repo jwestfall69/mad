@@ -7,6 +7,7 @@
 	global delay_dsub
 	global memory_rewrite_dsub
 	global sound_play_byte_dsub
+	global wait_button_press_dsub
 	global wait_button_release_dsub
 
 	section code
@@ -59,6 +60,26 @@ sound_play_byte_dsub:
 		dbra	d2, .loop_next_bit
 		DSUB_RETURN
 
+; stall until the passed button is pressed
+; params:
+;  d0 = input bit to wait on
+wait_button_press_dsub:
+		WATCHDOG
+		btst	d0, REG_INPUT
+		beq	.pressed
+
+		; doing our own delay to avoid nesting
+		; to deep
+		move.l	#$1ff, d1
+	.loop_delay:
+		subq.l	#$1, d1
+		bne	.loop_delay
+		bra	wait_button_press_dsub
+
+	.pressed:
+		DSUB_RETURN
+
+; stall until the passed button is not being pressed
 ; params:
 ;  d0 = input bit to wait on
 wait_button_release_dsub:

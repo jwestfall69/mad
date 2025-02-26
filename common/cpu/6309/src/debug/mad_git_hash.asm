@@ -20,12 +20,8 @@ mad_git_hash:
 		ldy	#d_str_git_hash
 		PSUB	print_string
 
-	.loop_input:
-		WATCHDOG
-		jsr	input_update
-		lda	r_input_edge
-		bita	#INPUT_B2
-		beq	.loop_input
+		lda	#INPUT_B2
+		jsr	wait_button_press
 		rts
 
 	section data

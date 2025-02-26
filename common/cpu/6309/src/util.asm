@@ -7,6 +7,7 @@
 	global delay_psub
 	global memory_rewrite_psub
 	global sound_play_byte_psub
+	global wait_button_press
 	global wait_button_release
 
 	section code
@@ -68,6 +69,28 @@ sound_play_byte_psub:
 		dece
 		bne	.loop_next_bit
 		PSUB_RETURN
+
+; stall until the passed button is pressed
+; params:
+;  a = button bit mask
+wait_button_press:
+		pshs	b
+		pshsw
+
+	.loop_input:
+		WATCHDOG
+		ldb	REG_INPUT_P1
+		andr	a, b
+		beq	.pressed
+
+		ldw	#$1ff
+		PSUB	delay
+		bra	.loop_input
+
+	.pressed:
+		pulsw
+		puls	b
+		rts
 
 ; stall until the passed button is not being pressed
 ; params:

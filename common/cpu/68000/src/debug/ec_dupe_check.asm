@@ -67,17 +67,16 @@ ec_dupe_check:
 		SEEK_XY	(SCREEN_START_X + 14), (SCREEN_START_Y + 2)
 		move.b	(a1), d0
 		RSUB	print_hex_byte
-		bra	.loop_input
+		bra	.wait_exit
 
 	.ec_list_end:
 		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 2)
 		lea	d_str_no_dupes, a0
 		RSUB	print_string
 
-	.loop_input:
-		WATCHDOG
-		btst	#INPUT_B2_BIT, REG_INPUT
-		bne	.loop_input
+	.wait_exit:
+		moveq	#INPUT_B2_BIT, d0
+		RSUB	wait_button_press
 		rts
 
 	section data
