@@ -5,6 +5,7 @@
 	include "global/include/screen.inc"
 
 	include "error_codes.inc"
+	include "input.inc"
 	include "machine.inc"
 	include "mad.inc"
 
@@ -37,10 +38,10 @@ manual_ram_tests:
 
 		SCREEN_UPDATE
 
-		btst	#P1_B1_BIT, REG_INPUT_P1
+		btst	#INPUT_B1_BIT, REG_INPUT
 		beq	.test_pause
 
-		btst	#P1_B2_BIT, REG_INPUT_P1
+		btst	#INPUT_B2_BIT, REG_INPUT
 		beq	.test_exit
 		bra	.loop_next_pass
 
@@ -54,7 +55,7 @@ manual_ram_tests:
 		move.l	d6, d0
 		PSUB	print_hex_long
 
-		moveq	#P1_B1_BIT, d0
+		moveq	#INPUT_B1_BIT, d0
 		PSUB	wait_button_release
 
 		bra	.loop_next_pass
