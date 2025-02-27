@@ -27,3 +27,6 @@ Sprite ram is I5
 
 ### Work RAM
 Work ram is J9
+
+### Error Addresses
+6309 CPU @ K13.  Address lines that are 95% high are 1, 50/50 pulsing are 0.

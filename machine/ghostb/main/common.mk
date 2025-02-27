@@ -12,11 +12,13 @@ MKDIR = mkdir
 DD = dd
 
 OBJS = $(OBJ_DIR)/cpu/6309/src/crc32.o \
+       $(OBJ_DIR)/cpu/6309/src/error_address.o \
        $(OBJ_DIR)/cpu/6309/src/input_update.o \
        $(OBJ_DIR)/cpu/6309/src/memory_fill.o \
        $(OBJ_DIR)/cpu/6309/src/print_error.o \
        $(OBJ_DIR)/cpu/6309/src/util.o \
        $(OBJ_DIR)/cpu/6309/src/xy_string.o \
+       $(OBJ_DIR)/cpu/6309/src/debug/error_address_test.o \
        $(OBJ_DIR)/cpu/6309/src/debug/mad_git_hash.o \
        $(OBJ_DIR)/cpu/6309/src/handlers/error.o \
        $(OBJ_DIR)/cpu/6309/src/handlers/memory_tests.o \
