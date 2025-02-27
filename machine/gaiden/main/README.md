@@ -32,3 +32,6 @@ Palette ram consists of 3x 4bit ram chips
 * Lower @ U5
 * Upper @ U3
 
+### Error Addresses
+Error addresses are not possible because of a conflict caused by having to write
+to the watchdog address ($07a800)

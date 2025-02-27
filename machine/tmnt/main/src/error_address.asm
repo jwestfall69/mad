@@ -18,14 +18,13 @@ error_address_dsub:
 
 
 	; The  mad_<machine>.ld file should be setup to put the error_addresses
-	; section at $6000 of the rom.  Below will fill $6000 to a little
-	; before $8000.
+	; section at $6000 of the rom.  Below will fill $6000 to $6ff0.
 
 	; tmnt requires special error address code because of it's watchdog.
 	; Luckily there isn't a conflict between the watchdog address and the
 	; address range of error addresses:
-	;   watchdog address: 0x0a0011 = 0000 1010 0000 0000 0001 0001
-	;   error address:    0x006000 = 0000 0000 011x xxxx xxx0 0000
+	;   watchdog address: $0a0011 = 0000 1010 0000 0000 0001 0001
+	;   error address:    $006000 = 0000 0000 011x xxxx xxx0 0000
 	; x = error code.
 	; Additionally pinging the watchdog to fast will cause it to not
 	; register so we have a delay in our loop.
@@ -36,15 +35,15 @@ error_address_dsub:
 	; code block to align with that.  The nop instruction pads the code
 	; block so the total size is 16 bytes.   Additionally doing the
 	; WATCHDOG to fast will not ping the watchdog, so the delay was added.
-	rept $1ff0 / 16
+	rept $ff0 / 16
 	inline
 	.loop:
-		move.b	d0, (a1)	; 0x1280 (watchdog)
-		move.l	#$1fff, d0	; 0x203c 0000 1fff
+		move.b	d0, (a1)	; $1280 (watchdog)
+		move.l	#$1fff, d0	; $203c 0000 1fff
 	.delay:
-		nop			; 0x4e71
-		subq.l	#1, d0		; 0x5380
-		bne	.delay		; 0x66fa
-		bra	.loop		; 0x60f0
+		nop			; $4e71
+		subq.l	#1, d0		; $5380
+		bne	.delay		; $66fa
+		bra	.loop		; $60f0
 	einline
 	endr

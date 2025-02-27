@@ -18,14 +18,13 @@ error_address_dsub:
 
 
 	; The  mad_<machine>.ld file should be setup to put the error_addresses
-	; section at $6000 of the rom.  Below will fill $6000 to a little
-	; before $8000.
+	; section at $6000 of the rom.  Below will fill $6000 to $6ff0
 
 	; wwfwfest requires special error address code because of it's watchdog.
 	; Luckily there isn't a conflict between the watchdog address and the
 	; address range of error addresses:
-	;   watchdog address: 0x140016 = 0001 0010 0000 0000 0001 0110
-	;   error address:    0x006000 = 0000 0000 011x xxxx xxx0 0000
+	;   watchdog address: $140016 = 0001 0010 0000 0000 0001 0110
+	;   error address:    $006000 = 0000 0000 011x xxxx xxx0 0000
 	; x = error code.
 
 	; This is not yet tested from the point of the watchdog, as my board seems
@@ -33,10 +32,10 @@ error_address_dsub:
 	; pinged to fast, which may cause the watchdog to not register the pings.
 	section error_addresses
 
-	rept $7f8
+	rept $ff0 / 4
 	inline
 	.loop:
-		clr.w	(a1)		; 0x4251
-		bra	.loop		; 0x60fc
+		clr.w	(a1)		; $4251
+		bra	.loop		; $60fc
 	einline
 	endr

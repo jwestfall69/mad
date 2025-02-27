@@ -20,6 +20,7 @@ OBJS = $(OBJ_DIR)/cpu/68000/src/crc32.o \
        $(OBJ_DIR)/cpu/68000/src/util.o \
        $(OBJ_DIR)/cpu/68000/src/xy_string.o \
        $(OBJ_DIR)/cpu/68000/src/debug/ec_dupe_check.o \
+       $(OBJ_DIR)/cpu/68000/src/debug/error_address_test.o \
        $(OBJ_DIR)/cpu/68000/src/debug/mad_git_hash.o \
        $(OBJ_DIR)/cpu/68000/src/handlers/error.o \
        $(OBJ_DIR)/cpu/68000/src/handlers/memory_tests.o \
@@ -73,7 +74,7 @@ $(WORK_DIR)/$(MAD_NAME).bin: include/error_codes.inc $(WORK_DIR) $(OBJ_DIR) $(BU
 	$(DD) if=$(WORK_DIR)/$(MAD_NAME).enc of=$(BUILD_DIR)/encrypted-$(ROM) conv=swab
 
 include/error_codes.inc: include/error_codes.cfg
-	../../../util/gen-error-codes -b 8 include/error_codes.cfg include/error_codes.inc
+	../../../util/gen-error-codes -b 7 include/error_codes.cfg include/error_codes.inc
 
 src/version.asm:
 	../../../util/gen-version-asm-file -m CPS2 -i ../../../common/cpu/68000/src/version.asm.in -o src/version.asm
