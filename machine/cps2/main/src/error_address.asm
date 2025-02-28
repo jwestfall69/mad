@@ -6,9 +6,7 @@
 ; params
 ;  d0 = error code
 error_address_dsub:
-
-		; convert the error code into a error_address
-		; then jump to it.  jump address is $6000 | (d0 << 5)
+		; jump address is $6000 | (d0 << 5)
 		and.l	#$7f, d0
 		lsl.l	#5, d0
 		or.l	#$6000, d0
@@ -16,17 +14,19 @@ error_address_dsub:
 		moveq	#0, d0
 		jmp	(a0)
 
-
-
-	; The  mad_<machine>.ld file should be setup to put the error_addresses
-	; section at $6000 of the rom.  Below will fill $6000 to $6ff0
 	section error_addresses
+	; The mad_<machine>.ld file is setup to put the error_addresses section
+	; starting at $6000 of the rom.  Below will fill $6000 to $7000.
 
-	; error addresses are every 32 bytes, so we need the repeated
-	; code block to align with that.  The below block is 16 bytes
-	; making it align.  Additionally doing the WATCHDOG instruction
-	; to fast will not ping the watchdog, so the delay was added.
-	rept $ff0 / 16
+	; For cps2 the WATCHDOG instruction may or may not conflict with the
+	; error address.  However the loop below will mean we are in the error
+	; address range 99.9+% of the time.  This is enough for the error
+	; addresses to still be viable to use with a logic probe.
+
+	; error address jump points are every 32 bytes, so we need to make
+	; sure the below code block is a power of 2 that is <= 32 bytes.  In
+	; this case its 16 bytes.
+	rept $1000 / 16
 	inline
 	.loop:
 		WATCHDOG		; should be 6 bytes

@@ -7,9 +7,8 @@
 ; params:
 ;  a = error code
 error_address_psub:
-
-		; covert the error code into a error_address
-		; then jump to it.  jump address is $f000 | (error_code << 4)
+		; jump address is $f000 | (error_code << 4)
+		anda	#$3f
 		clrb
 		rord
 		rord
@@ -18,13 +17,14 @@ error_address_psub:
 		ldx	#$f000
 		jmp	d, x
 
-
-	; The mad_<machine>.ld file should be setup to put the error_addresses
-	; section at $f000 of the rom.  Below will fill $f000 to $ffe0 with
-	; bunch of bra self opcodes.
 	section error_addresses
+	; The mad_<machine>.ld file is setup to put the error_addresses section
+	; starting at $f000 of the rom.  Below will fill $f000 to $f400.
 
-	rept $fe0 / 2
+	; error address jump points are every 16 bytes, so we need to make
+	; sure the below code block is a power of 2 that is <= 16 bytes.  In
+	; this case its 2 bytes.
+	rept $400 / 2
 	inline
 	.loop:
 		bra	.loop	; $20fe

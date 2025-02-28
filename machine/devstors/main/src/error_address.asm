@@ -7,9 +7,8 @@
 ; params:
 ;  a = error code
 error_address_psub:
-
-		; covert the error code into a error_address
-		; then jump to it.  jump address is $f000 | (error_code << 4)
+		; jump address is $f000 | (error_code << 4)
+		anda	#$3f
 		clrb
 		rord
 		rord
@@ -18,19 +17,28 @@ error_address_psub:
 		ldx	#$f000
 		jmp	d, x
 
-
-	; The mad_<machine>.ld file should be setup to put the error_addresses
-	; section at $f000 of the rom.  Below will fill $f000 to $ffe0 with
-	; a bunch of loops taking into account the watchdog.  The loop needs
-	; to <= 16 bytes and a power of 2.  It can't fit in 8 bytes so its
-	; been padded with nops to get to 16 bytes.
 	section error_addresses
+	; The mad_<machine>.ld file is setup to put the error_addresses section
+	; starting at $f000 of the rom.  Below will fill $f000 to $f400.
 
-	rept $fe0 / 16
+	; devstors watchdog address vs error address
+	;   watchdog address: $1f8c = 0001 1111 1000 1100
+	;   error address:    $f000 = 1111 00EE EEEE 0000
+	;     E = error code
+
+	; The watchdog address is in conflict with the error address.
+	; However the loop below will mean we are in the error address
+	; range 99.9+% of the time.  This is enough for the error addresses
+	; to still be viable to use with a logic probe.
+
+	; error address jump points are every 16 bytes, so we need to make
+	; sure the below code block is a power of 2 that is <= 16 bytes.  In
+	; this case its 16 bytes.
+	rept $400 / 16
 	inline
 	.loop:
-		sta	REG_WATCHDOG	; $b71f8c
-		ldw	#$1ff		; $10861ff
+		sta	REG_WATCHDOG	; $b71f 8c
+		ldw	#$1ff		; $1086 01ff
 	.delay:
 		nop			; $12
 		nop			; $12

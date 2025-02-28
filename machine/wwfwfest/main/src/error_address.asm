@@ -6,36 +6,42 @@
 ; params
 ;  d0 = error code
 error_address_dsub:
-
-		; convert the error code into a error_address
-		; then jump to it.  jump address is $6000 | (d0 << 5)
-		and.l	#$ff, d0
+		; jump address is $6000 | (d0 << 5)
+		and.l	#$7f, d0
 		lsl.l	#5, d0
 		or.l	#$6000, d0
 		move.l	d0, a0
+		moveq	#0, d0
 		move.l	#REG_WATCHDOG, a1
 		jmp	(a0)
 
-
-	; The  mad_<machine>.ld file should be setup to put the error_addresses
-	; section at $6000 of the rom.  Below will fill $6000 to $6ff0
-
-	; wwfwfest requires special error address code because of it's watchdog.
-	; Luckily there isn't a conflict between the watchdog address and the
-	; address range of error addresses:
-	;   watchdog address: $140016 = 0001 0010 0000 0000 0001 0110
-	;   error address:    $006000 = 0000 0000 011x xxxx xxx0 0000
-	; x = error code.
-
-	; This is not yet tested from the point of the watchdog, as my board seems
-	; to have a non-functional watchdog.  Its possible the watchdog is getting
-	; pinged to fast, which may cause the watchdog to not register the pings.
 	section error_addresses
+	; The mad_<machine>.ld file is setup to put the error_addresses section
+	; starting at $6000 of the rom.  Below will fill $6000 to $7000.
 
-	rept $ff0 / 4
+	; wwfwfest watchdog address vs error address
+	;   watchdog address: $140016 = 0001 0010 0000 0000 0001 0110
+	;   error address:    $006000 = 0000 0000 0110 EEEE EEE0 0000
+	;     E = error code
+
+	; The watchdog address is in conflict with the error address.
+	; However the loop below will mean we are in the error address
+	; range 99.9+% of the time.  This is enough for the error addresses
+	; to still be viable to use with a logic probe.
+
+	; error address jump points are every 32 bytes, so we need to make
+	; sure the below code block is a power of 2 that is <= 32 bytes.  In
+	; this case its 16 bytes.
+	rept $1000 / 16
 	inline
 	.loop:
-		clr.w	(a1)		; $4251
-		bra	.loop		; $60fc
+		clr.w	(a1)		; $4251 (watchdog)
+		move.w	#$1fff, d0	; $303c 1fff
+	.delay:
+		nop			; $4e71
+		nop			; $4e71
+		subq.l	#1, d0		; $5380
+		bne	.delay		; $66fa
+		bra	.loop		; $60f0
 	einline
 	endr
