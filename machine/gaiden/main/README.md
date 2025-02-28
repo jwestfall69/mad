@@ -33,5 +33,5 @@ Palette ram consists of 3x 4bit ram chips
 * Upper @ U3
 
 ### Error Addresses
-Error addresses are not possible because of a conflict caused by having to write
-to the watchdog address ($07a800)
+Address lines that are 99+% low are 0's<br>
+Address lines that are 99+% high are 1's
