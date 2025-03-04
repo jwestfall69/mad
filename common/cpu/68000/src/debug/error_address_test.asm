@@ -67,7 +67,7 @@ error_address_test:
 		RSUB	print_string
 
 		move.w	d4, d0
-		RSUB	error_address
+		jmp	error_address
 
 	.b1_not_pressed:
 		btst	#INPUT_B2_BIT, d0

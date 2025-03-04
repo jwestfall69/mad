@@ -1,9 +1,10 @@
-	global error_address_dsub
+	global error_address
 
 	section code
-; params
+
+; params:
 ;  d0 = error code
-error_address_dsub:
+error_address:
 		; jump address is $6000 | (d0 << 5)
 		and.l	#$7f, d0
 		lsl.l	#5, d0

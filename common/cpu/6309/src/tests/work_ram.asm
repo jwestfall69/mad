@@ -128,8 +128,7 @@ auto_work_ram_tests_psub:
 		tfr	a, f		; backup error code
 		PSUB	sound_play_byte
 		tfr	f, a
-		;jmp	error_address
-		STALL
+		jmp	error_address
 
 ; This is a special print error memory function for
 ; work ram since we are only able to use registers

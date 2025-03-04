@@ -5,7 +5,7 @@
 
 	section code
 
-; params
+; params:
 ;  a = error code
 ; The z80 uses A0 to A6 for memory refreshing so they will always
 ; be pusling.  This leaves us with 6 useable address lines (A7 to A12)

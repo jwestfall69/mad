@@ -82,7 +82,7 @@ error_handler_dsub:
 	ifnd _ERROR_ADDRESS_DISABLED_
 		; d6 will still contain the error code
 		move.b	d6, d0
-		DSUB	error_address	; never returns
+		jmp	error_address
 	else
 		STALL
 	endif

@@ -76,7 +76,7 @@ error_address_test:
 		PSUB	print_string
 
 		tfr	f, a
-		PSUB	error_address
+		jmp	error_address
 
 	.b1_not_pressed:
 		bita	#INPUT_B2

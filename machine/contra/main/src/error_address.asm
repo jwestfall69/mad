@@ -1,12 +1,12 @@
 	include "machine.inc"
 
-	global error_address_psub
+	global error_address
 
 	section code
 
 ; params:
 ;  a = error code
-error_address_psub:
+error_address:
 		; jump address is $f000 | (error_code << 4)
 		anda	#$3f
 		clrb

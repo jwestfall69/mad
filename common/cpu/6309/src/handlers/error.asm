@@ -74,7 +74,7 @@ error_handler:
 
 	ifnd _ERROR_ADDRESS_DISABLED_
 		lda	r_pe_data_a
-		PSUB	error_address	; never returns
+		jmp	error_address
 	else
 		STALL
 	endif

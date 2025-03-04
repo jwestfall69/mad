@@ -72,8 +72,7 @@ auto_mad_rom_address_test_psub:
 		PSUB	sound_play_byte
 
 		lda	#EC_MAD_ROM_ADDRESS
-		; jmp	error_address
-		STALL
+		jmp	error_address
 
 
 auto_mad_rom_crc32_test_psub:
@@ -146,8 +145,7 @@ crc32_return:
 		PSUB	sound_play_byte
 
 		lda	#EC_MAD_ROM_CRC32
-		;jmp	error_address
-		STALL
+		jmp	error_address
 
 	section data
 
