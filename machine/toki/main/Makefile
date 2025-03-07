@@ -16,6 +16,7 @@ DD = dd
 
 OBJS = $(OBJ_DIR)/cpu/68000/src/crc32.o \
        $(OBJ_DIR)/cpu/68000/src/dsub.o \
+       $(OBJ_DIR)/cpu/68000/src/footer.o \
        $(OBJ_DIR)/cpu/68000/src/error_address.o \
        $(OBJ_DIR)/cpu/68000/src/input_update.o \
        $(OBJ_DIR)/cpu/68000/src/memory_fill.o \
@@ -39,7 +40,6 @@ OBJS = $(OBJ_DIR)/cpu/68000/src/crc32.o \
 # code from this machine
 OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/errors.o \
-        $(OBJ_DIR)/footer.o \
         $(OBJ_DIR)/print.o \
         $(OBJ_DIR)/print_error.o \
         $(OBJ_DIR)/screen.o \

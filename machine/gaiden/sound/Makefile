@@ -13,6 +13,7 @@ MKDIR = mkdir
 DD = dd
 
 OBJS = $(OBJ_DIR)/cpu/z80/src/crc32.o \
+       $(OBJ_DIR)/cpu/z80/src/footer.o \
        $(OBJ_DIR)/cpu/z80/src/psub.o \
        $(OBJ_DIR)/cpu/z80/src/util.o \
        $(OBJ_DIR)/cpu/z80/src/tests/unexpected_irq.o \
@@ -24,7 +25,6 @@ OBJS = $(OBJ_DIR)/cpu/z80/src/crc32.o \
 
 # code from this machine
 OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
-        $(OBJ_DIR)/footer.o \
         $(OBJ_DIR)/error_address.o \
         $(OBJ_DIR)/vector_table.o \
         $(OBJ_DIR)/version.o \
