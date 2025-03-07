@@ -97,7 +97,7 @@ object_ram_bank_switch_test_dsub:
 		DSUB_RETURN
 
 	section data
-	align 2
+	align 1
 
 d_mt_data:
 		MT_PARAMS OBJECT_RAM_START, MT_NULL_ADDRESS_LIST, OBJECT_RAM_SIZE, OBJECT_RAM_ADDRESS_LINES, OBJECT_RAM_MASK, MT_TEST_BOTH, OBJECT_RAM_BASE_EC

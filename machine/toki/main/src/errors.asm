@@ -9,7 +9,7 @@
 	global d_ec_list
 
 	section data
-	align 2
+	align 1
 
 d_ec_list:
 	EC_ENTRY EC_RAM_ADDRESS, PRINT_ERROR_MEMORY, d_str_ram_address

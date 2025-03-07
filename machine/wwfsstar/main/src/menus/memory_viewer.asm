@@ -62,7 +62,7 @@ view_memory:
 
 
 	section data
-	align 2
+	align 1
 
 d_menu_list:
 	MENU_ENTRY view_bg_ram, d_str_bg_ram

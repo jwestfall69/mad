@@ -85,7 +85,7 @@ manual_\1_ram_tests:
 		rts
 
 	section data
-	align 2
+	align 1
 
 	if \3 & RTL_FLAG_LOWER_ONLY
 TEST_BYTE 	equ MT_TEST_LOWER_ONLY

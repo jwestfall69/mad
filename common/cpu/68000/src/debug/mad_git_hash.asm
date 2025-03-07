@@ -26,6 +26,6 @@ mad_git_hash:
 		rts
 
 	section data
-	align 2
+	align 1
 
 d_str_b2_return:	STRING "B2 - RETURN TO MENU"

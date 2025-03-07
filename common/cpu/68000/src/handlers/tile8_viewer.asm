@@ -112,7 +112,7 @@ tile8_viewer_handler:
 		rts
 
 	section data
-	align 2
+	align 1
 
 d_screen_xys_list:
 	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 2), <"OFFSET",CHAR_COLON>
@@ -123,7 +123,7 @@ d_screen_xys_list:
 d_str_0f:		STRING "0123456789ABCDEF"
 
 	section bss
-	align 2
+	align 1
 
 r_seek_xy_cb:		dc.l	$0
 r_draw_tile_cb:		dc.l	$0

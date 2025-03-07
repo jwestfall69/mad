@@ -65,7 +65,7 @@ view_memory:
 		rts
 
 	section data
-	align 2
+	align 1
 
 d_menu_list:
 	MENU_ENTRY view_bg1_ram, d_str_bg1_ram

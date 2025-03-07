@@ -118,7 +118,7 @@ d_screen_xys_list:
 	XY_STRING_LIST_END
 
 	section bss
-	align 2
+	align 1
 
 r_input_dsw1_edge:	dc.b $0
 r_input_dsw1_raw:	dc.b $0

@@ -184,7 +184,7 @@ memory_dump:
 
 
 	section data
-	align 2
+	align 1
 
 d_str_memory_viewer:		STRING "MEMORY VIEWER"
 d_str_read_mode:		STRING "READ"
@@ -192,7 +192,7 @@ d_str_read_mode_byte:		STRING "BYTE"
 d_str_read_mode_word:		STRING "WORD"
 
 	section bss
-	align 2
+	align 1
 
 ; ran out of registers in memory_dump so
 ; have to use ram for the read mode

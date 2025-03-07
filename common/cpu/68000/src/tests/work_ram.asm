@@ -57,7 +57,7 @@ manual_work_ram_tests:
 		bra	main_menu
 
 	section data
-	align 2
+	align 1
 
 d_mt_data:
 	MT_PARAMS WORK_RAM_START, MT_NULL_ADDRESS_LIST, WORK_RAM_SIZE, WORK_RAM_ADDRESS_LINES, WORK_RAM_MASK, MT_TEST_BOTH, WORK_RAM_BASE_EC

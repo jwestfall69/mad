@@ -29,7 +29,7 @@ input_test:
 		rts
 
 	section data
-	align 2
+	align 1
 
 d_input_list:
 	INPUT_ENTRY (SCREEN_START_Y + 3), REG_INPUT_P1

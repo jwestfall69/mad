@@ -82,7 +82,7 @@ manual_tile_ram_tests:
 		rts
 
 	section data
-	align 2
+	align 1
 
 d_mt_data1:
 	MT_PARAMS TILE_RAM_START, MT_NULL_ADDRESS_LIST, $1000, 12, TILE_RAM_MASK, MT_TEST_BOTH, TILE_RAM_BASE_EC

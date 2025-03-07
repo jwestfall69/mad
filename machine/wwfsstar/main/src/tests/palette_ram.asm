@@ -190,7 +190,7 @@ palette_ram_data_test_dsub:
 
 
 	section data
-	align 2
+	align 1
 
 d_data_patterns:
 	dc.w	$0000, $5555, $aaaa, $ffff

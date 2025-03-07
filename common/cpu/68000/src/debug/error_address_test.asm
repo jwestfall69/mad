@@ -77,7 +77,7 @@ error_address_test:
 
 
 	section data
-	align 2
+	align 1
 
 d_screen_xys_list:
 	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 6), <"ERROR NUM", CHAR_COLON>

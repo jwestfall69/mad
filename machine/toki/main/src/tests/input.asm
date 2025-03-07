@@ -67,7 +67,7 @@ input_test:
 		rts
 
 	section data
-	align 2
+	align 1
 
 d_screen_xys_list:
 	XY_STRING (SCREEN_START_X + 5), (SCREEN_START_Y + 2), "76543210"

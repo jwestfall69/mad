@@ -194,7 +194,7 @@ print_error_string_dsub:
 		DSUB_RETURN
 
 	section data
-	align 2
+	align 1
 
 d_ec_print_list:
 	EC_PRINT_ENTRY PRINT_ERROR_ADDRESS, print_error_address_dsub

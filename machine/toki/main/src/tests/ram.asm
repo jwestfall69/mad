@@ -72,7 +72,7 @@ manual_ram_tests:
 		bra	main_menu
 
 	section data
-	align 2
+	align 1
 
 d_mt_data:
 	MT_PARAMS RAM_START, MT_NULL_ADDRESS_LIST, RAM_SIZE, RAM_ADDRESS_LINES, RAM_MASK, MT_TEST_BOTH, RAM_BASE_EC

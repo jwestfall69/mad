@@ -68,6 +68,6 @@ fg_set_bank:
 		rts
 
 	section bss
-	align 2
+	align 1
 
 r_fg_current_bank:	dc.b $0

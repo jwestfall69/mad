@@ -61,7 +61,7 @@ screen_seek_xy_dsub:
 		DSUB_RETURN
 
 	section data
-	align 2
+	align 1
 
 d_memory_fill_list
 	; this first one being $20 is a bit of a hack for now, its

@@ -6,7 +6,7 @@
 	global d_auto_func_list
 
 	section data
-	align 2
+	align 1
 
 d_auto_dsub_list:
 	AUTO_ENTRY auto_mad_rom_address_test_dsub, d_str_testing_mad_rom_address

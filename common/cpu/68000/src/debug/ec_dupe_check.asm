@@ -81,14 +81,14 @@ ec_dupe_check:
 		rts
 
 	section data
-	align 2
+	align 1
 
 d_str_b2_return:	STRING "B2 - RETURN TO MENU"
 d_str_dupe_found: 	STRING <"DUPE FOUND", CHAR_COLON>
 d_str_no_dupes:		STRING "NO DUPES FOUND"
 
 	section bss
-	align 2
+	align 1
 
 r_ec_seen:
 	dcb.b	32

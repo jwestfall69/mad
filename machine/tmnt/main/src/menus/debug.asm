@@ -30,7 +30,7 @@ debug_menu:
 		rts
 
 	section data
-	align 2
+	align 1
 
 d_menu_list:
 	MENU_ENTRY ec_dupe_check, d_str_ec_dupe_check

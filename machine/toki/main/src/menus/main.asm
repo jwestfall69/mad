@@ -27,7 +27,7 @@ main_menu:
 		bra	.loop_menu
 
 	section data
-	align 2
+	align 1
 
 d_menu_list:
 	MENU_ENTRY manual_ram_tests, d_str_ram_test

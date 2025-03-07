@@ -53,7 +53,7 @@ manual_palette_ram_tests:
 		rts
 
 	section data
-	align 2
+	align 1
 
 d_mt_data:
 	MT_PARAMS PALETTE_RAM_START, MT_NULL_ADDRESS_LIST, PALETTE_RAM_SIZE, PALETTE_RAM_ADDRESS_LINES, PALETTE_RAM_MASK, MT_TEST_BOTH, PALETTE_RAM_BASE_EC

@@ -56,7 +56,7 @@ manual_bg_ram_tests:
 		rts
 
 	section data
-	align 2
+	align 1
 
 d_mt_data:
 	MT_PARAMS BG_RAM_START, MT_NULL_ADDRESS_LIST, BG_RAM_SIZE, BG_RAM_ADDRESS_LINES, BG_RAM_MASK, MT_TEST_BOTH, BG_RAM_BASE_EC

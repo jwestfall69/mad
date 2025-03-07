@@ -14,7 +14,7 @@
 	RAM_TEST_LOGIC sprite, SPRITE, RTL_FLAG_ADDRESS_LIST
 
 	section data
-	align 2
+	align 1
 
 ; fix me based on ram chips
 d_memory_address_list:

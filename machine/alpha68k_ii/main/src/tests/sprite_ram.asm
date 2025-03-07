@@ -55,7 +55,7 @@ manual_sprite_ram_tests:
 		rts
 
 	section data
-	align 2
+	align 1
 
 d_mt_data:
 	MT_PARAMS SPRITE_RAM_START, MT_NULL_ADDRESS_LIST, SPRITE_RAM_SIZE, SPRITE_RAM_ADDRESS_LINES, SPRITE_RAM_MASK, MT_TEST_LOWER_ONLY, SPRITE_RAM_BASE_EC

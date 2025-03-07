@@ -90,7 +90,7 @@ view_memory:
 
 
 	section data
-	align 2
+	align 1
 
 d_menu_list:
 	MENU_ENTRY view_cps_a_reg, d_str_cps_a_reg

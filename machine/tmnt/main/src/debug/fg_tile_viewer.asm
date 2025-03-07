@@ -71,7 +71,7 @@ fg_draw_tile_cb:
 		rts
 
 	section data
-	align 2
+	align 1
 
 d_palette_data:
 	dc.w	$3276, $6d39, $3e34, $fe00, $5864, $8064, $e519

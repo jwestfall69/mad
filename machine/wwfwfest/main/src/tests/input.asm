@@ -68,7 +68,7 @@ input_system_update:
 		rts
 
 	section data
-	align 2
+	align 1
 
 d_input_list:
 	INPUT_ENTRY (SCREEN_START_Y + 3), REG_INPUT_P1
@@ -98,7 +98,7 @@ d_screen_xys_list:
 	XY_STRING_LIST_END
 
 	section bss
-	align 2
+	align 1
 
 r_input_system_edge:	dc.b $0
 r_input_system_raw:	dc.b $0

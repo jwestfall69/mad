@@ -71,7 +71,7 @@ screen_seek_xy_dsub:
 		DSUB_RETURN
 
 	section data
-	align 2
+	align 1
 
 d_memory_fill_list:
 		MEMORY_FILL_ENTRY REG_TILE1_CTRL2, $8, $0

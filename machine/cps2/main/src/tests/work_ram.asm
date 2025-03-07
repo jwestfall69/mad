@@ -53,7 +53,7 @@ manual_work_ram_tests:
 		bra	main_menu
 
 	section data
-	align 2
+	align 1
 
 ; fix me based on ram chips
 d_memory_address_list:

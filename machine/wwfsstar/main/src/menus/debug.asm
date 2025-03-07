@@ -30,7 +30,7 @@ debug_menu:
 		rts
 
 	section data
-	align 2
+	align 1
 
 d_menu_list:
 	MENU_ENTRY bg_tile_viewer, d_str_bg_tile_viewer

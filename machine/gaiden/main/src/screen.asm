@@ -50,7 +50,7 @@ screen_seek_xy_dsub:
 		DSUB_RETURN
 
 	section data
-	align 2
+	align 1
 
 d_memory_fill_list:
 	MEMORY_FILL_ENTRY BG_RAM_START, BG_RAM_SIZE, $0

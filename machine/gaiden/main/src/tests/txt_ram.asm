@@ -72,7 +72,7 @@ manual_txt_ram_tests:
 		rts
 
 	section data
-	align 2
+	align 1
 
 d_mt_data:
 	MT_PARAMS TXT_RAM_START, MT_NULL_ADDRESS_LIST, TXT_RAM_SIZE, TXT_RAM_ADDRESS_LINES, TXT_RAM_MASK, MT_TEST_BOTH, TXT_RAM_BASE_EC

@@ -46,7 +46,7 @@ irq3_handler:
 		rte
 
 	section bss
-	align 2
+	align 1
 
 r_irq1_count:	dc.l $0
 r_irq2_count:	dc.l $0

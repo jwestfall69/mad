@@ -29,7 +29,7 @@ input_update:
 		rts
 
 	section bss
-	align 2
+	align 1
 
 r_input_edge:		dc.b $0
 r_input_raw:		dc.b $0

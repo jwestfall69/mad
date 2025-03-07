@@ -66,7 +66,7 @@ manual_qsound_ram_tests:
 		rts
 
 	section data
-	align 2
+	align 1
 
 d_mt_data:
 		MT_PARAMS QSOUND_RAM_START, MT_NULL_ADDRESS_LIST, QSOUND_RAM_SIZE, QSOUND_RAM_ADDRESS_LINES, QSOUND_RAM_MASK, MT_TEST_LOWER_ONLY, QSOUND_RAM_BASE_EC

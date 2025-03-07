@@ -284,7 +284,7 @@ palette_setup_color:
 		rts
 
 	section data
-	align 2
+	align 1
 
 d_palette_offsets:
 	dc.w	VD_TILE_B0_PAL_OFFSET, VD_TILE_B1_PAL_OFFSET, VD_TILE_B2_PAL_OFFSET, VD_TILE_B3_PAL_OFFSET, VD_TILE_BA_PAL_OFFSET
@@ -308,7 +308,7 @@ d_screen_xys_list:
 	XY_STRING_LIST_END
 
 	section bss
-	align 2
+	align 1
 
 r_tiles_table:
 	dcb.l	VD_NUM_COLORS*VD_NUM_BITS_PER_COLOR

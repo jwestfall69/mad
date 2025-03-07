@@ -151,7 +151,7 @@ tile16_viewer_handler:
 		rts
 
 	section data
-	align 2
+	align 1
 
 d_screen_xys_list:
 	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 2), <"OFFSET",CHAR_COLON>
@@ -164,7 +164,7 @@ d_str_07:		STRING "0 1 2 3 4 5 6 7"
 d_str_8f:		STRING "8 9 A B C D E F"
 
 	section bss
-	align 2
+	align 1
 
 r_seek_xy_cb:		dc.l	$0
 r_draw_tile_cb:		dc.l	$0

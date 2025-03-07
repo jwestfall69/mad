@@ -67,7 +67,7 @@ fg_draw_tile_cb:
 		rts
 
 	section data
-	align 2
+	align 1
 
 d_palette_data:
 	dc.w	$f817, $fed0, $f0bc, $fa35, $f9d5, $f09c, $fc66
