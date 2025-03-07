@@ -1,3 +1,4 @@
+	include "global/include/macros.inc"
 	include "cpu/68000/include/macros.inc"
 	include "cpu/68000/include/tests/auto.inc"
 

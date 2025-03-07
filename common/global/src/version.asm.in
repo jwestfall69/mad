@@ -1,4 +1,4 @@
-	include "cpu/68000/include/macros.inc"
+	include "global/include/macros.inc"
 
 	global d_str_git_hash
 	global d_str_version

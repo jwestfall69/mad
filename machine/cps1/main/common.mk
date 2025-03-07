@@ -56,6 +56,7 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
 INCS = $(wildcard include/*.inc) \
        $(wildcard include/cps_b/*.inc) \
        $(wildcard include/romset/*.inc) \
+       $(wildcard ../../../common/global/include/*.inc) \
        $(wildcard ../../../common/cpu/68000/include/*.inc) \
        $(wildcard ../../../common/cpu/68000/include/tests/*.inc)
 
@@ -74,7 +75,7 @@ include/error_codes.inc: include/error_codes.cfg
 	../../../util/gen-error-codes -b 7 include/error_codes.cfg include/error_codes.inc
 
 src/version.asm:
-	../../../util/gen-version-asm-file -m CPS1 -i ../../../common/cpu/68000/src/version.asm.in -o src/version.asm
+	../../../util/gen-version-asm-file -m CPS1 -i ../../../common/global/src/version.asm.in -o src/version.asm
 
 $(OBJ_DIR)/%.o: src/%.asm $(INCS)
 	$(VASM) $(VASM_FLAGS) $(BUILD_FLAGS) -o $@ $<

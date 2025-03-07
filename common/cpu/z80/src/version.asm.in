@@ -1,9 +1,0 @@
-	include "cpu/z80/include/macros.inc"
-
-	global d_str_git_hash
-	global d_str_version
-
-	section data
-
-d_str_git_hash:		STRING "%GIT_HASH% %GIT_DIRTY_LONG%"
-d_str_version:		STRING "MAD %MACHINE% - %GIT_DATE%%GIT_DIRTY%"

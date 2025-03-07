@@ -1,3 +1,4 @@
+	include "global/include/macros.inc"
 	include "cpu/6309/include/macros.inc"
 	include "cpu/6309/include/psub.inc"
 

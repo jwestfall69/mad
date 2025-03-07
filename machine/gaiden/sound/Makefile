@@ -34,6 +34,7 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/tests/ym2203_2.o
 
 INCS = $(wildcard include/*.inc) \
+       $(wildcard ../../../common/global/include/*.inc) \
        $(wildcard ../../../common/cpu/z80/include/*.inc) \
        $(wildcard ../../../common/cpu/z80/include/tests/*.inc)
        $(wildcard ../../../common/cpu/z80/include/tests/*/*.inc)
@@ -47,7 +48,7 @@ include/error_codes.inc: include/error_codes.cfg
 	../../../util/gen-error-codes -b 6 include/error_codes.cfg include/error_codes.inc
 
 src/version.asm:
-	../../../util/gen-version-asm-file -m GAIDEN -i ../../../common/cpu/z80/src/version.asm.in -o src/version.asm
+	../../../util/gen-version-asm-file -m GAIDEN -i ../../../common/global/src/version.asm.in -o src/version.asm
 
 $(OBJ_DIR)/%.o: src/%.asm $(INCS)
 	$(VASM) $(VASM_FLAGS) $(BUILD_FLAGS) -o $@ $<

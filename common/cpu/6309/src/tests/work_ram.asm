@@ -1,8 +1,8 @@
-
+	include "global/include/macros.inc"
+	include "global/include/screen.inc"
 	include "cpu/6309/include/macros.inc"
 	include "cpu/6309/include/psub.inc"
 	include "cpu/6309/include/xy_string.inc"
-	include "global/include/screen.inc"
 
 	include "error_codes.inc"
 	include "input.inc"
