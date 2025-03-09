@@ -24,7 +24,7 @@ manual_work_ram_tests:
 		RSUB	print_xy_string_list
 
 		INTS_DISABLE
-		PSUB_INIT
+		DSUB_MODE_PSUB
 
 		moveq	#0, d6		; passes, memory tests don't touch it
 
@@ -50,7 +50,7 @@ manual_work_ram_tests:
 		STALL
 
 	.test_exit:
-		RSUB_INIT
+		DSUB_MODE_RSUB
 		INTS_ENABLE
 		bra	main_menu
 

@@ -27,7 +27,7 @@ manual_ram_tests:
 		moveq	#0, d6		; passes, memory tests don't touch it
 
 		INTS_DISABLE
-		PSUB_INIT
+		DSUB_MODE_PSUB
 
 	.loop_next_pass:
 
@@ -66,7 +66,7 @@ manual_ram_tests:
 		STALL
 
 	.test_exit:
-		RSUB_INIT
+		DSUB_MODE_RSUB
 		INTS_ENABLE
 		clr.b	r_menu_cursor
 		bra	main_menu

@@ -1,11 +1,9 @@
 
-	macro PSUB_INIT
-		;moveq	#$0c, d7
+	macro DSUB_MODE_PSUB
 		moveq	#$10, d7
 	endm
 
-	macro RSUB_INIT
-		;moveq	#$18, d7
+	macro DSUB_MODE_RSUB
 		moveq	#$1c, d7
 		move.l	$0, sp	; re-init sp
 	endm

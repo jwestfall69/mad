@@ -28,11 +28,11 @@ _start:
 		move.b #$18, $140000
 		move.b #$0, $106d00
 
-		PSUB_INIT
+		DSUB_MODE_PSUB
 		PSUB	screen_init
 		PSUB	auto_dsub_tests
 
-		RSUB_INIT
+		DSUB_MODE_RSUB
 		bsr	auto_func_tests
 
 		move.b	#SOUND_NUM_SUCCESS, d0

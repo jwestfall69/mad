@@ -37,14 +37,14 @@ _start:
 		; stall.
 		move.w	#$f08, REG_EEPROM_PORT
 
-		PSUB_INIT
+		DSUB_MODE_PSUB
 		PSUB	screen_init
 
 		SOUND_INIT
 
 		PSUB	auto_dsub_tests
 
-		;RSUB_INIT
+		;DSUB_MODE_RSUB
 		moveq	#$1c, d7
 		move.l	#SP_INIT_ADDR, sp
 

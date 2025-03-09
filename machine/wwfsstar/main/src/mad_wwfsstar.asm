@@ -16,11 +16,11 @@ _start:
 		move.w	#$0, REG_SCROLL_X
 		move.w	#$0, REG_SCROLL_Y
 
-		PSUB_INIT
+		DSUB_MODE_PSUB
 		PSUB	screen_init
 		PSUB	auto_dsub_tests
 
-		RSUB_INIT
+		DSUB_MODE_RSUB
 		bsr	auto_func_tests
 
 		moveq	#SOUND_NUM_SUCCESS, d0

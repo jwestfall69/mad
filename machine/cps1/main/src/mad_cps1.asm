@@ -16,12 +16,12 @@ _start:
 
 		SOUND_STOP
 
-		PSUB_INIT
+		DSUB_MODE_PSUB
 		PSUB	cps_a_init
 		PSUB	screen_init_workaround
 		PSUB	auto_dsub_tests
 
-		RSUB_INIT
+		DSUB_MODE_RSUB
 		INTS_ENABLE
 		bsr	auto_func_tests
 

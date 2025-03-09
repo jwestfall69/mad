@@ -22,7 +22,7 @@ auto_work_ram_tests_dsub:
 manual_work_ram_tests:
 		lea	d_screen_xys_list, a0
 		RSUB	print_xy_string_list
-		PSUB_INIT
+		DSUB_MODE_PSUB
 
 		moveq	#0, d6		; passes, memory tests don't touch it
 
@@ -47,7 +47,7 @@ manual_work_ram_tests:
 		STALL
 
 	.test_exit:
-;		RSUB_INIT
+;		DSUB_MODE_RSUB
 		moveq	#$1c, d7
 		move.l	#SP_INIT_ADDR, sp
 		bra	main_menu

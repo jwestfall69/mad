@@ -18,11 +18,11 @@ _start:
 
 		SOUND_STOP
 
-		PSUB_INIT
+		DSUB_MODE_PSUB
 		PSUB	screen_init
 		PSUB	auto_dsub_tests
 
-		RSUB_INIT
+		DSUB_MODE_RSUB
 		; enabling ints so are vblank handler can deal with triggering
 		; a screen update during the vblank.  If we do it manually
 		; during screen draw it will cause random pixel corruption.

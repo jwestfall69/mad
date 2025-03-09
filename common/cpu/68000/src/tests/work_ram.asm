@@ -27,7 +27,7 @@ manual_work_ram_tests:
 		RSUB	print_xy_string_list
 
 		moveq	#0, d6		; passes, memory tests don't touch it
-		PSUB_INIT
+		DSUB_MODE_PSUB
 
 	.loop_next_pass:
 		WATCHDOG
@@ -52,7 +52,7 @@ manual_work_ram_tests:
 		STALL
 
 	.test_exit:
-		RSUB_INIT
+		DSUB_MODE_RSUB
 		clr.b	r_menu_cursor
 		bra	main_menu
 
