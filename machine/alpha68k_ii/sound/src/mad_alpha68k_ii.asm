@@ -1,6 +1,6 @@
 	include "cpu/z80/include/error_codes.inc"
 	include "cpu/z80/include/macros.inc"
-	include "cpu/z80/include/psub.inc"
+	include "cpu/z80/include/dsub.inc"
 
 	include "machine.inc"
 
@@ -12,7 +12,7 @@ _start:
 		di
 		im 1
 
-		PSUB_INIT
+		DSUB_MODE_PSUB
 
 		PSUB	mad_rom_crc32_test
 		jr	nz, .test_failed
@@ -22,7 +22,7 @@ _start:
 
 		PSUB	auto_work_ram_tests
 
-		ld	sp, WORK_RAM_START + WORK_RAM_SIZE - 2
+		DSUB_MODE_RSUB
 
 		; need to see what a busted iorq latch looks like
 		;call	mcpu_latch_tests

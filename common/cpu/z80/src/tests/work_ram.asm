@@ -1,14 +1,14 @@
 	include "cpu/z80/include/macros.inc"
-	include "cpu/z80/include/psub.inc"
+	include "cpu/z80/include/dsub.inc"
 
 	include "error_codes.inc"
 	include "machine.inc"
 
-	global auto_work_ram_tests_psub
+	global auto_work_ram_tests_dsub
 
 	section code
 
-auto_work_ram_tests_psub:
+auto_work_ram_tests_dsub:
 
 		ld	hl, WORK_RAM_START
 		PSUB	memory_output_test
@@ -64,7 +64,7 @@ auto_work_ram_tests_psub:
 		jp	error_address
 
 	.test_passed_march:
-		PSUB_RETURN
+		DSUB_RETURN
 
 	.test_failed_data:
 		ld	a, EC_WORK_RAM_DATA

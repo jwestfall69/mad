@@ -1,5 +1,5 @@
 ; Yamaha ym2203 FM
-	include "cpu/z80/include/psub.inc"
+	include "cpu/z80/include/dsub.inc"
 	include "cpu/z80/include/macros.inc"
 	include "cpu/z80/include/yamaha/ym2203.inc"
 
@@ -61,7 +61,7 @@ ym2203_timera_irq_test:
 		ei
 
 		ld	bc, $ffff
-		PSUB	delay
+		RSUB	delay
 
 		di
 
@@ -105,7 +105,7 @@ ym2203_timerb_irq_test:
 		ei
 
 		ld	bc, $ffff
-		PSUB	delay
+		RSUB	delay
 
 		di
 

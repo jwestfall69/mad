@@ -1,4 +1,4 @@
-	include "cpu/z80/include/psub.inc"
+	include "cpu/z80/include/dsub.inc"
 
 	global unexpected_irq_test
 
@@ -14,7 +14,7 @@ unexpected_irq_test:
 		ei
 
 		ld	bc, $ffff
-		PSUB	delay
+		RSUB	delay
 
 		di
 

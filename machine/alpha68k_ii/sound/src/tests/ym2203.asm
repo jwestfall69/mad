@@ -1,5 +1,5 @@
 	include "cpu/z80/include/macros.inc"
-	include "cpu/z80/include/psub.inc"
+	include "cpu/z80/include/dsub.inc"
 
 	include "error_codes.inc"
 	include "machine.inc"

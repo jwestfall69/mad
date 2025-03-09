@@ -1,13 +1,13 @@
-	include "cpu/z80/include/psub.inc"
+	include "cpu/z80/include/dsub.inc"
 	include "cpu/z80/include/macros.inc"
 
 	include "machine.inc"
 
-	global memory_address_test_psub
-	global memory_data_pattern_test_psub
-	global memory_march_test_psub
-	global memory_output_test_psub
-	global memory_write_test_psub
+	global memory_address_test_dsub
+	global memory_data_pattern_test_dsub
+	global memory_march_test_dsub
+	global memory_output_test_dsub
+	global memory_write_test_dsub
 
 	section code
 
@@ -18,7 +18,7 @@
 ; returns:
 ;  a = 0 (pass), 1 (fail)
 ;  Z = 1 (pass), 0 (fail)
-memory_address_test_psub:
+memory_address_test_dsub:
 		exx
 
 		; backup hl and b to hl' and b'
@@ -79,7 +79,7 @@ memory_address_test_psub:
 		WATCHDOG
 
 		xor a
-		PSUB_RETURN
+		DSUB_RETURN
 
 	.test_failed:
 
@@ -87,7 +87,7 @@ memory_address_test_psub:
 
 		xor	a
 		inc	a
-		PSUB_RETURN
+		DSUB_RETURN
 
 ; params:
 ;  hl = start address
@@ -96,7 +96,7 @@ memory_address_test_psub:
 ; returns:
 ;  Z = 0 (error), 1 = (pass)
 ;  a = 0 (pass), 1 = (fail)
-memory_data_pattern_test_psub:
+memory_data_pattern_test_dsub:
 		exx
 
 	.loop_next_address:
@@ -113,7 +113,7 @@ memory_data_pattern_test_psub:
 		WATCHDOG
 
 		xor	a
-		PSUB_RETURN
+		DSUB_RETURN
 
 	.test_failed_abort:
 
@@ -121,13 +121,13 @@ memory_data_pattern_test_psub:
 
 		xor	a
 		inc	a
-		PSUB_RETURN
+		DSUB_RETURN
 
 
 ; params:
 ;  hl = start address
 ;  de = size
-memory_march_test_psub:
+memory_march_test_dsub:
 		exx
 
 		; back up de to bc
@@ -179,12 +179,12 @@ memory_march_test_psub:
 		jr	nz, .loop_down_test
 
 		xor	a
-		PSUB_RETURN
+		DSUB_RETURN
 
 	.test_failed:
 		xor	a
 		inc	a
-		PSUB_RETURN
+		DSUB_RETURN
 
 ; When a memory address doesn't output anything on a read request it will
 ; usually result in the target register being filled with the opcode for
@@ -196,7 +196,7 @@ memory_march_test_psub:
 ; returns:
 ;  Z = 0 (error), 1 = (pass)
 ;  a = 0 (pass), 1 = (fail)
-memory_output_test_psub:
+memory_output_test_dsub:
 		exx
 
 		WATCHDOG
@@ -218,19 +218,19 @@ memory_output_test_psub:
 		djnz	.loop_next
 
 		xor	a
-		PSUB_RETURN
+		DSUB_RETURN
 
 	.test_failed:
 		xor	a
 		inc	a
-		PSUB_RETURN
+		DSUB_RETURN
 
 ; params:
 ;  hl = memory location to test
 ; returns:
 ;  Z = 0 (error), 1 = (pass)
 ;  a = 0 (pass), 1 = (fail)
-memory_write_test_psub:
+memory_write_test_dsub:
 		exx
 
 		WATCHDOG
@@ -246,9 +246,9 @@ memory_write_test_psub:
 		jr	z, .test_failed
 
 		xor	a
-		PSUB_RETURN
+		DSUB_RETURN
 
 	.test_failed:
 		xor	a
 		inc	a
-		PSUB_RETURN
+		DSUB_RETURN

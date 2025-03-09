@@ -1,15 +1,15 @@
-	include "cpu/z80/include/psub.inc"
+	include "cpu/z80/include/dsub.inc"
 
 	include "machine.inc"
 
-	global delay_psub
+	global delay_dsub
 
 	section code
 
 
 ; params:
 ;  bc = loops
-delay_psub:
+delay_dsub:
 		exx
 	.loop:
 		WATCHDOG
@@ -17,4 +17,4 @@ delay_psub:
 		ld	a, c		; 4 cycles
 		or	b		; 4 cycles
 		jr	nz, .loop	; 12 cycles
-	PSUB_RETURN
+	DSUB_RETURN

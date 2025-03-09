@@ -1,5 +1,5 @@
 ; OKI MSM6295 ADPCM
-	include "cpu/z80/include/psub.inc"
+	include "cpu/z80/include/dsub.inc"
 	include "cpu/z80/include/macros.inc"
 
 	global msm6295_not_playing_test
@@ -58,12 +58,12 @@ msm6295_play_test:
 		or	MSM6295_PHRASE_SEL
 		ld	(hl), a
 		ld	bc, $64
-		PSUB	delay
+		RSUB	delay
 
 		ld	a, MSM6295_CHANNEL4 << 4
 		ld	(hl), a
 		ld	bc, $64
-		PSUB	delay
+		RSUB	delay
 
 		ld	a, (hl)
 		and	a, $f

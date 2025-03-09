@@ -1,8 +1,8 @@
-	include "cpu/z80/include/psub.inc"
+	include "cpu/z80/include/dsub.inc"
 
 	include "machine.inc"
 
-	global crc32_psub
+	global crc32_dsub
 
 	section code
 ; params:
@@ -11,7 +11,7 @@
 ; returns:
 ;  bc = upper 16bits of crc32
 ;  de = lower 16bits of crc32
-crc32_psub:
+crc32_dsub:
 		exx
 
 		ld	a, c
@@ -78,5 +78,5 @@ crc32_psub:
 		ld	a, h
 		cpl
 		ld	d, a
-		PSUB_RETURN
+		DSUB_RETURN
 
