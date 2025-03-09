@@ -1,7 +1,7 @@
 ; Yamaha YM2151 FM
+	include "global/include/yamaha/ym2151.inc"
 	include "cpu/z80/include/dsub.inc"
 	include "cpu/z80/include/macros.inc"
-	include "cpu/z80/include/yamaha/ym2151.inc"
 
 	include "machine.inc"
 	include "error_codes.inc"

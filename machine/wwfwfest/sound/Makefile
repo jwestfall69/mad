@@ -34,9 +34,9 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
 
 INCS = $(wildcard include/*.inc) \
        $(wildcard ../../../common/global/include/*.inc) \
+       $(wildcard ../../../common/global/include/*/*.inc) \
        $(wildcard ../../../common/cpu/z80/include/*.inc) \
        $(wildcard ../../../common/cpu/z80/include/tests/*.inc)
-       $(wildcard ../../../common/cpu/z80/include/tests/*/*.inc)
 
 $(WORK_DIR)/$(MAD_NAME).bin: include/error_codes.inc $(WORK_DIR) $(OBJ_DIR) $(BUILD_DIR) $(OBJS)
 	$(VLINK) $(VLINK_FLAGS) -o $(WORK_DIR)/$(MAD_NAME).bin $(OBJS)
