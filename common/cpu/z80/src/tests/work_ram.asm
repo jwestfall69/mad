@@ -26,25 +26,25 @@ auto_work_ram_tests_dsub:
 	.test_passed_write:
 		ld	hl, WORK_RAM_START
 		ld	de, WORK_RAM_SIZE
-		ld	c, $00
+		ld	b, $00
 		PSUB	memory_data_pattern_test
 		jr	nz, .test_failed_data
 
 		ld	hl, WORK_RAM_START
 		ld	de, WORK_RAM_SIZE
-		ld	c, $55
+		ld	b, $55
 		PSUB	memory_data_pattern_test
 		jr	nz, .test_failed_data
 
 		ld	hl, WORK_RAM_START
 		ld	de, WORK_RAM_SIZE
-		ld	c, $aa
+		ld	b, $aa
 		PSUB	memory_data_pattern_test
 		jr	nz, .test_failed_data
 
 		ld	hl, WORK_RAM_START
 		ld	de, WORK_RAM_SIZE
-		ld	c, $ff
+		ld	b, $ff
 		PSUB	memory_data_pattern_test
 		jr	nz, .test_failed_data
 

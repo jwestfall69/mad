@@ -18,6 +18,9 @@
 ; returns:
 ;  a = 0 (pass), 1 (fail)
 ;  Z = 1 (pass), 0 (fail)
+;  hl = error address
+;  b = expected
+;  c = actual
 memory_address_test_dsub:
 		exx
 
@@ -61,13 +64,15 @@ memory_address_test_dsub:
 		ld	a, $1
 		ld	de, $1
 
-		cp	(hl)
+		ld	c, (hl)
+		cp	c
 		jr	nz, .test_failed
 		inc	a
 
 	.loop_next_read_address:
 		add	hl, de
-		cp	(hl)
+		ld	c, (hl)
+		cp	c
 		jr	nz, .test_failed
 		sbc	hl, de
 
@@ -84,7 +89,7 @@ memory_address_test_dsub:
 	.test_failed:
 
 		WATCHDOG
-
+		ld	b, a
 		xor	a
 		inc	a
 		DSUB_RETURN
@@ -92,17 +97,21 @@ memory_address_test_dsub:
 ; params:
 ;  hl = start address
 ;  de = size
-;  c = pattern
+;  b = pattern
 ; returns:
 ;  Z = 0 (error), 1 = (pass)
 ;  a = 0 (pass), 1 = (fail)
+;  hl = error address
+;  b = expected
+;  c = actual
 memory_data_pattern_test_dsub:
 		exx
 
 	.loop_next_address:
-		ld	a, c
+		ld	a, b
 		ld	(hl), a
-		cp	(hl)
+		ld	c, (hl)
+		cp	c
 		jr	nz, .test_failed_abort
 		inc	hl
 		dec	de
@@ -127,16 +136,29 @@ memory_data_pattern_test_dsub:
 ; params:
 ;  hl = start address
 ;  de = size
+; returns
+;  Z = 0 (error), 1 = (pass)
+;  a = 0 (pass), 1 = (fail)
+;  hl = error address
+;  b = expected
+;  c = actual
 memory_march_test_dsub:
 		exx
 
-		; back up de to bc
-		ld	b, d
-		ld	c, e
+		; backup de to de'
+		ld	a, d
+		exx
+		ld	d, a
+		exx
+		ld	a, e
+		exx
+		ld	e, a
+		exx
 
 		; fill the region with $0
+		ld	b, $0
 	.loop_fill_zero:
-		ld	(hl), $0
+		ld	(hl), b
 		inc	hl
 		dec	de
 		ld	a, d
@@ -145,14 +167,24 @@ memory_march_test_dsub:
 
 		WATCHDOG
 
-		; march up, verify $0, write $ff
-		sbc	hl, bc
-		ld	d, b
-		ld	e, c
+		; restore de from backup
+		exx
+		ld	a, d
+		exx
+		ld	d, a
+		exx
+		ld	a, e
+		exx
+		ld	e, a
+
+		; s, verify $0, write $ff
+		sbc	hl, de
+
 	.loop_up_test:
 
 		xor	a
-		cp	(hl)
+		ld	c, (hl)
+		cp	c
 		jr	nz, .test_failed
 		ld	(hl), $ff
 		inc	hl
@@ -164,12 +196,20 @@ memory_march_test_dsub:
 		WATCHDOG
 
 		; march down, verify $ff, write $0
-		ld	d, b
-		ld	e, c
+		exx
+		ld	a, d
+		exx
+		ld	d, a
+		exx
+		ld	a, e
+		exx
+		ld	e, a
 		dec	hl
+		ld	b, $ff
 	.loop_down_test:
-		ld	a, $ff
-		cp	(hl)
+		ld	a, b
+		ld	c, (hl)
+		cp	c
 		jr	nz, .test_failed
 		ld	(hl), $0
 		dec	hl
