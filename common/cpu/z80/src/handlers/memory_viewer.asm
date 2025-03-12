@@ -90,8 +90,8 @@ memory_dump:
 		ld	c, (iy)
 		RSUB	screen_seek_xy
 
-		ld	b, (ix+0)
-		ld	c, (ix+1)
+		ld	b, (ix + 0)
+		ld	c, (ix + 1)
 		RSUB	print_hex_word
 
 		; 2nd word
@@ -99,8 +99,8 @@ memory_dump:
 		ld	c, (iy)
 		RSUB	screen_seek_xy
 
-		ld	b, (ix+2)
-		ld	c, (ix+3)
+		ld	b, (ix + 2)
+		ld	c, (ix + 3)
 		RSUB	print_hex_word
 
 		; 1st char
@@ -108,7 +108,7 @@ memory_dump:
 		ld	c, (iy)
 		RSUB	screen_seek_xy
 
-		ld	c, (ix+0)
+		ld	c, (ix + 0)
 		RSUB	print_char
 
 		; 2st char
@@ -116,7 +116,7 @@ memory_dump:
 		ld	c, (iy)
 		RSUB	screen_seek_xy
 
-		ld	c, (ix+1)
+		ld	c, (ix + 1)
 		RSUB	print_char
 
 		; 3st char
@@ -124,7 +124,7 @@ memory_dump:
 		ld	c, (iy)
 		RSUB	screen_seek_xy
 
-		ld	c, (ix+2)
+		ld	c, (ix + 2)
 		RSUB	print_char
 
 		; 4st char
@@ -132,7 +132,7 @@ memory_dump:
 		ld	c, (iy)
 		RSUB	screen_seek_xy
 
-		ld	c, (ix+3)
+		ld	c, (ix + 3)
 		RSUB	print_char
 
 		push	ix

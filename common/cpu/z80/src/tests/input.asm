@@ -11,7 +11,7 @@
 ;  ix = address of start of INPUT_ENTRY struct list
 print_input_list:
 		WATCHDOG
-		ld	c, (ix+0)		; y offset
+		ld	c, (ix + 0)		; y offset
 		xor	a
 		cp	c
 		jr	z, .list_end
@@ -19,7 +19,7 @@ print_input_list:
 		ld	b, SCREEN_START_X + 5
 		RSUB	screen_seek_xy
 
-		ld	c, (ix+1)		; io #
+		ld	c, (ix + 1)		; io #
 		in	a, (c)
 		xor	$ff
 		ld	c, a

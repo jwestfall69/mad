@@ -111,14 +111,14 @@ menu_handler:
 		add	ix, bc
 
 		; menu entry string
-		ld	e, (ix+2)
-		ld	d, (ix+3)
+		ld	e, (ix + 2)
+		ld	d, (ix + 3)
 		SEEK_XY SCREEN_START_X, SCREEN_START_Y
 		RSUB	print_string
 
 		; menu entry function
-		ld	l, (ix+0)
-		ld	h, (ix+1)
+		ld	l, (ix + 0)
+		ld	h, (ix + 1)
 
 		; setup stack so we ret to after the jp
 		ld	de, .function_return
@@ -137,8 +137,8 @@ print_menu_list:
 		ld	iy, r_print_menu_line
 		ld	(iy), MENU_Y_OFFSET
 	.loop_next_entry:
-		ld	c, (ix+0)
-		ld	b, (ix+1)
+		ld	c, (ix + 0)
+		ld	b, (ix + 1)
 
 		; function ptr of $0000 is list end
 		ld	a, 0
@@ -153,8 +153,8 @@ print_menu_list:
 		ld	c, (iy)
 		RSUB	screen_seek_xy
 
-		ld	e, (ix+2)
-		ld	d, (ix+3)
+		ld	e, (ix + 2)
+		ld	d, (ix + 3)
 		RSUB	print_string
 
 		ld	bc, 4
