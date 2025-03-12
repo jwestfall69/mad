@@ -1,5 +1,5 @@
 ROM=bf.7
 BUILD_DIR=build/timesold/hardware
-BUILD_FLAGS=-D_YM2203_NO_READ_
+BUILD_FLAGS=-D_YM2203_NO_READ_ -D_HEADLESS_
 
 include common.mk
