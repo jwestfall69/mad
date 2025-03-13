@@ -5,7 +5,6 @@
 	include "cpu/z80/include/xy_string.inc"
 
 	include "error_codes.inc"
-	include "input.inc"
 	include "machine.inc"
 	include "mad.inc"
 
@@ -13,6 +12,7 @@
 
 	ifnd _HEADLESS_
 
+	include "input.inc"
 	global manual_work_ram_tests
 
 	endif
