@@ -10,6 +10,10 @@
 		include "romset/ddtod.inc"
 	endif
 
+	ifd _ROMSET_VSAVU_
+		include "romset/vsavu.inc"
+	endif
+
 	ifd _ROMSET_XMCOTAA_
 		include "romset/xmcotaa.inc"
 	endif

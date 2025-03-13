@@ -1,0 +1,8 @@
+ROMSET=vsavu
+KEY_FILE=$(ROMSET).key
+BUILD_FLAGS=-D_ROMSET_VSAVU_
+ROM=vm3u.03d
+ROM_SIZE=524288
+
+include common.mk
+
