@@ -21,7 +21,7 @@ mad_git_hash:
 		ld	de, d_str_git_hash
 		RSUB	print_string
 
-		ld	a, INPUT_B2
+		ld	b, INPUT_B2
 		call	wait_button_press
 		ret
 

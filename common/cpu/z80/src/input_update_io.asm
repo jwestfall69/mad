@@ -5,6 +5,8 @@
 
 	global input_update
 	global wait_button_press
+	global wait_button_release
+	global check_button_press_dsub
 
 	global r_input_edge
 	global r_input_raw
@@ -31,12 +33,29 @@ input_update:
 		ld	(r_input_raw), a
 		ret
 
+; See if a button is pressed. This is really only needed
+; when we are in PSUB mode and can't use ram/input_update
+; params:
+;  b = button bit mask
+check_button_press_dsub:
+		exx
+
+		in	a, (IO_INPUT)
+		and	b
+		jr	z, .pressed
+
+		ld	a, 0
+		jr	.return
+
+	.pressed:
+		ld	a, 1
+	.return:
+		DSUB_RETURN
+
 ; stall until the passed button is pressed
 ; params:
-;  a = button bit mask
-wait_button_press: ld b, a
-
-	.loop_input:
+;  b = button bit mask
+wait_button_press:
 		WATCHDOG
 		in	a, (IO_INPUT)
 		and	b
@@ -46,17 +65,15 @@ wait_button_press: ld b, a
 		ld	bc, $1ff
 		RSUB	delay
 		pop	bc
-		jr	.loop_input
+		jr	wait_button_press
 
 	.pressed:
 		ret
 
 ; stall until the passed button is not being pressed
 ; params:
-;  a = button bit mask
+;  b = button bit mask
 wait_button_release:
-
-	.loop_input:
 		WATCHDOG
 		in	a, (IO_INPUT)
 		and	b
@@ -66,10 +83,11 @@ wait_button_release:
 		ld	bc, $1ff
 		RSUB	delay
 		pop	bc
-		jr	.loop_input
+		jr	.wait_button_release
 
 	.released:
 		ret
+
 	section bss
 
 r_input_edge:	dc.b $0
