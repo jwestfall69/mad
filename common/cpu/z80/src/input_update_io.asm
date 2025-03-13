@@ -83,7 +83,7 @@ wait_button_release:
 		ld	bc, $1ff
 		RSUB	delay
 		pop	bc
-		jr	.wait_button_release
+		jr	wait_button_release
 
 	.released:
 		ret
