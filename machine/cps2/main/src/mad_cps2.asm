@@ -50,5 +50,8 @@ _start:
 
 		bsr	auto_func_tests
 
+		move.w	#SOUND_NUM_SUCCESS, d0
+		SOUND_PLAY
+
 		clr.b	r_menu_cursor
 		bra	main_menu

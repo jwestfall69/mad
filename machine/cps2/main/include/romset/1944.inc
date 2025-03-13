@@ -7,6 +7,7 @@ CURSOR_CLEAR_CHAR		equ ' '
 
 SOUND_NUM_BIT_ZERO		equ $30
 SOUND_NUM_BIT_ONE		equ $21
+SOUND_NUM_SUCCESS		equ $1a
 
 ; video dac
 VD_TILE_B0_NUM			equ $10

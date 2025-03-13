@@ -10,6 +10,7 @@ CURSOR_CLEAR_CHAR		equ ' '
 ; game
 SOUND_NUM_BIT_ZERO		equ $ff00
 SOUND_NUM_BIT_ONE		equ $ff00
+SOUND_NUM_SUCCESS		equ $ff00
 
 ; video dac
 VD_TILE_B0_NUM			equ $10
