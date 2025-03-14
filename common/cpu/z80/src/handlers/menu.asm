@@ -25,9 +25,15 @@ menu_handler:
 		pop	ix
 		dec	a		; adjust for 0 index
 		ld	(r_menu_cursor_max), a
+
+		; This prevents us from exiting all the way back
+		; to the main menu, when exiting a function in a
+		; submenu
+		ld	b, INPUT_B2
+		call	wait_button_release
+
 		ld	a, (r_menu_cursor)
 		ld	(r_menu_cursor_prev), a
-
 
 		jr	.update_cursor	; force initial cursor draw
 
