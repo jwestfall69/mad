@@ -1,0 +1,64 @@
+	include "romset.inc"
+
+ROM_START			equ $0
+ROM_SIZE			equ $8000
+
+COLOR_RAM_START			equ $c800
+COLOR_RAM_SIZE			equ $800
+COLOR_RAM_ADDRESS_LINES		equ 11
+
+OBJECT_RAM_START		equ $d000
+OBJECT_RAM_SIZE			equ $1000
+OBJECT_RAM_ADDRESS_LINES	equ 12
+
+PALETTE_RAM_START		equ $c000
+PALETTE_RAM_SIZE		equ $800
+PALETTE_RAM_ADDRESS_LINES	equ 11
+
+; object/tile ram are the same address space
+; and have to be bank switched to switch
+; between them
+TILE_RAM_START			equ $d000
+TILE_RAM_SIZE			equ $1000
+TILE_RAM_ADDRESS_LINES		equ 12
+
+WORK_RAM_START			equ $e000
+WORK_RAM_SIZE			equ $2000
+WORK_RAM_ADDRESS_LINES		equ 13
+
+IO_INPUT_P1			equ $01
+IO_INPUT_P2			equ $02
+IO_INPUT_SYS1			equ $00
+IO_INPUT_SYS2			equ $05
+
+IO_CONTROL			equ $00
+CTRL_PALETTE_BANK0		equ $00
+CTRL_PALETTE_BANK1		equ $20
+CTRL_UNKNOWN_BIT3		equ $08
+CTRL_UNKNOWN_BIT6		equ $40
+
+IO_ROM_BANK			equ $02
+
+IO_VIDEO_BANK			equ $07
+VIDEO_BANK_TILE			equ $0
+VIDEO_BANK_OBJECT		equ $1
+
+
+IO_YM2413_DATA			equ $03
+IO_YM2413_ADDRESS		equ $04
+IO_MSM6295			equ $05
+
+; note only 48 tiles are visable
+SCREEN_TILES_PER_LINE		equ 64
+SCREEN_BYTES_PER_TILE		equ 2
+SCREEN_BYTES_PER_LINE		equ (SCREEN_BYTES_PER_TILE * SCREEN_TILES_PER_LINE)
+
+	macro	SEEK_XY
+		ld	hl, TILE_RAM_START + $90 + (\1 * SCREEN_BYTES_PER_TILE) + (\2 * SCREEN_BYTES_PER_LINE)
+	endm
+
+	macro	SEEK_LN
+		ld	hl, TILE_RAM_START + $90 + (\1 * SCREEN_BYTES_PER_LINE)
+	endm
+	macro WATCHDOG
+	endm
