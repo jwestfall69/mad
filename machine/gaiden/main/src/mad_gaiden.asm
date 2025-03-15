@@ -47,7 +47,7 @@ _start:
 
 		DSUB_MODE_PSUB
 		PSUB	screen_init
-		PSUB	auto_dsub_tests
+		PSUB	auto_test_dsub_handler
 
 		DSUB_MODE_RSUB
 		bsr	auto_func_tests

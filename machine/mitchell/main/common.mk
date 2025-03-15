@@ -19,11 +19,11 @@ OBJS = $(OBJ_DIR)/cpu/z80/src/crc32.o \
        $(OBJ_DIR)/cpu/z80/src/util.o \
        $(OBJ_DIR)/cpu/z80/src/xy_string.o \
        $(OBJ_DIR)/cpu/z80/src/debug/mad_git_hash.o \
+       $(OBJ_DIR)/cpu/z80/src/handlers/auto_test.o \
        $(OBJ_DIR)/cpu/z80/src/handlers/error.o \
        $(OBJ_DIR)/cpu/z80/src/handlers/memory_tests.o \
        $(OBJ_DIR)/cpu/z80/src/handlers/memory_viewer.o \
        $(OBJ_DIR)/cpu/z80/src/handlers/menu.o \
-       $(OBJ_DIR)/cpu/z80/src/tests/auto.o \
        $(OBJ_DIR)/cpu/z80/src/tests/input.o \
        $(OBJ_DIR)/cpu/z80/src/tests/mad_rom.o \
        $(OBJ_DIR)/cpu/z80/src/tests/memory.o \

@@ -42,7 +42,7 @@ _start:
 
 		SOUND_INIT
 
-		PSUB	auto_dsub_tests
+		PSUB	auto_test_dsub_handler
 
 		;DSUB_MODE_RSUB
 		moveq	#$1c, d7

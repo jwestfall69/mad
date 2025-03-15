@@ -22,13 +22,13 @@ OBJS = $(OBJ_DIR)/cpu/6309/src/crc32.o \
        $(OBJ_DIR)/cpu/6309/src/xy_string.o \
        $(OBJ_DIR)/cpu/6309/src/debug/error_address_test.o \
        $(OBJ_DIR)/cpu/6309/src/debug/mad_git_hash.o \
+       $(OBJ_DIR)/cpu/6309/src/handlers/auto_test.o \
        $(OBJ_DIR)/cpu/6309/src/handlers/error.o \
        $(OBJ_DIR)/cpu/6309/src/handlers/memory_tests.o \
        $(OBJ_DIR)/cpu/6309/src/handlers/memory_viewer.o \
        $(OBJ_DIR)/cpu/6309/src/handlers/menu.o \
        $(OBJ_DIR)/cpu/6309/src/handlers/sound.o \
        $(OBJ_DIR)/cpu/6309/src/handlers/tile8_viewer.o \
-       $(OBJ_DIR)/cpu/6309/src/tests/auto.o \
        $(OBJ_DIR)/cpu/6309/src/tests/input.o \
        $(OBJ_DIR)/cpu/6309/src/tests/memory.o \
        $(OBJ_DIR)/cpu/6309/src/tests/mad_rom.o \

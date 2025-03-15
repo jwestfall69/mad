@@ -1,21 +1,19 @@
 	include "cpu/6309/include/macros.inc"
 	include "cpu/6309/include/psub.inc"
-	include "cpu/6309/include/tests/auto.inc"
+	include "cpu/6309/include/handlers/auto_test.inc"
 	include "global/include/screen.inc"
 
 	include "machine.inc"
 
-	global auto_func_tests
+	global auto_test_func_handler
 
 	section code
 
-auto_func_tests:
-
-		ldy	#d_auto_func_list
-
-	.loop_next_test:
+; params:
+;  y = auto_test_list
+auto_test_func_handler:
 		; table is null terminated
-		ldd	s_ae_function_ptr, y
+		ldd	s_at_function_ptr, y
 		tstd
 		beq	.all_tests_done
 
@@ -24,12 +22,12 @@ auto_func_tests:
 
 		pshs	y
 		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
-		ldy	s_ae_name_ptr, y
+		ldy	s_at_name_ptr, y
 		PSUB	print_string
 		puls	y
 		pshs	y
 
-		jsr	[s_ae_function_ptr, y]
+		jsr	[s_at_function_ptr, y]
 		tsta
 		bne	.test_failed
 
@@ -38,8 +36,8 @@ auto_func_tests:
 		PSUB	screen_init
 
 		puls	y
-		leay	s_ae_struct_size, y
-		bra	.loop_next_test
+		leay	s_at_struct_size, y
+		bra	auto_test_func_handler
 
 	.test_failed:
 		jsr	error_handler	; never returns

@@ -16,11 +16,11 @@ _start:
 
 		SOUND_STOP
 
-		PSUB_INIT
+		DSUB_MODE_PSUB
 		PSUB	screen_init
-		PSUB	auto_dsub_tests
+		PSUB	auto_test_dsub_handler
 
-		RSUB_INIT
+		DSUB_MODE_RSUB
 		bsr	auto_func_tests
 
 		;moveq	#SOUND_NUM_SUCCESS, d0

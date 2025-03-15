@@ -1,22 +1,20 @@
 	include "cpu/z80/include/dsub.inc"
 	include "cpu/z80/include/macros.inc"
-	include "cpu/z80/include/tests/auto.inc"
+	include "cpu/z80/include/handlers/auto_test.inc"
 	include "global/include/screen.inc"
 
 	include "machine.inc"
 
-	global auto_func_tests
+	global auto_test_func_handler
 
 	section code
 
-auto_func_tests:
-
-		ld	ix, d_auto_func_list
-
-	.loop_next_test:
+; params:
+;  ix = auto test list
+auto_test_func_handler:
 		; table is null terminated
-		ld	c, (ix + s_ae_function_ptr)
-		ld	b, (ix + s_ae_function_ptr + 1)
+		ld	c, (ix + s_at_function_ptr)
+		ld	b, (ix + s_at_function_ptr + 1)
 
 		; function ptr of $0000 is list end
 		ld	a, 0
@@ -32,12 +30,12 @@ auto_func_tests:
 		RSUB	print_clear_line
 
 		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
-		ld	e, (ix + s_ae_name_ptr)
-		ld	d, (ix + s_ae_name_ptr + 1)
+		ld	e, (ix + s_at_name_ptr)
+		ld	d, (ix + s_at_name_ptr + 1)
 		RSUB	print_string
 
-		ld	l, (ix + s_ae_function_ptr)
-		ld	h, (ix + s_ae_function_ptr + 1)
+		ld	l, (ix + s_at_function_ptr)
+		ld	h, (ix + s_at_function_ptr + 1)
 
 		push 	ix
 
@@ -53,9 +51,9 @@ auto_func_tests:
 		; screwed it up
 		RSUB	screen_init
 
-		ld	bc, s_ae_struct_size
+		ld	bc, s_at_struct_size
 		add	ix, bc
-		jr	.loop_next_test
+		jr	auto_test_func_handler
 
 	.test_failed:
 		jp	error_handler

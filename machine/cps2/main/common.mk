@@ -23,13 +23,13 @@ OBJS = $(OBJ_DIR)/cpu/68000/src/crc32.o \
        $(OBJ_DIR)/cpu/68000/src/debug/ec_dupe_check.o \
        $(OBJ_DIR)/cpu/68000/src/debug/error_address_test.o \
        $(OBJ_DIR)/cpu/68000/src/debug/mad_git_hash.o \
+       $(OBJ_DIR)/cpu/68000/src/handlers/auto_test.o \
        $(OBJ_DIR)/cpu/68000/src/handlers/error.o \
        $(OBJ_DIR)/cpu/68000/src/handlers/memory_tests.o \
        $(OBJ_DIR)/cpu/68000/src/handlers/memory_viewer.o \
        $(OBJ_DIR)/cpu/68000/src/handlers/menu.o \
        $(OBJ_DIR)/cpu/68000/src/handlers/sound.o \
        $(OBJ_DIR)/cpu/68000/src/handlers/tile8_viewer.o \
-       $(OBJ_DIR)/cpu/68000/src/tests/auto.o \
        $(OBJ_DIR)/cpu/68000/src/tests/input.o \
        $(OBJ_DIR)/cpu/68000/src/tests/mad_rom.o \
        $(OBJ_DIR)/cpu/68000/src/tests/memory.o
