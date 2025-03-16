@@ -1,8 +1,7 @@
 ; gaiden sound cpu has a watchdog and requires some special stuff to
 ; work around it, more below
 
-	include "cpu/z80/include/macros.inc"
-
+	include "error_codes.inc"
 	include "machine.inc"
 
 	global error_address
@@ -15,7 +14,7 @@
 ; be pusling.  This leaves us with 6 useable address lines (A7 to A12)
 ; to communicate the error code to the user.
 error_address:
-		and	$3f		; error codes can only be 6 bits
+		and	EC_MASK		; error codes can only be 6 bits
 
 		ld	bc, $2000	; base of error addresses
 

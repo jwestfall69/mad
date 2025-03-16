@@ -1,5 +1,4 @@
-	include "cpu/6809/include/macros.inc"
-	include "machine.inc"
+	include "error_codes.inc"
 
 	global error_address
 

@@ -4,6 +4,7 @@
 	include "cpu/68000/include/macros.inc"
 	include "cpu/68000/include/xy_string.inc"
 
+	include "error_codes.inc"
 	include "input.inc"
 	include "machine.inc"
 
@@ -18,7 +19,7 @@ error_address_test:
 		lea	d_screen_xys_list, a0
 		RSUB	print_xy_string_list
 
-		and.l	#$7f, d4	; error codes are limited to 7 bits
+		and.l	#EC_MASK, d4
 		move.b	d4, d0
 		SEEK_XY	(SCREEN_START_X + 19), (SCREEN_START_Y + 6)
 		RSUB	print_hex_byte

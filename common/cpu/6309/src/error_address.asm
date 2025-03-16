@@ -1,4 +1,4 @@
-	include "machine.inc"
+	include "error_codes.inc"
 
 	global error_address
 
@@ -8,7 +8,7 @@
 ;  a = error code
 error_address:
 		; jump address is $f000 | (error_code << 4)
-		anda	#$3f
+		anda	#EC_MASK
 		clrb
 		rord
 		rord

@@ -1,5 +1,4 @@
-
-	include "cpu/z80/include/macros.inc"
+	include "error_codes.inc"
 
 	global error_address
 
@@ -12,7 +11,7 @@
 ; to communicate the error code to the user.
 error_address:
 		; jump address is $2000 | (a << 7)
-		and	$3f
+		and	EC_MASK
 		ld	bc, $2000
 		ld	hl, $0		; make the error code be bits 7 to 12 of hl
 		ld	h, a

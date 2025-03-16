@@ -1,3 +1,5 @@
+	include "error_codes.inc"
+
 	global error_address
 
 	section code
@@ -6,7 +8,7 @@
 ;  d0 = error code
 error_address:
 		; jump address is $6000 | (d0 << 5)
-		and.l	#$7f, d0
+		and.l	#EC_MASK, d0
 		lsl.l	#5, d0
 		or.l	#$6000, d0
 		move.l	d0, a0

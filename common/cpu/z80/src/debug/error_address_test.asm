@@ -4,6 +4,7 @@
 	include "cpu/z80/include/macros.inc"
 	include "cpu/z80/include/xy_string.inc"
 
+	include "error_codes.inc"
 	include "input.inc"
 	include "machine.inc"
 	include "mad.inc"
@@ -20,7 +21,7 @@ error_address_test:
 		ld	(r_error_code), a
 
 	.update_byte:
-		ld	b, $3f		; error codes are limited to 6 bits
+		ld	b, EC_MASK
 		and	b
 		ld	(r_error_code), a
 

@@ -4,6 +4,7 @@
 	include "cpu/6309/include/psub.inc"
 	include "cpu/6309/include/xy_string.inc"
 
+	include "error_codes.inc"
 	include "input.inc"
 	include "machine.inc"
 	include "mad.inc"
@@ -20,8 +21,9 @@ error_address_test:
 
 	.update_byte:
 		tfr	f, a
-		anda	#$3f		; error codes are limited to 6 bits
+		anda	#EC_MASK
 		tfr	a, f
+
 		SEEK_XY	(SCREEN_START_X + 17), (SCREEN_START_Y + 6)
 		PSUB	print_hex_byte
 
