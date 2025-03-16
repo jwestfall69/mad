@@ -18,6 +18,7 @@ OBJS = $(OBJ_DIR)/cpu/z80/src/crc32.o \
        $(OBJ_DIR)/cpu/z80/src/print_error.o \
        $(OBJ_DIR)/cpu/z80/src/util.o \
        $(OBJ_DIR)/cpu/z80/src/xy_string.o \
+       $(OBJ_DIR)/cpu/z80/src/debug/error_address_test.o \
        $(OBJ_DIR)/cpu/z80/src/debug/mad_git_hash.o \
        $(OBJ_DIR)/cpu/z80/src/handlers/auto_test.o \
        $(OBJ_DIR)/cpu/z80/src/handlers/error.o \
