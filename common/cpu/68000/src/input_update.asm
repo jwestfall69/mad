@@ -31,5 +31,5 @@ input_update:
 	section bss
 	align 1
 
-r_input_edge:		dc.b $0
-r_input_raw:		dc.b $0
+r_input_edge:		dcb.b 1
+r_input_raw:		dcb.b 1

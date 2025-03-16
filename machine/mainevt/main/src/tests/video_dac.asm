@@ -291,17 +291,11 @@ d_screen_xys_list:
 	XY_STRING_LIST_END
 
 	section bss
-r_draw_colors_x_offset:
-	dcb.b	1
-r_draw_colors_y_offset:
-	dcb.b	1
-r_generate_tiles_palette_num:
-	dcb.b	1
-r_palette_color_bits:
-	dcb.w	1
-r_palette_color_mask:
-	dcb.w	1
 
-r_tiles_table:
-	dcb.w	VD_NUM_COLORS*VD_NUM_BITS_PER_COLOR
+r_draw_colors_x_offset:		dcb.b 1
+r_draw_colors_y_offset:		dcb.b 1
+r_generate_tiles_palette_num:	dcb.b 1
+r_palette_color_bits:		dcb.w 1
+r_palette_color_mask:		dcb.w 1
+r_tiles_table:			dcb.w VD_NUM_COLORS*VD_NUM_BITS_PER_COLOR
 

@@ -196,5 +196,5 @@ d_str_read_mode_word:		STRING "WORD"
 
 ; ran out of registers in memory_dump so
 ; have to use ram for the read mode
-r_read_mode:	dc.b	$0
-r_debug_memory:	dc.b	$0
+r_read_mode:		dcb.b 1
+r_debug_memory:		dcb.b 1

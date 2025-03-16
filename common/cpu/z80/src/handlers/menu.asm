@@ -177,8 +177,8 @@ print_menu_list:
 
 	section bss
 
-r_print_menu_line:	dc.b $0
-r_menu_list_ptr:	dc.w $0
-r_menu_cursor:		dc.b $0
-r_menu_cursor_prev:	dc.b $0
-r_menu_cursor_max:	dc.b $0
+r_print_menu_line:	dcb.b 1
+r_menu_list_ptr:	dcb.w 1
+r_menu_cursor:		dcb.b 1
+r_menu_cursor_prev:	dcb.b 1
+r_menu_cursor_max:	dcb.b 1

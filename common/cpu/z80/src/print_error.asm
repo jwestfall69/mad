@@ -175,8 +175,8 @@ d_str_print_function:	STRING "PRINT FUNCTION", CHAR_COLON
 
 ; error handler will populate these before calling
 ; the necessary print_error function.
-r_pe_data_a:		dc.b $0
-r_pe_data_b:		dc.b $0
-r_pe_data_c:		dc.b $0
-r_pe_data_hl:		dc.w $0
-r_pe_string_ptr:	dc.w $0
+r_pe_data_a:		dcb.b 1
+r_pe_data_b:		dcb.b 1
+r_pe_data_c:		dcb.b 1
+r_pe_data_hl:		dcb.w 1
+r_pe_string_ptr:	dcb.w 1

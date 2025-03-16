@@ -35,5 +35,4 @@ nmi_handler:
 
 	section bss
 
-r_irq_seen:
-		dc.b	$0
+r_irq_seen:	dcb.b 1

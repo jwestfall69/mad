@@ -99,4 +99,4 @@ memory_tests_handler:
 
 	section bss
 
-r_mt_data_ptr:	dc.w $0
+r_mt_data_ptr:		dcb.w 1

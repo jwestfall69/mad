@@ -163,6 +163,7 @@ d_screen_xys_list:
 	XY_STRING_LIST_END
 
 	section bss
-r_current_row		dc.b $0
-r_remaining_rows	dc.b $0
+
+r_current_row		dcb.b 1
+r_remaining_rows	dcb.b 1
 

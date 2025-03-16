@@ -22,4 +22,4 @@ irq6_handler:
 	section bss
 	align 1
 
-r_irq_vblank_count:	dc.l $0
+r_irq_vblank_count:	dcb.l 1

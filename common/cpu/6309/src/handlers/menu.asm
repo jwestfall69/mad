@@ -158,6 +158,6 @@ print_menu_list:
 
 	section bss
 
-r_menu_list_ptr:	dc.w $0
-r_menu_cursor:		dc.b $0
+r_menu_list_ptr:	dcb.w 1
+r_menu_cursor:		dcb.b 1
 

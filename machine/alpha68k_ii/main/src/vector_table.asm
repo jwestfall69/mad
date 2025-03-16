@@ -48,6 +48,6 @@ irq3_handler:
 	section bss
 	align 1
 
-r_irq1_count:	dc.l $0
-r_irq2_count:	dc.l $0
-r_irq3_count:	dc.l $0
+r_irq1_count:		dcb.l 1
+r_irq2_count:		dcb.l 1
+r_irq3_count:		dcb.l 1

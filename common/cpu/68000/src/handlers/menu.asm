@@ -155,5 +155,5 @@ print_menu_list:
 	section bss
 	align 1
 
-r_menu_list:		dc.l	$0
-r_menu_cursor:		dc.b	$0
+r_menu_list:		dcb.l 1
+r_menu_cursor:		dcb.b 1

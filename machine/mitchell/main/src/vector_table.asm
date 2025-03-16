@@ -40,4 +40,4 @@ nmi_handler:
 
 	section bss
 
-r_irq_count:	dc.w $0
+r_irq_count:	dcb.w 1

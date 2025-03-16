@@ -70,4 +70,4 @@ fg_set_bank:
 	section bss
 	align 1
 
-r_fg_current_bank:	dc.b $0
+r_fg_current_bank:	dcb.b 1

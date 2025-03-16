@@ -125,7 +125,7 @@ d_str_0f:		STRING "0123456789ABCDEF"
 	section bss
 	align 1
 
-r_seek_xy_cb:		dc.l	$0
-r_draw_tile_cb:		dc.l	$0
-r_tile_offset:		dc.w	$0
-r_tile_offset_mask:	dc.w	$0
+r_seek_xy_cb:		dcb.l 1
+r_draw_tile_cb:		dcb.l 1
+r_tile_offset:		dcb.w 1
+r_tile_offset_mask:	dcb.w 1

@@ -100,5 +100,5 @@ d_screen_xys_list:
 	section bss
 	align 1
 
-r_input_system_edge:	dc.b $0
-r_input_system_raw:	dc.b $0
+r_input_system_edge:		dcb.b 1
+r_input_system_raw:		dcb.b 1

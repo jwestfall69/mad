@@ -90,5 +90,4 @@ d_str_no_dupes:		STRING "NO DUPES FOUND"
 	section bss
 	align 1
 
-r_ec_seen:
-	dcb.b	32
+r_ec_seen:		dcb.b 32

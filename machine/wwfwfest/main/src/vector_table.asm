@@ -31,5 +31,5 @@ irq3_handler:
 	section bss
 	align 1
 
-r_irq_timer_count:	dc.l $0
-r_irq_vblank_count:	dc.l $0
+r_irq_timer_count:		dcb.l 1
+r_irq_vblank_count:		dcb.l 1

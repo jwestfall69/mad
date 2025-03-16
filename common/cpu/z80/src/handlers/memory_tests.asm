@@ -104,5 +104,5 @@ memory_tests_handler:
 
 	section bss
 
-r_size:			dc.w $0
-r_start_address:	dc.w $0
+r_size:			dcb.w 1
+r_start_address:	dcb.w 1

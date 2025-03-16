@@ -264,5 +264,4 @@ d_screen_xys_list:
 	section bss
 	align 1
 
-r_tiles_table:
-	dcb.l	VD_NUM_COLORS*VD_NUM_BITS_PER_COLOR
+r_tiles_table:		dcb.l VD_NUM_COLORS*VD_NUM_BITS_PER_COLOR

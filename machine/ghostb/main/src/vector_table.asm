@@ -34,4 +34,4 @@ swi_handler:
 
 	section bss
 
-r_irq_vblank_count:	dc.w $0
+r_irq_vblank_count:	dcb.w 1

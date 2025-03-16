@@ -57,8 +57,3 @@ d_screen_xys_list:
 	XY_STRING (SCREEN_START_X + 0), (SCREEN_START_Y + 6), "SYS2"
 	XY_STRING SCREEN_START_X, SCREEN_B2_Y, "B2 RIGHT - RETURN TO MENU"
 	XY_STRING_LIST_END
-
-	section bss
-
-r_input_sys2_edge:	dc.b $0
-r_input_sys2_raw:	dc.b $0

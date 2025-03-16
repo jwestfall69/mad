@@ -166,8 +166,8 @@ d_str_8f:		STRING "8 9 A B C D E F"
 	section bss
 	align 1
 
-r_seek_xy_cb:		dc.l	$0
-r_draw_tile_cb:		dc.l	$0
-r_tile_offset:		dc.w	$0
-r_tile_offset_mask:	dc.w	$0
-r_quadrant:		dc.b	$0
+r_seek_xy_cb:		dcb.l 1
+r_draw_tile_cb:		dcb.l 1
+r_tile_offset:		dcb.w 1
+r_tile_offset_mask:	dcb.w 1
+r_quadrant:		dcb.b 1
