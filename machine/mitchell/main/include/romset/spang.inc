@@ -1,6 +1,8 @@
 CURSOR_CHAR			equ '*'
 CURSOR_CLEAR_CHAR		equ ' '
 
+CHAR_COLON			equ ':'
+
 	macro ROMSET_PALETTE_SETUP
 		ld	bc, PALETTE_TEXT_COLOR
 		ld	(PALETTE_RAM_START + 2), bc

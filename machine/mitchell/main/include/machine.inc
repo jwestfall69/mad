@@ -14,6 +14,7 @@ OBJECT_RAM_ADDRESS_LINES	equ 12
 PALETTE_RAM_START		equ $c000
 PALETTE_RAM_SIZE		equ $800
 PALETTE_RAM_ADDRESS_LINES	equ 11
+PALETTE_SIZE			equ $20
 
 ; object/tile ram are the same address space
 ; and have to be bank switched to switch

@@ -24,6 +24,7 @@ OBJS = $(OBJ_DIR)/cpu/z80/src/crc32.o \
        $(OBJ_DIR)/cpu/z80/src/handlers/memory_tests.o \
        $(OBJ_DIR)/cpu/z80/src/handlers/memory_viewer.o \
        $(OBJ_DIR)/cpu/z80/src/handlers/menu.o \
+       $(OBJ_DIR)/cpu/z80/src/handlers/tile8_viewer.o \
        $(OBJ_DIR)/cpu/z80/src/tests/input.o \
        $(OBJ_DIR)/cpu/z80/src/tests/mad_rom.o \
        $(OBJ_DIR)/cpu/z80/src/tests/memory.o \
@@ -36,6 +37,7 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/screen.o \
         $(OBJ_DIR)/vector_table.o \
         $(OBJ_DIR)/version.o \
+        $(OBJ_DIR)/debug/fg_tile_viewer.o \
         $(OBJ_DIR)/menus/debug.o \
         $(OBJ_DIR)/menus/main.o \
         $(OBJ_DIR)/menus/memory_viewer.o \
@@ -73,7 +75,7 @@ $(WORK_DIR):
 	$(MKDIR) -p $(WORK_DIR)
 
 $(OBJ_DIR):
-	$(MKDIR) -p $(OBJ_DIR)/tests $(OBJ_DIR)/menus $(OBJ_DIR)/cpu/z80/src/debug $(OBJ_DIR)/cpu/z80/src/handlers $(OBJ_DIR)/cpu/z80/src/tests/oki $(OBJ_DIR)/cpu/z80/src/tests/yamaha
+	$(MKDIR) -p $(OBJ_DIR)/tests $(OBJ_DIR)/debug $(OBJ_DIR)/menus $(OBJ_DIR)/cpu/z80/src/debug $(OBJ_DIR)/cpu/z80/src/handlers $(OBJ_DIR)/cpu/z80/src/tests/oki $(OBJ_DIR)/cpu/z80/src/tests/yamaha
 
 .PHONY: src/version.asm
 
