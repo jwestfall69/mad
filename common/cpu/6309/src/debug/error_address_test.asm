@@ -17,6 +17,10 @@ error_address_test:
 		ldy	#d_screen_xys_list
 		PSUB	print_xy_string_list
 
+		lda	#EC_MASK
+		SEEK_XY (SCREEN_START_X + 17), (SCREEN_START_Y + 5)
+		PSUB	print_hex_byte
+
 		ldf	#$1
 
 	.update_byte:
@@ -89,6 +93,7 @@ error_address_test:
 	section data
 
 d_screen_xys_list:
+	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 5), <"EC MASK", CHAR_COLON>
 	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 6), <"ERROR NUM", CHAR_COLON>
 	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 7), <"ERROR ADDRESS", CHAR_COLON>
 	XY_STRING SCREEN_START_X, SCREEN_B1_Y, "B1 - TRIGGER ERROR ADDRESS"

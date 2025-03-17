@@ -15,10 +15,14 @@
 error_address_test:
 		moveq	#$0, d4		; error num
 
-	.update_byte:
 		lea	d_screen_xys_list, a0
 		RSUB	print_xy_string_list
 
+		move.b	#EC_MASK, d0
+		SEEK_XY (SCREEN_START_X + 19), (SCREEN_START_Y + 5)
+		RSUB	print_hex_byte
+
+	.update_byte:
 		and.l	#EC_MASK, d4
 		move.b	d4, d0
 		SEEK_XY	(SCREEN_START_X + 19), (SCREEN_START_Y + 6)
@@ -81,6 +85,7 @@ error_address_test:
 	align 1
 
 d_screen_xys_list:
+	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 5), <"EC MASK", CHAR_COLON>
 	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 6), <"ERROR NUM", CHAR_COLON>
 	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 7), <"ERROR ADDRESS", CHAR_COLON>
 

@@ -17,6 +17,10 @@ error_address_test:
 		ld	de, d_screen_xys_list
 		call	print_xy_string_list
 
+		SEEK_XY (SCREEN_START_X + 17), (SCREEN_START_Y + 5)
+		ld	c, EC_MASK
+		RSUB	print_hex_byte
+
 		ld	a, 1
 		ld	(r_error_code), a
 
@@ -96,7 +100,8 @@ error_address_test:
 	section data
 
 d_screen_xys_list:
-	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 6), <"ERROR NUM", CHAR_COLON>
+	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 5), <"EC MASK", CHAR_COLON>
+	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 6), <"ERROR CODE", CHAR_COLON>
 	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 7), <"ERROR ADDRESS", CHAR_COLON>
 	XY_STRING SCREEN_START_X, SCREEN_B1_Y, "B1 - TRIGGER ERROR ADDRESS"
 	XY_STRING SCREEN_START_X, SCREEN_B2_Y, "B2 - RETURN TO MENU"
