@@ -52,10 +52,10 @@ manual_palette_ram_tests:
 		clrd
 
 	.loop_next_pass:
-		pshs	d
 		WATCHDOG
 
 		SEEK_XY	SCREEN_PASSES_VALUE_X, SCREEN_PASSES_Y
+		pshs	d
 		PSUB	print_hex_word
 
 		jsr	auto_palette_ram_tests

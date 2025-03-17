@@ -110,9 +110,9 @@ menu_handler:
 		ldy	r_menu_list_ptr
 		leay	a, y
 		pshs	y
-		ldy	s_me_name_ptr, y
 
 		SEEK_XY SCREEN_START_X, SCREEN_START_Y
+		ldy	s_me_name_ptr, y
 		PSUB	print_string
 		puls	y
 

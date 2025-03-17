@@ -145,13 +145,13 @@ print_error_work_ram_memory_psub:
 		SEEK_XY	(SCREEN_START_X + 10), (SCREEN_START_Y + 2)
 		PSUB	print_hex_word
 
-		tfr	y, d
 		SEEK_XY	(SCREEN_START_X + 12), (SCREEN_START_Y + 3)
+		tfr	y, d
 		PSUB	print_hex_byte
 
+		SEEK_XY	(SCREEN_START_X + 12), (SCREEN_START_Y + 4)
 		tfr	y, d
 		exg	a, b
-		SEEK_XY	(SCREEN_START_X + 12), (SCREEN_START_Y + 4)
 		PSUB	print_hex_byte
 
 		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 2)

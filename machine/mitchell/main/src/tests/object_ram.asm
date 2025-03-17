@@ -30,12 +30,12 @@ manual_object_ram_tests:
 		ld	bc, 0		; # of passes
 
 	.loop_next_pass:
-		push	bc
 		WATCHDOG
 
 		ld	a, VIDEO_BANK_TILE
 		out	(IO_VIDEO_BANK), a
 		SEEK_XY	SCREEN_PASSES_VALUE_X, SCREEN_PASSES_Y
+		push	bc
 		RSUB	print_hex_word
 
 		call	auto_object_ram_tests

@@ -58,8 +58,8 @@ mad_rom_crc32_test_dsub:
 		PSUB	print_hex_word
 
 		; restore and already in bc
-		exx
 		SEEK_XY	(SCREEN_START_X + 16), (SCREEN_START_Y + 3)
+		exx
 		PSUB	print_hex_word
 
 		; expected

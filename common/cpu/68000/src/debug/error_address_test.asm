@@ -18,21 +18,21 @@ error_address_test:
 		lea	d_screen_xys_list, a0
 		RSUB	print_xy_string_list
 
-		move.b	#EC_MASK, d0
 		SEEK_XY (SCREEN_START_X + 19), (SCREEN_START_Y + 5)
+		move.b	#EC_MASK, d0
 		RSUB	print_hex_byte
 
 	.update_byte:
+		SEEK_XY	(SCREEN_START_X + 19), (SCREEN_START_Y + 6)
 		and.l	#EC_MASK, d4
 		move.b	d4, d0
-		SEEK_XY	(SCREEN_START_X + 19), (SCREEN_START_Y + 6)
 		RSUB	print_hex_byte
 
+		SEEK_XY	(SCREEN_START_X + 15), (SCREEN_START_Y + 7)
 		move.b	d4, d0
 		and.l	#$ff, d0
 		lsl.l	#5, d0
 		or.l	#$6000, d0
-		SEEK_XY	(SCREEN_START_X + 15), (SCREEN_START_Y + 7)
 		RSUB	print_hex_3_bytes
 
 	.loop_input:

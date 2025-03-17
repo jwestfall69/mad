@@ -117,9 +117,9 @@ menu_handler:
 		add	ix, bc
 
 		; menu entry string
+		SEEK_XY SCREEN_START_X, SCREEN_START_Y
 		ld	e, (ix + s_me_name_ptr)
 		ld	d, (ix + s_me_name_ptr + 1)
-		SEEK_XY SCREEN_START_X, SCREEN_START_Y
 		RSUB	print_string
 
 		; menu entry function

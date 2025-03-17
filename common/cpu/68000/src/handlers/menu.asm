@@ -108,9 +108,8 @@ menu_handler:
 		mulu	#8, d0
 		add.l	d0, a1
 
-		move.l	s_me_name_ptr(a1), a0
-
 		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
+		move.l	s_me_name_ptr(a1), a0
 		RSUB	print_string
 
 		move.b	r_menu_cursor, -(a7)

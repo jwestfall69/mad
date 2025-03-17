@@ -22,9 +22,8 @@ input_test:
 		ei
 
 	.loop_test:
-
-		ld	bc, (r_irq_count)
 		SEEK_XY (SCREEN_START_X + 18), (SCREEN_START_Y + 3)
+		ld	bc, (r_irq_count)
 		RSUB	print_hex_word
 
 		ld	ix, d_input_list

@@ -25,8 +25,8 @@ input_test:
 		move.l	r_irq_vblank_count, d0
 		RSUB	print_hex_3_bytes
 
-		moveq	#0, d0
 		SEEK_XY (SCREEN_START_X + 20), (SCREEN_START_Y + 4)
+		moveq	#0, d0
 		move.w	REGB_SCANLINE, d0
 		RSUB	print_hex_3_bytes
 

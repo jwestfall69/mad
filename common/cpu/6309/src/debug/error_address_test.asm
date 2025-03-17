@@ -17,18 +17,17 @@ error_address_test:
 		ldy	#d_screen_xys_list
 		PSUB	print_xy_string_list
 
-		lda	#EC_MASK
 		SEEK_XY (SCREEN_START_X + 17), (SCREEN_START_Y + 5)
+		lda	#EC_MASK
 		PSUB	print_hex_byte
 
 		ldf	#$1
 
 	.update_byte:
+		SEEK_XY	(SCREEN_START_X + 17), (SCREEN_START_Y + 6)
 		tfr	f, a
 		anda	#EC_MASK
 		tfr	a, f
-
-		SEEK_XY	(SCREEN_START_X + 17), (SCREEN_START_Y + 6)
 		PSUB	print_hex_byte
 
 		tfr	f, a
@@ -39,8 +38,8 @@ error_address_test:
 		rord
 		ord	#$f000
 
-		pshsw
 		SEEK_XY	(SCREEN_START_X + 15), (SCREEN_START_Y + 7)
+		pshsw
 		PSUB	print_hex_word
 		pulsw
 

@@ -26,11 +26,10 @@ input_test:
 		; So we can't use the common input display.
 
 
+		SEEK_XY	(SCREEN_START_X + 5), (SCREEN_START_Y + 3)
 		; p2 inputs will be in high byte, p1 in low
 		move.w	REG_INPUT_P2, d0
 		not.w	d0
-
-		SEEK_XY	(SCREEN_START_X + 5), (SCREEN_START_Y + 3)
 		movem.w	d0, -(a7)
 		RSUB	print_bits_byte
 		movem.w	(a7)+, d0
@@ -52,10 +51,10 @@ input_test:
 		lsr.w	#$8, d0
 		RSUB	print_bits_byte
 
+		SEEK_XY	(SCREEN_START_X + 5), (SCREEN_START_Y + 7)
 		; odd address, byte read is ok
 		move.b	REG_INPUT_SYSTEM, d0
 		not.b	d0
-		SEEK_XY	(SCREEN_START_X + 5), (SCREEN_START_Y + 7)
 		RSUB	print_bits_byte
 
 		; p1/system are both odd addresses, byte read is ok
