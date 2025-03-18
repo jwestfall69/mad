@@ -145,7 +145,7 @@ tile8_viewer_handler:
 
 	.right_not_pressed:
 		bit	INPUT_B2_BIT, b
-		jp	z, .loop_redraw
+		jp	z, .loop_next_input
 		ret
 
 	.update_tile_offset_upper:
