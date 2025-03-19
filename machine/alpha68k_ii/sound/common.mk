@@ -20,7 +20,7 @@ OBJS = $(OBJ_DIR)/cpu/z80/src/crc32.o \
        $(OBJ_DIR)/cpu/z80/src/tests/mad_rom.o \
        $(OBJ_DIR)/cpu/z80/src/tests/memory.o \
        $(OBJ_DIR)/cpu/z80/src/tests/work_ram.o \
-       $(OBJ_DIR)/cpu/z80/src/tests/yamaha/ym2203_iorq.o
+       $(OBJ_DIR)/cpu/z80/src/tests/yamaha/ym2203_ioreq.o
 
 # code from this machine
 OBJS += $(OBJ_DIR)/$(MAD_NAME).o \

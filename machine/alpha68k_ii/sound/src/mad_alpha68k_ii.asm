@@ -24,7 +24,7 @@ _start:
 
 		DSUB_MODE_RSUB
 
-		; need to see what a busted iorq latch looks like
+		; need to see what a busted ioreq latch looks like
 		;call	mcpu_latch_tests
 
 		call	ym2203_tests

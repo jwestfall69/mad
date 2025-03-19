@@ -13,7 +13,7 @@ OBJS = $(OBJ_DIR)/cpu/z80/src/crc32.o \
        $(OBJ_DIR)/cpu/z80/src/dsub.o \
        $(OBJ_DIR)/cpu/z80/src/error_address.o \
        $(OBJ_DIR)/cpu/z80/src/footer.o \
-       $(OBJ_DIR)/cpu/z80/src/input_update_io.o \
+       $(OBJ_DIR)/cpu/z80/src/input_update_ioreq.o \
        $(OBJ_DIR)/cpu/z80/src/memory_fill.o \
        $(OBJ_DIR)/cpu/z80/src/print_error.o \
        $(OBJ_DIR)/cpu/z80/src/util.o \
