@@ -1,10 +1,10 @@
 	include "global/include/macros.inc"
 	include "global/include/screen.inc"
 	include "cpu/z80/include/dsub.inc"
+	include "cpu/z80/include/error_codes.inc"
 	include "cpu/z80/include/macros.inc"
 	include "cpu/z80/include/xy_string.inc"
 
-	include "error_codes.inc"
 	include "input.inc"
 	include "machine.inc"
 	include "mad.inc"

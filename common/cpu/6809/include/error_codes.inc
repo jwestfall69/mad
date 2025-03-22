@@ -1,3 +1,5 @@
+EC_MASK				equ $3f
+
 ; global codes
 EC_ALL_TESTS_PASSED		equ $0
 EC_MAD_ROM_CRC16		equ $3f
