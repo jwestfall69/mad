@@ -1,0 +1,159 @@
+#!/usr/bin/env python3
+import datetime
+import argparse
+import re
+import sys
+import os
+
+class ErrorCodeConfig:
+    def __init__(self, bc_bits, ea_bits, ea_base, ea_shifts, ea_start_num, ec_filter):
+        self.bc_bits = bc_bits
+        self.ea_bits = ea_bits
+        self.ea_base = ea_base
+        self.ea_shifts = ea_shifts
+        self.ea_start_num = ea_start_num
+        self.ec_filter = ec_filter
+
+
+def parse_inc(filename: str, ecodes: dict, ec_filter: str) -> None:
+    try:
+        with open(filename, 'r') as f:
+            for line in f:
+                if re.search(ec_filter, line):
+                    continue
+
+                match = re.search(r'EC_([^ \t]+).*equ \$(..?)', line)
+                if match:
+                    ecodes[int(match.group(2), 16)] = match.group(1).replace("_", " ")
+
+            f.close()
+
+    except IOError as e:
+        print(f'Unable to open \'{filename}\' for reading: {e.strerror}')
+        sys.exit(1)
+
+
+def pretty_bits(bits: str) -> str:
+
+    pretty = ""
+
+    match = re.search(r'(.{4})$', bits)
+    while match:
+        if len(pretty):
+            pretty = match.group() + " " + pretty
+        else:
+            pretty = match.group()
+
+        bits = bits[:-4]
+        match = re.search(r'(.{4})$', bits)
+
+    if len(bits):
+        pretty = bits + " " + pretty
+
+    return pretty
+
+
+def gen_table(cfg: ErrorCodeConfig, error_codes: dict) -> list:
+    table = []
+
+    header1 = '| Hex  | Number'
+    header2 = '| ---: | -----:'
+
+    if cfg.bc_bits:
+        header1 = f'{header1} | Beep Code'
+        header2 = f'{header2} | --------:'
+
+    header1 = f'{header1} |     Error Address (A{cfg.ea_bits - 1:d}..A{0 + cfg.ea_start_num:d})    | {"Error Text":^30} |'
+    header2 = f'{header2} | :----------------------------: | :{"-" * 29} |'
+
+    table.append(header1)
+    table.append(header2)
+
+    for error_code in sorted(error_codes.keys()):
+
+        line = f'| 0x{error_code:02x} | {error_code:6d}'
+        if cfg.bc_bits:
+            pretty_bc = pretty_bits(f'{error_code:0{cfg.bc_bits}b}')
+
+            line = f'{line} | {pretty_bc}'
+
+        ea_raw = f'{cfg.ea_base | error_code << cfg.ea_shifts:0{cfg.ea_bits}b}'
+        ea_raw = ea_raw[:-cfg.ea_shifts]
+        ea_raw = ea_raw + ('x' * (cfg.ea_shifts - cfg.ea_start_num))
+        line = f'{line} | {pretty_bits(ea_raw):^30} | {error_codes[error_code]:30s} |'
+        table.append(line)
+
+    return table
+
+# read in existing markdown file
+# write out injected markdown to file.new
+# rename file.new to file
+def write_markdown(ec_table: list, filename: str, tag: str) -> None:
+
+    input_lines = []
+    try:
+        with open(filename, 'r') as f:
+            input_lines = f.readlines()
+            f.close()
+    except IOError as e:
+        print(f'Unable to open \'{filename}\' for reading: {e.strerror}')
+        sys.exit(1)
+
+    in_table = False
+    try:
+        with open(filename + '.new', 'w') as f:
+            for line in input_lines:
+                if tag in line:
+                    if in_table:
+                        f.write(f'\n<sup>Table last updated by gen-error-codes-table on {datetime.datetime.utcnow():%Y-%m-%d @ %H:%M UTC}</sup>\n')
+                        in_table = False
+                    else:
+                        print(f'Found {tag} tag, injecting table')
+                        in_table = True
+                        f.write(line)
+                        for row in ec_table:
+                            f.write(row + "\n")
+                if not in_table:
+                    f.write(line)
+            f.close()
+    except IOError as e:
+        print(f'Unable to open \'{filename}.new\' for writing: {e.strerror}')
+        sys.exit(1)
+
+    os.replace(filename + '.new', filename)
+
+
+def main() -> int:
+    global args
+
+    cfgs = {}
+
+    cfgs['6309_main']  = ErrorCodeConfig(7, 16, int("f000", 16), 4, 0, r'(EC_MASK|EC_ALL_TESTS_PASSED)')
+    cfgs['6809_sound'] = ErrorCodeConfig(0, 16, int("f000", 16), 4, 0, r'(EC_MASK)')
+    cfgs['z80_main']   = ErrorCodeConfig(7, 16, int("2000", 16), 7, 0, r'(EC_MASK|EC_ALL_TESTS_PASSED)')
+    cfgs['z80_sound']  = ErrorCodeConfig(0, 16, int("2000", 16), 7, 0, r'(EC_MASK)')
+    cfgs['68000_main'] = ErrorCodeConfig(8, 24, int("6000", 16), 5, 1, r'(EC_MASK|EC_ALL_TESTS_PASSED)')
+
+    parser = argparse.ArgumentParser(description='generate a markdown table for error codes')
+    parser.add_argument('-i', dest='inc_files', required=True, metavar='<error_codes.inc>', type=str, help='input error_codes.inc', action='append')
+    parser.add_argument('-c', dest='cpu', required=True, metavar='<6309|6809|68000|z80>', type=str, help='cpu to generate for')
+    parser.add_argument('-m', dest='markdown', required=True, metavar='<README.md>', type=str, help='markdown file to inject the table into')
+    parser.add_argument('-t', dest='type', required=True, metavar='<main|sound>', type=str, help='diag type')
+    args = parser.parse_args()
+
+    cfg = args.cpu + '_' + args.type
+    if cfg not in cfgs:
+        print('ERROR: unknown \'cpu\'_\'type\' config');
+        print(f'Valid \'cpu\'_\'type\'s are: {list(cfgs.keys())}')
+        return -1
+
+    error_codes = {}
+    for inc in args.inc_files:
+        parse_inc(inc, error_codes, cfgs[cfg].ec_filter)
+
+    ec_table = gen_table(cfgs[cfg], error_codes)
+
+    write_markdown(ec_table, args.markdown, 'ec_table_' + args.type)
+
+if __name__ == '__main__':
+    sys.exit(main())
