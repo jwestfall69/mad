@@ -61,13 +61,16 @@ INCS = $(wildcard include/*.inc) \
        $(wildcard ../../../common/cpu/68000/include/*.inc) \
        $(wildcard ../../../common/cpu/68000/include/tests/*.inc)
 
-$(WORK_DIR)/$(MAD_NAME).bin: include/error_codes.inc $(WORK_DIR) $(OBJ_DIR) $(BUILD_DIR) $(OBJS)
+$(WORK_DIR)/$(MAD_NAME).bin: include/error_codes.inc $(WORK_DIR) $(OBJ_DIR) $(BUILD_DIR) $(OBJS) ../README.md
 	$(VLINK) $(VLINK_FLAGS) -o $(WORK_DIR)/$(MAD_NAME).bin $(OBJS)
 	../../../util/rom-inject-crc-mirror -f $(WORK_DIR)/$(MAD_NAME).bin -e big -t $(ROM_SIZE)
 	../../../util/rom-byte-split $(WORK_DIR)/$(MAD_NAME).bin $(BUILD_DIR)/$(ROMA) $(BUILD_DIR)/$(ROMB)
 
 include/error_codes.inc: include/error_codes.cfg
 	../../../util/gen-error-codes -b 7 include/error_codes.cfg include/error_codes.inc
+
+../README.md: include/error_codes.inc ../../../common/cpu/68000/include/error_codes.inc
+	../../../util/gen-error-codes-markdown-table -i include/error_codes.inc -i ../../../common/cpu/68000/include/error_codes.inc -c 68000 -t main -m ../README.md
 
 src/version.asm:
 	../../../util/gen-version-asm-file -m GAIDEN -i ../../../common/global/src/version.asm.in -o src/version.asm
