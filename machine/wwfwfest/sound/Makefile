@@ -39,13 +39,16 @@ INCS = $(wildcard include/*.inc) \
        $(wildcard ../../../common/cpu/z80/include/*.inc) \
        $(wildcard ../../../common/cpu/z80/include/tests/*.inc)
 
-$(WORK_DIR)/$(MAD_NAME).bin: include/error_codes.inc $(WORK_DIR) $(OBJ_DIR) $(BUILD_DIR) $(OBJS)
+$(WORK_DIR)/$(MAD_NAME).bin: include/error_codes.inc $(WORK_DIR) $(OBJ_DIR) $(BUILD_DIR) $(OBJS) ../README.md
 	$(VLINK) $(VLINK_FLAGS) -o $(WORK_DIR)/$(MAD_NAME).bin $(OBJS)
 	../../../util/rom-inject-crc-mirror -f $(WORK_DIR)/$(MAD_NAME).bin -e little -t $(ROM_SIZE)
 	$(DD) if=$(WORK_DIR)/$(MAD_NAME).bin of=$(BUILD_DIR)/$(ROM)
 
 include/error_codes.inc: include/error_codes.cfg
 	../../../util/gen-error-codes -b 6 include/error_codes.cfg include/error_codes.inc
+
+../README.md: include/error_codes.inc ../../../common/cpu/z80/include/error_codes.inc
+	../../../util/gen-error-codes-markdown-table -i include/error_codes.inc -i ../../../common/cpu/z80/include/error_codes.inc -c z80 -t sound -m ../README.md
 
 src/version.asm:
 	../../../util/gen-version-asm-file -m WWFWFEST -i ../../../common/global/src/version.asm.in -o src/version.asm
