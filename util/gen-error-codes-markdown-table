@@ -105,7 +105,7 @@ def write_markdown(ec_table: list, filename: str, tag: str) -> None:
             for line in input_lines:
                 if tag in line:
                     if in_table:
-                        f.write(f'\n<sup>Table last updated by gen-error-codes-table on {datetime.datetime.utcnow():%Y-%m-%d @ %H:%M UTC}</sup>\n')
+                        f.write(f'\n<sup>Table last updated by gen-error-codes-markdown-table on {datetime.datetime.utcnow():%Y-%m-%d @ %H:%M UTC}</sup>\n')
                         in_table = False
                     else:
                         print(f'Found {tag} tag, injecting table')
