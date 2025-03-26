@@ -26,8 +26,8 @@ populated with the sprite roms instead of there being a dedicated sprite rom boa
 
 | Diag | Eprom Type | Location(s) |
 | ---- | ---------- | ----------- |
-| Main | 27c010 or 27c1001 | gaiden_1.3s @ S3<br>gaiden_2.4s @ S4 |
-| Sound | 27c512 | gaiden_3.4b @ B4 |
+| Main on CPU PCB | 27c010 or 27c1001 | gaiden_1.3s @ S3<br>gaiden_2.4s @ S4 |
+| Sound on CPU PCB | 27c512 | gaiden_3.4b @ B4 |
 
 ## RAM Locations
 | RAM | Location | Type |
@@ -48,8 +48,8 @@ populated with the sprite roms instead of there being a dedicated sprite rom boa
 | Work RAM Upper | U3 on CPU PCB | MB8464A-15L-SK (8k x 8bit) |
 
 Additionally there are 12x M41464-10 (64k x 4bit) DRAM chips between K2 and H5
-that are not accessible by the CPU and can't be tested.  They seem to be related
-to sprites and/or rendering the screen.
+on the graphs PCB that are not accessible by the CPU and can't be tested.  They
+seem to be related to sprites and/or rendering the screen.
 
 ## Errors/Error Codes
 The main CPU and sound CPU MAD rom should be used independently from each
