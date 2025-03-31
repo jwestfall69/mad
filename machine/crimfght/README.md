@@ -3,13 +3,13 @@ This machine is mostly a test while I work through adding support for the konami
 cpu (6809 based) to vasm.  If you want to build it you will need to use the
 daily builds of vasm.
 
-The only thing mad rom does at this point it being up a screen that allows
+The only thing mad rom does at this point is bring up a screen that allows
 testing EXG/TFR instructions with different values for the registers.
 
 ![exg/tfr test](docs/images/crimfght_exgtfr_test.png)
 
 In testing on hardware it appears EXG (0x3e) and TFR (0x3f) have the same exact
-behavior on the CPU.  What ends up determining if the behavior is an exchange vs
+behavior in the CPU.  What ends up determining if the behavior is an exchange vs
 a transfer is the high bit on the oparg.
 
 register values are 3 bits each, with the high nibble in the oparg being the
