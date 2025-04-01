@@ -40,6 +40,5 @@ SCREEN_BYTES_PER_LINE		equ (SCREEN_BYTES_PER_TILE * SCREEN_TILES_PER_LINE)
 	endm
 
 	macro	WATCHDOG
-		; will probably cause problems..
-		lda	REG_WATCHDOG
+		tst	REG_WATCHDOG
 	endm
