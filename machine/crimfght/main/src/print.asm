@@ -1,12 +1,44 @@
 	include "cpu/konami/include/macros.inc"
 	include "cpu/konami/include/psub.inc"
 
+	global print_bits_byte
+	global print_char
 	global print_hex_nibble
 	global print_hex_byte
 	global print_hex_word
 	global print_string
 
 	section code
+
+; params:
+;  a = byte
+;  x = location in tile ram
+print_bits_byte:
+		; printing backwards
+		leax	7, x
+		ldb	#$8
+
+	.loop_next_nibble:
+		pshs	b
+		tfr	a, b
+		andb	#$1
+
+		stb	,x
+		leax	-1, x
+
+		lsra
+
+		puls	b
+		decb
+		bne	.loop_next_nibble
+		rts
+
+; params
+;  a = char
+;  x = start location in tile ram
+print_char:
+		sta	, x
+		rts
 
 ; params:
 ;  a = nibble (lower)

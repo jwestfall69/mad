@@ -20,9 +20,9 @@ _start:
 		lda	#$80
 		sta	$3f9c
 
-
 		; hardware seems to ignore watchdog ping until this
 		; instruction is called the first time
 		setline	$80
+
 		jsr	screen_init
-		jsr	exgtfr_test
+		jsr	main_menu

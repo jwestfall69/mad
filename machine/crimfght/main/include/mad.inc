@@ -1,2 +1,5 @@
 MAD_ROM_START		equ $e000
 MAD_ROM_SIZE		equ $2000
+
+CURSOR_CHAR		equ $0a ; (c)
+CURSOR_CLEAR_CHAR	equ $10

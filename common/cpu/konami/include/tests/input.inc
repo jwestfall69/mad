@@ -1,0 +1,12 @@
+	; struct input {
+	;   byte y
+	;   word input_address
+	; }
+	macro INPUT_ENTRY
+		dc.b \1
+		dc.w \2
+	endm
+
+	macro INPUT_LIST_END
+		dc.b $0
+	endm

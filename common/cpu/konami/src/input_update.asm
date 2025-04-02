@@ -1,5 +1,3 @@
-	include "cpu/6309/include/psub.inc"
-
 	include "input.inc"
 	include "machine.inc"
 
