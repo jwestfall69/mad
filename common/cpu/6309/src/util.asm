@@ -1,6 +1,7 @@
 	include "cpu/6309/include/macros.inc"
 	include "cpu/6309/include/psub.inc"
 
+	include "input.inc"
 	include "machine.inc"
 	include "mad.inc"
 
@@ -79,7 +80,7 @@ wait_button_press:
 
 	.loop_input:
 		WATCHDOG
-		ldb	REG_INPUT_P1
+		ldb	REG_INPUT
 		andr	a, b
 		beq	.pressed
 
@@ -101,7 +102,7 @@ wait_button_release:
 
 	.loop_input:
 		WATCHDOG
-		ldb	REG_INPUT_P1
+		ldb	REG_INPUT
 		andr	a, b
 		bne	.released
 
