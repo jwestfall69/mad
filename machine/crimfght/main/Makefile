@@ -18,7 +18,8 @@ OBJS = $(OBJ_DIR)/cpu/konami/src/footer.o \
        $(OBJ_DIR)/cpu/konami/src/util.o \
        $(OBJ_DIR)/cpu/konami/src/xy_string.o \
        $(OBJ_DIR)/cpu/konami/src/handlers/menu.o \
-       $(OBJ_DIR)/cpu/konami/src/tests/input.o
+       $(OBJ_DIR)/cpu/konami/src/tests/input.o \
+       $(OBJ_DIR)/cpu/konami/src/tests/cpu/exgtfr.o
 
 # code from this machine
 OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
@@ -29,7 +30,6 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/version.o \
         $(OBJ_DIR)/menus/cpu_tests.o \
         $(OBJ_DIR)/menus/main.o \
-        $(OBJ_DIR)/tests/exgtfr.o \
         $(OBJ_DIR)/tests/input.o
 
 INCS = $(wildcard include/*.inc) \
@@ -59,7 +59,7 @@ $(WORK_DIR):
 	$(MKDIR) -p $(WORK_DIR)
 
 $(OBJ_DIR):
-	$(MKDIR) -p $(OBJ_DIR)/tests $(OBJ_DIR)/menus/ $(OBJ_DIR)/cpu/konami/src/tests/ $(OBJ_DIR)/cpu/konami/src/handlers/
+	$(MKDIR) -p $(OBJ_DIR)/tests $(OBJ_DIR)/menus/ $(OBJ_DIR)/cpu/konami/src/tests/cpu $(OBJ_DIR)/cpu/konami/src/handlers/
 
 .PHONY: src/version.asm
 
