@@ -1,4 +1,5 @@
 	include "global/include/screen.inc"
+	include "cpu/konami/include/dsub.inc"
 	include "cpu/konami/include/macros.inc"
 	include "cpu/konami/include/handlers/menu.inc"
 
@@ -76,23 +77,23 @@ menu_handler:
 		lda	#MENU_X_OFFSET
 		ldb	r_menu_cursor_prev
 		addb	#MENU_Y_OFFSET
-		jsr	screen_seek_xy
+		RSUB	screen_seek_xy
 
 		lda	#CURSOR_CLEAR_CHAR
-		jsr	print_char
+		RSUB	print_char
 
 		; draw new cursor
 		lda	#MENU_X_OFFSET
 		ldb	r_menu_cursor
 		addb	#MENU_Y_OFFSET
-		jsr	screen_seek_xy
+		RSUB	screen_seek_xy
 
 		lda	#CURSOR_CHAR
-		jsr	print_char
+		RSUB	print_char
 		bra	.loop_input
 
 	.run_menu_entry:
-		jsr	screen_init
+		RSUB	screen_init
 
 		; convert into the offset into the menu list array
 		lda	r_menu_cursor
@@ -106,7 +107,7 @@ menu_handler:
 		pshs	y
 		SEEK_XY SCREEN_START_X, SCREEN_START_Y
 		ldy	s_me_name_ptr, y
-		jsr	print_string
+		RSUB	print_string
 		puls	y
 
 		lda	r_menu_cursor
@@ -136,8 +137,8 @@ print_menu_list:
 
 		lda	#MENU_X_OFFSET + 1
 		ldb	r_print_menu_line
-		jsr	screen_seek_xy
-		jsr	print_string
+		RSUB	screen_seek_xy
+		RSUB	print_string
 		puls	y
 
 		leay	s_me_struct_size, y

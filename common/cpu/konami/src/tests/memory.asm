@@ -1,9 +1,9 @@
+	include "cpu/konami/include/dsub.inc"
 	include "cpu/konami/include/macros.inc"
-	include "cpu/konami/include/psub.inc"
 
 	include "machine.inc"
 
-	global memory_output_test_psub
+	global memory_output_test_dsub
 
 	section code
 
@@ -11,34 +11,35 @@
 ; is directly connected to the CPU when talking
 ; to the memory.  This maybe the memory itself
 ; or there could be some IC in between (ie 74LS245)
+; Lack of output will usually result the register be
+; filled with the contents of the ld's optarg.  So
+; we loop $64 times trying to catch 2 different
+; optargs being placed into 'a' in a row.
 ; params:
 ;  x = address
 ; returns:
 ;  a = 0 (pass), 1 (fail)
-memory_output_test_psub:
-		; the konami does dummy memory reads of 0xffff
-		; when its doesnt need to access the address bus.
-		; because of this, reads of memory locations with
-		; no/dead output will cause the register to be filled
-		; with the lower byte of the reset function's address
-		; from the vector table.  This is why we have a special
-		; RESET section in the linker as it gives us control
-		; of what that last byte will be (0x5a)
+memory_output_test_dsub:
+		tfr	x, y
+		ldb	#$64
 
-		lda	$ffff
-		ldb	#$7f
-	.loop_next_address:
-		cmpa	, x
-		bne	.test_passed
+	.loop_next:
+		lda	, x		; $1226
+		cmpa	#$26
+		bne	.loop_pass
 
-		decb
-		bne	.loop_next_address
-		WATCHDOG
+		lda	, y		; $1236
+		cmpa	#$36
+		beq	.test_failed
 
-		lda	#$1
-		PSUB_RETURN
+	.loop_pass:
+		decbjnz	.loop_next
 
-	.test_passed:
 		WATCHDOG
 		clra
-		PSUB_RETURN
+		DSUB_RETURN
+
+	.test_failed:
+		WATCHDOG
+		lda	#$1
+		DSUB_RETURN

@@ -15,10 +15,14 @@ DD = dd
 
 OBJS = $(OBJ_DIR)/cpu/konami/src/footer.o \
        $(OBJ_DIR)/cpu/konami/src/input_update.o \
+       $(OBJ_DIR)/cpu/konami/src/print_error.o \
        $(OBJ_DIR)/cpu/konami/src/util.o \
        $(OBJ_DIR)/cpu/konami/src/xy_string.o \
        $(OBJ_DIR)/cpu/konami/src/handlers/menu.o \
        $(OBJ_DIR)/cpu/konami/src/tests/input.o \
+       $(OBJ_DIR)/cpu/konami/src/tests/mad_rom.o \
+       $(OBJ_DIR)/cpu/konami/src/tests/memory.o \
+       $(OBJ_DIR)/cpu/konami/src/tests/work_ram.o \
        $(OBJ_DIR)/cpu/konami/src/tests/cpu/exgtfr.o
 
 # code from this machine

@@ -1,3 +1,5 @@
+	include "cpu/konami/include/dsub.inc"
+
 	global print_xy_string
 	global print_xy_string_list
 
@@ -8,8 +10,8 @@
 print_xy_string:
 		lda	,y+
 		ldb	,y+
-		jsr	screen_seek_xy
-		jsr	print_string
+		RSUB	screen_seek_xy
+		RSUB	print_string
 		rts
 
 ; params:
@@ -19,8 +21,8 @@ print_xy_string_list:
 		cmpa	#$ff			; end of list marker
 		beq	.list_end
 		ldb	,y+
-		jsr	screen_seek_xy
-		jsr	print_string
+		RSUB	screen_seek_xy
+		RSUB	print_string
 		bra	print_xy_string_list
 
 	.list_end:

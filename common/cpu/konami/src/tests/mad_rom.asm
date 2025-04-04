@@ -1,14 +1,14 @@
 	include "global/include/screen.inc"
 	include "global/include/macros.inc"
+	include "cpu/konami/include/dsub.inc"
 	include "cpu/konami/include/error_codes.inc"
 	include "cpu/konami/include/macros.inc"
-	include "cpu/konami/include/psub.inc"
 
 	include "machine.inc"
 	include "mad.inc"
 
-	global mad_rom_address_test_psub
-	global mad_rom_crc16_test_psub
+	global mad_rom_address_test_dsub
+	global mad_rom_crc16_test_dsub
 
 	section code
 
@@ -16,7 +16,7 @@
 ; address space.  Its mirror 0, then we have
 ; to work our ways backwards for the additional
 ; mirrors.
-mad_rom_address_test_psub:
+mad_rom_address_test_dsub:
 		WATCHDOG
 
 		SEEK_LN	SCREEN_START_Y
@@ -39,7 +39,7 @@ mad_rom_address_test_psub:
 		incb
 		deca
 		bne	.loop_next_mirror
-		PSUB_RETURN
+		DSUB_RETURN
 
 	.test_failed:
 		lda	, y
@@ -72,7 +72,7 @@ mad_rom_address_test_psub:
 		jmp	error_address
 
 
-mad_rom_crc16_test_psub:
+mad_rom_crc16_test_dsub:
 		WATCHDOG
 
 		SEEK_LN	SCREEN_START_Y
@@ -117,7 +117,7 @@ mad_rom_crc16_test_psub:
 		bne	.test_failed
 		cmpb	, y
 		bne	.test_failed
-		PSUB_RETURN
+		DSUB_RETURN
 
 	.test_failed:
 		; actual

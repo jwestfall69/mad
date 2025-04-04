@@ -1,5 +1,6 @@
 	include "global/include/macros.inc"
 	include "global/include/screen.inc"
+	include "cpu/konami/include/dsub.inc"
 	include "cpu/konami/include/macros.inc"
 	include "cpu/konami/include/handlers/menu.inc"
 
@@ -13,11 +14,11 @@ cpu_tests_menu:
 		clr	r_menu_cursor
 
 	.loop_menu:
-		jsr	screen_init
+		RSUB	screen_init
 
 		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
 		ldy	#d_str_menu_title
-		jsr	print_string
+		RSUB	print_string
 
 		ldy	#d_menu_list
 		jsr	menu_handler

@@ -1,5 +1,6 @@
 	include "global/include/macros.inc"
 	include "global/include/screen.inc"
+	include "cpu/konami/include/dsub.inc"
 	include "cpu/konami/include/macros.inc"
 	include "cpu/konami/include/xy_string.inc"
 
@@ -42,11 +43,11 @@ exgtfr_test_return:
 	.draw_regs:
 		SEEK_XY	(SCREEN_START_X + 9), (SCREEN_START_Y + 8)
 		lda	r_src_reg
-		jsr	print_hex_nibble
+		RSUB	print_hex_nibble
 
 		SEEK_XY	(SCREEN_START_X + 9), (SCREEN_START_Y + 9)
 		lda	r_dst_reg
-		jsr	print_hex_nibble
+		RSUB	print_hex_nibble
 
 	.loop_input:
 		WATCHDOG
@@ -114,7 +115,7 @@ run_exg_test:
 
 		SEEK_XY	 (SCREEN_START_X + 24), (SCREEN_START_Y + 11)
 		ldd	r_exg_code
-		jsr	print_hex_word
+		RSUB	print_hex_word
 
 		; init values
 		lda	#$bb
@@ -148,39 +149,39 @@ run_exg_test:
 		; now the fun task of printing it all
 		puls	d	; x
 		SEEK_XY (SCREEN_START_X + 11), (SCREEN_START_Y + 12)
-		jsr	print_hex_word
+		RSUB	print_hex_word
 
 		puls	d	; y
 		SEEK_XY (SCREEN_START_X + 11), (SCREEN_START_Y + 13)
-		jsr	print_hex_word
+		RSUB	print_hex_word
 
 		puls	d	; u
 		SEEK_XY (SCREEN_START_X + 11), (SCREEN_START_Y + 14)
-		jsr	print_hex_word
+		RSUB	print_hex_word
 
 		puls	a	; a
 		SEEK_XY	(SCREEN_START_X + 5), (SCREEN_START_Y + 12)
-		jsr	print_hex_byte
+		RSUB	print_hex_byte
 
 		puls	a	; b
 		SEEK_XY	(SCREEN_START_X + 5), (SCREEN_START_Y + 13)
-		jsr	print_hex_byte
+		RSUB	print_hex_byte
 
 		puls	d	; d
 		SEEK_XY	(SCREEN_START_X + 3), (SCREEN_START_Y + 14)
-		jsr	print_hex_word
+		RSUB	print_hex_word
 
 		ldd	r_stack
 		SEEK_XY (SCREEN_START_X + 20), (SCREEN_START_Y + 12)
-		jsr	print_hex_word
+		RSUB	print_hex_word
 
 		puls	a	; dp
 		SEEK_XY (SCREEN_START_X + 22), (SCREEN_START_Y + 13)
-		jsr	print_hex_byte
+		RSUB	print_hex_byte
 
 		puls	a	; cc
 		SEEK_XY (SCREEN_START_X + 22), (SCREEN_START_Y + 14)
-		jsr	print_hex_byte
+		RSUB	print_hex_byte
 
 		; not rts because stack will have been re-init
 		jmp	exgtfr_test_return
@@ -202,7 +203,7 @@ run_tfr_test:
 
 		SEEK_XY	 (SCREEN_START_X + 24), (SCREEN_START_Y + 16)
 		ldd	r_tfr_code
-		jsr	print_hex_word
+		RSUB	print_hex_word
 
 
 		; init values
@@ -237,39 +238,39 @@ run_tfr_test:
 		; now the fun task of printing it all
 		puls	d	; x
 		SEEK_XY (SCREEN_START_X + 11), (SCREEN_START_Y + 17)
-		jsr	print_hex_word
+		RSUB	print_hex_word
 
 		puls	d	; y
 		SEEK_XY (SCREEN_START_X + 11), (SCREEN_START_Y + 18)
-		jsr	print_hex_word
+		RSUB	print_hex_word
 
 		puls	d	; u
 		SEEK_XY (SCREEN_START_X + 11), (SCREEN_START_Y + 19)
-		jsr	print_hex_word
+		RSUB	print_hex_word
 
 		puls	a	; a
 		SEEK_XY	(SCREEN_START_X + 5), (SCREEN_START_Y + 17)
-		jsr	print_hex_byte
+		RSUB	print_hex_byte
 
 		puls	a	; b
 		SEEK_XY	(SCREEN_START_X + 5), (SCREEN_START_Y + 18)
-		jsr	print_hex_byte
+		RSUB	print_hex_byte
 
 		puls	d	; d
 		SEEK_XY	(SCREEN_START_X + 3), (SCREEN_START_Y + 19)
-		jsr	print_hex_word
+		RSUB	print_hex_word
 
 		ldd	r_stack
 		SEEK_XY (SCREEN_START_X + 20), (SCREEN_START_Y + 17)
-		jsr	print_hex_word
+		RSUB	print_hex_word
 
 		puls	a	; dp
 		SEEK_XY (SCREEN_START_X + 22), (SCREEN_START_Y + 18)
-		jsr	print_hex_byte
+		RSUB	print_hex_byte
 
 		puls	a	; cc
 		SEEK_XY (SCREEN_START_X + 22), (SCREEN_START_Y + 19)
-		jsr	print_hex_byte
+		RSUB	print_hex_byte
 
 		; not rts because stack will have been re-init
 		jmp	exgtfr_test_return

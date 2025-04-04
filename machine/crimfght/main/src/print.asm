@@ -1,25 +1,26 @@
+	include "cpu/konami/include/dsub.inc"
 	include "cpu/konami/include/macros.inc"
-	include "cpu/konami/include/psub.inc"
 
-	global print_bits_byte
-	global print_char
-	global print_hex_nibble
-	global print_hex_byte
-	global print_hex_word
-	global print_string
+	global print_bits_byte_dsub
+	global print_char_dsub
+	global print_clear_line_dsub
+	global print_hex_nibble_dsub
+	global print_hex_byte_dsub
+	global print_hex_word_dsub
+	global print_string_dsub
 
 	section code
 
 ; params:
 ;  a = byte
 ;  x = location in tile ram
-print_bits_byte:
+print_bits_byte_dsub:
 		; printing backwards
 		leax	7, x
 		ldb	#$8
 
 	.loop_next_nibble:
-		pshs	b
+		tfr	b, y
 		tfr	a, b
 		andb	#$1
 
@@ -28,23 +29,28 @@ print_bits_byte:
 
 		lsra
 
-		puls	b
+		tfr	y, b
 		decb
 		bne	.loop_next_nibble
-		rts
+		DSUB_RETURN
 
 ; params
 ;  a = char
 ;  x = start location in tile ram
-print_char:
+print_char_dsub:
 		sta	, x
-		rts
+		DSUB_RETURN
+
+; params:
+;  x = start location in tile ram
+print_clear_line_dsub:
+		CHAR_REPEAT #$10, #40
+		DSUB_RETURN
 
 ; params:
 ;  a = nibble (lower)
 ;  x = start location in tile ram
-print_hex_nibble:
-
+print_hex_nibble_dsub:
 		anda	#$f
 		cmpa	#$9
 		ble	.do_print
@@ -52,19 +58,18 @@ print_hex_nibble:
 
 	.do_print:
 		sta	, x
-		rts
+		DSUB_RETURN
 
 ; params:
 ;  a = byte
 ;  x = start location in tile ram
-print_hex_byte:
-
+print_hex_byte_dsub:
 		; printing backwards
 		leax	1, x
 
 	rept 2
 	inline
-		pshs	a
+		tfr	a, y
 		anda	#$f
 		cmpa	#$9
 		ble	.do_print
@@ -74,25 +79,25 @@ print_hex_byte:
 		sta	, x
 		leax	-1, x
 
-		puls	a
+		tfr	y, a
 		lsra
 		lsra
 		lsra
 		lsra
 	einline
 	endr
-		rts
+		DSUB_RETURN
 
 ; params:
 ;  d = word
 ;  x = start location in tile ram
-print_hex_word:
+print_hex_word_dsub:
 		; printing backwards
 		leax	3, x
 
 	rept 4
 	inline
-		pshs	b
+		tfr	b, y
 		andb	#$f
 		cmpb	#$9
 		ble	.do_print
@@ -102,7 +107,7 @@ print_hex_word:
 		stb	, x
 		leax	-1, x
 
-		puls	b
+		tfr	y, b
 		lsra
 		rorb
 		lsra
@@ -113,13 +118,12 @@ print_hex_word:
 		rorb
 	einline
 	endr
-		rts
+		DSUB_RETURN
 
 ; params:
 ;  x = start location in tile ram
 ;  y = start address of string
-print_string:
-
+print_string_dsub:
 		lda	,y+
 
 		; deal with annoying tile font
@@ -148,4 +152,4 @@ print_string:
 		sta	,x+
 		lda	,y+
 		bne	.loop_next_char
-		rts
+		DSUB_RETURN

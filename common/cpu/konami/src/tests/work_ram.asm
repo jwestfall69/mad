@@ -1,16 +1,16 @@
 	include "global/include/macros.inc"
 	include "global/include/screen.inc"
+	include "cpu/konami/include/dsub.inc"
 	include "cpu/konami/include/macros.inc"
-	include "cpu/konami/include/psub.inc"
 
 	include "error_codes.inc"
 	include "machine.inc"
 
-;	global work_ram_address_test_psub
-	global work_ram_data_test_psub
-	global work_ram_march_test_psub
-	global work_ram_output_test_psub
-	global work_ram_write_test_psub
+	global work_ram_address_test_dsub
+	global work_ram_data_test_dsub
+	global work_ram_march_test_dsub
+	global work_ram_output_test_dsub
+	global work_ram_write_test_dsub
 
 	section code
 
@@ -18,78 +18,88 @@
 ; read them back checking for any differences.  Have to do
 ; a bit of juggling because of limited registers and lack of
 ; useful opcodes (ie ldx d,x).
-;work_ram_address_test_psub:
-;
-;		ldd	#$1
-;		tfr	d, y		; d = addr offset, y = counter
-;
-;		ldx	#WORK_RAM_START
-;		stb	, x+		; 0 address requires special processing
-;
-;	.loop_next_write_address:
-;		exg	d, y		; d = counter, y = addr offset
-;
-;		incb
-;		stb	, x
-;
-;		exg	d, y		; d = addr offset, y = counter
-;
-;		; shift over to next address bit
-;		aslb
-;		rola
-;
-;		; add base work ram address
-;		ora	#(WORK_RAM_START >> 8)
-;		orb	#(WORK_RAM_START & $ff)
-;		tfr	d, x
-;		; recover addr offset
-;		eora	#(WORK_RAM_START >> 8)
-;		eorb	#(WORK_RAM_START & $ff)
-;
-;		cmpx	#(WORK_RAM_START + WORK_RAM_SIZE)
-;		blt	.loop_next_write_address
-;
-;
-;		; reset and re-read/test
-;		ldd	#$1
-;		tfr	d, y		; d = counter, y = addr offset
-;
-;		ldx	#WORK_RAM_START
-;		cmpb	, x+		; 0 address requires special processing
-;		bne	.test_failed
-;
-;	.loop_next_read_address:
-;		exg	d, y		; d = counter, y = addr offset
-;
-;		incb
-;		cmpb	, x
-;		bne	.test_failed
-;
-;		exg	d, y		; d = addr offset, y = counter
-;
-;		; setup x for the next address
-;
-;		; shift over to next address bit
-;		aslb
-;		rola
-;
-;		; add base work ram address
-;		ora	#(WORK_RAM_START >> 8)
-;		orb	#(WORK_RAM_START & $ff)
-;		tfr	d, x
-;		; recover addr offset
-;		eora	#(WORK_RAM_START >> 8)
-;		eorb	#(WORK_RAM_START & $ff)
-;
-;		cmpx	#(WORK_RAM_START + WORK_RAM_SIZE)
-;		blt	.loop_next_read_address
-;		PSUB_RETURN
-;
-;	.test_failed:
-;		lda	#EC_WORK_RAM_ADDRESS
-;		jmp	error_address
+work_ram_address_test_dsub:
+		SEEK_LN SCREEN_START_Y
+		PSUB	print_clear_line
 
-work_ram_data_test_psub:
+		SEEK_XY SCREEN_START_X, SCREEN_START_Y
+		ldy	#d_str_testing_work_ram_address
+		PSUB	print_string
+
+		ldd	#$1		; offset
+		ldy	#$1		; counter (lower byte)
+
+		ldx	#WORK_RAM_START
+		stb	, x+		; 0 address requires special processing
+
+	.loop_next_write_address:
+		exg	b, y		; swap in counter
+
+		incb
+		stb	, x
+
+		exg	b, y		; swap out counter
+
+		; shift over to next address bit
+		aslb
+		rola
+
+		; setup x
+		ldx	#WORK_RAM_START
+		leax	d, x
+
+		cmpx	#(WORK_RAM_START + WORK_RAM_SIZE)
+		blt	.loop_next_write_address
+
+
+		; reset and re-read/test
+		ldd	#$1
+		ldy	#$1
+
+		ldx	#WORK_RAM_START
+		cmpb	, x+		; 0 address requires special processing
+		bne	.test_failed
+
+	.loop_next_read_address:
+		exg	b, y		; swap in counter
+
+		incb
+		cmpb	, x
+		bne	.test_failed
+
+		exg	b, y		; swap out counter
+
+		; shift over to next address bit
+		aslb
+		rola
+
+		; setup x
+		ldx	#WORK_RAM_START
+		leax	d, x
+
+		cmpx	#(WORK_RAM_START + WORK_RAM_SIZE)
+		blt	.loop_next_read_address
+		DSUB_RETURN
+
+	.test_failed:
+		SEEK_LN SCREEN_START_Y
+		PSUB	print_clear_line
+
+		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
+		ldy	#d_str_work_ram_address
+		PSUB	print_string
+
+		lda	#EC_WORK_RAM_ADDRESS
+		jmp	error_address
+
+work_ram_data_test_dsub:
+		SEEK_LN SCREEN_START_Y
+		PSUB	print_clear_line
+
+		SEEK_XY SCREEN_START_X, SCREEN_START_Y
+		ldy	#d_str_testing_work_ram_data
+		PSUB	print_string
+
 		ldy	#d_data_patterns
 
 	.loop_next_pattern:
@@ -114,9 +124,12 @@ work_ram_data_test_psub:
 		bra	.loop_next_pattern
 
 	.test_passed:
-		PSUB_RETURN
+		DSUB_RETURN
 
 	.test_failed:
+		SEEK_LN SCREEN_START_Y
+		PSUB	print_clear_line
+
 		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
 		ldy	#d_str_work_ram_data
 		PSUB	print_string
@@ -125,27 +138,22 @@ work_ram_data_test_psub:
 		jmp	error_address
 
 
-work_ram_output_test_psub:
-		; the konami does dummy memory reads of 0xffff
-		; when its doesnt need to access the address bus.
-		; because of this, reads of memory locations with
-		; no/dead output will cause the register to be filled
-		; with the lower byte of the reset function's address
-		; from the vector table.  This is why we have a special
-		; RESET section in the linker as it gives us control
-		; of what that last byte will be (0x5a)
+work_ram_output_test_dsub:
+		SEEK_LN SCREEN_START_Y
+		PSUB	print_clear_line
+
+		SEEK_XY SCREEN_START_X, SCREEN_START_Y
+		ldy	#d_str_testing_work_ram_output
+		PSUB	print_string
 
 		ldx	#WORK_RAM_START
-		lda	$ffff
-		ldb	#$7f
-	.loop_next_address:
-		cmpa	, x
-		bne	.test_passed
-		leax	2, x
+		PSUB	memory_output_test
 
-		decb
-		bne	.loop_next_address
-		WATCHDOG
+		cmpa	#$0
+		beq	.test_passed
+
+		SEEK_LN SCREEN_START_Y
+		PSUB	print_clear_line
 
 		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
 		ldy	#d_str_work_ram_output
@@ -156,12 +164,17 @@ work_ram_output_test_psub:
 
 	.test_passed:
 		WATCHDOG
-		PSUB_RETURN
+		DSUB_RETURN
 
-work_ram_march_test_psub:
+work_ram_march_test_dsub:
+		SEEK_LN SCREEN_START_Y
+		PSUB	print_clear_line
+
+		SEEK_XY SCREEN_START_X, SCREEN_START_Y
+		ldy	#d_str_testing_work_ram_march
+		PSUB	print_string
 
 		ldx	#WORK_RAM_START
-
 		lda	#$0
 	.loop_fill_zero:
 		sta	, x+
@@ -191,10 +204,13 @@ work_ram_march_test_psub:
 		cmpx	#(WORK_RAM_START - 1)
 		bne	.loop_down_test
 		WATCHDOG
-		PSUB_RETURN
+		DSUB_RETURN
 
 	.test_failed:
 		WATCHDOG
+
+		SEEK_LN SCREEN_START_Y
+		PSUB	print_clear_line
 
 		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
 		ldy	#d_str_work_ram_march
@@ -208,7 +224,14 @@ work_ram_march_test_psub:
 ; - re-reads memory address
 ; - compare re-read with original
 ; - if they match, test failed
-work_ram_write_test_psub:
+work_ram_write_test_dsub:
+		SEEK_LN SCREEN_START_Y
+		PSUB	print_clear_line
+
+		SEEK_XY SCREEN_START_X, SCREEN_START_Y
+		ldy	#d_str_testing_work_ram_write
+		PSUB	print_string
+
 		WATCHDOG
 
 		ldx	#WORK_RAM_START
@@ -219,6 +242,9 @@ work_ram_write_test_psub:
 		cmpa	, x
 		bne	.test_passed
 
+		SEEK_LN SCREEN_START_Y
+		PSUB	print_clear_line
+
 		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
 		ldy	#d_str_work_ram_write
 		PSUB	print_string
@@ -227,7 +253,7 @@ work_ram_write_test_psub:
 		jmp	error_address
 
 	.test_passed:
-		PSUB_RETURN
+		DSUB_RETURN
 
 
 	section data
@@ -240,3 +266,9 @@ d_str_work_ram_data:		STRING "WORK RAM DATA   "
 d_str_work_ram_march:		STRING "WORK RAM MARCH  "
 d_str_work_ram_output:		STRING "WORK RAM OUTPUT "
 d_str_work_ram_write:		STRING "WORK RAM WRITE  "
+
+d_str_testing_work_ram_address:	STRING "TESTING WORK RAM ADDRESS"
+d_str_testing_work_ram_data:	STRING "TESTING WORK RAM DATA"
+d_str_testing_work_ram_march:	STRING "TESTING WORK RAM MARCH"
+d_str_testing_work_ram_output:	STRING "TESTING WORK RAM OUTPUT"
+d_str_testing_work_ram_write:	STRING "TESTING WORK RAM WRITE"

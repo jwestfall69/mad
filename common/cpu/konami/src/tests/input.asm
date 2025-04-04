@@ -1,4 +1,5 @@
 	include "global/include/screen.inc"
+	include "cpu/konami/include/dsub.inc"
 
 	include "machine.inc"
 
@@ -14,11 +15,13 @@ print_input_list:
 		beq	.list_end
 
 		lda	#(SCREEN_START_X + 5)
-		jsr	screen_seek_xy
+		RSUB	screen_seek_xy
 
 		lda	[, y++]
 		coma
-		jsr	print_bits_byte
+		pshs	y
+		RSUB	print_bits_byte
+		puls	y
 		bra	print_input_list
 
 	.list_end:
