@@ -23,7 +23,10 @@ OBJS = $(OBJ_DIR)/cpu/konami/src/footer.o \
        $(OBJ_DIR)/cpu/konami/src/tests/mad_rom.o \
        $(OBJ_DIR)/cpu/konami/src/tests/memory.o \
        $(OBJ_DIR)/cpu/konami/src/tests/work_ram.o \
-       $(OBJ_DIR)/cpu/konami/src/tests/cpu/exgtfr.o
+       $(OBJ_DIR)/cpu/konami/src/tests/cpu/exgtfr.o \
+       $(OBJ_DIR)/cpu/konami/src/tests/cpu/opcode_idx.o \
+       $(OBJ_DIR)/cpu/konami/src/tests/cpu/opcode_inh.o \
+       $(OBJ_DIR)/cpu/konami/src/tests/cpu/opcode_imm.o
 
 # code from this machine
 OBJS += $(OBJ_DIR)/$(MAD_NAME).o \

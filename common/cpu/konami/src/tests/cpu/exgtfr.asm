@@ -147,40 +147,40 @@ run_exg_test:
 		pshs	x
 
 		; now the fun task of printing it all
-		puls	d	; x
 		SEEK_XY (SCREEN_START_X + 11), (SCREEN_START_Y + 12)
+		puls	d	; x
 		RSUB	print_hex_word
 
-		puls	d	; y
 		SEEK_XY (SCREEN_START_X + 11), (SCREEN_START_Y + 13)
+		puls	d	; y
 		RSUB	print_hex_word
 
-		puls	d	; u
 		SEEK_XY (SCREEN_START_X + 11), (SCREEN_START_Y + 14)
+		puls	d	; u
 		RSUB	print_hex_word
 
-		puls	a	; a
 		SEEK_XY	(SCREEN_START_X + 5), (SCREEN_START_Y + 12)
+		puls	a	; a
 		RSUB	print_hex_byte
 
-		puls	a	; b
 		SEEK_XY	(SCREEN_START_X + 5), (SCREEN_START_Y + 13)
+		puls	a	; b
 		RSUB	print_hex_byte
 
-		puls	d	; d
 		SEEK_XY	(SCREEN_START_X + 3), (SCREEN_START_Y + 14)
+		puls	d	; d
 		RSUB	print_hex_word
 
-		ldd	r_stack
 		SEEK_XY (SCREEN_START_X + 20), (SCREEN_START_Y + 12)
+		ldd	r_stack
 		RSUB	print_hex_word
 
-		puls	a	; dp
 		SEEK_XY (SCREEN_START_X + 22), (SCREEN_START_Y + 13)
+		puls	a	; dp
 		RSUB	print_hex_byte
 
-		puls	a	; cc
 		SEEK_XY (SCREEN_START_X + 22), (SCREEN_START_Y + 14)
+		puls	a	; cc
 		RSUB	print_hex_byte
 
 		; not rts because stack will have been re-init
@@ -236,40 +236,40 @@ run_tfr_test:
 		pshs	x
 
 		; now the fun task of printing it all
-		puls	d	; x
 		SEEK_XY (SCREEN_START_X + 11), (SCREEN_START_Y + 17)
+		puls	d	; x
 		RSUB	print_hex_word
 
-		puls	d	; y
 		SEEK_XY (SCREEN_START_X + 11), (SCREEN_START_Y + 18)
+		puls	d	; y
 		RSUB	print_hex_word
 
-		puls	d	; u
 		SEEK_XY (SCREEN_START_X + 11), (SCREEN_START_Y + 19)
+		puls	d	; u
 		RSUB	print_hex_word
 
-		puls	a	; a
 		SEEK_XY	(SCREEN_START_X + 5), (SCREEN_START_Y + 17)
+		puls	a	; a
 		RSUB	print_hex_byte
 
-		puls	a	; b
 		SEEK_XY	(SCREEN_START_X + 5), (SCREEN_START_Y + 18)
+		puls	a	; b
 		RSUB	print_hex_byte
 
-		puls	d	; d
 		SEEK_XY	(SCREEN_START_X + 3), (SCREEN_START_Y + 19)
+		puls	d	; d
 		RSUB	print_hex_word
 
-		ldd	r_stack
 		SEEK_XY (SCREEN_START_X + 20), (SCREEN_START_Y + 17)
+		ldd	r_stack
 		RSUB	print_hex_word
 
-		puls	a	; dp
 		SEEK_XY (SCREEN_START_X + 22), (SCREEN_START_Y + 18)
+		puls	a	; dp
 		RSUB	print_hex_byte
 
-		puls	a	; cc
 		SEEK_XY (SCREEN_START_X + 22), (SCREEN_START_Y + 19)
+		puls	a	; cc
 		RSUB	print_hex_byte
 
 		; not rts because stack will have been re-init

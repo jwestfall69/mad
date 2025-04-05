@@ -31,8 +31,15 @@ cpu_tests_menu:
 
 d_menu_list:
 	MENU_ENTRY exgtfr_test, d_str_exgtfr_test
+	MENU_ENTRY opcode_idx_test, d_str_opcode_idx_test
+	MENU_ENTRY opcode_inh_test, d_str_opcode_inh_test
+	MENU_ENTRY opcode_imm_test, d_str_opcode_imm_test
 	MENU_LIST_END
 
 d_str_menu_title:		STRING "CPU TESTS MENU"
 
 d_str_exgtfr_test:		STRING "EXGTFR TEST"
+d_str_opcode_idx_test:		STRING "OPCODE IDX TEST"
+d_str_opcode_inh_test:		STRING "OPCODE INH TEST"
+d_str_opcode_imm_test:		STRING "OPCODE IMM TEST"
+
