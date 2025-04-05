@@ -25,7 +25,7 @@
 	; another _dsub, where the outer _dsub could
 	; be called in either mode
 	macro DSUB
-		cmps	#$e000
+		cmps	#$c000
 		blo	.\@do_jsr
 		tfr	u, s
 		ldu	#.\@psub_return
@@ -40,7 +40,7 @@
 	endm
 
 	macro DSUB_RETURN
-		cmps	#$e000
+		cmps	#$c000
 		blo	.\@do_rts
 		jmp	0, u
 	.\@do_rts:

@@ -1,10 +1,10 @@
 MEMORY {
 	RAM: org=0x0400, len=0x1c00
-	ROM: org=0xe000, len=0x2000
+	ROM: org=0xc000, len=0x4000
 }
 
 SECTIONS {
-	.code 0xe000: {
+	.code 0xc000: {
 		*(code)
 	} > ROM
 	.rodata: {

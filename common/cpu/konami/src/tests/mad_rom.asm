@@ -73,7 +73,6 @@ mad_rom_address_test_dsub:
 
 
 mad_rom_crc16_test_dsub:
-		WATCHDOG
 
 		SEEK_LN	SCREEN_START_Y
 		PSUB	print_clear_line
@@ -93,6 +92,7 @@ mad_rom_crc16_test_dsub:
 		ldd	#$0
 
 	.loop_next_byte:
+		WATCHDOG
 		eora 	, y+
 
 	; unroll looping over the 8 bits so we can
