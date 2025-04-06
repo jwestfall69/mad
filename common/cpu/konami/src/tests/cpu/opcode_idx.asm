@@ -93,15 +93,15 @@ run_opcode_test:
 		ldd	r_opcode_code+2
 		RSUB	print_hex_word
 
-		ldd	#$0505
+		ldd	#$8191
 		std	r_opcode_mem
 
 		; init values
 		lda	#$bb
 		pshs	a
 		puls	dp
-		lda 	#$11
-		ldb	#$22
+		lda 	#$12
+		ldb	#$23
 		ldx	#$3344
 		ldy	#$5566
 		ldu	#$7788
@@ -171,15 +171,15 @@ run_opcode_test:
 
 	section data
 
-d_opcode_code:	dc.w $0007, r_opcode_mem, $a807, opcode_return ;  <opcode ext>, r_opcode_mem, jmp opcode_return
+d_opcode_code:	dc.w $0007, r_opcode_mem, $a807, opcode_return ; <opcode + ext>, r_opcode_mem, jmp opcode_return
 
 d_xys_screen_list:
 		XY_STRING SCREEN_START_X, SCREEN_START_Y, "OPCODE IDX TEST"
 		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 2), "BEFORE VALUES"
-		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 3), " A   11  X 3344   S 99AA"
-		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 4), " B   22  Y 5566  DP   BB"
-		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 5), " D 1122  U 7788  CC   ??"
-		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 8), "OPCODE     MEM DATA 0505"
+		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 3), " A   12  X 3344   S 99AA"
+		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 4), " B   23  Y 5566  DP   BB"
+		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 5), " D 1223  U 7788  CC   ??"
+		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 8), "OPCODE     MEM DATA 8191"
 		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 11), "AFTER VALUES FOR OPCODE"
 		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 12), " A       X        S"
 		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 13), " B       Y       DP"
@@ -194,6 +194,6 @@ d_xys_screen_list:
 	section bss
 
 r_opcode:	dcb.b	1
-r_opcode_code:	dcb.b	6
+r_opcode_code:	dcb.b	8
 r_stack:	dcb.w	1
 r_opcode_mem:	dcb.w	1

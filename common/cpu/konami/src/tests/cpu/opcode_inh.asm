@@ -159,7 +159,7 @@ run_opcode_test:
 
 	section data
 
-d_opcode_code:	dc.w $00ae, $a807, opcode_return ;  <opcode inh>, nop, jmp opcode_return
+d_opcode_code:	dc.w $00ae, $a807, opcode_return ; <opcode inh>, nop, jmp opcode_return
 
 d_xys_screen_list:
 		XY_STRING SCREEN_START_X, SCREEN_START_Y, "OPCODE INH TEST"
