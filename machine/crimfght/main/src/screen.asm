@@ -12,7 +12,7 @@
 screen_init_dsub:
 
 		; bank to palette ram
-		setline	#$a0
+		setln	#$a0
 
 		MEMORY_FILL16 #PALETTE_RAM_START, #(PALETTE_RAM_SIZE/2), #$0
 		WATCHDOG
@@ -21,7 +21,7 @@ screen_init_dsub:
 		MEMORY_FILL16 #(PALETTE_RAM_START + 2), #$7, #$ffff
 		WATCHDOG
 
-		setline #$80
+		setln	#$80
 
 		MEMORY_FILL16 #TILE1_RAM_START, #((TILE1_RAM_SIZE + $400)/2), #$0
 		WATCHDOG

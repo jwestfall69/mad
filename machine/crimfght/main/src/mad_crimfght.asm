@@ -21,7 +21,7 @@ _start:
 
 		; hardware seems to ignore watchdog ping until this
 		; instruction is called the first time
-		setline	$80
+		setln	$80
 
 		DSUB_MODE_PSUB
 
@@ -34,9 +34,6 @@ _start:
 		PSUB	work_ram_data_test
 		PSUB	work_ram_address_test
 		PSUB	work_ram_march_test
-
-		ldx	#WORK_RAM_START
-		PSUB	memory_output_test
 
 		DSUB_MODE_RSUB
 

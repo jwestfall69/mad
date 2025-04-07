@@ -20,7 +20,7 @@
 		lda	\3
 	.\@:
 		sta	,y+
-		decxjnz	.\@
+		dxjnz	.\@
 	endm
 
 	; start_addr, size, word_value
@@ -30,7 +30,7 @@
 		ldd	\3
 	.\@:
 		std	,y++
-		decxjnz	.\@
+		dxjnz	.\@
 	endm
 
 	; char, count
@@ -40,5 +40,5 @@
 		ldb	\2
 	.\@:
 		sta	,x+
-		decbjnz	.\@
+		dbjnz	.\@
 	endm

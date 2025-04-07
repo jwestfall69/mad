@@ -33,7 +33,7 @@ error_address:
 	rept $400 / 16
 	inline
 	.loop:
-		WATCHDOG	; $1207 3f88
+		WATCHDOG	; $9207 3f88
 		ldx	#$1ff	; $4201 ff
 	.delay:
 		nop		; $ae
@@ -41,8 +41,8 @@ error_address:
 		nop		; $ae
 		nop		; $ae
 		nop		; $ae
-		decxjnz	.delay	; $adfc
-		bra	.loop	; $60fa
+		dxjnz	.delay	; $adf9
+		bra	.loop	; $60f0
 	einline
 	endr
 

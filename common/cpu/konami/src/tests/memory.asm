@@ -33,7 +33,7 @@ memory_output_test_dsub:
 		beq	.test_failed
 
 	.loop_pass:
-		decbjnz	.loop_next
+		dbjnz	.loop_next
 
 		WATCHDOG
 		clra
