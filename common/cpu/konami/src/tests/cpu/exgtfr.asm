@@ -281,7 +281,6 @@ d_exg_code:	dc.w	$3e00, $a807, exg_return ; exg 0,0;jmp exg_return
 d_tfr_code:	dc.w	$3f00, $a807, tfr_return ; tfr 0,0;jmp tfr_return
 
 d_xys_screen_list:
-		XY_STRING SCREEN_START_X, SCREEN_START_Y, "EXG AND TFR TESTS"
 		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 2), "BEFORE VALUES"
 		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 3), " A   11  X 3344   S 99AA"
 		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 4), " B   22  Y 5566  DP   BB"

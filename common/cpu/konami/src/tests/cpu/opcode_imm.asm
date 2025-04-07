@@ -163,7 +163,6 @@ run_opcode_test:
 d_opcode_code:	dc.w $0012, $a807, opcode_return ; <opcode>, imm#, jmp opcode_return
 
 d_xys_screen_list:
-		XY_STRING SCREEN_START_X, SCREEN_START_Y, "OPCODE IMM TEST"
 		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 2), "BEFORE VALUES"
 		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 3), " A   81  X 3344   S 99AA"
 		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 4), " B   91  Y 5566  DP   BB"

@@ -174,7 +174,6 @@ run_opcode_test:
 d_opcode_code:	dc.w $0007, r_opcode_mem, $a807, opcode_return ; <opcode + ext>, r_opcode_mem, jmp opcode_return
 
 d_xys_screen_list:
-		XY_STRING SCREEN_START_X, SCREEN_START_Y, "OPCODE IDX TEST"
 		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 2), "BEFORE VALUES"
 		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 3), " A   12  X 3344   S 99AA"
 		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 4), " B   23  Y 5566  DP   BB"

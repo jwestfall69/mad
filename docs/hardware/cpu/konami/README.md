@@ -26,9 +26,9 @@ $mem = a memory address via either direct page, indexed or extended<br>
 | asrdi #imm | 0xBC | asr D register, (#imm & 0xF) times | crimfght = CPU Crash<br>vendetta = Works |
 | asrw $mem | 0xA5 | asr word stored at $mem one time | crimfght = Works<br>vendetta = Works |
 | asrwa $mem | 0xBD | asr word stored at $mem, (A register & 0xF) times | crimfght = CPU Crash<br>vendetta = Works |
-| bmove | 0xB6 | `while(u != 0) { [, x] = [, y]; x += 1; y +=1 ;u -=1; }` | Untested |
-| bset | 0xCF | `while(u != 0) { sta [, x]; x += 1; u -= 1 }` | Untested |
-| bsetw | 0xD0 |`while(u != 0) { std [, x]; x += 2; u -= 1 }` | Untested|
+| bmove | 0xB6 | `while(u != 0) { [, x] = [, y]; x += 1; y +=1 ;u -=1; }` | crimfght = Works<br>vendetta = Works |
+| bset | 0xCF | `while(u != 0) { sta [, x]; x += 1; u -= 1 }` | crimfght = CPU Crash<br>vendetta = Works |
+| bsetw | 0xD0 |`while(u != 0) { std [, x]; x += 2; u -= 1 }` | crimfght = CPU Crash<br>vendetta = Works |
 | clrd | 0xC2 | Sets D register to 0x0000 | crimfght = CPU Crash<br>vendetta = Works |
 | clrw $mem | 0xC3 | Set the word stored at $mem to 0x0000 | crimfght = CPU Crash<br>vendetta = Works |
 | dbjnz *label* | 0xAD | decb, if non-zero jump to *label* | crimfght = Works<br>vendetta = Works |
@@ -44,7 +44,7 @@ $mem = a memory address via either direct page, indexed or extended<br>
 | lsrdi #imm | 0xB8 | lsr D register, (#imm & 0xF) times | crimfght = CPU Crash<br>vendetta = Works |
 | lsrw $mem | 0xA3 | lsr word stored at $mem one time | crimfght = Works<br>vendetta = Works |
 | lsrwa $mem | 0xB9 | lsr word stored at $mem, (A register & 0xF) times | crimfght = CPU Crash<br>vendetta = Works |
-| move | 0xB7 | `[, x] = [, y]; x += 1; y +=1 ;u -=1;` | Untested |
+| move | 0xB7 | `[, x] = [, y]; x += 1; y +=1 ;u -=1;` | crimfght = Works<br>vendetta = Works |
 | mulxy | 0xB4 | X = high byte of X * Y; Y = low byte of X * Y | crimfght = Works<br>vendetta = Works |
 | negd | 0xC4 | `D = 0 - D` | crimfght = Bad result (`s` goes down by 2)<br>vendetta = Works |
 | negw $mem | 0xC5 | `value stored at $mem = 0 - value stored at $mem` | crimfght = Bad result (no registers change) <br>vendetta = Works |

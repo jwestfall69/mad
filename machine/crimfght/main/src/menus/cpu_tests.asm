@@ -31,6 +31,10 @@ cpu_tests_menu:
 
 d_menu_list:
 	MENU_ENTRY exgtfr_test, d_str_exgtfr_test
+	MENU_ENTRY bmove_test, d_str_bmove_test
+	MENU_ENTRY bset_test, d_str_bset_test
+	MENU_ENTRY bsetw_test, d_str_bsetw_test
+	MENU_ENTRY move_test, d_str_move_test
 	MENU_ENTRY opcode_idx_test, d_str_opcode_idx_test
 	MENU_ENTRY opcode_inh_test, d_str_opcode_inh_test
 	MENU_ENTRY opcode_imm_test, d_str_opcode_imm_test
@@ -39,6 +43,10 @@ d_menu_list:
 d_str_menu_title:		STRING "CPU TESTS MENU"
 
 d_str_exgtfr_test:		STRING "EXGTFR TEST"
+d_str_bmove_test:		STRING "BMOVE TEST"
+d_str_bset_test:		STRING "BSET TEST"
+d_str_bsetw_test:		STRING "BSETW TEST"
+d_str_move_test:		STRING "MOVE TEST"
 d_str_opcode_idx_test:		STRING "OPCODE IDX TEST"
 d_str_opcode_inh_test:		STRING "OPCODE INH TEST"
 d_str_opcode_imm_test:		STRING "OPCODE IMM TEST"

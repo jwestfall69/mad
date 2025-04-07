@@ -162,7 +162,6 @@ run_opcode_test:
 d_opcode_code:	dc.w $00ae, $a807, opcode_return ; <opcode inh>, nop, jmp opcode_return
 
 d_xys_screen_list:
-		XY_STRING SCREEN_START_X, SCREEN_START_Y, "OPCODE INH TEST"
 		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 2), "BEFORE VALUES"
 		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 3), " A   11  X 3344   S 99AA"
 		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 4), " B   22  Y 5566  DP   BB"

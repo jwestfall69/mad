@@ -24,6 +24,10 @@ OBJS = $(OBJ_DIR)/cpu/konami/src/footer.o \
        $(OBJ_DIR)/cpu/konami/src/tests/memory.o \
        $(OBJ_DIR)/cpu/konami/src/tests/work_ram.o \
        $(OBJ_DIR)/cpu/konami/src/tests/cpu/exgtfr.o \
+       $(OBJ_DIR)/cpu/konami/src/tests/cpu/bmove.o \
+       $(OBJ_DIR)/cpu/konami/src/tests/cpu/bset.o \
+       $(OBJ_DIR)/cpu/konami/src/tests/cpu/bsetw.o \
+       $(OBJ_DIR)/cpu/konami/src/tests/cpu/move.o \
        $(OBJ_DIR)/cpu/konami/src/tests/cpu/opcode_idx.o \
        $(OBJ_DIR)/cpu/konami/src/tests/cpu/opcode_inh.o \
        $(OBJ_DIR)/cpu/konami/src/tests/cpu/opcode_imm.o
