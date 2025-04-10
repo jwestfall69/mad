@@ -1,0 +1,56 @@
+WORK_RAM_START			equ $2000
+WORK_RAM_SIZE			equ $2000
+WORK_RAM_ADDRESS_LINES		equ 13
+
+; bank switched into work ram space
+PALETTE_RAM_START		equ $6000
+PALETTE_RAM_SIZE		equ $1000
+PALETTE_RAM_ADDRESS_LINES	equ 12
+
+SPRITE_RAM_START		equ $4000
+SPRITE_RAM_SIZE			equ $1000
+SPRITE_RAM_ADDRESS_LINES	equ 12
+
+TILE1_RAM_START			equ $4000
+TILE1_RAM_SIZE			equ $1800
+TILE1_RAM_ADDRESS_LINES		equ 11
+
+TILE2_RAM_START			equ $6000
+TILE2_RAM_SIZE			equ $1800
+TILE2_RAM_ADDRESS_LINES		equ 11
+
+ROM_SIZE			equ $8000
+ROM_START			equ $8000
+
+REG_INPUT_P1			equ $5fc0
+REG_INPUT_P2			equ $5fc1
+REG_INPUT_P3			equ $5fc2
+REG_INPUT_P4			equ $5fc3
+REG_INPUT_EEPROM		equ $5fd0
+REG_INPUT_SYSTEM		equ $5fd1
+
+REG_CONTROL			equ $5fe2
+
+REG_WATCHDOG			equ $5fea
+REG_SOUND			equ $3f8c
+
+CHAR_COLON			equ $10		; no colon char, using space
+
+; note only 40 tiles are visable
+SCREEN_TILES_PER_LINE		equ 64
+SCREEN_BYTES_PER_TILE		equ 1
+SCREEN_BYTES_PER_LINE		equ (SCREEN_BYTES_PER_TILE * SCREEN_TILES_PER_LINE)
+
+	macro	SEEK_XY
+		ldx	#(TILE2_RAM_START + $8c + \1 + (\2 * SCREEN_BYTES_PER_LINE))
+	endm
+
+	macro	SEEK_LN
+		ldy	#(\1 * SCREEN_BYTES_PER_LINE)
+		ldy	#(TILE2_RAM_START + $8c)
+		ldx	#(TILE2_RAM_START + $8c + (\1 * SCREEN_BYTES_PER_LINE))
+	endm
+
+	macro	WATCHDOG
+		tst	REG_WATCHDOG
+	endm
