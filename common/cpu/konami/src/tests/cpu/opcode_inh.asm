@@ -117,6 +117,11 @@ run_opcode_test:
 		pshs	y
 		pshs	x
 
+		; reset dp or stuff could break
+		lda	#$0
+		pshs	a
+		puls	dp
+
 		; now the fun task of printing it all
 		SEEK_XY (SCREEN_START_X + 11), (SCREEN_START_Y + 12)
 		puls	d	; x

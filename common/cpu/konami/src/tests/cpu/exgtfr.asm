@@ -146,6 +146,11 @@ run_exg_test:
 		pshs	y
 		pshs	x
 
+		; reset dp or stuff could break
+		lda	#$0
+		pshs	a
+		puls	dp
+
 		; now the fun task of printing it all
 		SEEK_XY (SCREEN_START_X + 11), (SCREEN_START_Y + 12)
 		puls	d	; x
@@ -235,6 +240,11 @@ run_tfr_test:
 		pshs	y
 		pshs	x
 
+		; reset dp or stuff could break
+		lda	#$0
+		pshs	a
+		puls	dp
+
 		; now the fun task of printing it all
 		SEEK_XY (SCREEN_START_X + 11), (SCREEN_START_Y + 17)
 		puls	d	; x
@@ -300,8 +310,8 @@ d_xys_screen_list:
 		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 18), " B       Y       DP"
 		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 19), " D       U       CC"
 
-		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 21), "B1 RUN EXG    UD ADJUST SRC REG"
-		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 22), "B2 RUN TFR    LR ADJUST DST REG"
+		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 21), "B1 RUN EXG    UD ADJ SRC REG"
+		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 22), "B2 RUN TFR    LR ADJ DST REG"
 		XY_STRING_LIST_END
 
 	section bss
