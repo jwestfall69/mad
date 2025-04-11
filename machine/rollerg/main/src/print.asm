@@ -2,6 +2,7 @@
 	include "cpu/konami/include/macros.inc"
 
 	global print_bits_byte_dsub
+	global print_byte_dsub
 	global print_char_dsub
 	global print_clear_line_dsub
 	global print_hex_nibble_dsub
@@ -39,6 +40,7 @@ print_bits_byte_dsub:
 ; params
 ;  a = char
 ;  x = start location in tile ram
+print_byte_dsub:
 print_char_dsub:
 		sta	, x
 		DSUB_RETURN

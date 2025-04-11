@@ -18,6 +18,7 @@ OBJS = $(OBJ_DIR)/cpu/konami/src/footer.o \
        $(OBJ_DIR)/cpu/konami/src/print_error.o \
        $(OBJ_DIR)/cpu/konami/src/util.o \
        $(OBJ_DIR)/cpu/konami/src/xy_string.o \
+       $(OBJ_DIR)/cpu/konami/src/handlers/memory_viewer.o \
        $(OBJ_DIR)/cpu/konami/src/handlers/menu.o \
        $(OBJ_DIR)/cpu/konami/src/tests/input.o \
        $(OBJ_DIR)/cpu/konami/src/tests/mad_rom.o \
@@ -41,6 +42,7 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/version.o \
         $(OBJ_DIR)/menus/cpu_tests.o \
         $(OBJ_DIR)/menus/main.o \
+        $(OBJ_DIR)/menus/memory_viewer.o \
         $(OBJ_DIR)/tests/input.o
 
 INCS = $(wildcard include/*.inc) \
