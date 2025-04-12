@@ -1,7 +1,7 @@
+	include "global/include/screen.inc"
 	include "cpu/6309/include/macros.inc"
 	include "cpu/6309/include/psub.inc"
 	include "cpu/6309/include/xy_string.inc"
-	include "global/include/screen.inc"
 
 	include "machine.inc"
 	include "input.inc"
@@ -10,49 +10,52 @@
 
 	section code
 
-NUM_ROWS	equ 20
-START_ROW	equ SCREEN_START_Y + 3
-
 ; params:
-;  y = start address
+;  x = start address
+;  y = cb_read_memory or #$0000 to use default memory read
+; cb_read_memory params:
+;  x = address to start reading from
+;  y = address to start writing data
+;  function should write a long worth of data at y
 memory_viewer_handler:
-		pshs	y
+		sty	r_cb_read_memory
+		pshs	x
 		PSUB	screen_init
 
 		ldy	#d_screen_xys_list
 		PSUB	print_xy_string_list
-		puls	y
+		puls	x
 
 	.loop_next_input:
 		WATCHDOG
-		pshs	y
+		pshs	x
 		jsr	memory_dump
-		puls	y
+		puls	x
 
 		jsr	input_update
 		lda	r_input_edge
 
 		bita	#INPUT_UP
 		beq	.up_not_pressed
-		leay	-4, y
+		leax	-4, x
 		bra	.loop_next_input
 
 	.up_not_pressed:
 		bita	#INPUT_DOWN
 		beq	.down_not_pressed
-		leay	4, y
+		leax	4, x
 		bra	.loop_next_input
 
 	.down_not_pressed:
 		bita	#INPUT_LEFT
 		beq	.left_not_pressed
-		leay	-$50, y
+		leax	-$50, x
 		bra	.loop_next_input
 
 	.left_not_pressed:
 		bita	#INPUT_RIGHT
 		beq	.right_not_pressed
-		leay	$50, y
+		leax	$50, x
 		bra	.loop_next_input
 
 	.right_not_pressed:
@@ -60,71 +63,96 @@ memory_viewer_handler:
 		beq	.loop_next_input
 		rts
 
+ROW_START	equ SCREEN_START_Y + 3
+ROW_END		equ ROW_START + 20
 ; params:
-;  y = start address
+;  x = start address
 memory_dump:
+		stx	r_dump_address
 
-		ldf	#START_ROW
-		stf	r_current_row
-
-		lde	#NUM_ROWS
-		ste	r_remaining_rows
+		lda	#ROW_START
+		sta	r_dump_row
 
 	.loop_next_address:
+		ldx	r_dump_address
+
+		; if a cb was supplied use that, otherwise
+		; just do normal reads
+		ldy	r_cb_read_memory
+		beq	.no_cb_read_memory
+
+		ldy	#r_dump_data
+		jsr	[r_cb_read_memory]
+		bra	.read_memory_done
+
+	.no_cb_read_memory:
+		ldd	, x
+		std	r_dump_data
+		ldd	2, x
+		std	r_dump_data + 2
+
+	.read_memory_done:
 		; address
 		lda	#SCREEN_START_X
-		ldb	r_current_row
+		ldb	r_dump_row
 		PSUB	screen_seek_xy
-		tfr	y, d
+		ldd	r_dump_address
 		PSUB	print_hex_word
 
 		; 1st word
 		lda	#(SCREEN_START_X + 6)
-		ldb	r_current_row
+		ldb	r_dump_row
 		PSUB	screen_seek_xy
-		ldd	0, y
+		ldd	r_dump_data
 		PSUB	print_hex_word
 
 		; 2nd word
 		lda	#(SCREEN_START_X + 11)
-		ldb	r_current_row
+		ldb	r_dump_row
 		PSUB	screen_seek_xy
-		ldd	2, y
+		ldd	r_dump_data + 2
 		PSUB	print_hex_word
 
 		; 1st byte
 		lda	#(SCREEN_START_X + 17)
-		ldb	r_current_row
+		ldb	r_dump_row
 		PSUB	screen_seek_xy
-		lda	0, y
+		lda	r_dump_data
 		PSUB	print_byte
 
 		; 2nd byte
 		lda	#(SCREEN_START_X + 18)
-		ldb	r_current_row
+		ldb	r_dump_row
 		PSUB	screen_seek_xy
-		lda	1, y
+		lda	r_dump_data + 1
 		PSUB	print_byte
 
 		; 3rd byte
 		lda	#(SCREEN_START_X + 19)
-		ldb	r_current_row
+		ldb	r_dump_row
 		PSUB	screen_seek_xy
-		lda	2, y
+		lda	r_dump_data + 2
 		PSUB	print_byte
 
 		; 4th btye
 		lda	#(SCREEN_START_X + 20)
-		ldb	r_current_row
+		ldb	r_dump_row
 		PSUB	screen_seek_xy
-		lda	3, y
+		lda	r_dump_data + 3
 		PSUB	print_byte
 
-		leay	4, y
-		inc	r_current_row
-		dec	r_remaining_rows
-		lbne	.loop_next_address
+		lda	r_dump_row
+		inca
+		cmpa	#ROW_END
+		beq	.dump_done
+		sta	r_dump_row
 
+		ldd	r_dump_address
+		addd	#$4
+		std	r_dump_address
+		lbra	.loop_next_address
+
+	.dump_done:
 		rts
 
 	section data
@@ -138,5 +166,7 @@ d_screen_xys_list:
 
 	section bss
 
-r_current_row:		blk	1
-r_remaining_rows:	blk	1
+r_cb_read_memory:	dcb.w 1
+r_dump_address:		dcb.w 1
+r_dump_data:		dcb.w 2
+r_dump_row:		dcb.b 1

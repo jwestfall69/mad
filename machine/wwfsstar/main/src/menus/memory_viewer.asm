@@ -57,6 +57,7 @@ view_work_ram:
 		lea	WORK_RAM_START, a0
 
 view_memory:
+		lea	$0, a1			; no callback
 		jsr	memory_viewer_handler
 		rts
 

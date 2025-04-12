@@ -1,7 +1,7 @@
+	include "global/include/screen.inc"
 	include "cpu/z80/include/macros.inc"
 	include "cpu/z80/include/dsub.inc"
 	include "cpu/z80/include/xy_string.inc"
-	include "global/include/screen.inc"
 
 	include "machine.inc"
 	include "input.inc"
@@ -10,12 +10,16 @@
 
 	section code
 
-NUM_ROWS	equ 20
-START_ROW	equ SCREEN_START_Y + 3
-
 ; params:
 ;  ix = start address
+;  iy = cb_read_memory or #$0000 to use default memory read
+; cb_read_memory params:
+;  ix = address to start reading from
+;  iy = address to start writing data
+;  function should write a long worth of data at iy
 memory_viewer_handler:
+		ld	(r_cb_read_memory), iy
+
 		RSUB 	screen_init
 		ld 	de, d_screen_xys_list
 		call	print_xy_string_list
@@ -69,20 +73,58 @@ memory_viewer_handler:
 		jr	.loop_next_input
 
 
+ROW_START	equ SCREEN_START_Y + 3
+ROW_END		equ ROW_START + 20
+; params:
+;  ix = start address
 memory_dump:
-		ld	a, NUM_ROWS
-		ld	(r_remaining_rows), a
+		ld	(r_dump_address), ix
+		ld	iy, r_dump_row
+		ld	(iy), ROW_START
 
-		ld	iy, r_current_row
-		ld	(iy), START_ROW
 	.loop_next_address:
+		ld	iy, r_dump_data
+
+		; if a cb was supplied use that, otherwise
+		; just do normal reads
+		ld	a, $0
+		ld	bc, (r_cb_read_memory)
+		cp	b
+		jr	nz, .has_cb_read_memory
+		cp	c
+		jr	nz, .has_cb_read_memory
+
+		ld	ix, (r_dump_address)
+		ld	b, (ix)
+		ld	(iy), b
+		ld	b, (ix + 1)
+		ld	(iy + 1), b
+		ld	b, (ix + 2)
+		ld	(iy + 2), b
+		ld	b, (ix + 3)
+		ld	(iy + 3), b
+		jr	.read_memory_done
+
+	.has_cb_read_memory:
+		ld	ix, r_cb_read_memory
+		ld	l, (ix)
+		ld	h, (ix + 1)
+
+		ld	ix, (r_dump_address)
+		ld	de, .read_memory_done
+		push	de
+		jp	(hl)
+
+	.read_memory_done:
+		ld	ix, r_dump_data
+		ld	iy, r_dump_row
+
 		; address
 		ld	b, SCREEN_START_X
 		ld	c, (iy)
 		RSUB	screen_seek_xy
 
-		push	ix
-		pop	bc
+		ld	bc, (r_dump_address)
 		RSUB	print_hex_word
 
 		; 1st word
@@ -135,22 +177,15 @@ memory_dump:
 		ld	c, (ix + 3)
 		RSUB	print_char
 
-		push	ix
-		pop	hl
+		ld	hl, (r_dump_address)
 		ld	bc, 4
 		add	hl, bc
-		push 	hl
-		pop	ix
+		ld	(r_dump_address), hl
 
 		inc	(iy)
-
-		ld	a, (r_remaining_rows)
-		dec	a
-		jr	z, .all_done
-		ld	(r_remaining_rows), a
-		jp	.loop_next_address
-
-	.all_done:
+		ld	a, ROW_END
+		cp	(iy)
+		jp	nz, .loop_next_address
 		ret
 
 	section data
@@ -164,6 +199,8 @@ d_screen_xys_list:
 
 	section bss
 
-r_current_row		dcb.b 1
-r_remaining_rows	dcb.b 1
+r_cb_read_memory:	dcb.w 1
+r_dump_address:		dcb.w 1
+r_dump_data:		dcb.w 2
+r_dump_row		dcb.b 1
 

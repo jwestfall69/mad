@@ -10,13 +10,17 @@
 
 	section code
 
-NUM_ROWS	equ 20
-START_ROW	equ SCREEN_START_Y + 3
-
-; a0 = start memory location
+; params:
+;  a0 = start memory location
+;  a1 = cb_read_memory or #$0000 to use default memory read
+; cb_read_memory params:
+;  a0 = address to start reading from
+;  d0 = 0 (use word reads) or 1 (use byte reads)
+; cb_read_memory return:
+;  d0 = read data
+;  function should write a long worth of data in d0
 memory_viewer_handler:
-
-		movem.l	a0, -(a7)
+		movem.l	a0-a1, -(a7)
 		RSUB	screen_init
 
 		clr.b	r_read_mode
@@ -34,7 +38,7 @@ memory_viewer_handler:
 		lea	d_str_read_mode, a0
 		RSUB	print_string
 
-		movem.l	(a7)+, a0
+		movem.l	(a7)+, a0-a1
 
 	.loop_next_input:
 		WATCHDOG
@@ -103,15 +107,18 @@ memory_viewer_handler:
 
 		rts
 
+ROW_START	equ SCREEN_START_Y + 3
+ROW_END		equ ROW_START + 20
 ; params:
 ;  a0 = start adddress
+;  a1 = cb_read_memory or #$0000 to use default memory read
 ;  READ_MODE = 0 (word reads), 1 (byte reads)
 memory_dump:
 
-		movem.l	d0-d6/a0, -(a7)
+		movem.l	d0-d6/a0-a1, -(a7)
 
-		moveq	#START_ROW, d3
-		moveq	#(NUM_ROWS - 1), d4
+		moveq	#ROW_START, d3
+		moveq	#(ROW_END - ROW_START - 1), d4
 
 		bra	.loop_start_address
 
@@ -131,6 +138,17 @@ memory_dump:
 		move.w	d3, d1
 		RSUB	screen_seek_xy
 
+		cmp	#$0, a1
+		beq	.no_cb_read_memory
+
+		movem.l	a0-a1, -(a7)
+		moveq	#$0, d0
+		move.b	r_read_mode, d0
+		jsr	(a1)
+		movem.l	(a7)+, a0-a1
+		bra	.read_memory_done
+
+	.no_cb_read_memory:
 		btst	#$0, r_read_mode
 		beq	.read_mode_word
 		move.b	(a0), d0
@@ -140,14 +158,14 @@ memory_dump:
 		move.b	(2,a0), d0
 		lsl.l	#8, d0
 		move.b	(3, a0), d0
-		bra	.read_done
+		bra	.read_memory_done
 
 	.read_mode_word:
 		move.w	(a0), d0
 		swap	d0
 		move.w	(2, a0), d0
 
-	.read_done:
+	.read_memory_done:
 		move.l	d0, d5
 		RSUB	print_hex_word			; lower word
 
@@ -179,7 +197,7 @@ memory_dump:
 		adda.l	#4, a0
 		dbra	d4, .loop_next_address
 
-		movem.l (a7)+, d0-d6/a0
+		movem.l (a7)+, d0-d6/a0-a1
 		rts
 
 
@@ -194,7 +212,6 @@ d_str_read_mode_word:		STRING "WORD"
 	section bss
 	align 1
 
-; ran out of registers in memory_dump so
-; have to use ram for the read mode
-r_read_mode:		dcb.b 1
+r_cb_read_memory:	dcb.l 1
 r_debug_memory:		dcb.b 1
+r_read_mode:		dcb.b 1

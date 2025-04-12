@@ -1,7 +1,7 @@
+	include "global/include/screen.inc"
 	include "cpu/konami/include/dsub.inc"
 	include "cpu/konami/include/macros.inc"
 	include "cpu/konami/include/xy_string.inc"
-	include "global/include/screen.inc"
 
 	include "machine.inc"
 	include "input.inc"
@@ -10,45 +10,52 @@
 
 	section code
 
+; params:
+;  x = start address
+;  y = cb_read_memory or #$0000 to use default memory read
+; cb_read_memory params:
+;  x = address to start reading from
+;  y = address to start writing data
+;  function should write a long worth of data at y
 memory_viewer_handler:
-		stx	r_cb_read_memory
-		pshs	y
+		sty	r_cb_read_memory
+		pshs	x
 		RSUB	screen_init
 
 		ldy	#d_screen_xys_list
 		jsr	print_xy_string_list
-		puls	y
+		puls	x
 
 	.loop_next_input:
 		WATCHDOG
-		pshs	y
+		pshs	x
 		jsr	memory_dump
-		puls	y
+		puls	x
 
 		jsr	input_update
 		lda	r_input_edge
 
 		bita	#INPUT_UP
 		beq	.up_not_pressed
-		leay	-4, y
+		leax	-4, x
 		bra	.loop_next_input
 
 	.up_not_pressed:
 		bita	#INPUT_DOWN
 		beq	.down_not_pressed
-		leay	4, y
+		leax	4, x
 		bra	.loop_next_input
 
 	.down_not_pressed:
 		bita	#INPUT_LEFT
 		beq	.left_not_pressed
-		leay	-$50, y
+		leax	-$50, x
 		bra	.loop_next_input
 
 	.left_not_pressed:
 		bita	#INPUT_RIGHT
 		beq	.right_not_pressed
-		leay	$50, y
+		leax	$50, x
 		bra	.loop_next_input
 
 	.right_not_pressed:
@@ -56,37 +63,35 @@ memory_viewer_handler:
 		beq	.loop_next_input
 		rts
 
-
-NUM_ROWS	equ 20
-START_ROW	equ SCREEN_START_Y + 3
+ROW_START	equ SCREEN_START_Y + 3
+ROW_END		equ ROW_START + 20
 ; params:
-;  y = start address
+;  x = start address
 memory_dump:
-		sty	r_dump_address
+		stx	r_dump_address
 
-		lda	#START_ROW
+		lda	#ROW_START
 		sta	r_dump_row
 
 	.loop_next_address:
-		ldy	r_dump_address
+		ldx	r_dump_address
 
 		; if a cb was supplied use that, otherwise
 		; just do normal reads
-		ldx	r_cb_read_memory
-		beq	.no_cb_read_word
+		ldy	r_cb_read_memory
+		beq	.no_cb_read_memory
 
-		ldx	#r_dump_data
+		ldy	#r_dump_data
 		jsr	[r_cb_read_memory]
+		bra	.read_memory_done
 
-		bra	.do_dump
-
-	.no_cb_read_word:
-		ldd	, y
+	.no_cb_read_memory:
+		ldd	, x
 		std	r_dump_data
-		ldd	2, y
+		ldd	2, x
 		std	r_dump_data + 2
 
-	.do_dump:
+	.read_memory_done:
 		; address
 		lda	#SCREEN_START_X
 		ldb	r_dump_row
@@ -138,7 +143,7 @@ memory_dump:
 
 		lda	r_dump_row
 		inca
-		cmpa	#(START_ROW + NUM_ROWS)
+		cmpa	#ROW_END
 		beq	.dump_done
 		sta	r_dump_row
 
@@ -161,7 +166,7 @@ d_screen_xys_list:
 
 	section bss
 
-r_cb_read_memory:	dcb.w	1
-r_dump_address:		dcb.w	1
-r_dump_data:		dcb.w	2
-r_dump_row:		dcb.b	1
+r_cb_read_memory:	dcb.w 1
+r_dump_address:		dcb.w 1
+r_dump_data:		dcb.w 2
+r_dump_row:		dcb.b 1

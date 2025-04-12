@@ -118,8 +118,9 @@ print_hex_dsub:
 
 HEX_LOOKUP:	dc.b	"0123456789ABCDEF"
 
-; a1 = address of string
-; a6 = address in fg ram to start printing at
+; params:
+;  a0 = address of string
+;  a6 = address in fg ram to start printing at
 print_string_dsub:
 		moveq	#0, d0
 		move.b	(a0)+, d0

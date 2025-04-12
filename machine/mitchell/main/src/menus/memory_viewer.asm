@@ -49,6 +49,7 @@ view_work_ram:
 		ld	ix, WORK_RAM_START
 
 view_memory:
+		ld	iy, $0			; no callback
 		call	memory_viewer_handler
 		ret
 

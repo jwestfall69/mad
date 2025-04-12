@@ -28,36 +28,36 @@ memory_viewer_menu:
 		rts
 
 view_mmio_input:
-		ldy	#$3f80
+		ldx	#$3f80
 		bra	view_memory
 
 view_palette_ram:
-		ldy	#PALETTE_RAM_START
-		ldx	#cb_read_memory_palette
+		ldx	#PALETTE_RAM_START
+		ldy	#cb_read_memory_palette
 		bra	view_memory_cb
 
 view_rom_space:
-		ldy	#$8000
+		ldx	#$8000
 		bra	view_memory
 
 view_rom_bank_space:
-		ldy	#$6000
+		ldx	#$6000
 		bra	view_memory
 
 view_tile1_ram:
-		ldy	#TILE1_RAM_START
+		ldx	#TILE1_RAM_START
 		bra	view_memory
 
 view_tile2_ram:
-		ldy	#TILE2_RAM_START
+		ldx	#TILE2_RAM_START
 		bra	view_memory
 
 view_work_ram:
-		ldy	#WORK_RAM_START
+		ldx	#WORK_RAM_START
 		bra	view_memory
 
 view_memory:
-		ldx	#$0
+		ldy	#$0			; no callback
 view_memory_cb:
 		jsr	memory_viewer_handler
 		rts
@@ -68,15 +68,15 @@ view_memory_cb:
 ; ended.  So when wanting to read palette ram we need
 ; to bank switch it in, read, then unbank.
 ; params:
-;  x = address to write long to
-;  y = address to read from
+;  x = address to read from
+;  y = address to write long to
 cb_read_memory_palette:
 		; bank switch palette ram in/out
 		setln	#$a0
-		ldd	, y
-		std	, x
-		ldd	2, y
-		std	2, x
+		ldd	, x
+		std	, y
+		ldd	2, x
+		std	2, y
 		setln	#$80
 		rts
 

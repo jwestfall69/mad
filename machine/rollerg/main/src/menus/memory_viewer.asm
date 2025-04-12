@@ -28,35 +28,35 @@ memory_viewer_menu:
 		rts
 
 view_mmio_input:
-		ldy	#$0050
+		ldx	#$0050
 		bra	view_memory
 
 view_palette_ram:
-		ldy	#PALETTE_RAM_START
+		ldx	#PALETTE_RAM_START
 		bra	view_memory
 
 view_rom_space:
-		ldy	#$8000
+		ldx	#$8000
 		bra	view_memory
 
 view_rom_bank_space:
-		ldy	#$6000
+		ldx	#$6000
 		bra	view_memory
 
 view_sprite_ram:
-		ldy	#SPRITE_RAM_START
+		ldx	#SPRITE_RAM_START
 		bra	view_memory
 
 view_tile_ram:
-		ldy	#TILE_RAM_START
+		ldx	#TILE_RAM_START
 		bra	view_memory
 
 view_work_ram:
-		ldy	#WORK_RAM_START
+		ldx	#WORK_RAM_START
 		bra	view_memory
 
 view_memory:
-		ldx	#$0
+		ldy	#$0			; no callback
 		jsr	memory_viewer_handler
 		rts
 
