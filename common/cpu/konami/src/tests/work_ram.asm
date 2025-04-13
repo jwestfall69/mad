@@ -137,7 +137,14 @@ work_ram_data_test_dsub:
 		lda	#EC_WORK_RAM_DATA
 		jmp	error_address
 
-
+; This is testing for dead output from whatever
+; is directly connected to the CPU when talking
+; to the memory.  This maybe the memory itself
+; or there could be some IC in between (ie 74LS245)
+; Lack of output will usually result the register be
+; filled with the contents of the ld's optarg.  So
+; we loop $64 times trying to catch 2 different
+; optargs being placed into 'a' in a row.
 work_ram_output_test_dsub:
 		SEEK_LN SCREEN_START_Y
 		PSUB	print_clear_line
@@ -147,11 +154,25 @@ work_ram_output_test_dsub:
 		PSUB	print_string
 
 		ldx	#WORK_RAM_START
-		PSUB	memory_output_test
+		tfr	x, y
+		ldb	#$64
 
-		cmpa	#$0
-		beq	.test_passed
+	.loop_next:
+		lda	, x		; $1226
+		cmpa	#$26
+		bne	.loop_pass
 
+		lda	, y		; $1236
+		cmpa	#$36
+		beq	.test_failed
+
+	.loop_pass:
+		dbjnz	.loop_next
+
+		WATCHDOG
+		DSUB_RETURN
+
+	.test_failed:
 		SEEK_LN SCREEN_START_Y
 		PSUB	print_clear_line
 
@@ -161,10 +182,6 @@ work_ram_output_test_dsub:
 
 		lda	#EC_WORK_RAM_OUTPUT
 		jmp	error_address
-
-	.test_passed:
-		WATCHDOG
-		DSUB_RETURN
 
 work_ram_march_test_dsub:
 		SEEK_LN SCREEN_START_Y
