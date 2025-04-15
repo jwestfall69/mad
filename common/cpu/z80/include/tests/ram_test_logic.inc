@@ -1,5 +1,6 @@
-RTL_FLAG_NONE		equ $0
-RTL_FLAG_PAUSE_REDRAW	equ $1	; force a full screen redraw on pause
+RTL_FLAG_NONE		equ $00
+RTL_FLAG_PAUSE_REDRAW	equ $01	; force a full screen redraw on pause
+RTL_FLAG_AUTO_OVERRIDE	equ $02	; don't generate auto_x_ram_tests function
 
 	; params:
 	;  1 = lowercase of the ram name
@@ -12,10 +13,12 @@ RTL_FLAG_PAUSE_REDRAW	equ $1	; force a full screen redraw on pause
 
 	section code
 
+	ifeq \3 & RTL_FLAG_AUTO_OVERRIDE
 auto_\1_ram_tests:
 		ld	ix, d_mt_data
 		call	memory_tests_handler
 		ret
+	endif
 
 manual_\1_ram_tests:
 		ld	de, d_screen_xys_list

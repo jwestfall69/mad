@@ -1,9 +1,10 @@
 RTL_FLAG_NONE		equ $00
-RTL_FLAG_PAUSE_REDRAW	equ $01
-RTL_FLAG_BYTE_TESTS	equ $02
-RTL_FLAG_LOWER_ONLY	equ $04
-RTL_FLAG_ADDRESS_LIST	equ $08
-RTL_FLAG_MAME_DISABLE	equ $10
+RTL_FLAG_PAUSE_REDRAW	equ $01	; force a full screen redraw on pause
+RTL_FLAG_AUTO_OVERRIDE	equ $02	; don't generate auto_x_ram_tests function
+RTL_FLAG_BYTE_TESTS	equ $04
+RTL_FLAG_LOWER_ONLY	equ $08
+RTL_FLAG_ADDRESS_LIST	equ $10
+RTL_FLAG_MAME_DISABLE	equ $20
 
 	; params:
 	;  1 = lowercase of the ram name
@@ -17,6 +18,7 @@ RTL_FLAG_MAME_DISABLE	equ $10
 
 	section code
 
+	ifeq \3 & RTL_FLAG_AUTO_OVERRIDE
 auto_\1_ram_tests:
 
 	if \3 & RTL_FLAG_MAME_DISABLE
@@ -32,6 +34,7 @@ auto_\1_ram_tests:
 		DSUB	memory_tests_handler
 	endif
 		rts
+	endif
 
 manual_\1_ram_tests:
 
