@@ -25,7 +25,6 @@
 memory_address_test:
 
 		inca			; bump up for 0 address and # loops
-		inca
 		sta	(r_memory_address_lines)
 		stx	(r_memory_start)
 
