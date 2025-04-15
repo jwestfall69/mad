@@ -21,6 +21,7 @@ memory_tests_handler:
 		tsta
 		lbne	.test_failed_output
 
+		ldy	r_mt_data_ptr
 		ldx	s_mt_start_address, y
 		jsr	memory_write_test
 		tsta
