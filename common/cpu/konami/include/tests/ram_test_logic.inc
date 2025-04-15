@@ -25,7 +25,7 @@ manual_\1_ram_tests:
 		ldy	#d_screen_xys_list
 		jsr	print_xy_string_list
 
-		clrd
+		ldd	#$0
 
 	.loop_next_pass:
 		pshs	d
@@ -46,7 +46,7 @@ manual_\1_ram_tests:
 		beq	.test_exit
 
 		puls	d
-		incd
+		addd	#$1
 
 		bra	.loop_next_pass
 
