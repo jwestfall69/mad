@@ -33,7 +33,7 @@ view_mmio_input:
 
 view_palette_ram:
 		ldx	#PALETTE_RAM_START
-		ldy	#cb_read_memory_banked
+		ldy	#read_memory_banked_cb
 		bra	view_memory_cb
 
 view_rom_space:
@@ -46,7 +46,7 @@ view_rom_bank_space:
 
 view_sprite_ram:
 		ldx	#SPRITE_RAM_START
-		ldx	#cb_read_memory_banked
+		ldx	#read_memory_banked_cb
 		bra	view_memory_cb
 
 view_tile1_ram:
@@ -75,7 +75,7 @@ view_memory_cb:
 ; params:
 ;  x = address to write long to
 ;  y = address to read from
-cb_read_memory_banked:
+read_memory_banked_cb:
 		lda	#$1
 		sta	REG_CONTROL
 		ldd	, y

@@ -33,7 +33,7 @@ view_mmio_input:
 
 view_palette_ram:
 		ldx	#PALETTE_RAM_START
-		ldy	#cb_read_memory_palette
+		ldy	#read_memory_palette_cb
 		bra	view_memory_cb
 
 view_rom_space:
@@ -74,7 +74,7 @@ view_memory_cb:
 ; params:
 ;  x = address to read from
 ;  y = address to write long to
-cb_read_memory_palette:
+read_memory_palette_cb:
 		; bank switch palette ram in/out
 		setln	#$a0
 		ldd	, x

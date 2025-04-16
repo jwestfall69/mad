@@ -12,11 +12,11 @@
 
 ; params:
 ;  a0 = start memory location
-;  a1 = cb_read_memory or #$0000 to use default memory read
-; cb_read_memory params:
+;  a1 = read_memory_cb or #$0000 to use default memory read
+; read_memory_cb params:
 ;  a0 = address to start reading from
 ;  d0 = 0 (use word reads) or 1 (use byte reads)
-; cb_read_memory return:
+; read_memory_cb return:
 ;  d0 = read data
 ;  function should write a long worth of data in d0
 memory_viewer_handler:
@@ -111,7 +111,7 @@ ROW_START	equ SCREEN_START_Y + 3
 ROW_END		equ ROW_START + 20
 ; params:
 ;  a0 = start adddress
-;  a1 = cb_read_memory or #$0000 to use default memory read
+;  a1 = read_memory_cb or #$0000 to use default memory read
 ;  READ_MODE = 0 (word reads), 1 (byte reads)
 memory_dump:
 
@@ -139,7 +139,7 @@ memory_dump:
 		RSUB	screen_seek_xy
 
 		cmp	#$0, a1
-		beq	.no_cb_read_memory
+		beq	.no_read_memory_cb
 
 		movem.l	a0-a1, -(a7)
 		moveq	#$0, d0
@@ -148,7 +148,7 @@ memory_dump:
 		movem.l	(a7)+, a0-a1
 		bra	.read_memory_done
 
-	.no_cb_read_memory:
+	.no_read_memory_cb:
 		btst	#$0, r_read_mode
 		beq	.read_mode_word
 		move.b	(a0), d0
@@ -212,6 +212,6 @@ d_str_read_mode_word:		STRING "WORD"
 	section bss
 	align 1
 
-r_cb_read_memory:	dcb.l 1
+r_read_memory_cb:	dcb.l 1
 r_debug_memory:		dcb.b 1
 r_read_mode:		dcb.b 1

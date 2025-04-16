@@ -12,13 +12,13 @@
 
 ; params:
 ;  ix = start address
-;  iy = cb_read_memory or #$0000 to use default memory read
-; cb_read_memory params:
+;  iy = read_memory_cb or #$0000 to use default memory read
+; read_memory_cb params:
 ;  ix = address to start reading from
 ;  iy = address to start writing data
 ;  function should write a long worth of data at iy
 memory_viewer_handler:
-		ld	(r_cb_read_memory), iy
+		ld	(r_read_memory_cb), iy
 
 		RSUB 	screen_init
 		ld 	de, d_screen_xys_list
@@ -88,11 +88,11 @@ memory_dump:
 		; if a cb was supplied use that, otherwise
 		; just do normal reads
 		ld	a, $0
-		ld	bc, (r_cb_read_memory)
+		ld	bc, (r_read_memory_cb)
 		cp	b
-		jr	nz, .has_cb_read_memory
+		jr	nz, .has_read_memory_cb
 		cp	c
-		jr	nz, .has_cb_read_memory
+		jr	nz, .has_read_memory_cb
 
 		ld	ix, (r_dump_address)
 		ld	b, (ix)
@@ -105,8 +105,8 @@ memory_dump:
 		ld	(iy + 3), b
 		jr	.read_memory_done
 
-	.has_cb_read_memory:
-		ld	ix, r_cb_read_memory
+	.has_read_memory_cb:
+		ld	ix, r_read_memory_cb
 		ld	l, (ix)
 		ld	h, (ix + 1)
 
@@ -199,7 +199,7 @@ d_screen_xys_list:
 
 	section bss
 
-r_cb_read_memory:	dcb.w 1
+r_read_memory_cb:	dcb.w 1
 r_dump_address:		dcb.w 1
 r_dump_data:		dcb.w 2
 r_dump_row		dcb.b 1

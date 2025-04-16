@@ -12,13 +12,13 @@
 
 ; params:
 ;  x = start address
-;  y = cb_read_memory or #$0000 to use default memory read
-; cb_read_memory params:
+;  y = read_memory_cb or #$0000 to use default memory read
+; read_memory_cb params:
 ;  x = address to start reading from
 ;  y = address to start writing data
 ;  function should write a long worth of data at y
 memory_viewer_handler:
-		sty	r_cb_read_memory
+		sty	r_read_memory_cb
 		pshs	x
 		RSUB	screen_init
 
@@ -78,14 +78,14 @@ memory_dump:
 
 		; if a cb was supplied use that, otherwise
 		; just do normal reads
-		ldy	r_cb_read_memory
-		beq	.no_cb_read_memory
+		ldy	r_read_memory_cb
+		beq	.no_read_memory_cb
 
 		ldy	#r_dump_data
-		jsr	[r_cb_read_memory]
+		jsr	[r_read_memory_cb]
 		bra	.read_memory_done
 
-	.no_cb_read_memory:
+	.no_read_memory_cb:
 		ldd	, x
 		std	r_dump_data
 		ldd	2, x
@@ -166,7 +166,7 @@ d_screen_xys_list:
 
 	section bss
 
-r_cb_read_memory:	dcb.w 1
+r_read_memory_cb:	dcb.w 1
 r_dump_address:		dcb.w 1
 r_dump_data:		dcb.w 2
 r_dump_row:		dcb.b 1
