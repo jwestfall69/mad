@@ -2,10 +2,14 @@
 	include "global/include/screen.inc"
 	include "cpu/konami/include/dsub.inc"
 	include "cpu/konami/include/macros.inc"
+	include "cpu/konami/include/xy_string.inc"
 
 	include "error_codes.inc"
+	include "input.inc"
 	include "machine.inc"
+	include "mad.inc"
 
+	global manual_work_ram_tests
 	global work_ram_address_test_dsub
 	global work_ram_data_test_dsub
 	global work_ram_march_test_dsub
@@ -14,18 +18,49 @@
 
 	section code
 
+manual_work_ram_tests:
+		SEEK_LN	SCREEN_START_Y
+		RSUB	print_clear_line
+
+		ldy	#d_screen_xys_list
+		jsr	print_xy_string_list
+
+		ldd	#$0
+		std	R_WORK_RAM_PASSES
+
+		DSUB_MODE_PSUB
+
+	.loop_next_pass:
+		SEEK_XY	SCREEN_PASSES_VALUE_X, SCREEN_PASSES_Y
+		ldd	R_WORK_RAM_PASSES
+		PSUB	print_hex_word
+
+		PSUB	work_ram_output_test
+		PSUB	work_ram_write_test
+		PSUB	work_ram_data_test
+		PSUB	work_ram_address_test
+		PSUB	work_ram_march_test
+
+		lda	REG_INPUT
+		bita	#INPUT_B2
+		beq	.test_exit
+
+		ldd	R_WORK_RAM_PASSES
+		addd	#$1
+		std	R_WORK_RAM_PASSES
+		bra	.loop_next_pass
+
+	.test_exit:
+		DSUB_MODE_RSUB
+
+		clr	r_menu_cursor
+		jmp	main_menu
+
 ; Write an incrementing value at each address line, then
 ; read them back checking for any differences.  Have to do
 ; a bit of juggling because of limited registers and lack of
 ; useful opcodes (ie ldx d,x).
 work_ram_address_test_dsub:
-		SEEK_LN SCREEN_START_Y
-		PSUB	print_clear_line
-
-		SEEK_XY SCREEN_START_X, SCREEN_START_Y
-		ldy	#d_str_testing_work_ram_address
-		PSUB	print_string
-
 		ldd	#$1		; offset
 		ldy	#$1		; counter (lower byte)
 
@@ -93,13 +128,6 @@ work_ram_address_test_dsub:
 		jmp	error_address
 
 work_ram_data_test_dsub:
-		SEEK_LN SCREEN_START_Y
-		PSUB	print_clear_line
-
-		SEEK_XY SCREEN_START_X, SCREEN_START_Y
-		ldy	#d_str_testing_work_ram_data
-		PSUB	print_string
-
 		ldy	#d_data_patterns
 
 	.loop_next_pattern:
@@ -146,13 +174,6 @@ work_ram_data_test_dsub:
 ; we loop $64 times trying to catch 2 different
 ; optargs being placed into 'a' in a row.
 work_ram_output_test_dsub:
-		SEEK_LN SCREEN_START_Y
-		PSUB	print_clear_line
-
-		SEEK_XY SCREEN_START_X, SCREEN_START_Y
-		ldy	#d_str_testing_work_ram_output
-		PSUB	print_string
-
 		ldx	#WORK_RAM_START
 		tfr	x, y
 		ldb	#$64
@@ -184,15 +205,9 @@ work_ram_output_test_dsub:
 		jmp	error_address
 
 work_ram_march_test_dsub:
-		SEEK_LN SCREEN_START_Y
-		PSUB	print_clear_line
-
-		SEEK_XY SCREEN_START_X, SCREEN_START_Y
-		ldy	#d_str_testing_work_ram_march
-		PSUB	print_string
-
 		ldx	#WORK_RAM_START
 		lda	#$0
+
 	.loop_fill_zero:
 		sta	, x+
 		cmpx	#(WORK_RAM_START + WORK_RAM_SIZE)
@@ -242,13 +257,6 @@ work_ram_march_test_dsub:
 ; - compare re-read with original
 ; - if they match, test failed
 work_ram_write_test_dsub:
-		SEEK_LN SCREEN_START_Y
-		PSUB	print_clear_line
-
-		SEEK_XY SCREEN_START_X, SCREEN_START_Y
-		ldy	#d_str_testing_work_ram_write
-		PSUB	print_string
-
 		WATCHDOG
 
 		ldx	#WORK_RAM_START
@@ -275,6 +283,12 @@ work_ram_write_test_dsub:
 
 	section data
 
+d_screen_xys_list:
+	XY_STRING SCREEN_START_X, SCREEN_START_Y, "TESTING WORK RAM"
+	XY_STRING SCREEN_START_X, SCREEN_PASSES_Y, "PASSES"
+	XY_STRING SCREEN_START_X, SCREEN_B2_Y, "B2 - RETURN TO MENU"
+	XY_STRING_LIST_END
+
 d_data_patterns:	dc.b $00, $55, $aa, $ff
 
 ; These are padded so we fully overwrite "TESTING WORK RAM"
@@ -283,9 +297,3 @@ d_str_work_ram_data:		STRING "WORK RAM DATA   "
 d_str_work_ram_march:		STRING "WORK RAM MARCH  "
 d_str_work_ram_output:		STRING "WORK RAM OUTPUT "
 d_str_work_ram_write:		STRING "WORK RAM WRITE  "
-
-d_str_testing_work_ram_address:	STRING "TESTING WORK RAM ADDRESS"
-d_str_testing_work_ram_data:	STRING "TESTING WORK RAM DATA"
-d_str_testing_work_ram_march:	STRING "TESTING WORK RAM MARCH"
-d_str_testing_work_ram_output:	STRING "TESTING WORK RAM OUTPUT"
-d_str_testing_work_ram_write:	STRING "TESTING WORK RAM WRITE"
