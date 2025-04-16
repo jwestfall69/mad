@@ -29,6 +29,14 @@ _start:
 
 		PSUB	mad_rom_address_test
 		PSUB	mad_rom_crc16_test
+
+		SEEK_LN	SCREEN_START_Y
+		PSUB	print_clear_line
+
+		SEEK_XY SCREEN_START_X, SCREEN_START_Y
+		ldy	#d_str_testing_work_ram
+		PSUB	print_string
+
 		PSUB	work_ram_output_test
 		PSUB	work_ram_write_test
 		PSUB	work_ram_data_test
@@ -37,4 +45,9 @@ _start:
 
 		DSUB_MODE_RSUB
 
+		jsr	auto_func_tests
 		jsr	main_menu
+
+	section data
+
+d_str_testing_work_ram: 	STRING "TESTING WORK RAM"
