@@ -9,4 +9,4 @@
 	include "input.inc"
 	include "machine.inc"
 
-	RAM_TEST_LOGIC bg, BG, RTL_FLAG_LOWER_ONLY
+	RAM_TEST_LOGIC bg, BG, RTL_FLAG_NONE, MT_FLAG_LOWER_ONLY

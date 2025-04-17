@@ -11,7 +11,7 @@
 	include "machine.inc"
 	include "mad.inc"
 
-	RAM_TEST_LOGIC gfx, GFX, (RTL_FLAG_PAUSE_REDRAW | RTL_FLAG_ADDRESS_LIST)
+	RAM_TEST_LOGIC gfx, GFX, (RTL_FLAG_PAUSE_REDRAW | RTL_FLAG_ADDRESS_LIST), MT_FLAG_NONE
 
 	section data
 	align 1

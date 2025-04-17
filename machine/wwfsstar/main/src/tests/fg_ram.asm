@@ -9,4 +9,4 @@
 	include "input.inc"
 	include "machine.inc"
 
-	RAM_TEST_LOGIC fg, FG, (RTL_FLAG_PAUSE_REDRAW | RTL_FLAG_LOWER_ONLY)
+	RAM_TEST_LOGIC fg, FG, RTL_FLAG_PAUSE_REDRAW, MT_FLAG_LOWER_ONLY

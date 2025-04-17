@@ -11,4 +11,4 @@
 	include "machine.inc"
 	include "mad.inc"
 
-	RAM_TEST_LOGIC palette_ext, PALETTE_EXT, (RTL_FLAG_PAUSE_REDRAW | RTL_FLAG_LOWER_ONLY)
+	RAM_TEST_LOGIC palette_ext, PALETTE_EXT, RTL_FLAG_PAUSE_REDRAW, MT_FLAG_LOWER_ONLY

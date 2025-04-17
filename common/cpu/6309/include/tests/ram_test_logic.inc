@@ -5,7 +5,8 @@ RTL_FLAG_AUTO_OVERRIDE	equ $02	; don't generate auto_x_ram_tests function
 	; params:
 	;  1 = lowercase of the ram name
 	;  2 = uppercase of the ram name
-	;  3 = flags
+	;  3 = rtl flags
+	;  4 = mt flags
 	macro RAM_TEST_LOGIC
 
 	global auto_\1_ram_tests
@@ -79,7 +80,7 @@ manual_\1_ram_tests:
 	section data
 
 d_mt_data:
-	MT_PARAMS \2_RAM_START, \2_RAM_SIZE, \2_RAM_ADDRESS_LINES, \2_RAM_BASE_EC
+	MT_PARAMS \2_RAM_START, \2_RAM_SIZE, \2_RAM_ADDRESS_LINES, \2_RAM_BASE_EC, \4
 
 d_screen_xys_list:
 	if \3 & RTL_FLAG_PAUSE_REDRAW

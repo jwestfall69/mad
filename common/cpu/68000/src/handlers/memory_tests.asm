@@ -33,13 +33,15 @@ memory_tests_handler_dsub:
 		bne	.memory_list
 
 		move.l	s_mt_start_address(a6), a0
-		move.b	s_mt_lower_byte_only(a6), d0
+		moveq	#MT_FLAG_LOWER_ONLY, d0
+		and.b	s_mt_flags(a6), d0
 		DSUB	memory_output_test
 		tst.b	d0
 		bne	.test_failed_output
 
 		move.l	s_mt_start_address(a6), a0
-		move.b	s_mt_lower_byte_only(a6), d0
+		moveq	#MT_FLAG_LOWER_ONLY, d0
+		and.b	s_mt_flags(a6), d0
 		DSUB	memory_write_test
 		tst.b	d0
 		bne	.test_failed_write
@@ -47,13 +49,15 @@ memory_tests_handler_dsub:
 
 	.memory_list:
 		move.l	s_mt_address_list(a6), a0
-		move.b	s_mt_lower_byte_only(a6), d0
+		moveq	#MT_FLAG_LOWER_ONLY, d0
+		and.b	s_mt_flags(a6), d0
 		DSUB	memory_output_list_test
 		tst.b	d0
 		bne	.test_failed_output
 
 		move.l	s_mt_address_list(a6), a0
-		move.b	s_mt_lower_byte_only(a6), d0
+		moveq	#MT_FLAG_LOWER_ONLY, d0
+		and.b	s_mt_flags(a6), d0
 		DSUB	memory_write_list_test
 		tst.b	d0
 		bne	.test_failed_write

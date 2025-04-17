@@ -2,15 +2,14 @@ RTL_FLAG_NONE		equ $00
 RTL_FLAG_PAUSE_REDRAW	equ $01	; force a full screen redraw on pause
 RTL_FLAG_AUTO_OVERRIDE	equ $02	; don't generate auto_x_ram_tests function
 RTL_FLAG_BYTE_TESTS	equ $04
-RTL_FLAG_LOWER_ONLY	equ $08
-RTL_FLAG_ADDRESS_LIST	equ $10
-RTL_FLAG_MAME_DISABLE	equ $20
+RTL_FLAG_ADDRESS_LIST	equ $08
+RTL_FLAG_MAME_DISABLE	equ $10
 
 	; params:
 	;  1 = lowercase of the ram name
 	;  2 = uppercase of the ram name
-	;  3 = flags
-
+	;  3 = rtl flags
+	;  4 = mt flags
 	macro RAM_TEST_LOGIC
 
 	global auto_\1_ram_tests
@@ -90,18 +89,12 @@ manual_\1_ram_tests:
 	section data
 	align 1
 
-	if \3 & RTL_FLAG_LOWER_ONLY
-TEST_BYTE 	equ MT_TEST_LOWER_ONLY
-	else
-TEST_BYTE	equ MT_TEST_BOTH
-	endif
-
 d_mt_data:
 
 	if \3 & RTL_FLAG_ADDRESS_LIST
-		MT_PARAMS \2_RAM_START, d_memory_address_list, \2_RAM_SIZE, \2_RAM_ADDRESS_LINES, \2_RAM_MASK, TEST_BYTE, \2_RAM_BASE_EC
+		MT_PARAMS \2_RAM_START, d_memory_address_list, \2_RAM_SIZE, \2_RAM_ADDRESS_LINES, \2_RAM_MASK, \2_RAM_BASE_EC, \4
 	else
-		MT_PARAMS \2_RAM_START, MT_NULL_ADDRESS_LIST, \2_RAM_SIZE, \2_RAM_ADDRESS_LINES, \2_RAM_MASK, TEST_BYTE, \2_RAM_BASE_EC
+		MT_PARAMS \2_RAM_START, MT_NULL_ADDRESS_LIST, \2_RAM_SIZE, \2_RAM_ADDRESS_LINES, \2_RAM_MASK, \2_RAM_BASE_EC, \4
 	endif
 
 d_screen_xys_list:

@@ -10,4 +10,4 @@
 	include "machine.inc"
 
 	; sprite ram only works with byte read/writes
-	RAM_TEST_LOGIC sprite, SPRITE, (RTL_FLAG_LOWER_ONLY | RTL_FLAG_BYTE_TESTS)
+	RAM_TEST_LOGIC sprite, SPRITE, RTL_FLAG_BYTE_TESTS, MT_FLAG_LOWER_ONLY

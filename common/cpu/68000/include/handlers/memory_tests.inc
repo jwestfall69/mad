@@ -1,11 +1,11 @@
 	; struct mt_params {
-	;   long start_address;
-	;   ptr  *address_list;		// (0x0 = disabled)
-	;   long size;
-	;   word num_address_lines;
-	;   word mask;
-	;   byte lower_byte_only;	// 0 = test both lower/upper, 1 only lower
-	;   byte base_ec;
+	;  long start_address
+	;  ptr  *address_list		// (0x0 = disabled)
+	;  long size
+	;  word num_address_lines
+	;  word mask
+	;  byte base_ec
+	;  byte flags
 	; };
 
 	rsreset
@@ -14,8 +14,9 @@ s_mt_address_list	rs.l 1
 s_mt_size		rs.l 1
 s_mt_num_address_lines	rs.w 1
 s_mt_mask		rs.w 1
-s_mt_lower_byte_only	rs.b 1
 s_mt_base_ec		rs.b 1
+s_mt_flags		rs.b 1
+s_mt_struct_size	rs.b 0
 
 	macro MT_PARAMS
 		dc.l \1, \2, \3
@@ -30,5 +31,6 @@ MT_ERROR_OUTPUT_BASE	equ $7
 MT_ERROR_WRITE_BASE	equ $a
 
 MT_NULL_ADDRESS_LIST	equ $0
-MT_TEST_BOTH		equ $0
-MT_TEST_LOWER_ONLY	equ $1
+
+MT_FLAG_NONE		equ $00
+MT_FLAG_LOWER_ONLY	equ $01
