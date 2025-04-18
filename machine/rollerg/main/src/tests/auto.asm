@@ -1,6 +1,6 @@
 	include "global/include/macros.inc"
-	include "cpu/konami/include/macros.inc"
-	include "cpu/konami/include/handlers/auto_test.inc"
+	include "cpu/konami2/include/macros.inc"
+	include "cpu/konami2/include/handlers/auto_test.inc"
 
 	global	auto_func_tests
 

@@ -1,4 +1,4 @@
-	include "cpu/konami/include/macros.inc"
+	include "cpu/konami2/include/macros.inc"
 
 	include "input.inc"
 	include "machine.inc"

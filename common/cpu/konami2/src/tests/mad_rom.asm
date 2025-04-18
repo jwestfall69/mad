@@ -1,8 +1,8 @@
 	include "global/include/screen.inc"
 	include "global/include/macros.inc"
-	include "cpu/konami/include/dsub.inc"
-	include "cpu/konami/include/error_codes.inc"
-	include "cpu/konami/include/macros.inc"
+	include "cpu/konami2/include/dsub.inc"
+	include "cpu/konami2/include/error_codes.inc"
+	include "cpu/konami2/include/macros.inc"
 
 	include "machine.inc"
 	include "mad.inc"

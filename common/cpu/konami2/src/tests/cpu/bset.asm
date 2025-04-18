@@ -1,17 +1,17 @@
 	include "global/include/macros.inc"
 	include "global/include/screen.inc"
-	include "cpu/konami/include/dsub.inc"
-	include "cpu/konami/include/macros.inc"
-	include "cpu/konami/include/xy_string.inc"
+	include "cpu/konami2/include/dsub.inc"
+	include "cpu/konami2/include/macros.inc"
+	include "cpu/konami2/include/xy_string.inc"
 
 	include "input.inc"
 	include "machine.inc"
 
-	global	bmove_test
+	global	bset_test
 
 	section code
 
-bmove_test:
+bset_test:
 		ldy	#d_xys_screen_list
 		jsr	print_xy_string_list
 
@@ -41,11 +41,11 @@ run_test:
 		std	r_dst_data + 6
 
 
+		lda	#$3e
 		ldu	#$6
-		ldy	#d_src_data
 		ldx	#r_dst_data
 
-		bmove
+		bset
 
 		SEEK_XY (SCREEN_START_X + 1), (SCREEN_START_Y + 12)
 		ldd	r_dst_data
@@ -67,12 +67,9 @@ run_test:
 
 	section data
 
-d_src_data:	dc.w $1234, $5678, $9abc, $ddee
-
 d_xys_screen_list:
-		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 2), "SRC DATA"
-		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 3), " 1234 5678 9ABC"
-		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 11), "DST DATA"
+		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 2), "DATA SHOULD ALL BE 3E"
+		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 11), "DATA"
 		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 14), "WORD AFTER"
 		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 15), "SHOULD BE EAED"
 		XY_STRING SCREEN_START_X, SCREEN_B1_Y, " B1 - RUN TEST"

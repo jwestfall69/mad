@@ -1,6 +1,6 @@
-	include "cpu/konami/include/dsub.inc"
-	include "cpu/konami/include/macros.inc"
-	include "cpu/konami/include/handlers/auto_test.inc"
+	include "cpu/konami2/include/dsub.inc"
+	include "cpu/konami2/include/macros.inc"
+	include "cpu/konami2/include/handlers/auto_test.inc"
 	include "global/include/screen.inc"
 
 	include "machine.inc"

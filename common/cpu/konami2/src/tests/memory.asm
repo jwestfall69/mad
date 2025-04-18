@@ -1,6 +1,6 @@
 ; These memory tests are only valid on non-work ram memory regions
-	include "cpu/konami/include/dsub.inc"
-	include "cpu/konami/include/macros.inc"
+	include "cpu/konami2/include/dsub.inc"
+	include "cpu/konami2/include/macros.inc"
 
 	include "machine.inc"
 

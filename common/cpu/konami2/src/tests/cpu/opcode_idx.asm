@@ -1,17 +1,17 @@
 	include "global/include/macros.inc"
 	include "global/include/screen.inc"
-	include "cpu/konami/include/dsub.inc"
-	include "cpu/konami/include/macros.inc"
-	include "cpu/konami/include/xy_string.inc"
+	include "cpu/konami2/include/dsub.inc"
+	include "cpu/konami2/include/macros.inc"
+	include "cpu/konami2/include/xy_string.inc"
 
 	include "input.inc"
 	include "machine.inc"
 
-	global	opcode_imm_test
+	global	opcode_idx_test
 
 	section code
 
-opcode_imm_test:
+opcode_idx_test:
 		clr	r_opcode
 
 		ldy	#d_xys_screen_list
@@ -20,7 +20,7 @@ opcode_imm_test:
 		; copy exg test code from rom to ram
 		ldx	#d_opcode_code
 		ldy	#r_opcode_code
-		ldb	#$6
+		ldb	#$8
 	.loop_next_opcode_byte:
 		lda	, x+
 		sta	, y+
@@ -89,12 +89,19 @@ run_opcode_test:
 		ldd	r_opcode_code
 		RSUB	print_hex_word
 
+		SEEK_XY	 (SCREEN_START_X + 29), (SCREEN_START_Y + 11)
+		ldd	r_opcode_code+2
+		RSUB	print_hex_word
+
+		ldd	#$8191
+		std	r_opcode_mem
+
 		; init values
 		lda	#$bb
 		pshs	a
 		puls	dp
-		lda 	#$81
-		ldb	#$91
+		lda 	#$12
+		ldb	#$23
 		ldx	#$3344
 		ldy	#$5566
 		ldu	#$7788
@@ -160,23 +167,29 @@ run_opcode_test:
 		puls	a	; cc
 		RSUB	print_hex_byte
 
+		SEEK_XY (SCREEN_START_X + 20), (SCREEN_START_Y + 15)
+		ldd	r_opcode_mem
+		RSUB	print_hex_word
+
 		; not rts because stack will have been re-init
 		jmp	opcode_test_return
 
 	section data
 
-d_opcode_code:	dc.w $0012, $a807, opcode_return ; <opcode>, imm#, jmp opcode_return
+d_opcode_code:	dc.w $0007, r_opcode_mem, $a807, opcode_return ; <opcode + ext>, r_opcode_mem, jmp opcode_return
 
 d_xys_screen_list:
 		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 2), "BEFORE VALUES"
-		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 3), " A   81  X 3344   S 99AA"
-		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 4), " B   91  Y 5566  DP   BB"
-		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 5), " D 8191  U 7788  CC   ??"
-		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 8), "OPCODE     IMM 12"
+		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 3), " A   12  X 3344   S 99AA"
+		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 4), " B   23  Y 5566  DP   BB"
+		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 5), " D 1223  U 7788  CC   ??"
+		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 8), "OPCODE     MEM DATA 8191"
 		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 11), "AFTER VALUES FOR OPCODE"
 		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 12), " A       X        S"
 		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 13), " B       Y       DP"
 		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 14), " D       U       CC"
+		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 15), "           MEM DATA"
+
 		XY_STRING SCREEN_START_X, (SCREEN_B1_Y - 1), "JOY - ADJUST OPCODE"
 		XY_STRING SCREEN_START_X, SCREEN_B1_Y, " B1 - RUN OPCODE"
 		XY_STRING SCREEN_START_X, SCREEN_B2_Y, " B2 - RETURN TO MENU"
@@ -187,3 +200,4 @@ d_xys_screen_list:
 r_opcode:	dcb.b	1
 r_opcode_code:	dcb.b	8
 r_stack:	dcb.w	1
+r_opcode_mem:	dcb.w	1

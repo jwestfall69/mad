@@ -1,4 +1,4 @@
-	include "cpu/konami/include/dsub.inc"
+	include "cpu/konami2/include/dsub.inc"
 
 	global print_xy_string
 	global print_xy_string_list

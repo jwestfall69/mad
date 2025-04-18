@@ -7,34 +7,34 @@ WORK_DIR=$(BUILD_DIR)/work
 ROM=999m02.g7
 
 VASM = vasm6809_mot
-VASM_FLAGS = -konami -Fvobj -spaces -chklabels -Iinclude -I../../../common  -quiet
+VASM_FLAGS = -konami2 -Fvobj -spaces -chklabels -Iinclude -I../../../common  -quiet
 VLINK = vlink
 VLINK_FLAGS = -brawbin1 -T$(MAD_NAME).ld
 MKDIR = mkdir
 DD = dd
 
-OBJS = $(OBJ_DIR)/cpu/konami/src/footer.o \
-       $(OBJ_DIR)/cpu/konami/src/input_update.o \
-       $(OBJ_DIR)/cpu/konami/src/print_error.o \
-       $(OBJ_DIR)/cpu/konami/src/util.o \
-       $(OBJ_DIR)/cpu/konami/src/xy_string.o \
-       $(OBJ_DIR)/cpu/konami/src/handlers/auto_test.o \
-       $(OBJ_DIR)/cpu/konami/src/handlers/error.o \
-       $(OBJ_DIR)/cpu/konami/src/handlers/memory_tests.o \
-       $(OBJ_DIR)/cpu/konami/src/handlers/memory_viewer.o \
-       $(OBJ_DIR)/cpu/konami/src/handlers/menu.o \
-       $(OBJ_DIR)/cpu/konami/src/tests/input.o \
-       $(OBJ_DIR)/cpu/konami/src/tests/mad_rom.o \
-       $(OBJ_DIR)/cpu/konami/src/tests/memory.o \
-       $(OBJ_DIR)/cpu/konami/src/tests/work_ram.o \
-       $(OBJ_DIR)/cpu/konami/src/tests/cpu/exgtfr.o \
-       $(OBJ_DIR)/cpu/konami/src/tests/cpu/bmove.o \
-       $(OBJ_DIR)/cpu/konami/src/tests/cpu/bset.o \
-       $(OBJ_DIR)/cpu/konami/src/tests/cpu/bsetw.o \
-       $(OBJ_DIR)/cpu/konami/src/tests/cpu/move.o \
-       $(OBJ_DIR)/cpu/konami/src/tests/cpu/opcode_idx.o \
-       $(OBJ_DIR)/cpu/konami/src/tests/cpu/opcode_inh.o \
-       $(OBJ_DIR)/cpu/konami/src/tests/cpu/opcode_imm.o
+OBJS = $(OBJ_DIR)/cpu/konami2/src/footer.o \
+       $(OBJ_DIR)/cpu/konami2/src/input_update.o \
+       $(OBJ_DIR)/cpu/konami2/src/print_error.o \
+       $(OBJ_DIR)/cpu/konami2/src/util.o \
+       $(OBJ_DIR)/cpu/konami2/src/xy_string.o \
+       $(OBJ_DIR)/cpu/konami2/src/handlers/auto_test.o \
+       $(OBJ_DIR)/cpu/konami2/src/handlers/error.o \
+       $(OBJ_DIR)/cpu/konami2/src/handlers/memory_tests.o \
+       $(OBJ_DIR)/cpu/konami2/src/handlers/memory_viewer.o \
+       $(OBJ_DIR)/cpu/konami2/src/handlers/menu.o \
+       $(OBJ_DIR)/cpu/konami2/src/tests/input.o \
+       $(OBJ_DIR)/cpu/konami2/src/tests/mad_rom.o \
+       $(OBJ_DIR)/cpu/konami2/src/tests/memory.o \
+       $(OBJ_DIR)/cpu/konami2/src/tests/work_ram.o \
+       $(OBJ_DIR)/cpu/konami2/src/tests/cpu/exgtfr.o \
+       $(OBJ_DIR)/cpu/konami2/src/tests/cpu/bmove.o \
+       $(OBJ_DIR)/cpu/konami2/src/tests/cpu/bset.o \
+       $(OBJ_DIR)/cpu/konami2/src/tests/cpu/bsetw.o \
+       $(OBJ_DIR)/cpu/konami2/src/tests/cpu/move.o \
+       $(OBJ_DIR)/cpu/konami2/src/tests/cpu/opcode_idx.o \
+       $(OBJ_DIR)/cpu/konami2/src/tests/cpu/opcode_inh.o \
+       $(OBJ_DIR)/cpu/konami2/src/tests/cpu/opcode_imm.o
 
 # code from this machine
 OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
@@ -55,9 +55,9 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
 
 INCS = $(wildcard include/*.inc) \
        $(wildcard ../../../common/global/include/*.inc) \
-       $(wildcard ../../../common/cpu/konami/include/*.inc) \
-       $(wildcard ../../../common/cpu/konami/include/tests/*.inc)
-       $(wildcard ../../../common/cpu/konami/include/tests/*/*.inc)
+       $(wildcard ../../../common/cpu/konami2/include/*.inc) \
+       $(wildcard ../../../common/cpu/konami2/include/tests/*.inc)
+       $(wildcard ../../../common/cpu/konami2/include/tests/*/*.inc)
 
 $(WORK_DIR)/$(MAD_NAME).bin: include/error_codes.inc $(WORK_DIR) $(OBJ_DIR) $(BUILD_DIR) $(OBJS)
 	$(VLINK) $(VLINK_FLAGS) -o $(WORK_DIR)/$(MAD_NAME).bin $(OBJS)
@@ -73,14 +73,14 @@ src/version.asm:
 $(OBJ_DIR)/%.o: src/%.asm $(INCS)
 	$(VASM) $(VASM_FLAGS) $(BUILD_FLAGS) -o $@ $<
 
-$(OBJ_DIR)/cpu/konami/src/%.o: ../../../common/cpu/konami/src/%.asm $(INCS)
+$(OBJ_DIR)/cpu/konami2/src/%.o: ../../../common/cpu/konami2/src/%.asm $(INCS)
 	 $(VASM) $(VASM_FLAGS) $(BUILD_FLAGS) -o $@ $<
 
 $(WORK_DIR):
 	$(MKDIR) -p $(WORK_DIR)
 
 $(OBJ_DIR):
-	$(MKDIR) -p $(OBJ_DIR)/tests $(OBJ_DIR)/menus/ $(OBJ_DIR)/cpu/konami/src/tests/cpu $(OBJ_DIR)/cpu/konami/src/handlers/
+	$(MKDIR) -p $(OBJ_DIR)/tests $(OBJ_DIR)/menus/ $(OBJ_DIR)/cpu/konami2/src/tests/cpu $(OBJ_DIR)/cpu/konami2/src/handlers/
 
 .PHONY: src/version.asm
 

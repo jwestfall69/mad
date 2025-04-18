@@ -1,17 +1,17 @@
 	include "global/include/macros.inc"
 	include "global/include/screen.inc"
-	include "cpu/konami/include/dsub.inc"
-	include "cpu/konami/include/macros.inc"
-	include "cpu/konami/include/xy_string.inc"
+	include "cpu/konami2/include/dsub.inc"
+	include "cpu/konami2/include/macros.inc"
+	include "cpu/konami2/include/xy_string.inc"
 
 	include "input.inc"
 	include "machine.inc"
 
-	global	move_test
+	global	bmove_test
 
 	section code
 
-move_test:
+bmove_test:
 		ldy	#d_xys_screen_list
 		jsr	print_xy_string_list
 
@@ -32,52 +32,54 @@ move_test:
 
 run_test:
 
-		lda	#$0
-		sta	r_dst_data
+		ldd	#$0
+		std	r_dst_data
+		std	r_dst_data + 2
+		std	r_dst_data + 4
 
 		ldd	#$eaed
-		std	r_dst_data + 1
+		std	r_dst_data + 6
 
 
-		ldu	#$3
+		ldu	#$6
 		ldy	#d_src_data
 		ldx	#r_dst_data
 
-		; should only copy 1 byte
-		move
-
-		pshs	u
+		bmove
 
 		SEEK_XY (SCREEN_START_X + 1), (SCREEN_START_Y + 12)
-		lda	r_dst_data
-		RSUB	print_hex_byte
+		ldd	r_dst_data
+		RSUB	print_hex_word
+
+		SEEK_XY (SCREEN_START_X + 6), (SCREEN_START_Y + 12)
+		ldd	r_dst_data + 2
+		RSUB	print_hex_word
+
+		SEEK_XY (SCREEN_START_X + 11), (SCREEN_START_Y + 12)
+		ldd	r_dst_data + 4
+		RSUB	print_hex_word
 
 		SEEK_XY (SCREEN_START_X + 11), (SCREEN_START_Y + 14)
-		ldd	r_dst_data + 1
+		ldd	r_dst_data + 6
 		RSUB	print_hex_word
 
-		SEEK_XY (SCREEN_START_X + 8), (SCREEN_START_Y + 17)
-		puls	d
-		RSUB	print_hex_word
 		rts
 
 	section data
 
-d_src_data:	dc.b $12, $af, $fa
+d_src_data:	dc.w $1234, $5678, $9abc, $ddee
 
 d_xys_screen_list:
 		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 2), "SRC DATA"
-		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 3), " 12"
+		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 3), " 1234 5678 9ABC"
 		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 11), "DST DATA"
 		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 14), "WORD AFTER"
 		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 15), "SHOULD BE EAED"
-		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 17), "U AFTER"
-		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 18), "SHOULD BE 0002"
 		XY_STRING SCREEN_START_X, SCREEN_B1_Y, " B1 - RUN TEST"
 		XY_STRING SCREEN_START_X, SCREEN_B2_Y, " B2 - RETURN TO MENU"
 		XY_STRING_LIST_END
 
 	section bss
 
-r_dst_data:	dcb.b	3
+r_dst_data:	dcb.w	4
 

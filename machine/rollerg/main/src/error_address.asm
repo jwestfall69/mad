@@ -1,4 +1,4 @@
-	include "cpu/konami/include/error_codes.inc"
+	include "cpu/konami2/include/error_codes.inc"
 
 	include "machine.inc"
 

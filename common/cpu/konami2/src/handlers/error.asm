@@ -1,7 +1,7 @@
-	include "cpu/konami/include/dsub.inc"
-	include "cpu/konami/include/macros.inc"
-	include "cpu/konami/include/print_error.inc"
-	include "cpu/konami/include/handlers/error.inc"
+	include "cpu/konami2/include/dsub.inc"
+	include "cpu/konami2/include/macros.inc"
+	include "cpu/konami2/include/print_error.inc"
+	include "cpu/konami2/include/handlers/error.inc"
 
 	include "machine.inc"
 	include "mad.inc"

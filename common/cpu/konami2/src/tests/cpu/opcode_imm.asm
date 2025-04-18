@@ -1,17 +1,17 @@
 	include "global/include/macros.inc"
 	include "global/include/screen.inc"
-	include "cpu/konami/include/dsub.inc"
-	include "cpu/konami/include/macros.inc"
-	include "cpu/konami/include/xy_string.inc"
+	include "cpu/konami2/include/dsub.inc"
+	include "cpu/konami2/include/macros.inc"
+	include "cpu/konami2/include/xy_string.inc"
 
 	include "input.inc"
 	include "machine.inc"
 
-	global	opcode_inh_test
+	global	opcode_imm_test
 
 	section code
 
-opcode_inh_test:
+opcode_imm_test:
 		clr	r_opcode
 
 		ldy	#d_xys_screen_list
@@ -86,14 +86,15 @@ run_opcode_test:
 		sta	r_opcode_code
 
 		SEEK_XY	 (SCREEN_START_X + 24), (SCREEN_START_Y + 11)
-		RSUB	print_hex_byte
+		ldd	r_opcode_code
+		RSUB	print_hex_word
 
 		; init values
 		lda	#$bb
 		pshs	a
 		puls	dp
-		lda 	#$11
-		ldb	#$22
+		lda 	#$81
+		ldb	#$91
 		ldx	#$3344
 		ldy	#$5566
 		ldu	#$7788
@@ -164,14 +165,14 @@ run_opcode_test:
 
 	section data
 
-d_opcode_code:	dc.w $00ae, $a807, opcode_return ; <opcode inh>, nop, jmp opcode_return
+d_opcode_code:	dc.w $0012, $a807, opcode_return ; <opcode>, imm#, jmp opcode_return
 
 d_xys_screen_list:
 		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 2), "BEFORE VALUES"
-		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 3), " A   11  X 3344   S 99AA"
-		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 4), " B   22  Y 5566  DP   BB"
-		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 5), " D 1122  U 7788  CC   ??"
-		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 8), "OPCODE"
+		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 3), " A   81  X 3344   S 99AA"
+		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 4), " B   91  Y 5566  DP   BB"
+		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 5), " D 8191  U 7788  CC   ??"
+		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 8), "OPCODE     IMM 12"
 		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 11), "AFTER VALUES FOR OPCODE"
 		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 12), " A       X        S"
 		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 13), " B       Y       DP"
@@ -184,5 +185,5 @@ d_xys_screen_list:
 	section bss
 
 r_opcode:	dcb.b	1
-r_opcode_code:	dcb.b	6
+r_opcode_code:	dcb.b	8
 r_stack:	dcb.w	1

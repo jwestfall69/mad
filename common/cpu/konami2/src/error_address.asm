@@ -1,4 +1,4 @@
-	include "cpu/konami/include/error_codes.inc"
+	include "cpu/konami22/include/error_codes.inc"
 
 	global error_address
 

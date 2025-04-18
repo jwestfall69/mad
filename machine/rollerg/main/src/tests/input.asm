@@ -1,7 +1,7 @@
 	include "global/include/screen.inc"
-	include "cpu/konami/include/macros.inc"
-	include "cpu/konami/include/xy_string.inc"
-	include "cpu/konami/include/tests/input.inc"
+	include "cpu/konami2/include/macros.inc"
+	include "cpu/konami2/include/xy_string.inc"
+	include "cpu/konami2/include/tests/input.inc"
 
 	include "input.inc"
 	include "machine.inc"
