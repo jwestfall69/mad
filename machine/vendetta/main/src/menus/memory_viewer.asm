@@ -46,7 +46,7 @@ view_rom_bank_space:
 
 view_sprite_ram:
 		ldx	#SPRITE_RAM_START
-		ldx	#read_memory_banked_cb
+		ldy	#read_memory_banked_cb
 		bra	view_memory_cb
 
 view_tile1_ram:
