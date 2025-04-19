@@ -18,6 +18,8 @@ OBJS = $(OBJ_DIR)/cpu/konami2/src/footer.o \
        $(OBJ_DIR)/cpu/konami2/src/print_error.o \
        $(OBJ_DIR)/cpu/konami2/src/util.o \
        $(OBJ_DIR)/cpu/konami2/src/xy_string.o \
+       $(OBJ_DIR)/cpu/konami2/src/debug/error_address_test.o \
+       $(OBJ_DIR)/cpu/konami2/src/debug/mad_git_hash.o \
        $(OBJ_DIR)/cpu/konami2/src/handlers/auto_test.o \
        $(OBJ_DIR)/cpu/konami2/src/handlers/error.o \
        $(OBJ_DIR)/cpu/konami2/src/handlers/memory_tests.o \
@@ -44,6 +46,7 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/screen.o \
         $(OBJ_DIR)/vector_table.o \
         $(OBJ_DIR)/version.o \
+        $(OBJ_DIR)/menus/debug.o \
         $(OBJ_DIR)/menus/cpu_tests.o \
         $(OBJ_DIR)/menus/main.o \
         $(OBJ_DIR)/menus/memory_viewer.o \
@@ -81,7 +84,7 @@ $(WORK_DIR):
 	$(MKDIR) -p $(WORK_DIR)
 
 $(OBJ_DIR):
-	$(MKDIR) -p $(OBJ_DIR)/tests $(OBJ_DIR)/menus/ $(OBJ_DIR)/cpu/konami2/src/tests/cpu $(OBJ_DIR)/cpu/konami2/src/handlers/
+	$(MKDIR) -p $(OBJ_DIR)/tests $(OBJ_DIR)/menus/ $(OBJ_DIR)/cpu/konami2/src/tests/cpu $(OBJ_DIR)/cpu/konami2/src/debug $(OBJ_DIR)/cpu/konami2/src/handlers/
 
 .PHONY: src/version.asm
 
