@@ -1,10 +1,10 @@
 	global MAD_ROM_CRC32_ADDRESS
 	global MAD_ROM_MIRROR_ADDRESS
 
-	section footer, data
+	section footer
 
 
-		; these get filled in by gen-crc-mirror
+		; these get filled in by rom-inject-crc-mirror
 MAD_ROM_MIRROR_ADDRESS:
 		dc.b 	$00			; bios mirror, $00 is running copy, $01 1st copy, $02 2nd, $03 3rd
 

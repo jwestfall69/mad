@@ -3,7 +3,7 @@
 
 	section footer
 
-		; these get filled in by gen-crc-mirror
+		; these get filled in by rom-inject-crc-mirror
 MAD_ROM_MIRROR_ADDRESS:
 		dc.b 	$00
 
