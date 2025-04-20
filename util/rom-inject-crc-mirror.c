@@ -32,6 +32,7 @@ int main(int argc, char **argv) {
   uint16_t crc_offset = DEFAULT_CRC_OFFSET;
   uint8_t crc_type = CRC_TYPE_CRC32;
   uint8_t mirror = 0;
+  uint8_t mirror_header = 0;
   uint16_t mirror_offset = DEFAULT_MIRROR_OFFSET;
   int32_t target_size = -1;
   int32_t opt;
@@ -41,7 +42,7 @@ int main(int argc, char **argv) {
   struct stat sb;
   int32_t endian = -1;
 
-  while((opt = getopt(argc, argv, "c:e:f:hm:rs:t:x")) != -1) {
+  while((opt = getopt(argc, argv, "c:e:f:hm:Mrs:t:x")) != -1) {
     switch (opt) {
 
       case 'c':
@@ -79,12 +80,16 @@ int main(int argc, char **argv) {
         break;
 
       case 'm':
-          mirror_offset = atoi(optarg);
-          break;
+        mirror_offset = atoi(optarg);
+        break;
+
+      case 'M':
+        mirror_header = 1;
+        break;
 
       case 'r':
-          reverse = 1;
-          break;
+        reverse = 1;
+        break;
 
       case 't':
         target_size = atoi(optarg);
@@ -187,6 +192,10 @@ int main(int argc, char **argv) {
   if(reverse) {
     data[target_size - mirror_offset] = mirror;
 
+    if(mirror_header) {
+      data[target_size - start_size] = mirror;
+    }
+
     if(crc_type == CRC_TYPE_CRC32) {
       memcpy((data + target_size) - crc_offset, &crc32, 4);
     } else {
@@ -199,6 +208,11 @@ int main(int argc, char **argv) {
     while(offset >= 0) {
       mirror++;
       data[(start_size + offset) - mirror_offset] = mirror;
+
+      if(mirror_header) {
+        data[offset] = mirror;
+      }
+
       offset -= start_size;
     }
 
@@ -279,5 +293,6 @@ void usage(void) {
   printf("  -s <crc start offset>      - offset from beginning of rom to start crc calc [default: %d]\n", DEFAULT_START_OFFSET);
   printf("  -c <crc write offset>      - offset from end of rom of where to write the crc data [default: %d]\n", DEFAULT_CRC_OFFSET);
   printf("  -m <mirror write offset>   - offset from end of rom of where to write the mirror data [default: %d]\n", DEFAULT_MIRROR_OFFSET);
+  printf("  -M                         - also put the mirror value at the first byte of the mirror (-r only)\n");
   printf("  -x                         - use crc16 (xmodem) instead of crc32\n");
 }
