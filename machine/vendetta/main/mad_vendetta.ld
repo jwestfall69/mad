@@ -4,7 +4,10 @@ MEMORY {
 }
 
 SECTIONS {
-	.code 0xc000: {
+	.header 0xc000: {
+		*(header)
+	} > ROM
+	.code 0xc001: {
 		*(code)
 	} > ROM
 	.rodata: {
