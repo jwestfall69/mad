@@ -76,12 +76,12 @@ view_memory_cb:
 ;  y = address to write long to
 read_memory_palette_cb:
 		; bank switch palette ram in/out
-		setln	#$a0
+		setln	#(SETLN_WATCHDOG_POLL|SETLN_SELECT_RAM_PALETTE)
 		ldd	, x
 		std	, y
 		ldd	2, x
 		std	2, y
-		setln	#$80
+		setln	#(SETLN_WATCHDOG_POLL|SETLN_SELECT_RAM_WORK)
 		rts
 
 	section data

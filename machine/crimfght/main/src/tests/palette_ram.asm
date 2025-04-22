@@ -15,10 +15,10 @@
 
 auto_palette_ram_tests:
 		; bank to palette ram
-		setln	#$a0
+		setln	#(SETLN_WATCHDOG_POLL|SETLN_SELECT_RAM_PALETTE)
 
 		ldx	#d_mt_data
 		jsr	memory_tests_handler
 
-		setln	#$80
+		setln	#(SETLN_WATCHDOG_POLL|SETLN_SELECT_RAM_WORK)
 		rts

@@ -19,9 +19,7 @@ _start:
 		lda	#$80
 		sta	$3f9c
 
-		; hardware seems to ignore watchdog ping until this
-		; instruction is called the first time
-		setln	$80
+		setln	#(SETLN_WATCHDOG_POLL|SETLN_SELECT_RAM_WORK)
 
 		DSUB_MODE_PSUB
 

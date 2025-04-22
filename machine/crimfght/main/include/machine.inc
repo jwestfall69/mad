@@ -40,6 +40,12 @@ REG_INPUT_SYSTEM		equ $3f80
 REG_WATCHDOG			equ $3f88
 REG_SOUND			equ $3f8c
 
+SETLN_PROG_BANK_MAX		equ $0f
+SETLN_SELECT_RAM_PALETTE	equ $20
+SETLN_SELECT_RAM_WORK		equ $00
+SETLN_CHAR_READ			equ $40
+SETLN_WATCHDOG_POLL		equ $80		; this bit must be set or the watchdog will stop listening for pings
+
 CHAR_COLON			equ $10		; no colon char, using space
 
 ; note only 40 tiles are visable
