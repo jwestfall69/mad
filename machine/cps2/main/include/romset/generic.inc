@@ -35,12 +35,14 @@ VD_TILE_BA_PAL_OFFSET		equ $8
 	endm
 
 	macro ROMSET_PALLETE_SETUP
-		move.w	#PALETTE_TEXT_COLOR, PALETTE_RAM_START + $10
-		move.w	#PALETTE_TEXT_COLOR, PALETTE_RAM_START + $12
-		move.w	#PALETTE_TEXT_COLOR, PALETTE_RAM_START + $14
-		move.w	#PALETTE_TEXT_COLOR, PALETTE_RAM_START + $16
-		move.w	#PALETTE_TEXT_COLOR, PALETTE_RAM_START + $18
-		move.w	#PALETTE_TEXT_COLOR, PALETTE_RAM_START + $1c
+		lea	PALETTE_RAM_START + $2, a0
+		moveq	#$6, d0
+
+	.loop_next_palette_address:
+		move.w	#PALETTE_TEXT_COLOR, ($10,a0)
+		move.w	#PALETTE_TEXT_COLOR, (a0)+
+		dbra	d0, .loop_next_palette_address
+
 		move.w	#PALETTE_BACKGROUND_COLOR, PALETTE_RAM_START + $13fe
 	endm
 
