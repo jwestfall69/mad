@@ -32,8 +32,6 @@ OBJS = $(OBJ_DIR)/cpu/konami2/src/footer.o \
        $(OBJ_DIR)/cpu/konami2/src/tests/work_ram.o \
        $(OBJ_DIR)/cpu/konami2/src/tests/cpu/exgtfr.o \
        $(OBJ_DIR)/cpu/konami2/src/tests/cpu/bmove.o \
-       $(OBJ_DIR)/cpu/konami2/src/tests/cpu/bset.o \
-       $(OBJ_DIR)/cpu/konami2/src/tests/cpu/bsetw.o \
        $(OBJ_DIR)/cpu/konami2/src/tests/cpu/move.o \
        $(OBJ_DIR)/cpu/konami2/src/tests/cpu/opcode_idx.o \
        $(OBJ_DIR)/cpu/konami2/src/tests/cpu/opcode_inh.o \
