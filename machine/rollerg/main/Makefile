@@ -7,7 +7,7 @@ WORK_DIR=$(BUILD_DIR)/work
 ROM=999m02.g7
 
 VASM = vasm6809_mot
-VASM_FLAGS = -konami2 -Fvobj -spaces -chklabels -Iinclude -I../../../common  -quiet
+VASM_FLAGS = -konami2ext -Fvobj -spaces -chklabels -Iinclude -I../../../common  -quiet
 VLINK = vlink
 VLINK_FLAGS = -brawbin1 -T$(MAD_NAME).ld
 MKDIR = mkdir
