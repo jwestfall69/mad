@@ -4,13 +4,7 @@ MEMORY {
 }
 
 SECTIONS {
-	/* force our reset_handler function to be at 0xc05a */
-	.reset 0xe000: {
-		FILL8(0x12);
-		RESERVE(0x5a);
-		*(reset)
-	} > ROM
-	.code 0xe05d: {
+	.code 0xe000: {
 		*(code)
 	} > ROM
 	.rodata: {
