@@ -119,34 +119,34 @@ work_ram_data_test_psub:
 		jmp	error_address
 
 
+; When the memory location has dead output the
+; 6809 will fill the destination register with
+; the first byte of the next instruction
 work_ram_output_test_psub:
-		; the 6809 does dummy memory reads of 0xffff
-		; when its doesnt need to access the address bus.
-		; because of this, reads of memory locations with
-		; no/dead output will cause the register to be filled
-		; with the lower byte of the reset function's address
-		; from the vector table.  This is why we have a special
-		; RESET section in the linker as it gives us control
-		; of what that last byte will be (0x5a)
-
 		ldx	#WORK_RAM_START
-		lda	$ffff
-		ldb	#$7f
-	.loop_next_address:
-		cmpa	, x
-		bne	.test_passed
-		leax	2, x
+		ldb	#$64
 
+	.loop_next:
+		lda	, x
+		cmpa	#$81		; $8181
+		bne	.loop_pass
+
+		lda	, x
+		nop			; $12
+		cmpa	#$12
+		beq	.test_failed
+
+	.loop_pass:
 		decb
-		bne	.loop_next_address
+		bne	.loop_next
 		WATCHDOG
+		PSUB_RETURN
 
+	.test_failed:
+		WATCHDOG
 		lda	#EC_WORK_RAM_OUTPUT
 		jmp	error_address
 
-	.test_passed:
-		WATCHDOG
-		PSUB_RETURN
 
 work_ram_march_test_psub:
 

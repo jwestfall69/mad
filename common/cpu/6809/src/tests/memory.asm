@@ -11,34 +11,33 @@
 ; is directly connected to the CPU when talking
 ; to the memory.  This maybe the memory itself
 ; or there could be some IC in between (ie 74LS245)
+; When the memory location has dead output the
+; 6809 will fill the destination register with
+; the first byte of the next instruction
 ; params:
 ;  x = address
 ; returns:
 ;  a = 0 (pass), 1 (fail)
 memory_output_test_psub:
-		; the 6809 does dummy memory reads of 0xffff
-		; when its doesnt need to access the address bus.
-		; because of this, reads of memory locations with
-		; no/dead output will cause the register to be filled
-		; with the lower byte of the reset function's address
-		; from the vector table.  This is why we have a special
-		; RESET section in the linker as it gives us control
-		; of what that last byte will be (0x5a)
+		ldb	#$64
 
-		lda	$ffff
-		ldb	#$7f
-	.loop_next_address:
-		cmpa	, x
-		bne	.test_passed
+	.loop_next:
+		lda	, x
+		cmpa	#$81		; $8181
+		bne	.loop_pass
 
+		lda	, x
+		nop			; $12
+		cmpa	#$12
+		beq	.test_failed
+
+	.loop_pass:
 		decb
-		bne	.loop_next_address
-		WATCHDOG
-
-		lda	#$1
-		PSUB_RETURN
-
-	.test_passed:
+		bne	.loop_next
 		WATCHDOG
 		clra
 		PSUB_RETURN
+
+	.test_failed:
+		lda	#$1
+		WATCHDOG
