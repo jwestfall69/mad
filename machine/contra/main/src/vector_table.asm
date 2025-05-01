@@ -8,12 +8,7 @@
 		dc.w	irq_handler
 		dc.w	swi_handler
 		dc.w	nmi_handler
-		dc.w	reset_handler
-
-	section reset
-
-reset_handler:
-		jmp	_start
+		dc.w	_start
 
 	section code
 

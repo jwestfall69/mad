@@ -13,7 +13,7 @@
 ; or there could be some IC in between (ie 74LS245)
 ; When the memory location has dead output the
 ; 6809 will fill the destination register with
-; the first byte of the next instruction
+; the first byte of the next instruction.
 ; params:
 ;  x = address
 ; returns:
