@@ -19,8 +19,6 @@ screen_init_dsub:
 
 		; font color
 		ldd	#$ffff
-		std	PALETTE_RAM_START + $10
-		ldd	#$ffff
 		std	PALETTE_RAM_START + $410
 
 		MEMORY_FILL16 #SPRITE_RAM_START, #(SPRITE_RAM_SIZE / 2), #$0

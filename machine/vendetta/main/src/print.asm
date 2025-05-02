@@ -36,10 +36,37 @@ print_bits_byte_dsub:
 		DSUB_RETURN
 
 ; params
-;  a = char
+;  a = byte
 ;  x = start location in tile ram
 print_byte_dsub:
+		sta	, x
+		DSUB_RETURN
+
+; params
+;  a = byte
+;  x = start location in tile ram
 print_char_dsub:
+		cmpa	#' '
+		bne	.not_space
+		lda	#$10
+		bra	.do_print
+
+	.not_space:
+		cmpa	#'-'
+		bne	.not_dash
+		lda	#$0c
+		bra	.do_print
+
+	.not_dash:
+		cmpa	#'0'
+		blt	.do_print
+
+		cmpa	#'Z'
+		bgt	.do_print
+
+		suba	#$30
+
+	.do_print:
 		sta	, x
 		DSUB_RETURN
 
