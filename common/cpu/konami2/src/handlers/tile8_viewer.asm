@@ -34,19 +34,6 @@ tile8_viewer_handler:
 		RSUB	print_string
 
 	.loop_redraw:
-		lda	#$1
-		sta	REG_CONTROL
-
-		ldx	#PALETTE_RAM_SIZE
-		ldy	#PALETTE_RAM_START
-	.loop:
-		ldd	,y
-		std	,y++
-		dxjnz	.loop
-
-		lda	#$0
-		sta	REG_CONTROL
-
 		ldd	r_tile_offset
 
 		anda	r_tile_offset_mask
