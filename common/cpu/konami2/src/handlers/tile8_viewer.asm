@@ -9,8 +9,10 @@
 
 	global tile8_viewer_handler
 
-START_COLUMN	equ SCREEN_START_X
-START_ROW	equ SCREEN_START_Y + 6
+COLUMN_START	equ SCREEN_START_X
+COLUMN_END	equ COLUMN_START + $12
+ROW_START	equ SCREEN_START_Y + 6
+ROW_END		equ ROW_START + $10
 
 	section code
 
@@ -29,7 +31,7 @@ tile8_viewer_handler:
 		ldy	#d_screen_xys_list
 		jsr	print_xy_string_list
 
-		SEEK_XY	(START_COLUMN + 2), (SCREEN_START_Y + 4)
+		SEEK_XY	(COLUMN_START + 2), (SCREEN_START_Y + 4)
 		ldy	#d_str_0f
 		RSUB	print_string
 
@@ -45,13 +47,13 @@ tile8_viewer_handler:
 		SEEK_XY	(SCREEN_START_X + 8), (SCREEN_START_Y + 2)
 		RSUB	print_hex_word
 
-		lda	#START_ROW
+		lda	#ROW_START
 		sta	r_current_row
 
 		ldy	#d_str_0f
 		pshs	y
 	.loop_next_row:
-		lda	#START_COLUMN
+		lda	#COLUMN_START
 		sta	r_current_column
 
 		ldb	r_current_row
@@ -73,18 +75,18 @@ tile8_viewer_handler:
 		ldd	r_current_tile
 		jsr	[r_draw_tile_cb]
 
-		inc	r_current_column
 		ldd	r_current_tile
 		addd	#$1
 		std	r_current_tile
 
-		lda	#START_COLUMN + $12
-		cmpa	r_current_column
+		inc	r_current_column
+		lda	r_current_column
+		cmpa	#COLUMN_END
 		bne	.loop_next_byte
 
 		inc	r_current_row
-		lda	#START_ROW + $10
-		cmpa	r_current_row
+		lda	r_current_row
+		cmpa	#ROW_END
 		bne	.loop_next_row
 
 		puls	y
