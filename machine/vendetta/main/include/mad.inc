@@ -8,3 +8,21 @@ CURSOR_CLEAR_CHAR	equ $10
 ; work ram tests have run and we can't store it in work ram.
 ; Instead we need to store it in some other location..
 R_WORK_RAM_PASSES	equ TILE2_RAM_START
+
+; video dac
+VD_NUM_COLORS		equ $4		; includes all/combined
+VD_NUM_BITS_PER_COLOR	equ $6		; includes all/combined
+VD_COLOR_BLOCK_WIDTH	equ $4
+VD_COLOR_BLOCK_HEIGHT	equ $4
+VD_TILE_B0_NUM		equ $39
+VD_TILE_B0_PAL_OFFSET	equ $12
+VD_TILE_B1_NUM		equ $3a
+VD_TILE_B1_PAL_OFFSET	equ $14
+VD_TILE_B2_NUM		equ $3b
+VD_TILE_B2_PAL_OFFSET	equ $16
+VD_TILE_B3_NUM		equ $3c
+VD_TILE_B3_PAL_OFFSET	equ $18
+VD_TILE_B4_NUM		equ $3d
+VD_TILE_B4_PAL_OFFSET	equ $1a
+VD_TILE_BA_NUM		equ $3e		; all bits enabled
+VD_TILE_BA_PAL_OFFSET	equ $1c
