@@ -11,6 +11,8 @@
 	global wait_button_press
 	global wait_button_release
 
+	global r_scratch
+
 	section code
 
 ; params:
@@ -114,3 +116,11 @@ wait_button_release:
 		pulsw
 		puls	b
 		rts
+
+; The cpu doesn't support register to register add/sub/cmp/etc
+; instructions, this is a global scratch location that can be
+; used to help work around this (after work ram is tested good).
+; ie:
+;		stb	r_scratch
+;		adda	r_scratch
+r_scratch:		dcb.w 1
