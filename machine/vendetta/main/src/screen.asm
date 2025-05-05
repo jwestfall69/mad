@@ -19,7 +19,9 @@ screen_init_dsub:
 
 		; font color
 		ldd	#$ffff
-		std	PALETTE_RAM_START + $410
+		std	FIX_TILE_PALETTE + $10
+		std	LAYER_A_TILE_PALETTE + $10
+		std	LAYER_B_TILE_PALETTE + $10
 
 		MEMORY_FILL16 #SPRITE_RAM_START, #(SPRITE_RAM_SIZE / 2), #$0
 		WATCHDOG
@@ -27,15 +29,15 @@ screen_init_dsub:
 		lda	#$0
 		sta	REG_CONTROL
 
-		MEMORY_FILL16 #TILE1_RAM_START, #(TILE1_RAM_SIZE / 2), #$0
+		MEMORY_FILL16 #TILE_ATTR_RAM_START, #(TILE_ATTR_RAM_SIZE / 2), #$0
 		WATCHDOG
 
 		; fill tiles with spaces
-		MEMORY_FILL16 #TILE2_RAM_START, #(TILE2_RAM_SIZE/2), #$1010
+		MEMORY_FILL16 #TILE_RAM_START, #(TILE_RAM_SIZE/2), #$1010
 		WATCHDOG
 
-		MEMORY_FILL16 #TILE_SCROLL_A, #(TILE_SCROLL_A_SIZE / 2), #$0
-		MEMORY_FILL16 #TILE_SCROLL_B, #(TILE_SCROLL_B_SIZE / 2), #$0
+		MEMORY_FILL16 #LAYER_A_SCROLL, #(LAYER_A_SCROLL_SIZE / 2), #$0
+		MEMORY_FILL16 #LAYER_B_SCROLL, #(LAYER_B_SCROLL_SIZE / 2), #$0
 		WATCHDOG
 
 		; -'s on 2nd line
@@ -44,6 +46,7 @@ screen_init_dsub:
 
 		SEEK_XY 5,0
 		ldy	#d_str_version
+
 		DSUB	print_string
 		DSUB_RETURN
 

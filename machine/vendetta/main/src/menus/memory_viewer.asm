@@ -49,12 +49,12 @@ view_sprite_ram:
 		ldy	#read_memory_banked_cb
 		bra	view_memory_cb
 
-view_tile1_ram:
-		ldx	#TILE1_RAM_START
+view_tile_ram:
+		ldx	#TILE_RAM_START
 		bra	view_memory
 
-view_tile2_ram:
-		ldx	#TILE2_RAM_START
+view_tile_attr_ram:
+		ldx	#TILE_ATTR_RAM_START
 		bra	view_memory
 
 view_work_ram:
@@ -93,8 +93,8 @@ d_menu_list:
 	MENU_ENTRY view_rom_space, d_str_rom_space
 	MENU_ENTRY view_rom_bank_space, d_str_rom_bank_space
 	MENU_ENTRY view_sprite_ram, d_str_sprite_ram
-	MENU_ENTRY view_tile1_ram, d_str_tile1_ram
-	MENU_ENTRY view_tile2_ram, d_str_tile2_ram
+	MENU_ENTRY view_tile_ram, d_str_tile_ram
+	MENU_ENTRY view_tile_attr_ram, d_str_tile_attr_ram
 	MENU_ENTRY view_work_ram, d_str_work_ram
 	MENU_LIST_END
 
@@ -105,6 +105,6 @@ d_str_palette_ram:	STRING "PALETTE RAM"
 d_str_rom_space:	STRING "ROM SPACE"
 d_str_rom_bank_space:	STRING "ROM BANK SPACE"
 d_str_sprite_ram:	STRING "SPRITE RAM"
-d_str_tile1_ram:	STRING "TILE1 RAM"
-d_str_tile2_ram:	STRING "TILE2 RAM"
+d_str_tile_ram:		STRING "TILE RAM"
+d_str_tile_attr_ram:	STRING "TILE ATTR RAM"
 d_str_work_ram:		STRING "WORK RAM"
