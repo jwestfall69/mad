@@ -48,9 +48,9 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/screen.o \
         $(OBJ_DIR)/vector_table.o \
         $(OBJ_DIR)/version.o \
-        $(OBJ_DIR)/debug/fg_tile_viewer.o \
         $(OBJ_DIR)/menus/debug.o \
         $(OBJ_DIR)/menus/cpu_tests.o \
+        $(OBJ_DIR)/menus/graphics_viewer.o \
         $(OBJ_DIR)/menus/main.o \
         $(OBJ_DIR)/menus/memory_viewer.o \
         $(OBJ_DIR)/tests/auto.o \
@@ -60,7 +60,10 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/tests/sprite_ram.o \
         $(OBJ_DIR)/tests/tile_attr_ram.o \
         $(OBJ_DIR)/tests/tile_ram.o \
-        $(OBJ_DIR)/tests/video_dac.o
+        $(OBJ_DIR)/tests/video_dac.o \
+        $(OBJ_DIR)/viewers/fix_tile.o \
+        $(OBJ_DIR)/viewers/layer_a_tile.o \
+        $(OBJ_DIR)/viewers/layer_b_tile.o
 
 INCS = $(wildcard include/*.inc) \
        $(wildcard ../../../common/global/include/*.inc) \
@@ -89,7 +92,7 @@ $(WORK_DIR):
 	$(MKDIR) -p $(WORK_DIR)
 
 $(OBJ_DIR):
-	$(MKDIR) -p $(OBJ_DIR)/tests $(OBJ_DIR)/menus $(OBJ_DIR)/debug $(OBJ_DIR)/cpu/konami2/src/tests/cpu $(OBJ_DIR)/cpu/konami2/src/debug $(OBJ_DIR)/cpu/konami2/src/handlers/
+	$(MKDIR) -p $(OBJ_DIR)/tests $(OBJ_DIR)/menus $(OBJ_DIR)/viewers $(OBJ_DIR)/cpu/konami2/src/tests/cpu $(OBJ_DIR)/cpu/konami2/src/debug $(OBJ_DIR)/cpu/konami2/src/handlers/
 
 .PHONY: src/version.asm
 
