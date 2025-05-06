@@ -31,7 +31,7 @@ _start:
 		sta	$5fb5
 		sta	$5fb5
 
-		ldd	#$1032
+		ldd	#$32
 		sta	$5c80
 		std	$5a00
 		std	$7a00

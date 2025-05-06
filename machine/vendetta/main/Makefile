@@ -60,6 +60,7 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/tests/sprite_ram.o \
         $(OBJ_DIR)/tests/tile_attr_ram.o \
         $(OBJ_DIR)/tests/tile_ram.o \
+        $(OBJ_DIR)/tests/tile_scroll.o \
         $(OBJ_DIR)/tests/video_dac.o \
         $(OBJ_DIR)/viewers/fix_tile.o \
         $(OBJ_DIR)/viewers/layer_a_tile.o \
