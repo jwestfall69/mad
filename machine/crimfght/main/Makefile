@@ -29,13 +29,7 @@ OBJS = $(OBJ_DIR)/cpu/konami2/src/footer.o \
        $(OBJ_DIR)/cpu/konami2/src/tests/input.o \
        $(OBJ_DIR)/cpu/konami2/src/tests/mad_rom.o \
        $(OBJ_DIR)/cpu/konami2/src/tests/memory.o \
-       $(OBJ_DIR)/cpu/konami2/src/tests/work_ram.o \
-       $(OBJ_DIR)/cpu/konami2/src/tests/cpu/exgtfr.o \
-       $(OBJ_DIR)/cpu/konami2/src/tests/cpu/bmove.o \
-       $(OBJ_DIR)/cpu/konami2/src/tests/cpu/move.o \
-       $(OBJ_DIR)/cpu/konami2/src/tests/cpu/opcode_idx.o \
-       $(OBJ_DIR)/cpu/konami2/src/tests/cpu/opcode_inh.o \
-       $(OBJ_DIR)/cpu/konami2/src/tests/cpu/opcode_imm.o
+       $(OBJ_DIR)/cpu/konami2/src/tests/work_ram.o
 
 # code from this machine
 OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
@@ -45,7 +39,6 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/screen.o \
         $(OBJ_DIR)/vector_table.o \
         $(OBJ_DIR)/version.o \
-        $(OBJ_DIR)/menus/cpu_tests.o \
         $(OBJ_DIR)/menus/debug.o \
         $(OBJ_DIR)/menus/main.o \
         $(OBJ_DIR)/menus/memory_viewer.o \
@@ -84,7 +77,7 @@ $(WORK_DIR):
 	$(MKDIR) -p $(WORK_DIR)
 
 $(OBJ_DIR):
-	$(MKDIR) -p $(OBJ_DIR)/tests $(OBJ_DIR)/menus/ $(OBJ_DIR)/cpu/konami2/src/tests/cpu/ $(OBJ_DIR)/cpu/konami2/src/debug/ $(OBJ_DIR)/cpu/konami2/src/handlers/
+	$(MKDIR) -p $(OBJ_DIR)/tests $(OBJ_DIR)/menus/ $(OBJ_DIR)/cpu/konami2/src/tests/ $(OBJ_DIR)/cpu/konami2/src/debug/ $(OBJ_DIR)/cpu/konami2/src/handlers/
 
 .PHONY: src/version.asm
 

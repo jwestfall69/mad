@@ -33,7 +33,7 @@ d_menu_list:
 	MENU_ENTRY manual_tile1_ram_tests, d_str_tile1_ram_test
 	MENU_ENTRY manual_tile2_ram_tests, d_str_tile2_ram_test
 	MENU_ENTRY manual_work_ram_tests, d_str_work_ram_test
-	MENU_ENTRY cpu_tests_menu, d_str_cpu_tests
+;	MENU_ENTRY cpu_tests_menu, d_str_cpu_tests
 	MENU_ENTRY input_test, d_str_input_test
 	MENU_ENTRY memory_viewer_menu, d_str_memory_viewer
 	MENU_ENTRY prog_bank_test, d_str_prog_bank_test
@@ -42,7 +42,7 @@ d_menu_list:
 
 d_str_menu_title:		STRING "MAIN MENU"
 
-d_str_cpu_tests:		STRING "CPU TESTS"
+;d_str_cpu_tests:		STRING "CPU TESTS"
 d_str_debug_menu:		STRING "DEBUG MENU"
 d_str_input_test:		STRING "INPUT TEST"
 d_str_memory_viewer:		STRING "MEMORY VIEWER"
