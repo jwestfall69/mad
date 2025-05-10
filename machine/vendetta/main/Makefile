@@ -26,6 +26,7 @@ OBJS = $(OBJ_DIR)/cpu/konami2/src/footer.o \
        $(OBJ_DIR)/cpu/konami2/src/handlers/memory_tests.o \
        $(OBJ_DIR)/cpu/konami2/src/handlers/memory_viewer.o \
        $(OBJ_DIR)/cpu/konami2/src/handlers/menu.o \
+       $(OBJ_DIR)/cpu/konami2/src/handlers/sprite_k053247_viewer.o \
        $(OBJ_DIR)/cpu/konami2/src/handlers/tile8_viewer.o \
        $(OBJ_DIR)/cpu/konami2/src/tests/input.o \
        $(OBJ_DIR)/cpu/konami2/src/tests/mad_rom.o \
@@ -55,7 +56,8 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/tests/video_dac.o \
         $(OBJ_DIR)/viewers/fix_tile.o \
         $(OBJ_DIR)/viewers/layer_a_tile.o \
-        $(OBJ_DIR)/viewers/layer_b_tile.o
+        $(OBJ_DIR)/viewers/layer_b_tile.o \
+        $(OBJ_DIR)/viewers/sprite.o
 
 INCS = $(wildcard include/*.inc) \
        $(wildcard ../../../common/global/include/*.inc) \
