@@ -78,10 +78,10 @@ view_memory_cb:
 read_memory_banked_cb:
 		lda	#$1
 		sta	REG_CONTROL
-		ldd	, y
-		std	, x
-		ldd	2, y
-		std	2, x
+		ldd	, x
+		std	, y
+		ldd	2, x
+		std	2, y
 		clr	REG_CONTROL
 		rts
 
