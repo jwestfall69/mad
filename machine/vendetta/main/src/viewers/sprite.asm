@@ -79,6 +79,13 @@ draw_sprite_cb:
 		ora	#$c0			; active sprite and maintain aspect ratio
 		sta	SPRITE_RAM_START
 
+		; For some reason with mad on hardware it won't draw the
+		; sprite with a #$0 zcode, but works ok with >= $1.  The
+		; original game code has a sprite with $0 zcode.  There
+		; must be some min zcode value init some place on hardware.
+		lda	#$01
+		sta	SPRITE_RAM_START + 1
+
 		ldd	s_ks_sprite_num, y
 		aslb
 		rola
@@ -105,8 +112,8 @@ draw_sprite_cb:
 
 		lda	#$0
 		sta	REG_CONTROL
-
 		rts
+
 ; Palette Layout
 ;  xBBB BBGG GGGR RRRR
 sprite_palette_setup:

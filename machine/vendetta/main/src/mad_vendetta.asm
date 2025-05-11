@@ -13,6 +13,14 @@
 _start:
 		INTS_DISABLE
 
+		; allow some time for custom ICs to get started up
+		; before we try to adjust their registers.  This
+		; fixes issues with sprite ICs not working right.
+		ldx	#$8000
+	.startup_delay:
+		leax	-1, x
+		bne	.startup_delay
+
 		lda	#$11
 		sta	$7c00
 
@@ -71,6 +79,18 @@ _start:
 		sta	$5fa1
 		lda	#$07
 		sta	$5fac
+
+		lda	#$01
+		sta	$5fa6
+		lda	#$07
+		sta	$5fa7
+		lda	#$0b
+		sta	$5fa8
+		lda	#$05
+		sta	$5fac
+
+		lda	#$34
+		sta	$5fb5
 
 		DSUB_MODE_PSUB
 
