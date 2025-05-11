@@ -57,7 +57,8 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/viewers/fix_tile.o \
         $(OBJ_DIR)/viewers/layer_a_tile.o \
         $(OBJ_DIR)/viewers/layer_b_tile.o \
-        $(OBJ_DIR)/viewers/sprite.o
+        $(OBJ_DIR)/viewers/sprite.o \
+        $(OBJ_DIR)/viewers/tile_viewer_common.o
 
 INCS = $(wildcard include/*.inc) \
        $(wildcard ../../../common/global/include/*.inc) \
