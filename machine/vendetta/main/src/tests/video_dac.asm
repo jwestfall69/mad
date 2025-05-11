@@ -101,7 +101,7 @@ full_screen:
 		pshs	y
 
 		; fill entire screen with the tile
-		ldy	#TILE_RAM_START
+		ldy	#TILE_RAM
 		ldx	#(TILE_RAM_SIZE / 2)
 	.loop_next_address:
 		sta	-$2000, y

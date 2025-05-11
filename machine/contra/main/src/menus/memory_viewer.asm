@@ -32,7 +32,7 @@ view_mmio_input:
 		bra	view_memory
 
 view_palette_ram:
-		ldx	#PALETTE_RAM_START
+		ldx	#PALETTE_RAM
 		bra	view_memory
 
 view_rom_space:
@@ -44,27 +44,27 @@ view_rom_bank_space:
 		bra	view_memory
 
 view_sprite1_ram:
-		ldx	#SPRITE1_RAM_START
+		ldx	#SPRITE1_RAM
 		bra	view_memory
 
 view_sprite2_ram:
-		ldx	#SPRITE2_RAM_START
+		ldx	#SPRITE2_RAM
 		bra	view_memory
 
 view_tile1_ram:
-		ldx	#TILE1_RAM_START
+		ldx	#TILE1_RAM
 		bra	view_memory
 
 view_tile2_ram:
-		ldx	#TILE2_RAM_START
+		ldx	#TILE2_RAM
 		bra	view_memory
 
 view_tile3_ram:
-		ldx	#TILE3_RAM_START
+		ldx	#TILE3_RAM
 		bra	view_memory
 
 view_work_ram:
-		ldx	#WORK_RAM_START
+		ldx	#WORK_RAM
 		bra	view_memory
 
 view_memory:

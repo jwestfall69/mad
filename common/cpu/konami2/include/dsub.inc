@@ -16,7 +16,7 @@
 	endm
 
 	macro DSUB_MODE_RSUB
-		lds	#(WORK_RAM_START + WORK_RAM_SIZE)
+		lds	#(WORK_RAM + WORK_RAM_SIZE)
 	endm
 
 	; Based on what mode we are in do the right

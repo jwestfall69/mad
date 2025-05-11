@@ -1,23 +1,23 @@
 ; There are 2x 32kx8bit sram that everything
 ; uses on the 68k ram
-RAM_START			equ $060000
+RAM				equ $060000
 RAM_SIZE			equ $10000
 RAM_ADDRESS_LINES		equ 16
 RAM_MASK			equ $ffff
 
-NOT_WORK_RAM_START		equ $06d800
+NOT_WORK_RAM			equ $06d800
 NOT_WORK_RAM_SIZE		equ $2800
 
-WORK_RAM_START			equ $060000
+WORK_RAM			equ $060000
 WORK_RAM_SIZE			equ $c000
-SPRITE_RAM_START		equ $06d800
-BG1_RAM_START			equ $06e800
-BG2_RAM_START			equ $06f000
+SPRITE_RAM			equ $06d800
+BG1_RAM				equ $06e800
+BG2_RAM				equ $06f000
 
-FG_RAM_START			equ $06f800
+FG_RAM				equ $06f800
 FG_RAM_SIZE			equ $800
 
-PALETTE_RAM_START		equ $06e000
+PALETTE_RAM			equ $06e000
 PALETTE_RAM_SIZE		equ $800
 PALETTE_SIZE			equ $20		; size of individual palette
 
@@ -67,11 +67,11 @@ SCREEN_BYTES_PER_TILE		equ 2
 SCREEN_BYTES_PER_LINE		equ (SCREEN_BYTES_PER_TILE * SCREEN_TILES_PER_LINE)
 
 	macro SEEK_XY
-		lea	(FG_RAM_START + 128 + (\1 * SCREEN_BYTES_PER_TILE) + (\2 * SCREEN_BYTES_PER_LINE)), a6
+		lea	(FG_RAM + 128 + (\1 * SCREEN_BYTES_PER_TILE) + (\2 * SCREEN_BYTES_PER_LINE)), a6
 	endm
 
 	macro SEEK_LN
-		lea	(FG_RAM_START + 128 + (\1 * SCREEN_BYTES_PER_LINE)), a6
+		lea	(FG_RAM + 128 + (\1 * SCREEN_BYTES_PER_LINE)), a6
 	endm
 
 

@@ -30,15 +30,15 @@ memory_viewer_menu:
 		rts
 
 view_bg1_ram:
-		lea	BG1_RAM_START, a0
+		lea	BG1_RAM, a0
 		bra	view_memory
 
 view_bg2_ram:
-		lea	BG2_RAM_START, a0
+		lea	BG2_RAM, a0
 		bra	view_memory
 
 view_fg_ram:
-		lea	FG_RAM_START, a0
+		lea	FG_RAM, a0
 		bra	view_memory
 
 view_mmio_input:
@@ -50,7 +50,7 @@ view_mmio_screen:
 		bra	view_memory
 
 view_palette_ram:
-		lea	PALETTE_RAM_START, a0
+		lea	PALETTE_RAM, a0
 		bra	view_memory
 
 view_rom_space:
@@ -58,11 +58,11 @@ view_rom_space:
 		bra	view_memory
 
 view_sprite_ram:
-		lea	SPRITE_RAM_START, a0
+		lea	SPRITE_RAM, a0
 		bra	view_memory
 
 view_work_ram:
-		lea	WORK_RAM_START, a0
+		lea	WORK_RAM, a0
 
 view_memory:
 		lea	$0, a1			; no callback

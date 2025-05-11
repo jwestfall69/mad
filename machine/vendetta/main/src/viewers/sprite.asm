@@ -77,14 +77,14 @@ draw_sprite_cb:
 		asla
 		ora	s_ks_sprite_width, y
 		ora	#$c0			; active sprite and maintain aspect ratio
-		sta	SPRITE_RAM_START
+		sta	SPRITE_RAM
 
 		; For some reason with mad on hardware it won't draw the
 		; sprite with a #$0 zcode, but works ok with >= $1.  The
 		; original game code has a sprite with $0 zcode.  There
 		; must be some min zcode value init some place on hardware.
 		lda	#$01
-		sta	SPRITE_RAM_START + 1
+		sta	SPRITE_RAM + 1
 
 		ldd	s_ks_sprite_num, y
 		aslb
@@ -99,16 +99,16 @@ draw_sprite_cb:
 		rola
 		aslb
 		rola
-		std	SPRITE_RAM_START + 2
+		std	SPRITE_RAM + 2
 
 		ldd	s_ks_sprite_pos_y, y
-		std	SPRITE_RAM_START + 4
+		std	SPRITE_RAM + 4
 
 		ldd	s_ks_sprite_pos_x, y
-		std	SPRITE_RAM_START + 6
+		std	SPRITE_RAM + 6
 
 		lda	s_ks_sprite_zoom, y
-		sta	SPRITE_RAM_START + 9
+		sta	SPRITE_RAM + 9
 
 		lda	#$0
 		sta	REG_CONTROL

@@ -19,10 +19,10 @@
 print_error_memory_override_dsub:
 		move.l	a0, d0
 
-		lea	NOT_WORK_RAM_START, a0
+		lea	NOT_WORK_RAM, a0
 	.loop_next_address:
 		move.w	#0, (a0)+
-		cmp.l	#(NOT_WORK_RAM_START + NOT_WORK_RAM_SIZE), a0
+		cmp.l	#(NOT_WORK_RAM + NOT_WORK_RAM_SIZE), a0
 		bne	.loop_next_address
 
 		move.l	d0, a0

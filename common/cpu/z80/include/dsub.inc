@@ -13,7 +13,7 @@ DSUB_MODE_REAL		equ $1
 	macro DSUB_MODE_RSUB
 		ld	a, DSUB_MODE_REAL
 		ex	af, af'
-		ld	sp, WORK_RAM_START + WORK_RAM_SIZE
+		ld	sp, WORK_RAM + WORK_RAM_SIZE
 	endm
 
 	macro DSUB_RETURN

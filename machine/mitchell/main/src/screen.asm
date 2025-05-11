@@ -20,28 +20,28 @@ screen_init_dsub:
 		and	$08
 		jr	z, .loop_wait_vblank
 
-		ld	hl, PALETTE_RAM_START
+		ld	hl, PALETTE_RAM
 		ld	de, PALETTE_RAM_SIZE
 		ld	c, $0
 		NSUB	memory_fill
 
 		ROMSET_PALETTE_SETUP
 
-		ld	hl, COLOR_RAM_START
+		ld	hl, COLOR_RAM
 		ld	de, COLOR_RAM_SIZE
 		ld	c, $0
 		NSUB	memory_fill
 
 		ld	a, VIDEO_BANK_OBJECT
 		out	(IO_VIDEO_BANK), a
-		ld	hl, TILE_RAM_START
+		ld	hl, TILE_RAM
 		ld	de, TILE_RAM_SIZE
 		ld	c, $00
 		NSUB	memory_fill
 
 		ld	a, VIDEO_BANK_TILE
 		out	(IO_VIDEO_BANK), a
-		ld	hl, TILE_RAM_START
+		ld	hl, TILE_RAM
 		ld	de, TILE_RAM_SIZE
 		ld	bc, $2000
 		NSUB	memory_fill_word

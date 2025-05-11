@@ -75,7 +75,7 @@ manual_object_ram_tests:
 
 
 object_ram_bank_switch_test_dsub:
-		lea	OBJECT_RAM_START, a0
+		lea	OBJECT_RAM, a0
 		move.w	#$ffff, d1
 
 		move.b	#$0, REG_OBJECT_RAM_BANK
@@ -100,7 +100,7 @@ object_ram_bank_switch_test_dsub:
 	align 1
 
 d_mt_data:
-		MT_PARAMS OBJECT_RAM_START, MT_NULL_ADDRESS_LIST, OBJECT_RAM_SIZE, OBJECT_RAM_ADDRESS_LINES, OBJECT_RAM_MASK, OBJECT_RAM_BASE_EC, MT_FLAG_NONE
+		MT_PARAMS OBJECT_RAM, MT_NULL_ADDRESS_LIST, OBJECT_RAM_SIZE, OBJECT_RAM_ADDRESS_LINES, OBJECT_RAM_MASK, OBJECT_RAM_BASE_EC, MT_FLAG_NONE
 
 d_screen_xys_list:
 	XY_STRING SCREEN_START_X, SCREEN_PASSES_Y, "PASSES"

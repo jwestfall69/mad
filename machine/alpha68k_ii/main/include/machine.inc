@@ -1,22 +1,22 @@
 	include "romset.inc"
 
-TILE_RAM_START			equ $100000
+TILE_RAM			equ $100000
 TILE_RAM_SIZE			equ $1000
 TILE_RAM_ADDRESS_LINES		equ 12
 TILE_RAM_MASK			equ $ff
 
-PALETTE_RAM_START		equ $400000
+PALETTE_RAM			equ $400000
 PALETTE_RAM_MASK		equ $ffff
 PALETTE_RAM_SIZE		equ $1000
 PALETTE_RAM_ADDRESS_LINES	equ 12
 PALETTE_SIZE			equ $20		; size of an individual palette
 
-SPRITE_RAM_START		equ $200000
+SPRITE_RAM			equ $200000
 SPRITE_RAM_SIZE			equ $8000
 SPRITE_RAM_ADDRESS_LINES	equ 14
 SPRITE_RAM_MASK			equ $ff
 
-WORK_RAM_START			equ $040000
+WORK_RAM			equ $040000
 WORK_RAM_SIZE			equ $1000
 WORK_RAM_ADDRESS_LINES		equ 12
 WORK_RAM_MASK			equ $ffff
@@ -49,11 +49,11 @@ SCREEN_BYTES_PER_LINE		equ (SCREEN_BYTES_PER_TILE * SCREEN_TILES_PER_LINE)
 	; goto the correct tile memory location before printing text
 	; to the screen
 	macro SEEK_XY
-		lea	(TILE_RAM_START + $78 + (\2 * SCREEN_BYTES_PER_LINE) - (\1 * SCREEN_BYTES_PER_TILE)), a6
+		lea	(TILE_RAM + $78 + (\2 * SCREEN_BYTES_PER_LINE) - (\1 * SCREEN_BYTES_PER_TILE)), a6
 	endm
 
 	macro SEEK_LN
-		lea	(TILE_RAM_START + $78 + (\1 * SCREEN_BYTES_PER_LINE)), a6
+		lea	(TILE_RAM + $78 + (\1 * SCREEN_BYTES_PER_LINE)), a6
 	endm
 
 	macro SOUND_PLAY

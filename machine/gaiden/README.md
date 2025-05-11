@@ -161,7 +161,7 @@ high or low, but 99% of the time.
 | 0x7e |    126 | 0111 1110 |  000 0000 0011 0111 1110 xxxx  | MAD ROM ADDRESS                |
 | 0x7f |    127 | 0111 1111 |  000 0000 0011 0111 1111 xxxx  | MAD ROM CRC32                  |
 
-<sup>Table last updated by gen-error-codes-markdown-table on 2025-03-22 @ 19:02 UTC</sup>
+<sup>Table last updated by gen-error-codes-markdown-table on 2025-05-11 @ 22:26 UTC</sup>
 <!-- ec_table_main_end -->
 
 ### Sound CPU

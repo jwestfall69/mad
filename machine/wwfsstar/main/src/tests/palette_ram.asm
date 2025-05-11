@@ -25,33 +25,33 @@ auto_palette_ram_tests:
 		rts
 	endif
 
-		lea	PALETTE_RAM_START, a0
+		lea	PALETTE_RAM, a0
 		moveq	#1, d0
 		DSUB	memory_output_test
 		tst.b	d0
 		bne	.test_failed_output
 
-		lea	PALETTE_RAM_START, a0
+		lea	PALETTE_RAM, a0
 		moveq	#1, d0
 		DSUB	memory_write_test
 		tst.b	d0
 		bne	.test_failed_write
 
-		lea	PALETTE_RAM_START, a0
+		lea	PALETTE_RAM, a0
 		move.l	#PALETTE_RAM_SIZE, d0
 		move.w	#$fff, d1
 		DSUB	palette_ram_data_test
 		tst.b	d0
 		bne	.test_failed_data
 
-		lea	PALETTE_RAM_START, a0
+		lea	PALETTE_RAM, a0
 		move.l	#PALETTE_RAM_SIZE, d0
 		move.w	#$fff, d1
 		DSUB	memory_march_test
 		tst.b	d0
 		bne	.test_failed_march
 
-		lea	PALETTE_RAM_START, a0
+		lea	PALETTE_RAM, a0
 		move.w	#PALETTE_RAM_ADDRESS_LINES, d0
 		move.w	#$ff, d1
 		RSUB	memory_address_test

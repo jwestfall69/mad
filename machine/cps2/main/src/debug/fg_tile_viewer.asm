@@ -35,7 +35,7 @@ fg_tile_viewer:
 ;  b = brightness value (applies to all colors)
 fg_palette_setup:
 
-		lea	PALETTE_RAM_START+(PALETTE_SIZE*PALETTE_NUM), a0
+		lea	PALETTE_RAM+(PALETTE_SIZE*PALETTE_NUM), a0
 		lea	d_palette_data, a1
 		moveq	#(PALETTE_SIZE/2 - 1), d0
 

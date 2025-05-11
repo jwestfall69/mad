@@ -9,40 +9,40 @@
 	section code
 
 screen_init_psub:
-		ldx	#TILE1_RAM_START
+		ldx	#TILE1_RAM
 		ldw	#$1800
 		lda	#$01
 		PSUB	memory_fill
 
-		ldx	#TILE1_RAM_START+$1800
+		ldx	#TILE1_RAM+$1800
 		ldw	#$400
 		lda	#$00
 		PSUB	memory_fill
 
-		ldx	#TILE2_RAM_START
+		ldx	#TILE2_RAM
 		ldw	#$1800
 		lda	#$fe
 		PSUB	memory_fill
 
-		ldx	#TILE2_RAM_START+$1808
+		ldx	#TILE2_RAM+$1808
 		ldw	#$400
 		lda	#$00
 		PSUB	memory_fill
 
-		ldx	#SPRITE_RAM_START
+		ldx	#SPRITE_RAM
 		ldw	#$400
 		lda	#$00
 		PSUB	memory_fill
 
-		ldx	#PALETTE_RAM_START
+		ldx	#PALETTE_RAM
 		ldw	#PALETTE_RAM_SIZE
 		lda	#$00
 		PSUB	memory_fill
 
 		; txt color
 		lda	#$ff
-		sta	(PALETTE_RAM_START + $1c)
-		sta	(PALETTE_RAM_START + $1d)
+		sta	(PALETTE_RAM + $1c)
+		sta	(PALETTE_RAM + $1d)
 
 		; txt shadow ($2 $3)
 		; background ($100 $101)

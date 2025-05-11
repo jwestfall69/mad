@@ -3,15 +3,15 @@
 ROM_START			equ $0
 ROM_SIZE			equ $8000
 
-COLOR_RAM_START			equ $c800
+COLOR_RAM			equ $c800
 COLOR_RAM_SIZE			equ $800
 COLOR_RAM_ADDRESS_LINES		equ 11
 
-OBJECT_RAM_START		equ $d000
+OBJECT_RAM			equ $d000
 OBJECT_RAM_SIZE			equ $1000
 OBJECT_RAM_ADDRESS_LINES	equ 12
 
-PALETTE_RAM_START		equ $c000
+PALETTE_RAM			equ $c000
 PALETTE_RAM_SIZE		equ $800
 PALETTE_RAM_ADDRESS_LINES	equ 11
 PALETTE_SIZE			equ $20
@@ -19,11 +19,11 @@ PALETTE_SIZE			equ $20
 ; object/tile ram are the same address space
 ; and have to be bank switched to switch
 ; between them
-TILE_RAM_START			equ $d000
+TILE_RAM			equ $d000
 TILE_RAM_SIZE			equ $1000
 TILE_RAM_ADDRESS_LINES		equ 12
 
-WORK_RAM_START			equ $e000
+WORK_RAM			equ $e000
 WORK_RAM_SIZE			equ $2000
 WORK_RAM_ADDRESS_LINES		equ 13
 
@@ -55,11 +55,11 @@ SCREEN_BYTES_PER_TILE		equ 2
 SCREEN_BYTES_PER_LINE		equ (SCREEN_BYTES_PER_TILE * SCREEN_TILES_PER_LINE)
 
 	macro	SEEK_XY
-		ld	hl, TILE_RAM_START + $90 + (\1 * SCREEN_BYTES_PER_TILE) + (\2 * SCREEN_BYTES_PER_LINE)
+		ld	hl, TILE_RAM + $90 + (\1 * SCREEN_BYTES_PER_TILE) + (\2 * SCREEN_BYTES_PER_LINE)
 	endm
 
 	macro	SEEK_LN
-		ld	hl, TILE_RAM_START + $90 + (\1 * SCREEN_BYTES_PER_LINE)
+		ld	hl, TILE_RAM + $90 + (\1 * SCREEN_BYTES_PER_LINE)
 	endm
 	macro WATCHDOG
 	endm

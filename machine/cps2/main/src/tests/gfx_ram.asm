@@ -18,5 +18,5 @@
 
 ; fix me based on ram chips
 d_memory_address_list:
-	MEMORY_ADDRESS_ENTRY GFX_RAM_START
+	MEMORY_ADDRESS_ENTRY GFX_RAM
 	MEMORY_ADDRESS_LIST_END

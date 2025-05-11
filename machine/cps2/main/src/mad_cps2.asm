@@ -13,7 +13,7 @@ _start:
 
 		; doing it like this so the same compiled rom
 		; can be used to make a suicided rom or encrypted
-		cmp.l	#(WORK_RAM_START + WORK_RAM_SIZE), $0
+		cmp.l	#(WORK_RAM + WORK_RAM_SIZE), $0
 		beq	.suicide
 
 		; unclear at this point if this might be required

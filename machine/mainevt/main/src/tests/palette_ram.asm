@@ -22,12 +22,12 @@ auto_palette_ram_tests:
 		; normal memory test handler will handle
 		; the rest.
 
-		ldx	#PALETTE_RAM_START + 1
+		ldx	#PALETTE_RAM + 1
 		PSUB	memory_output_test
 		tsta
 		bne	.test_failed_output_odd
 
-		ldx	#PALETTE_RAM_START + 1
+		ldx	#PALETTE_RAM + 1
 		PSUB	memory_write_test
 		tsta
 		bne	.test_failed_write_odd
@@ -102,7 +102,7 @@ manual_palette_ram_tests:
 	section data
 
 d_mt_data:
-	MT_PARAMS PALETTE_RAM_START, PALETTE_RAM_SIZE, PALETTE_RAM_ADDRESS_LINES, PALETTE_RAM_BASE_EC, MT_FLAG_NONE
+	MT_PARAMS PALETTE_RAM, PALETTE_RAM_SIZE, PALETTE_RAM_ADDRESS_LINES, PALETTE_RAM_BASE_EC, MT_FLAG_NONE
 
 d_screen_xys_list:
 	XY_STRING SCREEN_START_X, SCREEN_START_Y, "PALETTE RAM TEST"

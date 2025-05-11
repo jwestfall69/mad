@@ -5,14 +5,14 @@ CHAR_COLON			equ ':'
 
 	macro ROMSET_PALETTE_SETUP
 		ld	bc, PALETTE_TEXT_COLOR
-		ld	(PALETTE_RAM_START + 2), bc
-		ld	(PALETTE_RAM_START + 4), bc
-		ld	(PALETTE_RAM_START + 6), bc
-		ld	(PALETTE_RAM_START + 8), bc
-		ld	(PALETTE_RAM_START + 10), bc
-		ld	(PALETTE_RAM_START + 12), bc
-		ld	(PALETTE_RAM_START + 14), bc
-		ld	(PALETTE_RAM_START + 16), bc
+		ld	(PALETTE_RAM + 2), bc
+		ld	(PALETTE_RAM + 4), bc
+		ld	(PALETTE_RAM + 6), bc
+		ld	(PALETTE_RAM + 8), bc
+		ld	(PALETTE_RAM + 10), bc
+		ld	(PALETTE_RAM + 12), bc
+		ld	(PALETTE_RAM + 14), bc
+		ld	(PALETTE_RAM + 16), bc
 	endm
 
 ; video dac

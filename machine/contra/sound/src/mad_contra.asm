@@ -20,7 +20,7 @@ _start:
 		PSUB	work_ram_address_test
 		PSUB	work_ram_march_test
 
-		lds	#(WORK_RAM_START + WORK_RAM_SIZE)
+		lds	#(WORK_RAM + WORK_RAM_SIZE)
 
 		jsr	ym2151_tests
 

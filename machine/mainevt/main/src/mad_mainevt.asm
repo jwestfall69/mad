@@ -35,7 +35,7 @@ _start:
 		PSUB	auto_mad_rom_crc32_test
 		PSUB	auto_work_ram_tests
 
-		lds	#(WORK_RAM_START + WORK_RAM_SIZE - 2)
+		lds	#(WORK_RAM + WORK_RAM_SIZE - 2)
 		jsr	auto_func_tests
 
 		lda	#SOUND_NUM_SUCCESS

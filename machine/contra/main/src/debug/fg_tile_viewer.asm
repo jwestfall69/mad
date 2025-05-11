@@ -37,7 +37,7 @@ fg_tile_viewer:
 fg_palette_setup:
 
 		ldx	#d_palette_data
-		ldy	#(PALETTE_RAM_START+(PALETTE_SIZE*PALETTE_NUM))
+		ldy	#(PALETTE_RAM+(PALETTE_SIZE*PALETTE_NUM))
 		lde	#(PALETTE_SIZE/2)
 
 	.loop_next_color:

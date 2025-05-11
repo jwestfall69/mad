@@ -20,17 +20,17 @@ screen_init_psub:
 		sta	REG_CONTROL
 	endif
 
-		ldx	#TILE_RAM_START
+		ldx	#TILE_RAM
 		ldw	#$1800
 		lda	#$0
 		PSUB	memory_fill
 
-		ldx	#SPRITE_RAM_START
+		ldx	#SPRITE_RAM
 		ldw	#SPRITE_RAM_SIZE
 		lda	#$0
 		PSUB	memory_fill
 
-		ldx	#VIDEO_RAM_START
+		ldx	#VIDEO_RAM
 		ldw	#VIDEO_RAM_SIZE
 		lda	#$0
 		PSUB	memory_fill

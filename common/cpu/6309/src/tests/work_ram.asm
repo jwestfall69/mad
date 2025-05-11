@@ -23,51 +23,51 @@ auto_work_ram_tests_psub:
 		ldy	#d_str_testing_work_ram
 		PSUB	print_string
 
-		ldx	#WORK_RAM_START
+		ldx	#WORK_RAM
 		PSUB	memory_output_test
 		tsta
 		lbne	.test_failed_output
 
-		ldx	#WORK_RAM_START
+		ldx	#WORK_RAM
 		PSUB	memory_write_test
 		tsta
 		lbne	.test_failed_write
 
-		ldx	#WORK_RAM_START
+		ldx	#WORK_RAM
 		ldd	#WORK_RAM_SIZE
 		lde	#$00
 		PSUB	memory_data_test
 		tsta
 		lbne	.test_failed_data
 
-		ldx	#WORK_RAM_START
+		ldx	#WORK_RAM
 		ldd	#WORK_RAM_SIZE
 		lde	#$55
 		PSUB	memory_data_test
 		tsta
 		lbne	.test_failed_data
 
-		ldx	#WORK_RAM_START
+		ldx	#WORK_RAM
 		ldd	#WORK_RAM_SIZE
 		lde	#$aa
 		PSUB	memory_data_test
 		tsta
 		lbne	.test_failed_data
 
-		ldx	#WORK_RAM_START
+		ldx	#WORK_RAM
 		ldd	#WORK_RAM_SIZE
 		lde	#$ff
 		PSUB	memory_data_test
 		tsta
 		lbne	.test_failed_data
 
-		ldx	#WORK_RAM_START
+		ldx	#WORK_RAM
 		lda	#WORK_RAM_ADDRESS_LINES
 		PSUB	memory_address_test
 		tsta
 		bne	.test_failed_address
 
-		ldx	#WORK_RAM_START
+		ldx	#WORK_RAM
 		ldd	#WORK_RAM_SIZE
 		PSUB	memory_march_test
 		tsta

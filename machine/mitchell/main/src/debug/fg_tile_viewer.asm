@@ -33,7 +33,7 @@ fg_tile_viewer:
 fg_palette_setup:
 
 		ld	hl, d_palette_data
-		ld	de, PALETTE_RAM_START+(PALETTE_SIZE*PALETTE_NUM)
+		ld	de, PALETTE_RAM+(PALETTE_SIZE*PALETTE_NUM)
 		ld	bc, PALETTE_SIZE
 		ldir
 		ret

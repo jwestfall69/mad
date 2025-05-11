@@ -30,11 +30,11 @@ memory_viewer_menu:
 		ret
 
 view_color_ram:
-		ld	ix, COLOR_RAM_START
+		ld	ix, COLOR_RAM
 		jr	view_memory
 
 view_palette_ram:
-		ld	ix, PALETTE_RAM_START
+		ld	ix, PALETTE_RAM
 		jr	view_memory
 
 view_rom_space:
@@ -42,11 +42,11 @@ view_rom_space:
 		jr	view_memory
 
 view_tile_ram:
-		ld	ix, TILE_RAM_START
+		ld	ix, TILE_RAM
 		jr	view_memory
 
 view_work_ram:
-		ld	ix, WORK_RAM_START
+		ld	ix, WORK_RAM
 
 view_memory:
 		ld	iy, $0			; no callback

@@ -34,12 +34,12 @@ view_mmio:
 		bra	view_memory
 
 view_palette_ram:
-		lea	PALETTE_RAM_START, a0
+		lea	PALETTE_RAM, a0
 		bra	view_memory
 
 
 view_palette_ext_ram:
-		lea	PALETTE_EXT_RAM_START, a0
+		lea	PALETTE_EXT_RAM, a0
 		bra	view_memory
 
 view_rom_space:
@@ -47,23 +47,23 @@ view_rom_space:
 		bra	view_memory
 
 view_sprite_ram:
-		lea	SPRITE_RAM_START, a0
+		lea	SPRITE_RAM, a0
 		bra	view_memory
 
 view_tile1_ram:
-		lea	TILE1_RAM_START, a0
+		lea	TILE1_RAM, a0
 		bra	view_memory
 
 view_tile2_ram:
-		lea	TILE2_RAM_START, a0
+		lea	TILE2_RAM, a0
 		bra	view_memory
 
 view_tile3_ram:
-		lea	TILE3_RAM_START, a0
+		lea	TILE3_RAM, a0
 		bra	view_memory
 
 view_work_ram:
-		lea	WORK_RAM_START, a0
+		lea	WORK_RAM, a0
 
 view_memory:
 		lea	$0, a1			; no callback

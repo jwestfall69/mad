@@ -31,44 +31,44 @@ auto_work_ram_tests_dsub:
 		PSUB	print_string
 	endif
 
-		ld	hl, WORK_RAM_START
+		ld	hl, WORK_RAM
 		PSUB	memory_output_test
 		jp	nz, .test_failed_output
 
-		ld	hl, WORK_RAM_START
+		ld	hl, WORK_RAM
 		PSUB	memory_write_test
 		jp	nz, .test_failed_write
 
-		ld	hl, WORK_RAM_START
+		ld	hl, WORK_RAM
 		ld	de, WORK_RAM_SIZE
 		ld	b, $00
 		PSUB	memory_data_pattern_test
 		jp	nz, .test_failed_data
 
-		ld	hl, WORK_RAM_START
+		ld	hl, WORK_RAM
 		ld	de, WORK_RAM_SIZE
 		ld	b, $55
 		PSUB	memory_data_pattern_test
 		jp	nz, .test_failed_data
 
-		ld	hl, WORK_RAM_START
+		ld	hl, WORK_RAM
 		ld	de, WORK_RAM_SIZE
 		ld	b, $aa
 		PSUB	memory_data_pattern_test
 		jp	nz, .test_failed_data
 
-		ld	hl, WORK_RAM_START
+		ld	hl, WORK_RAM
 		ld	de, WORK_RAM_SIZE
 		ld	b, $ff
 		PSUB	memory_data_pattern_test
 		jp	nz, .test_failed_data
 
-		ld	hl, WORK_RAM_START
+		ld	hl, WORK_RAM
 		ld	b, WORK_RAM_ADDRESS_LINES
 		PSUB	memory_address_test
 		jp	nz, .test_failed_address
 
-		ld	hl, WORK_RAM_START
+		ld	hl, WORK_RAM
 		ld	de, WORK_RAM_SIZE
 		PSUB	memory_march_test
 		jp	nz, .test_failed_march

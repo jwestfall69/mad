@@ -9,55 +9,55 @@
 	section code
 
 screen_init_psub:
-		ldx	#TILE1_RAM_START
+		ldx	#TILE1_RAM
 		ldw	#TILE1_RAM_SIZE / 2
 		lda	#$00
 		PSUB	memory_fill
 
-		ldx	#TILE1_RAM_START + (TILE1_RAM_SIZE / 2)
+		ldx	#TILE1_RAM + (TILE1_RAM_SIZE / 2)
 		ldw	#TILE1_RAM_SIZE / 2
 		lda	#$10
 		PSUB	memory_fill
 
-		ldx	#TILE2_RAM_START
+		ldx	#TILE2_RAM
 		ldw	#TILE2_RAM_SIZE / 2
 		lda	#$00
 		PSUB	memory_fill
 
-		ldx	#TILE2_RAM_START + (TILE2_RAM_SIZE / 2)
+		ldx	#TILE2_RAM + (TILE2_RAM_SIZE / 2)
 		ldw	#TILE2_RAM_SIZE / 2
 		lda	#$10
 		PSUB	memory_fill
 
-		ldx	#TILE3_RAM_START
+		ldx	#TILE3_RAM
 		ldw	#TILE3_RAM_SIZE / 2
 		lda	#$00
 		PSUB	memory_fill
 
-		ldx	#TILE3_RAM_START + (TILE3_RAM_SIZE / 2)
+		ldx	#TILE3_RAM + (TILE3_RAM_SIZE / 2)
 		ldw	#TILE3_RAM_SIZE / 2
 		lda	#$10
 		PSUB	memory_fill
 
-		ldx	#SPRITE1_RAM_START
+		ldx	#SPRITE1_RAM
 		ldw	#SPRITE1_RAM_SIZE
 		lda	#$00
 		PSUB	memory_fill
 
-		ldx	#SPRITE2_RAM_START
+		ldx	#SPRITE2_RAM
 		ldw	#SPRITE2_RAM_SIZE
 		lda	#$00
 		PSUB	memory_fill
 
-		ldx	#PALETTE_RAM_START
+		ldx	#PALETTE_RAM
 		ldw	#PALETTE_RAM_SIZE
 		lda	#$00
 		PSUB	memory_fill
 
 		; txt color
 		lda	#$ff
-		sta	(PALETTE_RAM_START + $3e)
-		sta	(PALETTE_RAM_START + $3f)
+		sta	(PALETTE_RAM + $3e)
+		sta	(PALETTE_RAM + $3f)
 
 		SEEK_XY	2, 0
 		ldy	#d_str_version

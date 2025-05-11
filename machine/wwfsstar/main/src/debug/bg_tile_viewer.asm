@@ -35,7 +35,7 @@ bg_palette_setup:
 		; bg tile's palettes start at PALETTE_SIZE * 16.
 		; going to the next one because the first one is used
 		; for the main bg color
-		lea	PALETTE_RAM_START+((PALETTE_SIZE * 16) + PALETTE_SIZE), a0
+		lea	PALETTE_RAM+((PALETTE_SIZE * 16) + PALETTE_SIZE), a0
 		lea	d_palette_data, a1
 		moveq	#(PALETTE_SIZE/2 - 1), d0
 
@@ -50,7 +50,7 @@ bg_palette_setup:
 ;  d0 = x
 ;  d1 = y
 bg_seek_xy_cb:
-		lea	BG_RAM_START, a6
+		lea	BG_RAM, a6
 		and.l	#$ff, d0
 		and.l	#$ff, d1
 

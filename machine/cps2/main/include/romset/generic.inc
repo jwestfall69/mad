@@ -35,7 +35,7 @@ VD_TILE_BA_PAL_OFFSET		equ $8
 	endm
 
 	macro ROMSET_PALLETE_SETUP
-		lea	PALETTE_RAM_START + $2, a0
+		lea	PALETTE_RAM + $2, a0
 		moveq	#$6, d0
 
 	.loop_next_palette_address:
@@ -43,7 +43,7 @@ VD_TILE_BA_PAL_OFFSET		equ $8
 		move.w	#PALETTE_TEXT_COLOR, (a0)+
 		dbra	d0, .loop_next_palette_address
 
-		move.w	#PALETTE_BACKGROUND_COLOR, PALETTE_RAM_START + $13fe
+		move.w	#PALETTE_BACKGROUND_COLOR, PALETTE_RAM + $13fe
 	endm
 
 	macro WATCHDOG

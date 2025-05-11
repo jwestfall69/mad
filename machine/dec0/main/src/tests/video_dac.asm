@@ -27,27 +27,27 @@ video_dac_test:
 		;  GGGG RRRR (palette ram)
 		;  xxxx BBBB (palette ext ram)
 		; red palette setup
-		lea	PALETTE_RAM_START+PALETTE_SIZE, a0
+		lea	PALETTE_RAM+PALETTE_SIZE, a0
 		move.w	#$ff, d0
 		bsr	palette_setup_color
 
 		; green palette setup
-		lea	PALETTE_RAM_START+(PALETTE_SIZE*4), a0
+		lea	PALETTE_RAM+(PALETTE_SIZE*4), a0
 		move.w	#$ff00, d0
 		bsr	palette_setup_color
 
 		; blue palette setup
-		lea	PALETTE_EXT_RAM_START+(PALETTE_SIZE*7), a0
+		lea	PALETTE_EXT_RAM+(PALETTE_SIZE*7), a0
 		move.w	#$ff, d0
 		bsr	palette_setup_color
 
 		; combined/all palette setup
-		lea	PALETTE_RAM_START+(PALETTE_SIZE*10), a0
+		lea	PALETTE_RAM+(PALETTE_SIZE*10), a0
 		move.w	#$ffff, d0
 		bsr	palette_setup_color
 
 		; combined/all palette setup
-		lea	PALETTE_EXT_RAM_START+(PALETTE_SIZE*10), a0
+		lea	PALETTE_EXT_RAM+(PALETTE_SIZE*10), a0
 		move.w	#$ff, d0
 		bsr	palette_setup_color
 
@@ -96,7 +96,7 @@ full_screen:
 		add.w	d5, d4
 
 		move.w	(a1, d4.w), d1
-		lea	TILE1_RAM_START, a0
+		lea	TILE1_RAM, a0
 		move.l	#(TILE1_RAM_SIZE / 2) - 1, d0
 
 	.loop_next_address:

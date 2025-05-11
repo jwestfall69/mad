@@ -1,30 +1,30 @@
-WORK_RAM_START			equ $060000
+WORK_RAM			equ $060000
 WORK_RAM_SIZE			equ $4000
 WORK_RAM_ADDRESS_LINES		equ 13
 WORK_RAM_MASK			equ $ffff
 
-TXT_RAM_START			equ $070000
+TXT_RAM				equ $070000
 TXT_RAM_SIZE			equ $1000
 TXT_RAM_ADDRESS_LINES		equ 11
 TXT_RAM_MASK			equ $ffff
 
-FG_RAM_START			equ $072000
+FG_RAM				equ $072000
 FG_RAM_SIZE			equ $2000
 FG_RAM_ADDRESS_LINES		equ 12
 FG_RAM_MASK			equ $ffff
 
-BG_RAM_START			equ $074000
+BG_RAM				equ $074000
 BG_RAM_SIZE			equ $2000
 BG_RAM_ADDRESS_LINES		equ 12
 BG_RAM_MASK			equ $ffff
 
-PALETTE_RAM_START		equ $078000
+PALETTE_RAM			equ $078000
 PALETTE_RAM_SIZE		equ $2000
 PALETTE_RAM_ADDRESS_LINES	equ 12
 PALETTE_RAM_MASK		equ $0fff
 PALETTE_SIZE			equ $20		; size of individual palette
 
-SPRITE_RAM_START		equ $076000
+SPRITE_RAM			equ $076000
 ; mame has the size as $2000, but if you try to accesss
 ; the upper $1000 the board will reboot/watchdog
 SPRITE_RAM_SIZE			equ $1000
@@ -54,11 +54,11 @@ SCREEN_BYTES_PER_TILE		equ 2
 SCREEN_BYTES_PER_LINE		equ (SCREEN_BYTES_PER_TILE * SCREEN_TILES_PER_LINE)
 
 	macro SEEK_XY
-		lea	(TXT_RAM_START + $900 + (\1 * SCREEN_BYTES_PER_TILE) + (\2 * SCREEN_BYTES_PER_LINE)), a6
+		lea	(TXT_RAM + $900 + (\1 * SCREEN_BYTES_PER_TILE) + (\2 * SCREEN_BYTES_PER_LINE)), a6
 	endm
 
 	macro SEEK_LN
-		lea	(TXT_RAM_START + $900 + (\1 * SCREEN_BYTES_PER_LINE)), a6
+		lea	(TXT_RAM + $900 + (\1 * SCREEN_BYTES_PER_LINE)), a6
 	endm
 
 

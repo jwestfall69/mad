@@ -33,8 +33,8 @@ fg_tile_viewer:
 ;  xxxx BBBB (palette ext ram)
 fg_palette_setup:
 
-		lea	PALETTE_RAM_START+(PALETTE_SIZE*PALETTE_NUM), a0
-		lea	PALETTE_EXT_RAM_START+(PALETTE_SIZE*PALETTE_NUM), a1
+		lea	PALETTE_RAM+(PALETTE_SIZE*PALETTE_NUM), a0
+		lea	PALETTE_EXT_RAM+(PALETTE_SIZE*PALETTE_NUM), a1
 		lea	d_palette_data, a2
 		moveq	#(PALETTE_SIZE/2 - 1), d0
 

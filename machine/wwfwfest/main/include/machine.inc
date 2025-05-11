@@ -1,26 +1,26 @@
-BG_RAM_START			equ $080000
+BG_RAM				equ $080000
 BG_RAM_SIZE			equ $4000
 BG_RAM_ADDRESS_LINES		equ 14
 BG_RAM_MASK			equ $ffff
 
-BG2_RAM_START			equ $082000
+BG2_RAM				equ $082000
 
-FG_RAM_START			equ $0c0000
+FG_RAM				equ $0c0000
 FG_RAM_SIZE			equ $2000
-FG_SPRITE_RAM_START		equ $0c0000
+FG_SPRITE_RAM			equ $0c0000
 FG_SPRITE_RAM_SIZE		equ $4000
 FG_SPRITE_RAM_ADDRESS_LINES	equ 14
 FG_SPRITE_RAM_MASK		equ $ff
 
-PALETTE_RAM_START		equ $180000
+PALETTE_RAM			equ $180000
 PALETTE_RAM_SIZE		equ $10000	; address space, not size (2k)
 PALETTE_RAM_ADDRESS_LINES	equ 16
 PALETTE_RAM_MASK		equ $ffff
 PALETTE_SIZE			equ $80		; size of individual palette
 
-SPRITE_RAM_START		equ $0c2000
+SPRITE_RAM			equ $0c2000
 
-WORK_RAM_START			equ $1c0000
+WORK_RAM			equ $1c0000
 WORK_RAM_SIZE			equ $4000
 WORK_RAM_ADDRESS_LINES		equ 14
 WORK_RAM_MASK			equ $ffff
@@ -61,11 +61,11 @@ SCREEN_BYTES_PER_LINE		equ (SCREEN_BYTES_PER_TILE * SCREEN_TILES_PER_LINE)
 	; goto the correct fg memory location before printing text
 	; to the screen
 	macro SEEK_XY
-		lea	(FG_RAM_START + $100 + (\1 * SCREEN_BYTES_PER_TILE) + (\2 * SCREEN_BYTES_PER_LINE)), a6
+		lea	(FG_RAM + $100 + (\1 * SCREEN_BYTES_PER_TILE) + (\2 * SCREEN_BYTES_PER_LINE)), a6
 	endm
 
 	macro SEEK_LN
-		lea	(FG_RAM_START + $100 + (\1 * SCREEN_BYTES_PER_LINE)), a6
+		lea	(FG_RAM + $100 + (\1 * SCREEN_BYTES_PER_LINE)), a6
 	endm
 
 	macro SOUND_PLAY
