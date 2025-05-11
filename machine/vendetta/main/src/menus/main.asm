@@ -28,33 +28,23 @@ main_menu:
 	section data
 
 d_menu_list:
-	MENU_ENTRY manual_palette_ram_tests, d_str_palette_ram_test
-	MENU_ENTRY manual_sprite_ram_tests, d_str_sprite_ram_test
-	MENU_ENTRY manual_tile_ram_tests, d_str_tile_ram_test
-	MENU_ENTRY manual_tile_attr_ram_tests, d_str_tile_attr_ram_test
-	MENU_ENTRY manual_work_ram_tests, d_str_work_ram_test
 ;	MENU_ENTRY cpu_tests_menu, d_str_cpu_tests
+	MENU_ENTRY graphics_viewer_menu, d_str_graphics_viewer
 	MENU_ENTRY input_test, d_str_input_test
 	MENU_ENTRY memory_viewer_menu, d_str_memory_viewer
-	MENU_ENTRY graphics_viewer_menu, d_str_graphics_viewer
-	MENU_ENTRY tile_scroll_test, d_str_tile_scroll_test
 	MENU_ENTRY prog_bank_test, d_str_prog_bank_test
-	MENU_ENTRY video_dac_test, d_str_video_dac_test
-	MENU_ENTRY debug_menu, d_str_debug_menu
+	MENU_ENTRY ram_tests_menu, d_str_ram_tests
+	MENU_ENTRY video_tests_menu, d_str_video_tests
+	MENU_ENTRY debug_menu, d_str_debug
 	MENU_LIST_END
 
 d_str_menu_title:		STRING "MAIN MENU"
 
-d_str_cpu_tests:		STRING "CPU TESTS"
-d_str_debug_menu:		STRING "DEBUG MENU"
-d_str_input_test:		STRING "INPUT TEST"
+;d_str_cpu_tests:		STRING "CPU TESTS"
+d_str_debug:			STRING "DEBUG"
 d_str_graphics_viewer:		STRING "GRAPHICS VIEWER"
+d_str_input_test:		STRING "INPUT TEST"
 d_str_memory_viewer:		STRING "MEMORY VIEWER"
-d_str_palette_ram_test:		STRING "PALETTE RAM TEST"
 d_str_prog_bank_test:		STRING "PROG BANK TEST"
-d_str_sprite_ram_test:		STRING "SPRITE RAM TEST"
-d_str_tile_ram_test:		STRING "TILE RAM TEST"
-d_str_tile_attr_ram_test:	STRING "TILE ATTR RAM TEST"
-d_str_tile_scroll_test:		STRING "TILE SCROLL TEST"
-d_str_video_dac_test:		STRING "VIDEO DAC TEST"
-d_str_work_ram_test:		STRING "WORK RAM TEST"
+d_str_ram_tests:		STRING "RAM TESTS"
+d_str_video_tests:		STRING "VIDEO TESTS"

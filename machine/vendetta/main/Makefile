@@ -45,6 +45,8 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/menus/graphics_viewer.o \
         $(OBJ_DIR)/menus/main.o \
         $(OBJ_DIR)/menus/memory_viewer.o \
+        $(OBJ_DIR)/menus/ram_tests.o \
+        $(OBJ_DIR)/menus/video_tests.o \
         $(OBJ_DIR)/tests/auto.o \
         $(OBJ_DIR)/tests/input.o \
         $(OBJ_DIR)/tests/palette_ram.o \
