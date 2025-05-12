@@ -115,6 +115,10 @@ _start:
 		DSUB_MODE_RSUB
 
 		jsr	auto_func_tests
+
+		lda	#SOUND_NUM_SUCCESS
+		SOUND_PLAY
+
 		jsr	main_menu
 
 	section data

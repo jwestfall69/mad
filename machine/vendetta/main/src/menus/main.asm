@@ -34,6 +34,7 @@ d_menu_list:
 	MENU_ENTRY memory_viewer_menu, d_str_memory_viewer
 	MENU_ENTRY prog_bank_test, d_str_prog_bank_test
 	MENU_ENTRY ram_tests_menu, d_str_ram_tests
+	MENU_ENTRY sound_test, d_str_sound_test
 	MENU_ENTRY video_tests_menu, d_str_video_tests
 	MENU_ENTRY debug_menu, d_str_debug
 	MENU_LIST_END
@@ -47,4 +48,5 @@ d_str_input_test:		STRING "INPUT TEST"
 d_str_memory_viewer:		STRING "MEMORY VIEWER"
 d_str_prog_bank_test:		STRING "PROG BANK TEST"
 d_str_ram_tests:		STRING "RAM TESTS"
+d_str_sound_test:		STRING "SOUND TEST"
 d_str_video_tests:		STRING "VIDEO TESTS"

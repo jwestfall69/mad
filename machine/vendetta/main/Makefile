@@ -26,6 +26,7 @@ OBJS = $(OBJ_DIR)/cpu/konami2/src/footer.o \
        $(OBJ_DIR)/cpu/konami2/src/handlers/memory_tests.o \
        $(OBJ_DIR)/cpu/konami2/src/handlers/memory_viewer.o \
        $(OBJ_DIR)/cpu/konami2/src/handlers/menu.o \
+       $(OBJ_DIR)/cpu/konami2/src/handlers/sound.o \
        $(OBJ_DIR)/cpu/konami2/src/handlers/sprite_k053247_viewer.o \
        $(OBJ_DIR)/cpu/konami2/src/handlers/tile8_viewer.o \
        $(OBJ_DIR)/cpu/konami2/src/tests/input.o \
@@ -51,6 +52,7 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/tests/input.o \
         $(OBJ_DIR)/tests/palette_ram.o \
         $(OBJ_DIR)/tests/prog_bank.o \
+        $(OBJ_DIR)/tests/sound.o \
         $(OBJ_DIR)/tests/sprite_ram.o \
         $(OBJ_DIR)/tests/tile_attr_ram.o \
         $(OBJ_DIR)/tests/tile_ram.o \

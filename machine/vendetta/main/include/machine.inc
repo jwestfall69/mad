@@ -54,7 +54,9 @@ REG_INPUT_SYSTEM		equ $5fd1
 REG_CONTROL			equ $5fe2
 
 REG_WATCHDOG			equ $5fea
-REG_SOUND			equ $3f8c
+
+REG_SOUND			equ $5fe6
+REG_SOUND_IRQ_TRIGGER		equ $5fe4
 
 CHAR_COLON			equ $10		; no colon char, using space
 
@@ -73,4 +75,16 @@ SCREEN_BYTES_PER_LINE		equ (SCREEN_BYTES_PER_TILE * SCREEN_TILES_PER_LINE)
 
 	macro	WATCHDOG
 		tst	REG_WATCHDOG
+	endm
+
+	macro	SOUND_PLAY
+		clrb
+		std	REG_SOUND
+		sta	REG_SOUND_IRQ_TRIGGER
+	endm
+
+	macro	SOUND_STOP
+		clr	REG_SOUND
+		clr	REG_SOUND + 1
+		sta	REG_SOUND_IRQ_TRIGGER
 	endm
