@@ -1,3 +1,5 @@
+	include "cpu/konami2/include/dsub.inc"
+	include "cpu/konami2/include/error_codes.inc"
 	include "cpu/konami2/include/macros.inc"
 
 	include "input.inc"
@@ -7,6 +9,7 @@
 	global delay
 	global joystick_update_byte
 	global joystick_update_word
+	global sound_play_byte_dsub
 	global wait_button_press
 	global wait_button_release
 
@@ -129,6 +132,32 @@ joystick_update_word:
 		andb	r_mask + 1
 		std	, y
 		rts
+
+; params:
+;  a = byte to play
+sound_play_byte_dsub:
+		tfr	a, b
+		ldx	#$8
+
+	.loop_next_bit:
+		WATCHDOG
+		lslb
+		bcc	.is_zero
+
+		lda	#SOUND_NUM_BIT_ONE
+		bra	.sound_play
+
+	.is_zero:
+		lda	#SOUND_NUM_BIT_ZERO
+
+	.sound_play:
+		SOUND_PLAY
+		tfr	b, y
+		SOUND_BIT_DELAY
+		tfr	y, b
+
+		dxjnz	.loop_next_bit
+		DSUB_RETURN
 
 ; stall until the passed button is pressed
 ; params:

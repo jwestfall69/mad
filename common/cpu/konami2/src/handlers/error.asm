@@ -69,8 +69,8 @@ error_handler:
 	.pe_run:
 		jsr	, x
 
-		;lda	r_pe_data_a
-		;RSUB	sound_play_byte
+		lda	r_pe_data_a
+		RSUB	sound_play_byte
 
 	ifnd _ERROR_ADDRESS_DISABLED_
 		lda	r_pe_data_a

@@ -125,6 +125,9 @@ work_ram_address_test_dsub:
 		PSUB	print_string
 
 		lda	#EC_WORK_RAM_ADDRESS
+		PSUB	sound_play_byte
+
+		lda	#EC_WORK_RAM_ADDRESS
 		jmp	error_address
 
 work_ram_data_test_dsub:
@@ -161,6 +164,9 @@ work_ram_data_test_dsub:
 		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
 		ldy	#d_str_work_ram_data
 		PSUB	print_string
+
+		lda	#EC_WORK_RAM_DATA
+		PSUB	sound_play_byte
 
 		lda	#EC_WORK_RAM_DATA
 		jmp	error_address
@@ -200,6 +206,9 @@ work_ram_output_test_dsub:
 		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
 		ldy	#d_str_work_ram_output
 		PSUB	print_string
+
+		lda	#EC_WORK_RAM_OUTPUT
+		PSUB	sound_play_byte
 
 		lda	#EC_WORK_RAM_OUTPUT
 		jmp	error_address
@@ -249,6 +258,9 @@ work_ram_march_test_dsub:
 		PSUB	print_string
 
 		lda	#EC_WORK_RAM_MARCH
+		PSUB	sound_play_byte
+
+		lda	#EC_WORK_RAM_MARCH
 		jmp	error_address
 
 ; - reads a byte from the memory address
@@ -273,6 +285,9 @@ work_ram_write_test_dsub:
 		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
 		ldy	#d_str_work_ram_write
 		PSUB	print_string
+
+		lda	#EC_WORK_RAM_WRITE
+		PSUB	sound_play_byte
 
 		lda	#EC_WORK_RAM_WRITE
 		jmp	error_address

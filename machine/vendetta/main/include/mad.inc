@@ -8,6 +8,25 @@ SOUND_NUM_SUCCESS	equ $83
 SOUND_NUM_BIT_ZERO	equ $10 ; swing?
 SOUND_NUM_BIT_ONE	equ $13	; punch
 
+	; we are only allowed to use d register
+	macro SOUND_BIT_DELAY
+		ldd	#$ffff
+	.\@:
+		WATCHDOG
+		cmpd	#0		; 4 cycles
+		cmpd	#0		; 4 cycles
+		cmpd	#0		; 4 cycles
+		cmpd	#0		; 4 cycles
+		cmpd	#0		; 4 cycles
+		cmpd	#0		; 4 cycles
+		cmpd	#0		; 4 cycles
+		cmpd	#0		; 4 cycles
+		cmpd	#0		; 4 cycles
+		cmpd	#0		; 4 cycles
+		subd	#$1
+		bne	.\@		; 2 cycles
+	endm
+
 ; There aren't enough registers to save the number of passes
 ; work ram tests have run and we can't store it in work ram.
 ; Instead we need to store it in some other location..
