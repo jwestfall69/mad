@@ -5,16 +5,16 @@
 
 ## PCBs
 CPU Board:<br>
-<a href="docs/images/gaiden_cpu_pcb_top.png"><img src="docs/images/gaiden_cpu_pcb_top.png" width="40%"></a>
-<a href="docs/images/gaiden_cpu_pcb_bottom.png"><img src="docs/images/gaiden_cpu_pcb_bottom.png" width="40%"></a>
+<a href="docs/images/ninja_gaiden_cpu_pcb_top.png"><img src="docs/images/ninja_gaiden_cpu_pcb_top.png" width="40%"></a>
+<a href="docs/images/ninja_gaiden_cpu_pcb_bottom.png"><img src="docs/images/ninja_gaiden_cpu_pcb_bottom.png" width="40%"></a>
 <p>
 Graphics Board:<br>
-<a href="docs/images/gaiden_graphics_pcb_top.png"><img src="docs/images/gaiden_graphics_pcb_top.png" width="40%"></a>
-<a href="docs/images/gaiden_graphics_pcb_bottom.png"><img src="docs/images/gaiden_graphics_pcb_bottom.png" width="40%"></a>
+<a href="docs/images/ninja_gaiden_graphics_pcb_top.png"><img src="docs/images/ninja_gaiden_graphics_pcb_top.png" width="40%"></a>
+<a href="docs/images/ninja_gaiden_graphics_pcb_bottom.png"><img src="docs/images/ninja_gaiden_graphics_pcb_bottom.png" width="40%"></a>
 <p>
 Sprite ROM Board:<br>
-<a href="docs/images/gaiden_sprite_rom_pcb_top.png"><img src="docs/images/gaiden_sprite_rom_pcb_top.png" width="40%"></a>
-<a href="docs/images/gaiden_sprite_rom_pcb_bottom.png"><img src="docs/images/gaiden_sprite_rom_pcb_bottom.png" width="40%"></a>
+<a href="docs/images/ninja_gaiden_sprite_rom_pcb_top.png"><img src="docs/images/ninja_gaiden_sprite_rom_pcb_top.png" width="40%"></a>
+<a href="docs/images/ninja_gaiden_sprite_rom_pcb_bottom.png"><img src="docs/images/ninja_gaiden_sprite_rom_pcb_bottom.png" width="40%"></a>
 
 The CPU and graphics board are oriented such that the solder side of the boards
 face each other.  The sprite ROM board plugs into the graphics board in the 2 sockets

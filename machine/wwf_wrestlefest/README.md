@@ -4,8 +4,8 @@
 ![mad wwfwfest video dac test](docs/images/mad_wwfwfest_video_dac_test.png)
 
 ## PCBs
-<a href="docs/images/wwfwfest_pcb_top.png"><img src="docs/images/wwfwfest_pcb_top.png" width="40%"></a>
-<a href="docs/images/wwfwfest_pcb_bottom.png"><img src="docs/images/wwfwfest_pcb_bottom.png" width="40%"></a>
+<a href="docs/images/wwf_wrestlefest_pcb_top.png"><img src="docs/images/wwf_wrestlefest_pcb_top.png" width="40%"></a>
+<a href="docs/images/wwf_wrestlefest_pcb_bottom.png"><img src="docs/images/wwf_wrestlefest_pcb_bottom.png" width="40%"></a>
 <p>
 
 ## MAD Eproms

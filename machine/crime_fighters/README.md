@@ -6,7 +6,7 @@ daily builds of vasm.
 The only thing mad rom does at this point is bring up a screen that allows
 testing EXG/TFR instructions with different values for the registers.
 
-![exg/tfr test](docs/images/crimfght_exgtfr_test.png)
+![exg/tfr test](docs/images/crime_fighters_exgtfr_test.png)
 
 In testing on hardware it appears EXG (0x3e) and TFR (0x3f) have the same exact
 behavior in the CPU.  What ends up determining if the behavior is an exchange vs

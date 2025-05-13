@@ -6,12 +6,12 @@
 
 ## PCBs
 CPU Board:<br>
-<a href="docs/images/wwfsstar_cpu_pcb_top.png"><img src="docs/images/wwfsstar_cpu_pcb_top.png" width="40%"></a>
-<a href="docs/images/wwfsstar_cpu_pcb_bottom.png"><img src="docs/images/wwfsstar_cpu_pcb_bottom.png" width="40%"></a>
+<a href="docs/images/wwf_superstars_cpu_pcb_top.png"><img src="docs/images/wwf_superstars_cpu_pcb_top.png" width="40%"></a>
+<a href="docs/images/wwf_superstars_cpu_pcb_bottom.png"><img src="docs/images/wwf_superstars_cpu_pcb_bottom.png" width="40%"></a>
 <p>
 Graphics Board:<br>
-<a href="docs/images/wwfsstar_graphics_pcb_top.png"><img src="docs/images/wwfsstar_graphics_pcb_top.png" width="40%"></a>
-<a href="docs/images/wwfsstar_graphics_pcb_bottom.png"><img src="docs/images/wwfsstar_graphics_pcb_bottom.png" width="40%"></a>
+<a href="docs/images/wwf_superstars_graphics_pcb_top.png"><img src="docs/images/wwf_superstars_graphics_pcb_top.png" width="40%"></a>
+<a href="docs/images/wwf_superstars_graphics_pcb_bottom.png"><img src="docs/images/wwf_superstars_graphics_pcb_bottom.png" width="40%"></a>
 <p>
 
 
