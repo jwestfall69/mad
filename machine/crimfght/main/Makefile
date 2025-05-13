@@ -53,10 +53,10 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
 INCS = $(wildcard include/*.inc) \
        $(wildcard ../../../common/global/include/*.inc) \
        $(wildcard ../../../common/cpu/konami2/include/*.inc) \
-       $(wildcard ../../../common/cpu/konami2/include/tests/*.inc)
+       $(wildcard ../../../common/cpu/konami2/include/tests/*.inc) \
        $(wildcard ../../../common/cpu/konami2/include/tests/*/*.inc)
 
-$(WORK_DIR)/$(MAD_NAME).bin: include/error_codes.inc $(WORK_DIR) $(OBJ_DIR) $(BUILD_DIR) $(OBJS)
+$(WORK_DIR)/$(MAD_NAME).bin: include/error_codes.inc $(WORK_DIR) $(BUILD_DIR) $(OBJS)
 	$(VLINK) $(VLINK_FLAGS) -o $(WORK_DIR)/$(MAD_NAME).bin $(OBJS)
 	../../../util/rom-inject-crc-mirror -x -r -m 17 -M -c 16 -f $(WORK_DIR)/$(MAD_NAME).bin -e big -t $(ROM_SIZE)
 	$(DD) if=$(WORK_DIR)/$(MAD_NAME).bin of=$(BUILD_DIR)/$(ROM)
@@ -68,19 +68,17 @@ src/version.asm:
 	../../../util/gen-version-asm-file -m CRIMFGHT -i ../../../common/global/src/version.asm.in -o src/version.asm
 
 $(OBJ_DIR)/%.o: src/%.asm $(INCS)
+	@[ -d "$(@D)" ] || $(MKDIR) -p "$(@D)"
 	$(VASM) $(VASM_FLAGS) $(BUILD_FLAGS) -o $@ $<
 
 $(OBJ_DIR)/cpu/konami2/src/%.o: ../../../common/cpu/konami2/src/%.asm $(INCS)
-	 $(VASM) $(VASM_FLAGS) $(BUILD_FLAGS) -o $@ $<
+	@[ -d "$(@D)" ] || $(MKDIR) -p "$(@D)"
+	$(VASM) $(VASM_FLAGS) $(BUILD_FLAGS) -o $@ $<
 
 $(WORK_DIR):
 	$(MKDIR) -p $(WORK_DIR)
 
-$(OBJ_DIR):
-	$(MKDIR) -p $(OBJ_DIR)/tests $(OBJ_DIR)/menus/ $(OBJ_DIR)/cpu/konami2/src/tests/ $(OBJ_DIR)/cpu/konami2/src/debug/ $(OBJ_DIR)/cpu/konami2/src/handlers/
-
 .PHONY: src/version.asm
 
 clean:
-	rm -fr $(BUILD_DIR)/
-
+	rm -fr $(BUILD_DIR)

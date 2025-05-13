@@ -53,10 +53,10 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
 INCS = $(wildcard include/*.inc) \
        $(wildcard ../../../common/global/include/*.inc) \
        $(wildcard ../../../common/cpu/z80/include/*.inc) \
-       $(wildcard ../../../common/cpu/z80/include/tests/*.inc)
+       $(wildcard ../../../common/cpu/z80/include/tests/*.inc) \
        $(wildcard ../../../common/cpu/z80/include/tests/*/*.inc)
 
-$(WORK_DIR)/$(MAD_NAME).bin: include/error_codes.inc $(WORK_DIR) $(OBJ_DIR) $(BUILD_DIR) $(OBJS)
+$(WORK_DIR)/$(MAD_NAME).bin: include/error_codes.inc $(WORK_DIR) $(BUILD_DIR) $(OBJS)
 	$(VLINK) $(VLINK_FLAGS) -o $(WORK_DIR)/$(MAD_NAME).bin $(OBJS)
 	../../../util/rom-inject-crc-mirror -f $(WORK_DIR)/$(MAD_NAME).bin -e little -t $(ROM_SIZE)
 	$(DD) if=$(WORK_DIR)/$(MAD_NAME).bin of=$(BUILD_DIR)/$(ROM)
@@ -68,19 +68,17 @@ src/version.asm:
 	../../../util/gen-version-asm-file -m MITCHELL -i ../../../common/global/src/version.asm.in -o src/version.asm
 
 $(OBJ_DIR)/%.o: src/%.asm $(INCS)
+	@[ -d "$(@D)" ] || $(MKDIR) -p "$(@D)"
 	$(VASM) $(VASM_FLAGS) $(BUILD_FLAGS) -o $@ $<
 
 $(OBJ_DIR)/cpu/z80/src/%.o: ../../../common/cpu/z80/src/%.asm $(INCS)
-	 $(VASM) $(VASM_FLAGS) $(BUILD_FLAGS) -o $@ $<
+	@[ -d "$(@D)" ] || $(MKDIR) -p "$(@D)"
+	$(VASM) $(VASM_FLAGS) $(BUILD_FLAGS) -o $@ $<
 
 $(WORK_DIR):
 	$(MKDIR) -p $(WORK_DIR)
 
-$(OBJ_DIR):
-	$(MKDIR) -p $(OBJ_DIR)/tests $(OBJ_DIR)/debug $(OBJ_DIR)/menus $(OBJ_DIR)/cpu/z80/src/debug $(OBJ_DIR)/cpu/z80/src/handlers $(OBJ_DIR)/cpu/z80/src/tests/oki $(OBJ_DIR)/cpu/z80/src/tests/yamaha
-
 .PHONY: src/version.asm
 
 clean:
-	rm -fr $(BUILD_DIR)/
-
+	rm -fr $(BUILD_DIR)

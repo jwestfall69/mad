@@ -60,7 +60,7 @@ INCS = $(wildcard include/*.inc) \
        $(wildcard ../../../common/cpu/68000/include/*.inc) \
        $(wildcard ../../../common/cpu/68000/include/tests/*.inc)
 
-$(WORK_DIR)/$(MAD_NAME).bin: include/error_codes.inc $(WORK_DIR) $(OBJ_DIR) $(BUILD_DIR) $(OBJS)
+$(WORK_DIR)/$(MAD_NAME).bin: include/error_codes.inc $(WORK_DIR) $(BUILD_DIR) $(OBJS)
 	$(VLINK) $(VLINK_FLAGS) -o $(WORK_DIR)/$(MAD_NAME).bin $(OBJS)
 	../../../util/rom-inject-crc-mirror -f $(WORK_DIR)/$(MAD_NAME).bin -e big -t $(ROM_SIZE)
 ifdef ROMB
@@ -78,19 +78,17 @@ src/version.asm:
 	../../../util/gen-version-asm-file -m CPS1 -i ../../../common/global/src/version.asm.in -o src/version.asm
 
 $(OBJ_DIR)/%.o: src/%.asm $(INCS)
+	@[ -d "$(@D)" ] || $(MKDIR) -p "$(@D)"
 	$(VASM) $(VASM_FLAGS) $(BUILD_FLAGS) -o $@ $<
 
 $(OBJ_DIR)/cpu/68000/src/%.o: ../../../common/cpu/68000/src/%.asm $(INCS)
-	 $(VASM) $(VASM_FLAGS) $(BUILD_FLAGS) -o $@ $<
+	@[ -d "$(@D)" ] || $(MKDIR) -p "$(@D)"
+	$(VASM) $(VASM_FLAGS) $(BUILD_FLAGS) -o $@ $<
 
 $(WORK_DIR):
 	$(MKDIR) -p $(WORK_DIR)
 
-$(OBJ_DIR):
-	$(MKDIR) -p $(OBJ_DIR)/debug $(OBJ_DIR)/menus $(OBJ_DIR)/tests $(OBJ_DIR)/cpu/68000/src/debug $(OBJ_DIR)/cpu/68000/src/handlers $(OBJ_DIR)/cpu/68000/src/tests
-
 .PHONY: src/version.asm
 
 clean:
-	rm -fr $(BUILD_DIR)/
-
+	rm -fr $(BUILD_DIR)

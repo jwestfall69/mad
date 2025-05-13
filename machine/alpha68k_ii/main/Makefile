@@ -5,4 +5,3 @@ all:
 clean:
 	make -f Makefile.skysoldr clean
 	make -f Makefile.timesold clean
-	
