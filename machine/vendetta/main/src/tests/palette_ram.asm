@@ -21,6 +21,9 @@ auto_palette_ram_tests:
 		ldx	#d_mt_data
 		jsr	memory_tests_handler
 
+		pshs	a
 		lda	#$0
 		sta	REG_CONTROL
+		puls	a
+
 		rts
