@@ -128,15 +128,16 @@ def main() -> int:
 
     cfgs = {}
 
-    cfgs['6309_main']  = ErrorCodeConfig(7, 16, int("f000", 16), 4, 0, r'(EC_MASK|EC_ALL_TESTS_PASSED)')
-    cfgs['6809_sound'] = ErrorCodeConfig(0, 16, int("f000", 16), 4, 0, r'(EC_MASK)')
-    cfgs['z80_main']   = ErrorCodeConfig(7, 16, int("2000", 16), 7, 0, r'(EC_MASK|EC_ALL_TESTS_PASSED)')
-    cfgs['z80_sound']  = ErrorCodeConfig(0, 16, int("2000", 16), 7, 0, r'(EC_MASK)')
-    cfgs['68000_main'] = ErrorCodeConfig(8, 24, int("6000", 16), 5, 1, r'(EC_MASK|EC_ALL_TESTS_PASSED)')
+    cfgs['6309_main']     = ErrorCodeConfig(8, 16, int("f000", 16), 4, 0, r'(EC_MASK|EC_ALL_TESTS_PASSED)')
+    cfgs['68000_main']    = ErrorCodeConfig(8, 24, int("6000", 16), 5, 1, r'(EC_MASK|EC_ALL_TESTS_PASSED)')
+    cfgs['6809_sound']    = ErrorCodeConfig(0, 16, int("f000", 16), 4, 0, r'(EC_MASK)')
+    cfgs['konami2_main']  = ErrorCodeConfig(8, 16, int("f000", 16), 4, 0, r'(EC_MASK|EC_ALL_TESTS_PASSED)')
+    cfgs['z80_main']      = ErrorCodeConfig(8, 16, int("2000", 16), 7, 0, r'(EC_MASK|EC_ALL_TESTS_PASSED)')
+    cfgs['z80_sound']     = ErrorCodeConfig(0, 16, int("2000", 16), 7, 0, r'(EC_MASK)')
 
     parser = argparse.ArgumentParser(description='generate a markdown table for error codes')
     parser.add_argument('-i', dest='inc_files', required=True, metavar='<error_codes.inc>', type=str, help='input error_codes.inc', action='append')
-    parser.add_argument('-c', dest='cpu', required=True, metavar='<6309|6809|68000|z80>', type=str, help='cpu to generate for')
+    parser.add_argument('-c', dest='cpu', required=True, metavar='<6309|68000|6809|konami2|z80>', type=str, help='cpu to generate for')
     parser.add_argument('-m', dest='markdown', required=True, metavar='<README.md>', type=str, help='markdown file to inject the table into')
     parser.add_argument('-t', dest='type', required=True, metavar='<main|sound>', type=str, help='diag type')
     args = parser.parse_args()
