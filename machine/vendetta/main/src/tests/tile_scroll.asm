@@ -61,26 +61,26 @@ tile_scroll_test:
 		ldd	r_layer_a_x
 		anda	#$1
 		std	r_layer_a_x
-		sta	LAYER_A_SCROLL_X + 1
-		stb	LAYER_A_SCROLL_X
+		sta	REG_LAYER_A_SCROLL_X + 1
+		stb	REG_LAYER_A_SCROLL_X
 		SEEK_XY	(SCREEN_START_X + 8), (SCREEN_START_Y + 4)
 		RSUB	print_hex_word
 
 		lda	r_layer_a_y
-		sta	LAYER_A_SCROLL_Y
+		sta	REG_LAYER_A_SCROLL_Y
 		SEEK_XY	(SCREEN_START_X + 13), (SCREEN_START_Y + 4)
 		RSUB	print_hex_byte
 
 		ldd	r_layer_b_x
 		anda	#$1
 		sta	r_layer_b_x
-		sta	LAYER_B_SCROLL_X + 1
-		stb	LAYER_B_SCROLL_X
+		sta	REG_LAYER_B_SCROLL_X + 1
+		stb	REG_LAYER_B_SCROLL_X
 		SEEK_XY	(SCREEN_START_X + 8), (SCREEN_START_Y + 5)
 		RSUB	print_hex_word
 
 		lda	r_layer_b_y
-		sta	LAYER_B_SCROLL_Y
+		sta	REG_LAYER_B_SCROLL_Y
 		SEEK_XY	(SCREEN_START_X + 13), (SCREEN_START_Y + 5)
 		RSUB	print_hex_byte
 

@@ -11,13 +11,13 @@
 
 	section code
 
-TILE_OFFSET_MASK	equ $0fff
+TILE_OFFSET_MASK	equ $7fff
 
 layer_b_tile_viewer:
 		RSUB	screen_init
 
 		ldy	#LAYER_B_TILE_PALETTE + (PALETTE_SIZE * TVC_PALETTE_NUM)
-		jsr	tvc_palette_setup
+		jsr	tvc_init
 
 		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
 		ldy	#d_str_title

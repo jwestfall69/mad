@@ -52,3 +52,4 @@ VD_TILE_BA_PAL_OFFSET	equ $1c
 
 ; palette number used by all the tile viewers
 TVC_PALETTE_NUM		equ $1
+TVC_BANK_SLOT_NUM	equ $1
