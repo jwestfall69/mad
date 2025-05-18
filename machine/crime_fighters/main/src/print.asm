@@ -39,7 +39,36 @@ print_bits_byte_dsub:
 ;  a = char
 ;  x = start location in tile ram
 print_byte_dsub:
+		sta	, x
+		DSUB_RETURN
+
+; params
+;  a = char
+;  x = start location in tile ram
 print_char_dsub:
+		; deal with annoying tile font
+	.loop_next_char:
+		cmpa	#' '
+		bne	.not_space
+		lda	#$10
+		bra	.do_print
+
+	.not_space:
+		cmpa	#'-'
+		bne	.not_dash
+		lda	#$0c
+		bra	.do_print
+
+	.not_dash:
+		cmpa	#'0'
+		blt	.do_print
+
+		cmpa	#'Z'
+		bgt	.do_print
+
+		suba	#$30
+
+	.do_print:
 		sta	, x
 		DSUB_RETURN
 
