@@ -136,32 +136,32 @@ sprite_k053247_viewer_handler:
 		jsr	joystick_update_word
 
 	.print_values:
-		SEEK_XY	(SCREEN_START_X + 14), (SCREEN_START_Y + 2)
+		SEEK_XY	(SCREEN_START_X + 9), (SCREEN_START_Y + 2)
 		ldy	r_sprite_struct
 		ldd	s_ks_sprite_num, y
 		RSUB	print_hex_word
 
-		SEEK_XY	(SCREEN_START_X + 17), (SCREEN_START_Y + 3)
+		SEEK_XY	(SCREEN_START_X + 12), (SCREEN_START_Y + 3)
 		ldy	r_sprite_struct
 		ldd	s_ks_sprite_width, y
 		RSUB	print_hex_nibble
 
-		SEEK_XY	(SCREEN_START_X + 17), (SCREEN_START_Y + 4)
+		SEEK_XY	(SCREEN_START_X + 12), (SCREEN_START_Y + 4)
 		ldy	r_sprite_struct
 		ldd	s_ks_sprite_height, y
 		RSUB	print_hex_nibble
 
-		SEEK_XY	(SCREEN_START_X + 16), (SCREEN_START_Y + 5)
+		SEEK_XY	(SCREEN_START_X + 11), (SCREEN_START_Y + 5)
 		ldy	r_sprite_struct
 		ldd	s_ks_sprite_zoom, y
 		RSUB	print_hex_byte
 
-		SEEK_XY	(SCREEN_START_X + 14), (SCREEN_START_Y + 6)
+		SEEK_XY	(SCREEN_START_X + 9), (SCREEN_START_Y + 6)
 		ldy	r_sprite_struct
 		ldd	s_ks_sprite_pos_x, y
 		RSUB	print_hex_word
 
-		SEEK_XY	(SCREEN_START_X + 14), (SCREEN_START_Y + 7)
+		SEEK_XY	(SCREEN_START_X + 9), (SCREEN_START_Y + 7)
 		ldy	r_sprite_struct
 		ldd	s_ks_sprite_pos_y, y
 		RSUB	print_hex_word
@@ -171,10 +171,10 @@ sprite_k053247_viewer_handler:
 
 d_screen_xys_list:
 	XY_STRING SCREEN_START_X, SCREEN_START_Y, "SPRITE VIEWER"
-	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 2), "SPRITE"
-	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 3), "SPRITE WIDTH"
-	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 4), "SPRITE HEIGHT"
-	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 5), "SPRITE ZOOM"
+	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 2), "NUM"
+	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 3), "WIDTH"
+	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 4), "HEIGHT"
+	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 5), "ZOOM"
 	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 6), "POS X"
 	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 7), "POS Y"
 	XY_STRING SCREEN_START_X, (SCREEN_B1_Y - 1), "JOY - ADJUST VALUE"
