@@ -1,4 +1,16 @@
 # Crime Fighters
+- [MAD Pictures](#mad-pictures)
+- [PCB Pictures](#pcb-pictures)
+- [Manual / Schematics](#manual---schematics)
+- [MAD Eproms](#mad-eproms)
+- [RAM Locations](#ram-locations)
+- [Errors/Error Codes](#errors-error-codes)
+  * [Main CPU](#main-cpu)
+  * [Sound CPU](#sound-cpu)
+- [MAD Notes](#mad-notes)
+  * [Tile Layers](#tile-layers)
+  * [Sprite Viewer](#sprite-viewer)
+- [MAME vs Hardware](#mame-vs-hardware)
 
 ## MAD Pictures
 ![mad crime fighters main menu](docs/images/mad_crime_fighters_main_menu.png)
@@ -42,7 +54,7 @@ tests, MAD will print the error to the screen, play the beep code, then jump to
 the error address
 
 On Konami2 the error address is `$f000 | error_code << 4`.  Error codes on the
-Konami2 CPU are are 6 bits.  crime_fighters however has a watchdog address that must
+Konami2 CPU are are 6 bits.  Crime fighters however has a watchdog address that must
 be written to periodically or the game will reset.
 
 ```
@@ -113,7 +125,7 @@ change every 4 sprite numbers, while a size of 0 will change the sprite every
 number. 
 
 The color palette is the one the game uses for the player.  So the colors for the player should
-be correct, but maybe complete wrong for other sprites.
+be correct, but maybe completely wrong for other sprites.
 
 ## MAME vs Hardware
 Nothing that required a MAME specific build

@@ -1,5 +1,4 @@
 # Vendetta
-- [Vendetta](#vendetta)
   * [MAD Pictures](#mad-pictures)
   * [PCB Pictures](#pcb-pictures)
   * [Manual / Schematics](#manual---schematics)
@@ -31,7 +30,7 @@ The schematics are incomplete and seems to be a common thing that konami did.
 
 ## MAD Eproms
 
-| Diag | Eprom Type | Location(s) | Notes |
+| Diag | Eprom Type | Location | Notes |
 | ---- | ---------- | ----------- | ----- |
 | Main | 27c020 | 081t01.17c @ 17C | |
 | Sound | 27c512 | 5F | No MAD ROM exists yet |
@@ -126,7 +125,7 @@ setup/view because I don't know the correct width/height of each sprite.  There
 are options to change those values in the viewer.
 
 The color palette is the one the game uses for the player.  So the colors for the player should
-be correct, but maybe complete wrong for other sprites.
+be correct, but maybe completely wrong for other sprites.
 
 ## MAME vs Hardware
 Nothing that required a MAME specific build
