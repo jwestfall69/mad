@@ -22,11 +22,35 @@ memory_tests_handler:
 		lbne	.test_failed_output
 
 		ldy	r_mt_data_ptr
+		lda	MT_FLAG_INTERLEAVED
+		cmpa	s_mt_flags, y
+		beq	.skip_odd_output_test
+
+		ldx	s_mt_start_address, y
+		leax	1, x
+		jsr	memory_output_test
+		tsta
+		lbne	.test_failed_output
+
+	.skip_odd_output_test:
+		ldy	r_mt_data_ptr
 		ldx	s_mt_start_address, y
 		jsr	memory_write_test
 		tsta
 		lbne	.test_failed_write
 
+		ldy	r_mt_data_ptr
+		lda	MT_FLAG_INTERLEAVED
+		cmpa	s_mt_flags, y
+		beq	.skip_odd_write_test
+
+		ldx	s_mt_start_address, y
+		leax	1, x
+		jsr	memory_write_test
+		tsta
+		lbne	.test_failed_write
+
+	.skip_odd_write_test:
 		lda	#$00
 		ldy	r_mt_data_ptr
 		ldx	s_mt_start_address, y
@@ -66,6 +90,19 @@ memory_tests_handler:
 		tsta
 		bne	.test_failed_address
 
+		ldy	r_mt_data_ptr
+		lda	MT_FLAG_INTERLEAVED
+		cmpa	s_mt_flags, y
+		beq	.skip_odd_address_test
+
+		ldx	s_mt_start_address, y
+		leax	1, x
+		lda	s_mt_num_address_lines, y
+		jsr	memory_address_test
+		tsta
+		bne	.test_failed_address
+
+	.skip_odd_address_test:
 		ldy	r_mt_data_ptr
 		ldx	s_mt_start_address, y
 		ldy	s_mt_size, y

@@ -26,3 +26,4 @@ MT_ERROR_OUTPUT_BASE	equ $3
 MT_ERROR_WRITE_BASE	equ $4
 
 MT_FLAG_NONE		equ $00
+MT_FLAG_INTERLEAVED	equ $01 ; 2 ram chips, 1 for even addrs, 1 for odd
