@@ -22,9 +22,9 @@ memory_tests_handler:
 		lbne	.test_failed_output
 
 		ldy	r_mt_data_ptr
-		lda	MT_FLAG_INTERLEAVED
+		lda	#MT_FLAG_INTERLEAVED
 		cmpa	s_mt_flags, y
-		beq	.skip_odd_output_test
+		bne	.skip_odd_output_test
 
 		ldx	s_mt_start_address, y
 		leax	1, x
@@ -40,9 +40,9 @@ memory_tests_handler:
 		lbne	.test_failed_write
 
 		ldy	r_mt_data_ptr
-		lda	MT_FLAG_INTERLEAVED
+		lda	#MT_FLAG_INTERLEAVED
 		cmpa	s_mt_flags, y
-		beq	.skip_odd_write_test
+		bne	.skip_odd_write_test
 
 		ldx	s_mt_start_address, y
 		leax	1, x
@@ -91,9 +91,9 @@ memory_tests_handler:
 		bne	.test_failed_address
 
 		ldy	r_mt_data_ptr
-		lda	MT_FLAG_INTERLEAVED
+		lda	#MT_FLAG_INTERLEAVED
 		cmpa	s_mt_flags, y
-		beq	.skip_odd_address_test
+		bne	.skip_odd_address_test
 
 		ldx	s_mt_start_address, y
 		leax	1, x
