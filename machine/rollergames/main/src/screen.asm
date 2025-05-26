@@ -31,7 +31,7 @@ screen_init_dsub:
 		SEEK_LN 1
 		CHAR_REPEAT #$5e, #32
 
-		SEEK_XY 3,0
+		SEEK_XY 4,0
 		ldy	#d_str_version
 		DSUB	print_string
 		DSUB_RETURN

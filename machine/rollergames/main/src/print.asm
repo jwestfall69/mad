@@ -41,7 +41,21 @@ print_bits_byte_dsub:
 ;  a = char
 ;  x = start location in tile ram
 print_byte_dsub:
+		sta	, x
+		DSUB_RETURN
+
+; params
+;  a = char
+;  x = start location in tile ram
 print_char_dsub:
+		cmpa	#'0'
+		blt	.not_digit
+
+		cmpa	#'9'
+		bgt	.not_digit
+		adda 	#$30
+
+	.not_digit:
 		sta	, x
 		DSUB_RETURN
 

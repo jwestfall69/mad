@@ -3,6 +3,7 @@
 	include "cpu/konami2/include/dsub.inc"
 	include "cpu/konami2/include/macros.inc"
 
+	include "input.inc"
 	include "machine.inc"
 	include "mad.inc"
 
@@ -52,6 +53,41 @@ _start:
 
 		PSUB	screen_init
 
+		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
+		ldy	#d_str_delay_for_sound
+		PSUB	print_string
+
+		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 2)
+		ldy	#d_str_press_b1_to_skip
+		PSUB	print_string
+
+		ldx	#$7ff
+	.loop_sound_init_delay:
+		WATCHDOG
+		lda	REG_INPUT
+		bita	#INPUT_B1
+		beq	.skip_sound_init_delay
+
+		ldd	#$1ff
+	.loop_inner_delay:
+		cmpd	#0	; 4 cycles
+		cmpd	#0	; 4 cycles
+		cmpd	#0	; 4 cycles
+		cmpd	#0	; 4 cycles
+		cmpd	#0	; 4 cycles
+		cmpd	#0	; 4 cycles
+		cmpd	#0	; 4 cycles
+		cmpd	#0	; 4 cycles
+		subd	#$1
+		bne	.loop_inner_delay
+		dxjnz	.loop_sound_init_delay
+
+
+	.skip_sound_init_delay:
+		SEEK_LN	(SCREEN_START_Y + 2)
+		PSUB	print_clear_line
+
+		WATCHDOG
 		PSUB	mad_rom_address_test
 		PSUB	mad_rom_crc16_test
 
@@ -71,8 +107,14 @@ _start:
 		DSUB_MODE_RSUB
 
 		jsr	auto_func_tests
+
+		lda	#SOUND_NUM_SUCCESS
+		SOUND_PLAY
+
 		jsr	main_menu
 
 	section data
 
 d_str_testing_work_ram:		STRING "TESTING WORK RAM"
+d_str_delay_for_sound:		STRING "DELAY FOR SOUND CPU INIT"
+d_str_press_b1_to_skip:		STRING "PRESS B1 TO SKIP"

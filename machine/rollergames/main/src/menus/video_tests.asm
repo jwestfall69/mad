@@ -6,11 +6,11 @@
 
 	include "machine.inc"
 
-	global debug_menu
+	global video_tests_menu
 
 	section code
 
-debug_menu:
+video_tests_menu:
 		clr	r_menu_cursor
 
 	.loop_menu:
@@ -30,13 +30,11 @@ debug_menu:
 	section data
 
 d_menu_list:
-	;MENU_ENTRY ec_dupe_check, d_str_ec_dupe_check
-	MENU_ENTRY error_address_test, d_str_error_address_test
-	MENU_ENTRY mad_git_hash, d_str_mad_git_hash
+;	MENU_ENTRY tile_scroll_test, d_str_tile_scroll
+	MENU_ENTRY video_dac_test, d_str_video_dac
 	MENU_LIST_END
 
-d_str_menu_title:		STRING "DEBUG MENU"
+d_str_menu_title:		STRING "VIDEO TESTS"
 
-;d_str_ec_dupe_check:		STRING "EC DUPE CHECK"
-d_str_error_address_test:	STRING "ERROR ADDRESS TEST"
-d_str_mad_git_hash:		STRING "MAD GIT HASH"
+d_str_tile_scroll:		STRING "TILE SCROLL"
+d_str_video_dac:		STRING "VIDEO DAC"

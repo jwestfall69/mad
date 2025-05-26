@@ -35,7 +35,7 @@ prog_bank_test:
 
 ; The prog bank size is only $4000, so we can just use mad's normal
 ; mirror numbers at $7fef
-PROG_BANK_MAX		equ $7
+PROG_BANK_MAX		equ $6
 run_test:
 
 		; re-init the screen in the even the user runs the
