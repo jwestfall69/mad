@@ -57,8 +57,20 @@ sprite_k051960_viewer_handler:
 
 		jsr	input_update
 		lda	r_input_edge
-		bita	#INPUT_B1
-		beq	.b1_not_pressed
+		bita	#INPUT_UP
+		beq	.up_not_pressed
+		ldb	r_cursor		; backup old
+		dec	r_cursor
+		lda	r_cursor
+		cmpa	#$0
+		bpl	.update_cursor
+		lda	#SA_MAX
+		sta	r_cursor
+		bra	.update_cursor
+
+	.up_not_pressed:
+		bita	#INPUT_DOWN
+		beq	.down_not_pressed
 		ldb	r_cursor		; backup old
 
 		inc	r_cursor
@@ -68,7 +80,7 @@ sprite_k051960_viewer_handler:
 		clr	r_cursor
 		bra	.update_cursor
 
-	.b1_not_pressed:
+	.down_not_pressed:
 		bita	#INPUT_B2
 		beq	.b2_not_pressed
 		rts
@@ -83,7 +95,7 @@ sprite_k051960_viewer_handler:
 		ldd	#$1fff
 		ldx	#r_input_edge
 		leay	s_ks_sprite_num, y
-		bra	.joystick_update_word
+		bra	.joystick_lr_update_word
 
 	.not_ss_sprite_num:
 		cmpa	#SA_SPRITE_SIZE
@@ -91,7 +103,7 @@ sprite_k051960_viewer_handler:
 		lda	#$3
 		ldx	#r_input_edge
 		leay	s_ks_sprite_size, y
-		bra	.joystick_update_byte
+		bra	.joystick_lr_update_byte
 
 	.not_ss_sprite_size:
 		cmpa	#SA_SPRITE_ZOOM_X
@@ -99,7 +111,7 @@ sprite_k051960_viewer_handler:
 		lda	#$3f
 		ldx	#r_input_edge
 		leay	s_ks_sprite_zoom_x, y
-		bra	.joystick_update_byte
+		bra	.joystick_lr_update_byte
 
 	.not_ss_sprite_zoom_x:
 		cmpa	#SA_SPRITE_ZOOM_Y
@@ -107,7 +119,7 @@ sprite_k051960_viewer_handler:
 		lda	#$3f
 		ldx	#r_input_edge
 		leay	s_ks_sprite_zoom_y, y
-		bra	.joystick_update_byte
+		bra	.joystick_lr_update_byte
 
 	.not_ss_sprite_zoom_y:
 		cmpa	#SA_POS_X
@@ -115,7 +127,7 @@ sprite_k051960_viewer_handler:
 		ldd	#$1ff
 		ldx	#r_input_raw
 		leay	s_ks_sprite_pos_x, y
-		bra	.joystick_update_word
+		bra	.joystick_lr_update_word
 
 	.not_ss_pos_x:
 		cmpa	#SA_POS_Y
@@ -123,17 +135,17 @@ sprite_k051960_viewer_handler:
 		ldd	#$1ff
 		ldx	#r_input_raw
 		leay	s_ks_sprite_pos_y, y
-		bra	.joystick_update_word
+		bra	.joystick_lr_update_word
 
 	.not_ss_pos_y:
 		rts	; shouldn't happen
 
-	.joystick_update_byte:
-		jsr	joystick_update_byte
+	.joystick_lr_update_byte:
+		jsr	joystick_lr_update_byte
 		bra	.print_values
 
-	.joystick_update_word:
-		jsr	joystick_update_word
+	.joystick_lr_update_word:
+		jsr	joystick_lr_update_word
 
 	.print_values:
 		SEEK_XY	(SCREEN_START_X + 9), (SCREEN_START_Y + 2)
@@ -177,8 +189,9 @@ d_screen_xys_list:
 	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 5), "ZOOM Y"
 	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 6), "POS X"
 	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 7), "POS Y"
-	XY_STRING SCREEN_START_X, (SCREEN_B1_Y - 1), "JOY - ADJUST VALUE"
-	XY_STRING SCREEN_START_X, SCREEN_B1_Y, "B1 - NEXT ATTRIBUTE"
+	XY_STRING SCREEN_START_X, (SCREEN_B1_Y - 2), "UD - SWITCH ATTRIBUTE"
+	XY_STRING SCREEN_START_X, (SCREEN_B1_Y - 1), "LR - ADJUST VALUE"
+	XY_STRING SCREEN_START_X, SCREEN_B1_Y, "B1 - HOLD TO ADJUST TIMES 10"
 	XY_STRING SCREEN_START_X, SCREEN_B2_Y, "B2 - RETURN TO MENU"
 	XY_STRING_LIST_END
 

@@ -8,7 +8,9 @@
 
 	global delay
 	global joystick_update_byte
+	global joystick_lr_update_byte
 	global joystick_update_word
+	global joystick_lr_update_word
 	global sound_play_byte_dsub
 	global wait_button_press
 	global wait_button_release
@@ -34,8 +36,7 @@ delay:
 		bne	delay	 	; 2 cycles
 		rts
 
-
-; Looking at input data, adjust the byte in memory by
+; Looking at joystick input, adjust the byte in memory by
 ;  +$1 for UP
 ;  -$1 for DOWN
 ; -$10 for LEFT
@@ -77,7 +78,56 @@ joystick_update_byte:
 		sta	, y
 		rts
 
-; Looking at input data, adjust the word in memory by
+; Looking at joystick left/right, adjust the byte in memory
+; -$1 for LEFT
+; +$1 for RIGHT
+; If b1 is held down, then inc/dec is $10
+; Then apply the mask to the byte
+; params:
+;  a = mask
+;  x = #r_input_edge|#r_input_raw
+;  y = address of byte to update
+joystick_lr_update_byte:
+		sta	r_mask
+
+		ldb	#$1
+		stb	r_scratch	; using for inc/dec amount
+
+		; don't allow $10 inc/dec mount if mask wouldn't allow
+		; a value of >= $10
+		cmpa	#$10
+		blo	.b1_not_pressed
+
+		lda	r_input_raw
+		bita	#INPUT_B1
+		beq	.b1_not_pressed
+		lda	#$10
+		sta	r_scratch
+
+	.b1_not_pressed:
+		lda	, x
+		bita	#INPUT_LEFT
+		beq	.left_not_pressed
+		ldb	, y
+		subb	r_scratch
+		stb	, y
+		bra	.apply_mask_return
+
+	.left_not_pressed:
+		bita	#INPUT_RIGHT
+		beq	.return
+		ldb	, y
+		addb	r_scratch
+		stb	, y
+
+	.apply_mask_return:
+		lda	, y
+		anda	r_mask
+		sta	, y
+	.return:
+		rts
+
+; Looking at joystick input, adjust the word in memory by
 ;  +$1 for UP
 ;  -$1 for DOWN
 ; -$10 for LEFT
@@ -131,6 +181,52 @@ joystick_update_word:
 		anda	r_mask
 		andb	r_mask + 1
 		std	, y
+		rts
+
+; Looking at joystick left/right, adjust the word in memory
+; -$1 for LEFT
+; +$1 for RIGHT
+; If b1 is held down, then inc/dec is $10
+; Then apply the mask to the word
+; params:
+;  d = mask
+;  x = #r_input_edge|#r_input_raw
+;  y = address of word to update
+joystick_lr_update_word:
+		std	r_mask
+
+		lda	#$1
+		clr	r_scratch
+		sta	r_scratch + 1 	; using for inc/dec amount
+
+		lda	r_input_raw
+		bita	#INPUT_B1
+		beq	.b1_not_pressed
+		lda	#$10
+		sta	r_scratch + 1
+
+	.b1_not_pressed:
+		lda	, x
+		bita	#INPUT_LEFT
+		beq	.left_not_pressed
+		ldd	, y
+		subd	r_scratch
+		std	, y
+		bra	.apply_mask_return
+
+	.left_not_pressed:
+		bita	#INPUT_RIGHT
+		beq	.return
+		ldd	, y
+		addd	r_scratch
+		std	, y
+
+	.apply_mask_return:
+		ldd	, y
+		anda	r_mask
+		andb	r_mask + 1
+		std	, y
+	.return:
 		rts
 
 ; params:
