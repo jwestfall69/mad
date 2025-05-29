@@ -129,8 +129,8 @@ full_screen:
 		bita	#INPUT_LEFT
 		beq	.left_not_pressed
 		sube	#1
-		ble	.draw_full_screen
-		ldf	#MAX_COLOR_BIT_INDEX
+		bpl	.draw_full_screen
+		lde	#MAX_COLOR_BIT_INDEX
 		bra	.draw_full_screen
 
 	.left_not_pressed:
