@@ -87,6 +87,8 @@ joystick_update_byte:
 ;  a = mask
 ;  x = #r_input_edge|#r_input_raw
 ;  y = address of byte to update
+; returns:
+;  a = 0 no change, 1 = change
 joystick_lr_update_byte:
 		sta	r_mask
 
@@ -115,7 +117,7 @@ joystick_lr_update_byte:
 
 	.left_not_pressed:
 		bita	#INPUT_RIGHT
-		beq	.return
+		beq	.return_no_change
 		ldb	, y
 		addb	r_scratch
 		stb	, y
@@ -124,7 +126,11 @@ joystick_lr_update_byte:
 		lda	, y
 		anda	r_mask
 		sta	, y
-	.return:
+		lda	#$1
+		rts
+
+	.return_no_change:
+		clra
 		rts
 
 ; Looking at joystick input, adjust the word in memory by
@@ -192,6 +198,8 @@ joystick_update_word:
 ;  d = mask
 ;  x = #r_input_edge|#r_input_raw
 ;  y = address of word to update
+; returns:
+;  a = 0 no change, 1 = change
 joystick_lr_update_word:
 		std	r_mask
 
@@ -216,7 +224,7 @@ joystick_lr_update_word:
 
 	.left_not_pressed:
 		bita	#INPUT_RIGHT
-		beq	.return
+		beq	.return_no_change
 		ldd	, y
 		addd	r_scratch
 		std	, y
@@ -226,7 +234,11 @@ joystick_lr_update_word:
 		anda	r_mask
 		andb	r_mask + 1
 		std	, y
-	.return:
+		lda	#$1
+		rts
+
+	.return_no_change:
+		clra
 		rts
 
 ; params:

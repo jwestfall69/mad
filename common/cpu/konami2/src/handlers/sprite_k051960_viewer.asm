@@ -27,58 +27,36 @@ SA_MAX			equ SA_POS_Y
 ;  y = address of draw_sprite callback
 sprite_k051960_viewer_handler:
 
+		std	r_sprite_num_mask
 		stx	r_sprite_struct
 		sty	r_draw_sprite_cb
+
+		clr	r_cursor
+		clr	r_cursor_old
 
 		ldy	#d_screen_xys_list
 		jsr	print_xy_string_list
 
-		clr	r_cursor
-		clrb
+		jsr	sprite_update
 
-	.update_cursor:
-		; b should already contain old r_cursor
-		lda	#SCREEN_START_X - 1
-		addb	#(SCREEN_START_Y + 2)
-		RSUB	screen_seek_xy
-		lda	#CURSOR_CLEAR_CHAR
-		RSUB	print_char
+	.cursor_update:
+		jsr	cursor_update
 
-		lda	#SCREEN_START_X - 1
-		ldb	r_cursor
-		addb	#(SCREEN_START_Y + 2)
-		RSUB	screen_seek_xy
-		lda	#CURSOR_CHAR
-		RSUB	print_char
-
-	.loop_test:
+	.loop_input:
 		WATCHDOG
-		jsr	[r_draw_sprite_cb]
-
 		jsr	input_update
 		lda	r_input_edge
+
 		bita	#INPUT_UP
 		beq	.up_not_pressed
-		ldb	r_cursor		; backup old
 		dec	r_cursor
-		lda	r_cursor
-		cmpa	#$0
-		bpl	.update_cursor
-		lda	#SA_MAX
-		sta	r_cursor
-		bra	.update_cursor
+		bra	.cursor_update
 
 	.up_not_pressed:
 		bita	#INPUT_DOWN
 		beq	.down_not_pressed
-		ldb	r_cursor		; backup old
-
 		inc	r_cursor
-		lda	r_cursor
-		cmpa	#SA_MAX
-		ble	.update_cursor
-		clr	r_cursor
-		bra	.update_cursor
+		bra	.cursor_update
 
 	.down_not_pressed:
 		bita	#INPUT_B2
@@ -92,7 +70,7 @@ sprite_k051960_viewer_handler:
 		lda	r_cursor
 		cmpa	#SA_SPRITE_NUM
 		bne	.not_ss_sprite_num
-		ldd	#$1fff
+		ldd	r_sprite_num_mask
 		ldx	#r_input_edge
 		leay	s_ks_sprite_num, y
 		bra	.joystick_lr_update_word
@@ -138,16 +116,59 @@ sprite_k051960_viewer_handler:
 		bra	.joystick_lr_update_word
 
 	.not_ss_pos_y:
-		rts	; shouldn't happen
+		STALL	; should never get reached
 
 	.joystick_lr_update_byte:
 		jsr	joystick_lr_update_byte
-		bra	.print_values
+		bra	.check_value_change
 
 	.joystick_lr_update_word:
 		jsr	joystick_lr_update_word
 
-	.print_values:
+	; joystick_lr_* will return a = 1 if the
+	; value was changed.  Only redraw the sprite
+	; if it does
+	.check_value_change:
+		cmpa	#$0
+		lbeq	.loop_input
+		jsr	sprite_update
+		jmp	.loop_input
+
+CURSOR_START_X		equ (SCREEN_START_X - 1)
+CURSOR_START_Y		equ (SCREEN_START_Y + 2)
+cursor_update:
+		lda	#CURSOR_START_X
+		ldb	r_cursor_old
+		addb	#CURSOR_START_Y
+		RSUB	screen_seek_xy
+		lda	#CURSOR_CLEAR_CHAR
+		RSUB	print_char
+
+		lda	r_cursor
+		cmpa	#SA_MAX
+		ble	.not_over
+		clr	r_cursor
+		bra	.draw_cursor
+
+	.not_over:
+		cmpa	#$0
+		bpl	.draw_cursor
+		lda	#SA_MAX
+		sta	r_cursor
+
+	.draw_cursor:
+		lda	#CURSOR_START_X
+		ldb	r_cursor
+		stb	r_cursor_old
+		addb	#CURSOR_START_Y
+		RSUB	screen_seek_xy
+		lda	#CURSOR_CHAR
+		RSUB	print_char
+		rts
+
+sprite_update:
+		jsr	[r_draw_sprite_cb]
+
 		SEEK_XY	(SCREEN_START_X + 9), (SCREEN_START_Y + 2)
 		ldy	r_sprite_struct
 		ldd	s_ks_sprite_num, y
@@ -177,7 +198,7 @@ sprite_k051960_viewer_handler:
 		ldy	r_sprite_struct
 		ldd	s_ks_sprite_pos_y, y
 		RSUB	print_hex_word
-		jmp	.loop_test
+		rts
 
 	section data
 
@@ -191,12 +212,18 @@ d_screen_xys_list:
 	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 7), "POS Y"
 	XY_STRING SCREEN_START_X, (SCREEN_B1_Y - 2), "UD - SWITCH ATTRIBUTE"
 	XY_STRING SCREEN_START_X, (SCREEN_B1_Y - 1), "LR - ADJUST VALUE"
-	XY_STRING SCREEN_START_X, SCREEN_B1_Y, "B1 - HOLD TO ADJUST TIMES 10"
+	ifd _SCREEN_TATE_
+		XY_STRING SCREEN_START_X, SCREEN_B1_Y, "B1 - HOLD TO ADJUST 10X"
+	else
+		XY_STRING SCREEN_START_X, SCREEN_B1_Y, "B1 - HOLD TO ADJUST TIMES 10"
+	endif
 	XY_STRING SCREEN_START_X, SCREEN_B2_Y, "B2 - RETURN TO MENU"
 	XY_STRING_LIST_END
 
 	section bss
 
 r_cursor:		dcb.b 1
+r_cursor_old:		dcb.b 1
 r_draw_sprite_cb:	dcb.w 2
+r_sprite_num_mask:	dcb.w 2
 r_sprite_struct:	dcb.w 2

@@ -13,6 +13,7 @@
 
 	section code
 
+SPRITE_NUM_MASK		equ $3ff
 sprite_viewer:
 		RSUB	screen_init
 		jsr	sprite_palette_setup
@@ -35,6 +36,7 @@ sprite_viewer:
 		lda	#$40
 		sta	s_ks_sprite_zoom, x
 
+		ldd	#SPRITE_NUM_MASK
 		ldy	#draw_sprite_cb
 		jsr	sprite_k053247_viewer_handler
 		rts
