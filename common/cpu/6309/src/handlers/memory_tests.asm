@@ -21,11 +21,37 @@ memory_tests_handler:
 		tsta
 		lbne	.test_failed_output
 
+		ldy	r_mt_data_ptr
+		lda	#MT_FLAG_INTERLEAVED
+		cmpa	s_mt_flags, y
+		bne	.skip_odd_output_test
+
+		ldx	s_mt_start_address, y
+		leax	1, x
+		PSUB	memory_output_test
+		tsta
+		lbne	.test_failed_output
+
+	.skip_odd_output_test:
+		ldy	r_mt_data_ptr
 		ldx	s_mt_start_address, y
 		PSUB	memory_write_test
 		tsta
 		lbne	.test_failed_write
 
+		ldy	r_mt_data_ptr
+		lda	#MT_FLAG_INTERLEAVED
+		cmpa	s_mt_flags, y
+		bne	.skip_odd_write_test
+
+		ldx	s_mt_start_address, y
+		leax	1, x
+		PSUB	memory_write_test
+		tsta
+		lbne	.test_failed_write
+
+	.skip_odd_write_test:
+		ldy	r_mt_data_ptr
 		ldx	s_mt_start_address, y
 		ldd	s_mt_size, y
 		lde	#$00
@@ -65,12 +91,17 @@ memory_tests_handler:
 		bne	.test_failed_address
 
 		ldy	r_mt_data_ptr
+		ldb	#MT_FLAG_NO_MARCH	; using b to preserve a if we skip
+		cmpb	s_mt_flags, y
+		beq	.skip_march_test
+
 		ldx	s_mt_start_address, y
 		ldd	s_mt_size, y
 		PSUB	memory_march_test
  		tsta
 		bne	.test_failed_march
 
+	.skip_march_test:
 		rts
 
 	.test_failed_address:
