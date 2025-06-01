@@ -43,8 +43,9 @@ memory_address_test_psub:
 		bne	.loop_next_write_address
 		WATCHDOG
 
+		clrd
 		lde	#$1
-		ldf	0, x
+		ldf	d, x
 		cmpr	e, f
 		bne	.test_failed
 
