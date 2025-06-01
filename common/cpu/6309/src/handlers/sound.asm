@@ -13,53 +13,38 @@
 ; params:
 ;  a = start value
 sound_test_handler:
+		sta	r_sound_num
 
-		tfr	a, f
-
-	.update_byte:
+	.loop_test:
 		SEEK_XY	(SCREEN_START_X + 12), (SCREEN_START_Y + 6)
-		tfr	f, a
+		lda	r_sound_num
 		PSUB	print_hex_byte
 
-	.loop_input:
 		WATCHDOG
 		pshs	b
 		jsr	input_update
 		puls	b
 		lda	r_input_edge
 
-		bita	#INPUT_UP
-		beq	.up_not_pressed
-		addf	#$1
-		bra	.update_byte
-
-	.up_not_pressed:
-		bita	#INPUT_DOWN
-		beq	.down_not_pressed
-		subf	#$1
-		bra	.update_byte
-
-	.down_not_pressed:
-		bita	#INPUT_LEFT
-		beq	.left_not_pressed
-		subf	#$10
-		bra	.update_byte
-
-	.left_not_pressed:
-		bita	#INPUT_RIGHT
-		beq	.right_not_pressed
-		addf	#$10
-		bra	.update_byte
-
-	.right_not_pressed:
 		bita	#INPUT_B1
 		beq	.b1_not_pressed
-		tfr	f, a
+		lda	r_sound_num
 		SOUND_PLAY
-		bra	.loop_input
+		bra	.loop_test
 
 	.b1_not_pressed:
 		bita	#INPUT_B2
-		beq	.loop_input
+		beq	.b2_not_pressed
 		SOUND_STOP
 		rts
+
+	.b2_not_pressed:
+		lda	#$ff
+		ldx	#r_input_edge
+		ldy	#r_sound_num
+		jsr	joystick_update_byte
+		bra	.loop_test
+
+	section bss
+
+r_sound_num:		dcb.b 1
