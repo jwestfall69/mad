@@ -41,3 +41,6 @@ VD_TILE_B4_NUM		equ $0465
 VD_TILE_B4_PAL_OFFSET	equ $18
 VD_TILE_BA_NUM		equ $11ff	; all bits enabled
 VD_TILE_BA_PAL_OFFSET	equ $1a
+
+; palette number used by all the tile viewers
+TVC_PALETTE_NUM		equ $1

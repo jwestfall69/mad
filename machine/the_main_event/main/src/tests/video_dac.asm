@@ -95,8 +95,8 @@ full_screen:
 		addr	b, a
 		ldd	a, y
 
-		ldx	#TILE2_RAM
-		ldw	#TILE2_RAM_SIZE
+		ldx	#TILE_RAM
+		ldw	#TILE_RAM_SIZE
 	.loop_next_address:
 		sta	-$2000, x
 		stb	, x+
