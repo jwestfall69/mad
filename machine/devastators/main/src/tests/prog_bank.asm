@@ -28,6 +28,8 @@ prog_bank_test:
 		bita	#INPUT_B2
 		beq	.loop_input
 
+		; unclear what bit 7 is on REG_CONTROL, but
+		; bankswitching doesn't work right without it
 		lda	#$80
 		sta	REG_CONTROL
 		rts
