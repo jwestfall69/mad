@@ -9,6 +9,7 @@
 	global print_char_repeat_psub
 	global print_clear_line_psub
 	global print_hex_byte_psub
+	global print_hex_nibble_psub
 	global print_hex_word_psub
 	global print_string_psub
 
@@ -125,6 +126,19 @@ print_hex_byte_psub:
 
 		dece
 		bne	.loop_next_nibble
+		PSUB_RETURN
+
+; params:
+;  a = nibble
+;  x = start location in tile ram
+print_hex_nibble_psub:
+
+		anda	#$f
+		cmpa	#$a
+		blt	.is_digit
+		adda	#$7
+	.is_digit:
+		sta	,x
 		PSUB_RETURN
 
 ; params:
