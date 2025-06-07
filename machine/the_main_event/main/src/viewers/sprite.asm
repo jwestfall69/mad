@@ -17,6 +17,11 @@ SPRITE_NUM_MASK		equ $1fff
 
 sprite_viewer:
 		PSUB	screen_init
+
+		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
+		ldy	#d_str_title
+		PSUB	print_string
+
 		jsr	sprite_palette_setup
 
 		ldx	#r_sprite_struct
@@ -128,6 +133,8 @@ sprite_palette_setup:
 d_palette_data:
 	dc.w	$0000, $1150, $7d6a, $76f3, $1f1c, $5fdf, $2a15, $3a58
 	dc.w	$32df, $5afe, $4659, $53bf, $42d7, $3def, $0421, $7bde
+
+d_str_title:	STRING "SPRITE VIEWER"
 
 	section bss
 
