@@ -132,7 +132,7 @@ joystick_lr_update_byte:
 
 	.apply_mask_return:
 		lda	, y
-		andr	a, e
+		andr	e, a
 		sta	, y
 		lda	#$1
 		rts
