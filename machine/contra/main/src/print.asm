@@ -9,6 +9,7 @@
 	global print_char_repeat_psub
 	global print_clear_line_psub
 	global print_hex_byte_psub
+	global print_hex_nibble_psub
 	global print_hex_word_psub
 	global print_string_psub
 
@@ -26,6 +27,7 @@ print_bits_byte_psub:
 		ldb	#$1
 		andr	a, b
 
+		addb	#$40
 		stb	,x
 		leax	$20, x
 
@@ -69,7 +71,7 @@ print_char_psub:
 		bra	.do_print
 
 	.do_adjust:
-		suba	#$30
+		adda	#$10
 
 	.do_print:
 		sta	,x
@@ -115,7 +117,8 @@ print_hex_byte_psub:
 		addb	#$7
 
 	.is_digit:
-		stb	,x
+		addb	#$40
+		stb	, x
 		leax	$20, x
 
 		lsra
@@ -125,6 +128,22 @@ print_hex_byte_psub:
 
 		dece
 		bne	.loop_next_nibble
+		PSUB_RETURN
+
+; params:
+;  a = nibble
+;  x = start location in tile ram
+print_hex_nibble_psub:
+
+		ldb	#$f
+		andr	a, b
+		cmpb	#$a
+		blt	.is_digit
+		addb	#$7
+
+	.is_digit:
+		addb	#$40
+		stb	, x
 		PSUB_RETURN
 
 ; params:
@@ -145,6 +164,7 @@ print_hex_word_psub:
 		addf	#$7
 
 	.is_digit:
+		addf	#$40
 		stf	,x
 		leax	$20, x
 
@@ -178,6 +198,12 @@ print_string_psub:
 		bra	.do_print
 
 	.not_dash:
+		cmpa	#'_'
+		bne	.not_underscore
+		lda	#$10
+		bra	.do_print
+
+	.not_underscore:
 		cmpa	#'0'
 		blt	.do_print
 
@@ -186,7 +212,7 @@ print_string_psub:
 		bra	.do_print
 
 	.do_adjust:
-		suba	#$30
+		adda	#$10
 
 	.do_print:
 		sta	,x
