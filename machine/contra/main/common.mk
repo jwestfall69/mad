@@ -63,6 +63,8 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/viewers/k007121_18e_tile.o \
         $(OBJ_DIR)/viewers/tile_viewer_common.o
 
+# OBJS += $(OBJ_DIR)/tests/sprite.o
+
 INCS = $(wildcard include/*.inc) \
        $(wildcard ../../../common/global/include/*.inc) \
        $(wildcard ../../../common/cpu/6309/include/*.inc) \
