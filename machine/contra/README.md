@@ -155,27 +155,4 @@ The color palette is the one the game uses for the player.  So the colors for
 the player should be correct, but maybe completely wrong for other sprites.
 
 ## MAME vs Hardware
-### Sprite Ram/Rendering (007121)
-Each 007121 has $1000 of (external) ram for sprite data.  This $1000 is split up
-into 2x $800 banks.  The active bank is determined by bit 3 of the 007121's 3rd
-control register.  If the bit is unset the lower $800 bank is active and if it
-is set the upper $800 bank is active.  The game flip/flops the active bank each
-frame and updates sprite data in the inactive bank.  This is how it is on
-hardware.
-
-MAME has the sprite ram setup as a buffer.  When writing to the 3rd control
-register it will copy the $800 of data from the buffer into what the 007121 
-uses for sprite data.  This mean sprite updates must be followed by a
-write to the register for them to become active.  
-
-This isn't a big deal with regard to MAD, since I could just write to correct
-value to register after a sprite change in the sprite viewer. However MAME is
-copying the wrong bank.  It copies the high $800 bank when the 3rd bit is unset
-and the lower $800 bank when the bit is set.  This effectively mean MAME is
-making the wrong bank active.  MAD only uses the first bank for sprites in the
-viewer so its the one that always needs to be active.  For the MAME build of MAD
-its writing the 3rd control register with the 3rd bit as set to get MAME copy
-the lower bank.
-
-I suspect MAME copying the wrong bank likely means its displaying the previous
-frame's sprites instead of the current frame in the game.
+Nothing that required a MAME specific build
