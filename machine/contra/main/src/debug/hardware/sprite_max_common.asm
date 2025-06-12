@@ -83,12 +83,6 @@ smc_draw_sprites:
 		sta	r_y_pos
 		dece
 		bne 	.loop_next_row
-
-
-	ifd _MAME_BUILD_
-		lda	#$be
-		sta	REG_K007121_18E_C3
-	endif
 		rts
 
 	section bss

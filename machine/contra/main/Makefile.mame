@@ -1,4 +1,0 @@
-BUILD_FLAGS=-D_SCREEN_TATE_ -D_MAME_BUILD_
-BUILD_DIR=build/mame
-
-include common.mk

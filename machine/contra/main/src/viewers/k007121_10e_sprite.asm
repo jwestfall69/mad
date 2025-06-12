@@ -89,12 +89,6 @@ draw_sprite_cb:
 		stf	K007121_10E_SPRITE + 3
 		lda	s_ks_sprite_pos_y, y
 		sta	K007121_10E_SPRITE + 2
-
-	ifd _MAME_BUILD_
-		lda	#$be
-		sta	REG_K007121_10E_C3
-	endif
-
 		rts
 
 ; Palette Layout

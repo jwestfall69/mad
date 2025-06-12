@@ -77,11 +77,6 @@ sprite_max_column:
 		decf
 		bne	.loop_next_column
 
-	ifd _MAME_BUILD_
-		lda	#$be
-		sta	REG_K007121_18E_C3
-	endif
-
 		lda	#INPUT_B2
 		jsr	wait_button_press
 		rts
