@@ -3,6 +3,7 @@
 	include "machine.inc"
 
 	global memory_fill_psub
+	global memory_fill_word_psub
 
 	section code
 
@@ -15,4 +16,15 @@ memory_fill_psub:
 		sta	,x+
 		decw
 		bne	memory_fill_psub
+		PSUB_RETURN
+
+; params:
+;  d = byte to fill with
+;  w = size
+;  x = start address
+memory_fill_word_psub:
+		WATCHDOG
+		std	,x++
+		decw
+		bne	memory_fill_word_psub
 		PSUB_RETURN
