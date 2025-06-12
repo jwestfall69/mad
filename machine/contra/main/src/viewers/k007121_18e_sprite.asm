@@ -69,10 +69,10 @@ draw_sprite_cb:
 		stb	K007121_18E_SPRITE
 
 		tfr	a, b
-		andb	#$ff
+		andb	#$f
 		stb	K007121_18E_SPRITE + 1
 
-		anda	#$ff
+		anda	#$f0
 		asla
 		asla
 
