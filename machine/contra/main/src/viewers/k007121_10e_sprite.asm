@@ -16,12 +16,6 @@
 SPRITE_NUM_MASK		equ $3fff
 
 k007121_10e_sprite_viewer:
-		PSUB	screen_init
-
-		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
-		ldy	#d_str_title
-		PSUB	print_string
-
 		jsr	sprite_palette_setup
 
 		ldx	#r_sprite_struct
@@ -111,8 +105,6 @@ sprite_palette_setup:
 d_palette_data:
 	dc.w	$0000, $6f19, $b315, $393a, $2c25, $341d, $7e2d, $ff02
 	dc.w	$292A, $ab4d, $8a5a, $6939, $8b2d, $724a, $bc73, $0200
-
-d_str_title:	STRING "K007121 10E SPRITE VIEWER"
 
 	section bss
 
