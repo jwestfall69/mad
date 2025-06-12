@@ -31,14 +31,14 @@ debug_menu:
 
 d_menu_list:
 	;MENU_ENTRY ec_dupe_check, d_str_ec_dupe_check
+	MENU_ENTRY debug_hardware_menu, d_str_debug_hardware
 	MENU_ENTRY error_address_test, d_str_error_address_test
 	MENU_ENTRY mad_git_hash, d_str_mad_git_hash
-;	MENU_ENTRY sprite_test, d_str_sprite_test
 	MENU_LIST_END
 
 d_str_menu_title:		STRING "DEBUG MENU"
 
+d_str_debug_hardware:		STRING "DEBUG HARDWARE"
 d_str_ec_dupe_check:		STRING "EC DUPE CHECK"
 d_str_error_address_test:	STRING "ERROR ADDRESS TEST"
 d_str_mad_git_hash:		STRING "MAD GIT HASH"
-;d_str_sprite_test:		STRING "SPRITE TEST"
