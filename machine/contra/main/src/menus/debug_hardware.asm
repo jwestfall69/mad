@@ -38,6 +38,7 @@ d_menu_list:
 	MENU_ENTRY sprite_max_32x32, d_str_sprite_max_32x32
 	MENU_ENTRY sprite_max_column, d_str_sprite_max_column
 	MENU_ENTRY sprite_max_row, d_str_sprite_max_row
+	MENU_ENTRY watchdog_time, d_str_watchdog_time
 	MENU_LIST_END
 
 d_str_menu_title:		STRING "DEBUG HARDWARE MENU"
@@ -50,3 +51,4 @@ d_str_sprite_max_16x16:		STRING "SPRITE MAX 16X16"
 d_str_sprite_max_32x32:		STRING "SPRITE MAX 32X32"
 d_str_sprite_max_column:	STRING "SPRITE MAX COLUMN"
 d_str_sprite_max_row:		STRING "SPRITE MAX ROW"
+d_str_watchdog_time:		STRING "WATCHDOG TIME"

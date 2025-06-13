@@ -66,6 +66,7 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/viewers/tile_viewer_common.o
 
 OBJS += $(OBJ_DIR)/menus/debug_hardware.o \
+        $(OBJ_DIR)/cpu/6309/src/debug/hardware/watchdog_time.o \
         $(OBJ_DIR)/debug/hardware/sprite_draw_order.o \
         $(OBJ_DIR)/debug/hardware/sprite_max_common.o \
         $(OBJ_DIR)/debug/hardware/sprite_max_8x8.o \
