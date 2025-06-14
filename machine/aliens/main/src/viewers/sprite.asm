@@ -27,20 +27,20 @@ sprite_viewer:
 
 		; setup initial struct values
 		ldd	#$44
-		std	s_ks_sprite_num, x
+		std	s_se_num, x
 
 		ldd	#$f0
-		std	s_ks_sprite_pos_x, x
+		std	s_se_pos_x, x
 		ldd	#$90
-		std	s_ks_sprite_pos_y, x
+		std	s_se_pos_y, x
 
 		lda	#$3
-		sta	s_ks_sprite_size, x
+		sta	s_se_size, x
 
 		lda	#$0
-		sta	s_ks_sprite_zoom_x, x
+		sta	s_se_zoom_x, x
 		lda	#$0
-		sta	s_ks_sprite_zoom_y, x
+		sta	s_se_zoom_y, x
 
 		ldd	#SPRITE_NUM_MASK
 		ldy	#draw_sprite_cb
@@ -83,31 +83,31 @@ draw_sprite_cb:
 		lda	#$ff
 		sta	SPRITE_RAM
 
-		lda	s_ks_sprite_size, y
+		lda	s_se_size, y
 		asla
 		asla
 		asla
 		asla
 		asla
-		ora	s_ks_sprite_num, y
+		ora	s_se_num, y
 		sta	SPRITE_RAM + 1
-		lda	s_ks_sprite_num + 1, y
+		lda	s_se_num + 1, y
 		sta	SPRITE_RAM + 2
 
 		clr	SPRITE_RAM + 3
 
-		lda	s_ks_sprite_zoom_y, y
+		lda	s_se_zoom_y, y
 		asla
 		asla
-		ora	s_ks_sprite_pos_y, y
-		ldb	s_ks_sprite_pos_y + 1, y
+		ora	s_se_pos_y, y
+		ldb	s_se_pos_y + 1, y
 		std	SPRITE_RAM + 4
 
-		lda	s_ks_sprite_zoom_x, y
+		lda	s_se_zoom_x, y
 		asla
 		asla
-		ora	s_ks_sprite_pos_x, y
-		ldb	s_ks_sprite_pos_x + 1, y
+		ora	s_se_pos_x, y
+		ldb	s_se_pos_x + 1, y
 
 		std	SPRITE_RAM + 6
 		rts
@@ -143,4 +143,4 @@ d_str_title:	STRING "SPRITE VIEWER"
 
 	section bss
 
-r_sprite_struct:	dcb.b s_ks_struct_size
+r_sprite_struct:	dcb.b s_se_struct_size

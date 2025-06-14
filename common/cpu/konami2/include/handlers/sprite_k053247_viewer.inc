@@ -1,9 +1,9 @@
 	rsreset
 
-s_ks_sprite_num		rs.w 1
-s_ks_sprite_width	rs.b 1
-s_ks_sprite_height	rs.b 1
-s_ks_sprite_zoom	rs.b 1
-s_ks_sprite_pos_x	rs.w 1
-s_ks_sprite_pos_y	rs.w 1
-s_ks_struct_size	rs.b 0
+s_se_num		rs.w 1
+s_se_width		rs.b 1
+s_se_height		rs.b 1
+s_se_zoom		rs.b 1
+s_se_pos_x		rs.w 1
+s_se_pos_y		rs.w 1
+s_se_struct_size	rs.b 0

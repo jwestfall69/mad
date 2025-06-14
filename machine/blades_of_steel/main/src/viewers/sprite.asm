@@ -28,18 +28,18 @@ sprite_viewer:
 
 		; setup initial struct values
 		ldd	#$b4
-		std	s_ks_sprite_num, x
+		std	s_se_num, x
 
 		lda	#$4
-		sta	s_ks_sprite_size, x
+		sta	s_se_size, x
 
 		ldd	#$60
-		std	s_ks_sprite_pos_x, x
+		std	s_se_pos_x, x
 		lda	#$90
-		sta	s_ks_sprite_pos_y, x
+		sta	s_se_pos_y, x
 
 		ldd	#$80
-		std	s_ks_sprite_zoom, x
+		std	s_se_zoom, x
 
 		ldd	#SPRITE_NUM_MASK
 		ldy	#draw_sprite_cb
@@ -69,29 +69,29 @@ sprite_viewer:
 draw_sprite_cb:
 		ldy	#r_sprite_struct
 
-		lda	s_ks_sprite_pos_y, y
+		lda	s_se_pos_y, y
 		sta	SPRITE_RAM
 
 		; sprite num is limited to $1ff. Lower byte goes to
 		; sprite ram.  Bit 8 picks bank 0/1 via bit 7 of
 		; REG_CONTROL
-		ldd	s_ks_sprite_num, y
+		ldd	s_se_num, y
 		stb	SPRITE_RAM + 1
 
 		asra
 		rora
 		sta	REG_CONTROL
 
-		ldd	s_ks_sprite_pos_x, y
+		ldd	s_se_pos_x, y
 		stb	SPRITE_RAM + 3
 		sta	SPRITE_RAM + 4
 
-		ldd	s_ks_sprite_zoom, y
+		ldd	s_se_zoom, y
 		stb	SPRITE_RAM + 5
 		ora	SPRITE_RAM + 4
 		sta	SPRITE_RAM + 4
 
-		lda	s_ks_sprite_size, y
+		lda	s_se_size, y
 		asla
 		asla
 		asla
@@ -126,4 +126,4 @@ d_str_title:	STRING "SPRITE VIEWER"
 
 	section bss
 
-r_sprite_struct:	dcb.b s_ks_struct_size
+r_sprite_struct:	dcb.b s_se_struct_size

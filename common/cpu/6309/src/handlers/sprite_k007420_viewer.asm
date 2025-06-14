@@ -72,7 +72,7 @@ sprite_k007420_viewer_handler:
 		bne	.not_sa_sprite_num
 		ldd	r_sprite_num_mask
 		ldx	#r_input_edge
-		leay	s_ks_sprite_num, y
+		leay	s_se_num, y
 		bra	.joystick_lr_update_word
 
 	.not_sa_sprite_num:
@@ -80,7 +80,7 @@ sprite_k007420_viewer_handler:
 		bne	.not_sa_sprite_size
 		lda	#$7
 		ldx	#r_input_edge
-		leay	s_ks_sprite_size, y
+		leay	s_se_size, y
 		bra	.joystick_lr_update_byte
 
 	.not_sa_sprite_size:
@@ -88,7 +88,7 @@ sprite_k007420_viewer_handler:
 		bne	.not_sa_sprite_zoom
 		ldd	#$3ff
 		ldx	#r_input_edge
-		leay	s_ks_sprite_zoom, y
+		leay	s_se_zoom, y
 		bra	.joystick_lr_update_word
 
 	.not_sa_sprite_zoom:
@@ -96,7 +96,7 @@ sprite_k007420_viewer_handler:
 		bne	.not_sa_pos_x
 		ldd	#$1ff
 		ldx	#r_input_raw
-		leay	s_ks_sprite_pos_x, y
+		leay	s_se_pos_x, y
 		bra	.joystick_lr_update_word
 
 	.not_sa_pos_x:
@@ -104,7 +104,7 @@ sprite_k007420_viewer_handler:
 		bne	.not_sa_pos_y
 		lda	#$ff
 		ldx	#r_input_raw
-		leay	s_ks_sprite_pos_y, y
+		leay	s_se_pos_y, y
 		bra	.joystick_lr_update_byte
 
 	.not_sa_pos_y:
@@ -163,27 +163,27 @@ sprite_update:
 
 		SEEK_XY	(SCREEN_START_X + 9), (SCREEN_START_Y + 2)
 		ldy	r_sprite_struct
-		ldd	s_ks_sprite_num, y
+		ldd	s_se_num, y
 		PSUB	print_hex_word
 
 		SEEK_XY	(SCREEN_START_X + 12), (SCREEN_START_Y + 3)
 		ldy	r_sprite_struct
-		ldd	s_ks_sprite_size, y
+		ldd	s_se_size, y
 		PSUB	print_hex_nibble
 
 		SEEK_XY	(SCREEN_START_X + 9), (SCREEN_START_Y + 4)
 		ldy	r_sprite_struct
-		ldd	s_ks_sprite_zoom, y
+		ldd	s_se_zoom, y
 		PSUB	print_hex_word
 
 		SEEK_XY	(SCREEN_START_X + 9), (SCREEN_START_Y + 5)
 		ldy	r_sprite_struct
-		ldd	s_ks_sprite_pos_x, y
+		ldd	s_se_pos_x, y
 		PSUB	print_hex_word
 
 		SEEK_XY	(SCREEN_START_X + 11), (SCREEN_START_Y + 6)
 		ldy	r_sprite_struct
-		ldd	s_ks_sprite_pos_y, y
+		ldd	s_se_pos_y, y
 		PSUB	print_hex_byte
 		rts
 

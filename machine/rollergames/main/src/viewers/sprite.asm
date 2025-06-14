@@ -27,19 +27,19 @@ sprite_viewer:
 
 		; setup initial struct values
 		ldd	#$2
-		std	s_ks_sprite_num, x
+		std	s_se_num, x
 
 		ldd	#$e0
-		std	s_ks_sprite_pos_x, x
+		std	s_se_pos_x, x
 		ldd	#$7f
-		std	s_ks_sprite_pos_y, x
+		std	s_se_pos_y, x
 
 		lda	#$1
-		sta	s_ks_sprite_width, x
-		sta	s_ks_sprite_height, x
+		sta	s_se_width, x
+		sta	s_se_height, x
 
 		lda	#$40
-		sta	s_ks_sprite_zoom, x
+		sta	s_se_zoom, x
 
 		ldd	#SPRITE_NUM_MASK
 		ldy	#draw_sprite_cb
@@ -76,10 +76,10 @@ sprite_viewer:
 draw_sprite_cb:
 		ldy	#r_sprite_struct
 
-		lda	s_ks_sprite_height, y
+		lda	s_se_height, y
 		asla
 		asla
-		ora	s_ks_sprite_width, y
+		ora	s_se_width, y
 		ora	#$c0			; active sprite and maintain aspect ratio
 		sta	SPRITE_RAM
 
@@ -90,7 +90,7 @@ draw_sprite_cb:
 		lda	#$02
 		sta	SPRITE_RAM + 1
 
-		ldd	s_ks_sprite_num, y
+		ldd	s_se_num, y
 		aslb
 		rola
 		aslb
@@ -105,13 +105,13 @@ draw_sprite_cb:
 		rola
 		std	SPRITE_RAM + 2
 
-		ldd	s_ks_sprite_pos_y, y
+		ldd	s_se_pos_y, y
 		std	SPRITE_RAM + 4
 
-		ldd	s_ks_sprite_pos_x, y
+		ldd	s_se_pos_x, y
 		std	SPRITE_RAM + 6
 
-		lda	s_ks_sprite_zoom, y
+		lda	s_se_zoom, y
 		sta	SPRITE_RAM + 9
 
 		clr	REG_SPRITE_REFRESH
@@ -142,4 +142,4 @@ d_str_title:	STRING "SPRITE VIEWER"
 
 	section bss
 
-r_sprite_struct:	dcb.b s_ks_struct_size
+r_sprite_struct:	dcb.b s_se_struct_size

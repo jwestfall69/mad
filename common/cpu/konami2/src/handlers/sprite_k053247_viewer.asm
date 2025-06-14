@@ -73,7 +73,7 @@ sprite_k053247_viewer_handler:
 		bne	.not_ss_sprite_num
 		ldd	r_sprite_num_mask
 		ldx	#r_input_edge
-		leay	s_ks_sprite_num, y
+		leay	s_se_num, y
 		bra	.joystick_lr_update_word
 
 	.not_ss_sprite_num:
@@ -81,7 +81,7 @@ sprite_k053247_viewer_handler:
 		bne	.not_ss_sprite_height
 		lda	#$3
 		ldx	#r_input_edge
-		leay	s_ks_sprite_height, y
+		leay	s_se_height, y
 		bra	.joystick_lr_update_byte
 
 	.not_ss_sprite_height:
@@ -89,7 +89,7 @@ sprite_k053247_viewer_handler:
 		bne	.not_ss_sprite_width
 		lda	#$3
 		ldx	#r_input_edge
-		leay	s_ks_sprite_width, y
+		leay	s_se_width, y
 		bra	.joystick_lr_update_byte
 
 	.not_ss_sprite_width:
@@ -97,7 +97,7 @@ sprite_k053247_viewer_handler:
 		bne	.not_ss_sprite_zoom
 		lda	#$ff
 		ldx	#r_input_edge
-		leay	s_ks_sprite_zoom, y
+		leay	s_se_zoom, y
 		bra	.joystick_lr_update_byte
 
 	.not_ss_sprite_zoom:
@@ -105,7 +105,7 @@ sprite_k053247_viewer_handler:
 		bne	.not_ss_pos_x
 		ldd	#$3ff
 		ldx	#r_input_raw
-		leay	s_ks_sprite_pos_x, y
+		leay	s_se_pos_x, y
 		bra	.joystick_lr_update_word
 
 	.not_ss_pos_x:
@@ -113,7 +113,7 @@ sprite_k053247_viewer_handler:
 		bne	.not_ss_pos_y
 		ldd	#$3ff
 		ldx	#r_input_raw
-		leay	s_ks_sprite_pos_y, y
+		leay	s_se_pos_y, y
 		bra	.joystick_lr_update_word
 
 	.not_ss_pos_y:
@@ -172,32 +172,32 @@ sprite_update:
 
 		SEEK_XY	(SCREEN_START_X + 9), (SCREEN_START_Y + 2)
 		ldy	r_sprite_struct
-		ldd	s_ks_sprite_num, y
+		ldd	s_se_num, y
 		RSUB	print_hex_word
 
 		SEEK_XY	(SCREEN_START_X + 12), (SCREEN_START_Y + 3)
 		ldy	r_sprite_struct
-		ldd	s_ks_sprite_width, y
+		ldd	s_se_width, y
 		RSUB	print_hex_nibble
 
 		SEEK_XY	(SCREEN_START_X + 12), (SCREEN_START_Y + 4)
 		ldy	r_sprite_struct
-		ldd	s_ks_sprite_height, y
+		ldd	s_se_height, y
 		RSUB	print_hex_nibble
 
 		SEEK_XY	(SCREEN_START_X + 11), (SCREEN_START_Y + 5)
 		ldy	r_sprite_struct
-		ldd	s_ks_sprite_zoom, y
+		ldd	s_se_zoom, y
 		RSUB	print_hex_byte
 
 		SEEK_XY	(SCREEN_START_X + 9), (SCREEN_START_Y + 6)
 		ldy	r_sprite_struct
-		ldd	s_ks_sprite_pos_x, y
+		ldd	s_se_pos_x, y
 		RSUB	print_hex_word
 
 		SEEK_XY	(SCREEN_START_X + 9), (SCREEN_START_Y + 7)
 		ldy	r_sprite_struct
-		ldd	s_ks_sprite_pos_y, y
+		ldd	s_se_pos_y, y
 		RSUB	print_hex_word
 		rts
 

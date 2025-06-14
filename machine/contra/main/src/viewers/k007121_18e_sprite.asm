@@ -22,15 +22,15 @@ k007121_18e_sprite_viewer:
 
 		; setup initial struct values
 		ldd	#$2068
-		std	s_ks_sprite_num, x
+		std	s_se_num, x
 
 		lda	#$4
-		sta	s_ks_sprite_size, x
+		sta	s_se_size, x
 
 		ldd	#$30
-		std	s_ks_sprite_pos_x, x
+		std	s_se_pos_x, x
 		lda	#$80
-		sta	s_ks_sprite_pos_y, x
+		sta	s_se_pos_y, x
 
 		lda	#$b6
 		sta	REG_K007121_18E_C3
@@ -65,7 +65,7 @@ k007121_18e_sprite_viewer:
 draw_sprite_cb:
 		ldy	#r_sprite_struct
 
-		ldd	s_ks_sprite_num, y
+		ldd	s_se_num, y
 		stb	K007121_18E_SPRITE
 
 		tfr	a, b
@@ -76,15 +76,15 @@ draw_sprite_cb:
 		asla
 		asla
 
-		ldb	s_ks_sprite_size, y
+		ldb	s_se_size, y
 		aslb
 		orr	b, a
 
-		ldw	s_ks_sprite_pos_x, y
+		ldw	s_se_pos_x, y
 		orr	e, a
 		sta	K007121_18E_SPRITE + 4
 		stf	K007121_18E_SPRITE + 3
-		lda	s_ks_sprite_pos_y, y
+		lda	s_se_pos_y, y
 		sta	K007121_18E_SPRITE + 2
 		rts
 
@@ -111,4 +111,4 @@ d_palette_data:
 
 	section bss
 
-r_sprite_struct:	dcb.b s_ks_struct_size
+r_sprite_struct:	dcb.b s_se_struct_size
