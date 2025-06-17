@@ -9,7 +9,26 @@
 	section code
 
 _start:
+		INTS_DISABLE
 		SOUND_STOP
+
+		clr	$3840
+		lda	#$82
+		sta	$3820
+		lda	#$03
+		sta	$3822
+		clra
+		sta	$3824
+		lda	#$1
+		sta	$3826
+		clr	$3837
+		clr	$3835
+		ldx	#$3830
+		lda	#$10
+	.loop_clear:
+		clr	,x+
+		deca
+		bne	.loop_clear
 
 		PSUB	screen_init
 		PSUB	auto_mad_rom_address_test

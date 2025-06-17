@@ -6,14 +6,14 @@
 
 	include "machine.inc"
 
-	global fg_tile_viewer
+	global bac06_tile_viewer
 
 	section code
 
 ; no need to setup palettes as palette colors are hardcoded on this board
-TILE_OFFSET_MASK	equ $3ff
+TILE_OFFSET_MASK	equ $7ff
 
-fg_tile_viewer:
+bac06_tile_viewer:
 		PSUB	screen_init
 
 		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
@@ -22,23 +22,36 @@ fg_tile_viewer:
 
 		ldd	#$0
 		ldw	#TILE_OFFSET_MASK
-		ldx	#fg_seek_xy_cb
-		ldy	#fg_draw_tile_cb
-		jsr	tile8_viewer_handler
+		ldx	#bac06_seek_xy_cb
+		ldy	#bac06_draw_tile_cb
+		jsr	tile16_viewer_handler
 		rts
 
-fg_seek_xy_cb:
-		PSUB	screen_seek_xy
+
+; params:
+;  a = x
+;  b = y
+bac06_seek_xy_cb:
+		ldx	#BAC06_RAM
+		leax	a, x
+
+		tfr 	b, a
+		clrb
+		rord
+		rord
+		rord
+		rord
+		leax	d, x
 		rts
 
 ; params:
 ;  d = tile (word)
 ;  x = already at location in tile ram
-;  ???? PPTT TTTT TTTT
-fg_draw_tile_cb:
+;  ???? TTTT TTTT TTTT
+bac06_draw_tile_cb:
 		std	,x
 		rts
 
 	section data
 
-d_str_title: 	STRING "FG TILE VIEWER"
+d_str_title: 	STRING "BAC06 TILE VIEWER"

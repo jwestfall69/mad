@@ -21,16 +21,6 @@ input_test:
 		clr	r_input_dsw1_edge
 		clr	r_input_dsw1_raw
 
-	; NMI (vblank) firing is different between hardware and mame.
-	; On hardware setting the NMI bit on REG_CONTROL will enable
-	; NMI's and they will fire every vblank.  On mame setting the
-	; bit will only cause the NMI to fire once.  The only way I
-	; was able to get mame to fire correctly was to unset the NMI
-	; bit on REG_CONTROL in the NMI handler, then set the NMI bit
-	; outside of the NMI handler (ie: constantly setting it in the
-	; .loop_test loop below).  Using that behaviour on hardware
-	; caused NMI to fire way to often.
-
 	; enable NMIs
 	ifd _MAME_BUILD_
 		lda	#CTRL_NMI
@@ -109,11 +99,7 @@ d_screen_xys_list:
 	XY_STRING (SCREEN_START_X + 2), (SCREEN_START_Y + 5), "P3"
 	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 6), "DSW1"
 	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 7), "DSW2"
-	ifd _MAME_BUILD_
-		XY_STRING SCREEN_START_X, (SCREEN_B2_Y - 3), "VBI BROKEN IN MAME"
-	else
-		XY_STRING SCREEN_START_X, (SCREEN_B2_Y - 3), "VBI SHOULD EQUAL VBP"
-	endif
+	XY_STRING SCREEN_START_X, (SCREEN_B2_Y - 3), "VBI SHOULD EQUAL VBP"
 	XY_STRING SCREEN_START_X, SCREEN_B2_Y, "B2+RIGHT - RETURN TO MENU"
 	XY_STRING_LIST_END
 

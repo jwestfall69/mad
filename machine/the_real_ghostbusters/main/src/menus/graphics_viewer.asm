@@ -6,11 +6,11 @@
 
 	include "machine.inc"
 
-	global debug_menu
+	global graphics_viewer_menu
 
 	section code
 
-debug_menu:
+graphics_viewer_menu:
 		clr	r_menu_cursor
 
 	.loop_menu:
@@ -25,19 +25,18 @@ debug_menu:
 
 		cmpa	#MENU_CONTINUE
 		beq	.loop_menu
-
 		rts
 
 	section data
 
 d_menu_list:
-	;MENU_ENTRY ec_dupe_check, d_str_ec_dupe_check
-	MENU_ENTRY error_address_test, d_str_error_address_test
-	MENU_ENTRY mad_git_hash, d_str_mad_git_hash
+	MENU_ENTRY fix_tile_viewer, d_str_fix_tile
+	MENU_ENTRY bac06_tile_viewer, d_str_bac06_tile
+	MENU_ENTRY sprite_viewer, d_str_sprite_viewer
 	MENU_LIST_END
 
-d_str_menu_title:		STRING "DEBUG MENU"
+d_str_menu_title:		STRING "GRAPHICS VIEWER"
 
-;d_str_ec_dupe_check:		STRING "EC DUPE CHECK"
-d_str_error_address_test:	STRING "ERROR ADDRESS TEST"
-d_str_mad_git_hash:		STRING "MAD GIT HASH"
+d_str_fix_tile:			STRING "FIX TILE"
+d_str_bac06_tile:		STRING "BAC06 TILE"
+d_str_sprite_viewer:		STRING "SPRITE VIEWER"

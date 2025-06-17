@@ -27,7 +27,9 @@ OBJS = $(OBJ_DIR)/cpu/6309/src/crc32.o \
        $(OBJ_DIR)/cpu/6309/src/handlers/memory_viewer.o \
        $(OBJ_DIR)/cpu/6309/src/handlers/menu.o \
        $(OBJ_DIR)/cpu/6309/src/handlers/sound.o \
+       $(OBJ_DIR)/cpu/6309/src/handlers/sprite_deco_karnov_viewer.o \
        $(OBJ_DIR)/cpu/6309/src/handlers/tile8_viewer.o \
+       $(OBJ_DIR)/cpu/6309/src/handlers/tile16_viewer.o \
        $(OBJ_DIR)/cpu/6309/src/tests/input.o \
        $(OBJ_DIR)/cpu/6309/src/tests/memory.o \
        $(OBJ_DIR)/cpu/6309/src/tests/mad_rom.o \
@@ -38,18 +40,25 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/errors.o \
         $(OBJ_DIR)/print.o \
         $(OBJ_DIR)/screen.o \
+        $(OBJ_DIR)/util.o \
         $(OBJ_DIR)/vector_table.o \
         $(OBJ_DIR)/version.o \
-        $(OBJ_DIR)/debug/fg_tile_viewer.o \
         $(OBJ_DIR)/menus/debug.o \
+        $(OBJ_DIR)/menus/graphics_viewer.o \
         $(OBJ_DIR)/menus/main.o \
         $(OBJ_DIR)/menus/memory_viewer.o \
+        $(OBJ_DIR)/menus/ram_tests.o \
+        $(OBJ_DIR)/menus/video_tests.o \
         $(OBJ_DIR)/tests/auto.o \
+        $(OBJ_DIR)/tests/bac06_ram.o \
+        $(OBJ_DIR)/tests/bac06_tile_scroll.o \
         $(OBJ_DIR)/tests/input.o \
         $(OBJ_DIR)/tests/sound.o \
         $(OBJ_DIR)/tests/sprite_ram.o \
-        $(OBJ_DIR)/tests/tile_ram.o \
-        $(OBJ_DIR)/tests/video_ram.o
+        $(OBJ_DIR)/tests/video_ram.o \
+        $(OBJ_DIR)/viewers/fix_tile.o \
+        $(OBJ_DIR)/viewers/bac06_tile.o \
+        $(OBJ_DIR)/viewers/sprite.o
 
 INCS = $(wildcard include/*.inc) \
        $(wildcard ../../../common/global/include/*.inc) \
@@ -57,13 +66,16 @@ INCS = $(wildcard include/*.inc) \
        $(wildcard ../../../common/cpu/6309/include/tests/*.inc) \
        $(wildcard ../../../common/cpu/6309/include/tests/*/*.inc)
 
-$(WORK_DIR)/$(MAD_NAME).bin: include/error_codes.inc $(WORK_DIR) $(BUILD_DIR) $(OBJS)
+$(WORK_DIR)/$(MAD_NAME).bin: include/error_codes.inc $(WORK_DIR) $(BUILD_DIR) $(OBJS) ../README.md
 	$(VLINK) $(VLINK_FLAGS) -o $(WORK_DIR)/$(MAD_NAME).bin $(OBJS)
 	../../../util/rom-inject-crc-mirror -r -m 19 -c 18 -f $(WORK_DIR)/$(MAD_NAME).bin -e big -t $(ROM_SIZE)
 	$(DD) if=$(WORK_DIR)/$(MAD_NAME).bin of=$(BUILD_DIR)/$(ROM)
 
 include/error_codes.inc: include/error_codes.cfg
 	../../../util/gen-error-codes -b 6 include/error_codes.cfg include/error_codes.inc
+
+../README.md: include/error_codes.inc ../../../common/cpu/6309/include/error_codes.inc
+	../../../util/gen-error-codes-markdown-table -i include/error_codes.inc -i ../../../common/cpu/6309/include/error_codes.inc -c 6309 -t main -m ../README.md
 
 src/version.asm:
 	../../../util/gen-version-asm-file -m GHOSTB -i ../../../common/global/src/version.asm.in -o src/version.asm

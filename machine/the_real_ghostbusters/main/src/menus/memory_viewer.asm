@@ -27,6 +27,10 @@ memory_viewer_menu:
 		beq	.loop_menu
 		rts
 
+view_bac06_ram:
+		ldx	#BAC06_RAM
+		bra	view_memory
+
 view_mmio_input:
 		ldx	#$3800
 		bra	view_memory
@@ -41,10 +45,6 @@ view_rom_bank_space:
 
 view_sprite_ram:
 		ldx	#SPRITE_RAM
-		bra	view_memory
-
-view_tile_ram:
-		ldx	#TILE_RAM
 		bra	view_memory
 
 view_video_ram:
@@ -63,21 +63,21 @@ view_memory:
 	section data
 
 d_menu_list:
+	MENU_ENTRY view_bac06_ram, d_str_bac06_ram
 	MENU_ENTRY view_mmio_input, d_str_mmio_input
 	MENU_ENTRY view_rom_space, d_str_rom_space
 	MENU_ENTRY view_rom_bank_space, d_str_rom_bank_space
 	MENU_ENTRY view_sprite_ram, d_str_sprite_ram
-	MENU_ENTRY view_tile_ram, d_str_tile_ram
 	MENU_ENTRY view_video_ram, d_str_video_ram
 	MENU_ENTRY view_work_ram, d_str_work_ram
 	MENU_LIST_END
 
 d_str_menu_title:	STRING "MEMORY VIEWER MENU"
 
+d_str_bac06_ram:	STRING "BAC06 RAM"
 d_str_mmio_input:	STRING "MMIO INPUT"
 d_str_rom_space:	STRING "ROM SPACE"
 d_str_rom_bank_space:	STRING "ROM BANK SPACE"
 d_str_sprite_ram:	STRING "SPRITE RAM"
-d_str_tile_ram:		STRING "TILE RAM"
 d_str_video_ram:	STRING "VIDEO RAM"
 d_str_work_ram:		STRING "WORK RAM"

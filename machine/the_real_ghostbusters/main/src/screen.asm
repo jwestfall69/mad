@@ -9,19 +9,8 @@
 	section code
 
 screen_init_psub:
-		; mame and hardware don't seem to agree on screen flip
-		; setting (bit 3 of REG_ROM_BANK).  The bit set to 1 on
-		; hardware is right way up, but mame is upside down and
-		; vice versa if set to 0.
-	ifd _MAME_BUILD_
-		clr	REG_CONTROL
-	else
-		lda	#CTRL_SCREEN_FLIP
-		sta	REG_CONTROL
-	endif
-
-		ldx	#TILE_RAM
-		ldw	#$1800
+		ldx	#BAC06_RAM
+		ldw	#BAC06_RAM_SIZE
 		lda	#$0
 		PSUB	memory_fill
 
@@ -29,6 +18,7 @@ screen_init_psub:
 		ldw	#SPRITE_RAM_SIZE
 		lda	#$0
 		PSUB	memory_fill
+		PSUB	sprite_trigger_copy
 
 		ldx	#VIDEO_RAM
 		ldw	#VIDEO_RAM_SIZE
