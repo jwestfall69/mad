@@ -33,7 +33,7 @@ boards near the jamma edge, though in testing it doesn't seem to be required for
 operation.
 
 ## Manual / Schematics
-[Manual](docs/the_real_ghostbusters.pdf)
+[Manual](docs/the_real_ghostbusters_manual.pdf)
 
 Schematics don't seem to exist.
 
