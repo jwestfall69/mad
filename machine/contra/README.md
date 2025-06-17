@@ -52,8 +52,8 @@ The main CPU is a HD6309 CPU.  If an error is encountered during
 tests, MAD will print the error to the screen, play the beep code, then jump to
 the error address
 
-On Konami2 the error address is `$f000 | error_code << 4`.  Error codes on the
-Konami2 CPU are are 6 bits.  contra however has a watchdog address that must
+On HD6309 the error address is `$f000 | error_code << 4`.  Error codes on the
+HD6309 CPU are are 6 bits.  contra however has a watchdog address that must
 be written to periodically or the game will reset.
 
 ```
