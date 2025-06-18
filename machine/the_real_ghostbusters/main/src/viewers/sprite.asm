@@ -39,12 +39,13 @@ sprite_viewer:
 ; * Byte | Bit(s)   | Use
 ; * -----+-76543210-+----------------
 ; *   0  | x------- | sprite enabled
+; *   0  | ----x--- | sprite size (0 = 16x16, 1 = 16x32)
 ; *   0  | -??????- | ?
 ; *   0  | -------x | y position (high bit)
 ; *   1  | xxxxxxxx | y position
 ; *   2  | ???????? | ?
 ; *   3  | ???----- | ?
-; *   3  | ---x---- | size (0 = 16x16, 1 = 16x32)
+; *   3  | ---x---- | or'd with sprite number?
 ; *   3  | ----?--- | ?
 ; *   3  | -----x-- | flip x
 ; *   3  | ------x- | flip y

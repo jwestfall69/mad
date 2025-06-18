@@ -5,7 +5,7 @@ OBJ_DIR=$(BUILD_DIR)/obj
 WORK_DIR=$(BUILD_DIR)/work
 
 VASM = vasm6809_mot
-VASM_FLAGS = -Fvobj -6309 -spaces -chklabels -Iinclude -I../../../common  -quiet
+VASM_FLAGS = -Fvobj -6309 -spaces -chklabels -Iinclude -I../../../common -quiet -wfail
 VLINK = vlink
 VLINK_FLAGS = -brawbin1 -T$(MAD_NAME).ld
 MKDIR = mkdir
@@ -25,6 +25,7 @@ OBJS = $(OBJ_DIR)/cpu/6309/src/crc32.o \
        $(OBJ_DIR)/cpu/6309/src/handlers/error.o \
        $(OBJ_DIR)/cpu/6309/src/handlers/memory_tests.o \
        $(OBJ_DIR)/cpu/6309/src/handlers/memory_viewer.o \
+       $(OBJ_DIR)/cpu/6309/src/handlers/memory_write.o \
        $(OBJ_DIR)/cpu/6309/src/handlers/menu.o \
        $(OBJ_DIR)/cpu/6309/src/handlers/sound.o \
        $(OBJ_DIR)/cpu/6309/src/handlers/sprite_deco_karnov_viewer.o \
@@ -43,6 +44,7 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/util.o \
         $(OBJ_DIR)/vector_table.o \
         $(OBJ_DIR)/version.o \
+        $(OBJ_DIR)/debug/sprite_debug.o \
         $(OBJ_DIR)/menus/debug.o \
         $(OBJ_DIR)/menus/graphics_viewer.o \
         $(OBJ_DIR)/menus/main.o \
