@@ -9,6 +9,7 @@
 	include "machine.inc"
 	include "mad.inc"
 
+	global k007121_10e_sprite_viewer_palette_setup
 	global k007121_10e_sprite_viewer
 
 	section code
@@ -16,7 +17,7 @@
 SPRITE_NUM_MASK		equ $3fff
 
 k007121_10e_sprite_viewer:
-		jsr	sprite_palette_setup
+		jsr	k007121_10e_sprite_palette_setup
 
 		ldx	#r_sprite_struct
 
@@ -87,7 +88,7 @@ draw_sprite_cb:
 
 ; Palette Layout
 ;  xBBB BBGG GGGR RRRR
-sprite_palette_setup:
+k007121_10e_sprite_palette_setup:
 		ldx	#d_palette_data
 		ldy	#K007121_10E_SPRITE_PALETTE
 		ldb	#PALETTE_SIZE

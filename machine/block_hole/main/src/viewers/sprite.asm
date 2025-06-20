@@ -10,6 +10,7 @@
 	include "mad.inc"
 
 	global sprite_viewer
+	global sprite_viewer_palette_setup
 
 	section code
 
@@ -21,7 +22,7 @@ sprite_viewer:
 		ldy	#d_str_title
 		RSUB	print_string
 
-		jsr	sprite_palette_setup
+		jsr	sprite_viewer_palette_setup
 
 		ldx	#r_sprite_struct
 
@@ -114,7 +115,7 @@ draw_sprite_cb:
 
 ; Palette Layout
 ;  xBBB BBGG GGGR RRRR
-sprite_palette_setup:
+sprite_viewer_palette_setup:
 		setln	#(SETLN_WATCHDOG_POLL|SETLN_SELECT_RAM_PALETTE)
 
 		ldx	#d_palette_data

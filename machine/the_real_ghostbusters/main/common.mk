@@ -25,7 +25,6 @@ OBJS = $(OBJ_DIR)/cpu/6309/src/crc32.o \
        $(OBJ_DIR)/cpu/6309/src/handlers/error.o \
        $(OBJ_DIR)/cpu/6309/src/handlers/memory_tests.o \
        $(OBJ_DIR)/cpu/6309/src/handlers/memory_viewer.o \
-       $(OBJ_DIR)/cpu/6309/src/handlers/memory_write.o \
        $(OBJ_DIR)/cpu/6309/src/handlers/menu.o \
        $(OBJ_DIR)/cpu/6309/src/handlers/sound.o \
        $(OBJ_DIR)/cpu/6309/src/handlers/sprite_deco_karnov_viewer.o \
@@ -44,7 +43,6 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/util.o \
         $(OBJ_DIR)/vector_table.o \
         $(OBJ_DIR)/version.o \
-        $(OBJ_DIR)/debug/sprite_debug.o \
         $(OBJ_DIR)/menus/debug.o \
         $(OBJ_DIR)/menus/graphics_viewer.o \
         $(OBJ_DIR)/menus/main.o \
@@ -61,6 +59,10 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/viewers/fix_tile.o \
         $(OBJ_DIR)/viewers/bac06_tile.o \
         $(OBJ_DIR)/viewers/sprite.o
+
+OBJS += $(OBJ_DIR)/cpu/6309/src/handlers/memory_write.o \
+        $(OBJ_DIR)/debug/hardware/sprite_debug.o \
+        $(OBJ_DIR)/menus/debug_hardware.o
 
 INCS = $(wildcard include/*.inc) \
        $(wildcard ../../../common/global/include/*.inc) \

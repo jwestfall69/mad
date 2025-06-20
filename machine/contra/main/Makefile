@@ -65,8 +65,9 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/viewers/k007121_18e_tile.o \
         $(OBJ_DIR)/viewers/tile_viewer_common.o
 
-OBJS += $(OBJ_DIR)/menus/debug_hardware.o \
-        $(OBJ_DIR)/cpu/6309/src/debug/hardware/watchdog_time.o \
+OBJS += $(OBJ_DIR)/cpu/6309/src/debug/hardware/watchdog_time.o \
+        $(OBJ_DIR)/cpu/6309/src/handlers/memory_write.o \
+        $(OBJ_DIR)/debug/hardware/sprite_debug.o \
         $(OBJ_DIR)/debug/hardware/sprite_draw_order.o \
         $(OBJ_DIR)/debug/hardware/sprite_max_common.o \
         $(OBJ_DIR)/debug/hardware/sprite_max_8x8.o \
@@ -75,7 +76,8 @@ OBJS += $(OBJ_DIR)/menus/debug_hardware.o \
         $(OBJ_DIR)/debug/hardware/sprite_max_16x16.o \
         $(OBJ_DIR)/debug/hardware/sprite_max_32x32.o \
         $(OBJ_DIR)/debug/hardware/sprite_max_column.o \
-        $(OBJ_DIR)/debug/hardware/sprite_max_row.o
+        $(OBJ_DIR)/debug/hardware/sprite_max_row.o \
+        $(OBJ_DIR)/menus/debug_hardware.o
 
 INCS = $(wildcard include/*.inc) \
        $(wildcard ../../../common/global/include/*.inc) \

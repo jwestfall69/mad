@@ -18,7 +18,7 @@ screen_init_dsub:
 		WATCHDOG
 
 		; font color
-		MEMORY_FILL16 #(PALETTE_RAM + 2), #$7, #$ffff
+		MEMORY_FILL16 #(FIX_TILE_PALETTE + 2), #$7, #$ffff
 		WATCHDOG
 
 		setln	#(SETLN_WATCHDOG_POLL|SETLN_SELECT_RAM_WORK)

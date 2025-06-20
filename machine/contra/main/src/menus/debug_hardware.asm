@@ -30,6 +30,7 @@ debug_hardware_menu:
 	section data
 
 d_menu_list:
+	MENU_ENTRY sprite_debug, d_str_sprite_debug
 	MENU_ENTRY sprite_draw_order, d_str_sprite_draw_order
 	MENU_ENTRY sprite_max_8x8, d_str_sprite_max_8x8
 	MENU_ENTRY sprite_max_8x16, d_str_sprite_max_8x16
@@ -43,6 +44,7 @@ d_menu_list:
 
 d_str_menu_title:		STRING "DEBUG HARDWARE MENU"
 
+d_str_sprite_debug:		STRING "SPRITE DEBUG"
 d_str_sprite_draw_order:	STRING "SPRITE DRAW ORDER"
 d_str_sprite_max_8x8:		STRING "SPRITE MAX 8X8"
 d_str_sprite_max_8x16:		STRING "SPRITE MAX 8X16"

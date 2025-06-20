@@ -1,8 +1,8 @@
 	include "global/include/macros.inc"
 	include "global/include/screen.inc"
-	include "cpu/6309/include/macros.inc"
-	include "cpu/6309/include/psub.inc"
-	include "cpu/6309/include/handlers/memory_write.inc"
+	include "cpu/konami2/include/dsub.inc"
+	include "cpu/konami2/include/macros.inc"
+	include "cpu/konami2/include/handlers/memory_write.inc"
 
 	include "machine.inc"
 
@@ -11,23 +11,35 @@
 	section code
 
 sprite_debug:
+		jsr	sprite_viewer_palette_setup
+
+		; bank to palette ram
+		setln	#(SETLN_WATCHDOG_POLL|SETLN_SELECT_RAM_PALETTE)
+
+		; highlight color
+		ldd	#$001f
+		std	FIX_TILE_PALETTE + PALETTE_SIZE + $16
+
+		setln	#(SETLN_WATCHDOG_POLL|SETLN_SELECT_RAM_WORK)
+
 		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 13)
 		ldy	#d_str_last_written
-		PSUB	print_string
+		RSUB	print_string
 
-		ldd	FIX_TILE
+		ldd	#FIX_TILE
 		std	r_old_highlight
 
 		; setup initial values
 		ldx	#r_mw_buffer
-		ldd	#$809f		; enable + y offset
+		ldd	#$ff60		; enabled + pri + size
 		std	, x
-		ldd	#$1		; another enable?
+		ldd	#$0400		; sprite code
 		std	2, x
-		ldd	#$39		; x offset
+		ldd	#$00b0		; y offset
 		std	4, x
-		ldd	#$102		; sprite num
+		ldd	#$0130		; x offset
 		std	6, x
+
 
 		ldx	#d_mw_settings
 		jsr	memory_write_handler
@@ -40,10 +52,10 @@ sprite_debug:
 highlight_cb:
 
 		ldy	r_old_highlight
-		clr	, y
+		clr	-$2000, y
 
-		lda	#$4
-		sta	, x
+		lda	#$20
+		sta	-$2000, x
 		stx	r_old_highlight
 		rts
 
@@ -59,12 +71,12 @@ write_memory_cb:
 		pshs	x
 		lda	r_x_offset
 		ldb	#SCREEN_START_Y + 15
-		PSUB	screen_seek_xy
+		RSUB	screen_seek_xy
 
 		ldd	, y++
-		pshs	d
-		PSUB	print_hex_word
-		puls	d
+		pshs	d,y
+		RSUB	print_hex_word
+		puls	y,d
 
 		puls	x
 		std	, x++
@@ -74,8 +86,6 @@ write_memory_cb:
 		sta	r_x_offset
 		dec	r_scratch
 		bne	.loop_next_word
-
-		PSUB	sprite_trigger_copy
 		rts
 
 loop_cb:
@@ -85,7 +95,6 @@ loop_cb:
 	section data
 
 d_mw_settings:		MW_SETTINGS 8, r_mw_buffer, highlight_cb, write_memory_cb, loop_cb
-;d_mw_settings:		MW_SETTINGS 3, $dc0c, highlight_cb, write_memory_cb, loop_cb
 d_str_last_written:	STRING "LAST WRITTEN"
 
 	section bss

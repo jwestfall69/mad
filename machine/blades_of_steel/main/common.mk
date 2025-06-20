@@ -61,6 +61,11 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/viewers/sprite.o \
         $(OBJ_DIR)/viewers/tile_viewer_common.o
 
+OBJS += $(OBJ_DIR)/cpu/6309/src/debug/hardware/watchdog_time.o \
+        $(OBJ_DIR)/cpu/6309/src/handlers/memory_write.o \
+        $(OBJ_DIR)/debug/hardware/sprite_debug.o \
+        $(OBJ_DIR)/menus/debug_hardware.o
+
 INCS = $(wildcard include/*.inc) \
        $(wildcard ../../../common/global/include/*.inc) \
        $(wildcard ../../../common/cpu/6309/include/*.inc) \
