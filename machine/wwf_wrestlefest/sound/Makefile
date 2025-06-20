@@ -1,13 +1,13 @@
 MAD_NAME=mad_wwfwfest
 ROM_SIZE=65536
-BUILD_FLAGS=-D_HEADLESS_
+BUILD_FLAGS=-D_CPU_Z80_ -D_HEADLESS_
 BUILD_DIR=build
 OBJ_DIR=$(BUILD_DIR)/obj
 WORK_DIR=$(BUILD_DIR)/work
 ROM=31a11-2.ic42
 
 VASM = vasmz80_mot
-VASM_FLAGS = -Fvobj -spaces -chklabels -Iinclude -I../../../common  -quiet
+VASM_FLAGS = -Fvobj -spaces -chklabels -Iinclude -I../../../common -wfail -quiet
 VLINK = vlink
 VLINK_FLAGS = -brawbin1 -T$(MAD_NAME).ld
 MKDIR = mkdir

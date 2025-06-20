@@ -1,4 +1,4 @@
-BUILD_FLAGS=
+BUILD_FLAGS=-D_CPU_6309_
 BUILD_DIR=build/hardware
 
 include common.mk

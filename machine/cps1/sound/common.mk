@@ -1,11 +1,11 @@
 MAD_NAME=mad_cps1
-BUILD_FLAGS=-D_HEADLESS_
+BUILD_FLAGS=-D_CPU_Z80_ -D_HEADLESS_
 BUILD_DIR=build/$(ROMSET)
 OBJ_DIR=$(BUILD_DIR)/obj
 WORK_DIR=$(BUILD_DIR)/work
 
 VASM = vasmz80_mot
-VASM_FLAGS = -Fvobj -spaces -chklabels -Iinclude -I../../../common  -quiet
+VASM_FLAGS = -Fvobj -spaces -chklabels -Iinclude -I../../../common -wfail -quiet
 VLINK = vlink
 VLINK_FLAGS = -brawbin1 -T$(MAD_NAME).ld
 MKDIR = mkdir

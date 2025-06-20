@@ -1,13 +1,13 @@
 MAD_NAME=mad_contra
 ROM_SIZE=65536
-BUILD_FLAGS=-D_SCREEN_TATE_
+BUILD_FLAGS=-D_CPU_6309_ -D_SCREEN_TATE_
 BUILD_DIR=build
 OBJ_DIR=$(BUILD_DIR)/obj
 WORK_DIR=$(BUILD_DIR)/work
 ROM=633m03.18a
 
 VASM = vasm6809_mot
-VASM_FLAGS = -Fvobj -6309 -spaces -chklabels -Iinclude -I../../../common  -quiet
+VASM_FLAGS = -Fvobj -6309 -spaces -chklabels -Iinclude -I../../../common -wfail -quiet
 VLINK = vlink
 VLINK_FLAGS = -brawbin1 -T$(MAD_NAME).ld
 MKDIR = mkdir

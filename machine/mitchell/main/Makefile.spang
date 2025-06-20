@@ -2,6 +2,6 @@ ROM_SIZE=32768
 ROM=spe_06.11h
 
 BUILD_DIR=build/spang
-BUILD_FLAGS=-D_ROMSET_SPANG_
+BUILD_FLAGS=-D_CPU_Z80_ -D_ROMSET_SPANG_
 
 include common.mk

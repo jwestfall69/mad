@@ -2,14 +2,14 @@ MAD_NAME=mad_tmnt
 ROM_SIZE=262144
 ROMA=963-x23.j17
 ROMB=963-x24.k17
-BUILD_FLAGS=-D_STALL_DELAY_
+BUILD_FLAGS=-D_CPU_68000_ -D_STALL_DELAY_
 
 BUILD_DIR=build
 OBJ_DIR=$(BUILD_DIR)/obj
 WORK_DIR=$(BUILD_DIR)/work
 
 VASM = vasmm68k_mot
-VASM_FLAGS = -Fvobj -m68000 -spaces -chklabels -Iinclude -I../../../common/  -quiet
+VASM_FLAGS = -Fvobj -m68000 -spaces -chklabels -Iinclude -I../../../common/ -wfail -quiet
 VLINK = vlink
 VLINK_FLAGS = -brawbin1 -T$(MAD_NAME).ld
 MKDIR = mkdir

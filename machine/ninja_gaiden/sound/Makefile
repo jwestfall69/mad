@@ -1,13 +1,13 @@
 MAD_NAME=mad_gaiden
 ROM_SIZE=65536
-BUILD_FLAGS=-D_HEADLESS_
+BUILD_FLAGS=-D_CPU_Z80_ -D_HEADLESS_
 BUILD_DIR=build
 OBJ_DIR=$(BUILD_DIR)/obj
 WORK_DIR=$(BUILD_DIR)/work
 ROM=gaiden_3.4b
 
 VASM = vasmz80_mot
-VASM_FLAGS = -Fvobj -spaces -chklabels -Iinclude -I../../../common  -quiet
+VASM_FLAGS = -Fvobj -spaces -chklabels -Iinclude -I../../../common -wfail -quiet
 VLINK = vlink
 VLINK_FLAGS = -brawbin1 -T$(MAD_NAME).ld
 MKDIR = mkdir

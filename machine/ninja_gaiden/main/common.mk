@@ -4,7 +4,7 @@ ROMA=gaiden_1.3s
 ROMB=gaiden_2.4s
 
 VASM = vasmm68k_mot
-VASM_FLAGS = -Fvobj -m68000 -spaces -chklabels -Iinclude -I../../../common/  -quiet
+VASM_FLAGS = -Fvobj -m68000 -spaces -chklabels -Iinclude -I../../../common/ -wfail -quiet
 VLINK = vlink
 VLINK_FLAGS = -brawbin1 -T$(MAD_NAME).ld
 MKDIR = mkdir

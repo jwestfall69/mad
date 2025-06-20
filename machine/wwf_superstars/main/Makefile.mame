@@ -6,6 +6,6 @@ ROMB=24ad-0_j-1.35
 BUILD_DIR=build/mame
 OBJ_DIR=$(BUILD_DIR)/obj
 WORK_DIR=$(BUILD_DIR)/work
-BUILD_FLAGS=-D_MAME_BUILD_
+BUILD_FLAGS=-D_CPU_68000_ -D_MAME_BUILD_
 
 include common.mk

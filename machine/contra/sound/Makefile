@@ -1,5 +1,5 @@
 MAD_NAME=mad_contra
-BUILD_FLAGS=-D_HEADLESS_
+BUILD_FLAGS=-D_CPU_6809_ -D_HEADLESS_
 ROM_SIZE=32768
 BUILD_DIR=build
 OBJ_DIR=$(BUILD_DIR)/obj
@@ -7,7 +7,7 @@ WORK_DIR=$(BUILD_DIR)/work
 ROM=633e01.12a
 
 VASM = vasm6809_mot
-VASM_FLAGS = -Fvobj -spaces -chklabels -Iinclude -I../../../common  -quiet
+VASM_FLAGS = -Fvobj -spaces -chklabels -Iinclude -I../../../common -wfail -quiet
 VLINK = vlink
 VLINK_FLAGS = -brawbin1 -T$(MAD_NAME).ld
 MKDIR = mkdir

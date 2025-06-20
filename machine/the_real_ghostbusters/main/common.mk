@@ -5,7 +5,7 @@ OBJ_DIR=$(BUILD_DIR)/obj
 WORK_DIR=$(BUILD_DIR)/work
 
 VASM = vasm6809_mot
-VASM_FLAGS = -Fvobj -6309 -spaces -chklabels -Iinclude -I../../../common -quiet -wfail
+VASM_FLAGS = -Fvobj -6309 -spaces -chklabels -Iinclude -I../../../common -wfail -quiet
 VLINK = vlink
 VLINK_FLAGS = -brawbin1 -T$(MAD_NAME).ld
 MKDIR = mkdir

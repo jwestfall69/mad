@@ -1,5 +1,5 @@
 MAD_NAME=mad_aliens
-BUILD_FLAGS=
+BUILD_FLAGS=-D_CPU_KONAMI2_
 ROM_SIZE=65536
 BUILD_DIR=build
 OBJ_DIR=$(BUILD_DIR)/obj
@@ -7,7 +7,7 @@ WORK_DIR=$(BUILD_DIR)/work
 ROM=875_j02.e24
 
 VASM = vasm6809_mot
-VASM_FLAGS = -konami2 -Fvobj -spaces -chklabels -Iinclude -I../../../common  -quiet
+VASM_FLAGS = -konami2 -Fvobj -spaces -chklabels -Iinclude -I../../../common -wfail -quiet
 VLINK = vlink
 VLINK_FLAGS = -brawbin1 -T$(MAD_NAME).ld
 MKDIR = mkdir

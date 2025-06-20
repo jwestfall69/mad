@@ -6,6 +6,6 @@ ROMB=31e13-0.ic19
 BUILD_DIR=build/hardware-27c010
 OBJ_DIR=$(BUILD_DIR)/obj
 WORK_DIR=$(BUILD_DIR)/work
-BUILD_FLAGS=
+BUILD_FLAGS=-D_CPU_68000_
 
 include common.mk

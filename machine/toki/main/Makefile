@@ -2,13 +2,14 @@ MAD_NAME=mad_toki
 ROM_SIZE=262144
 ROMA=6e.m10
 ROMB=4e.k10
+BUILD_FLAGS=-D_CPU_68000_
 
 BUILD_DIR=build
 OBJ_DIR=$(BUILD_DIR)/obj
 WORK_DIR=$(BUILD_DIR)/work
 
 VASM = vasmm68k_mot
-VASM_FLAGS = -Fvobj -m68000 -spaces -chklabels -Iinclude -I../../../common/  -quiet
+VASM_FLAGS = -Fvobj -m68000 -spaces -chklabels -Iinclude -I../../../common/ -wfail -quiet
 VLINK = vlink
 VLINK_FLAGS = -brawbin1 -T$(MAD_NAME).ld
 MKDIR = mkdir
@@ -73,11 +74,11 @@ src/version.asm:
 
 $(OBJ_DIR)/%.o: src/%.asm $(INCS)
 	@[ -d "$(@D)" ] || $(MKDIR) -p "$(@D)"
-	$(VASM) $(VASM_FLAGS) -o $@ $<
+	$(VASM) $(VASM_FLAGS) $(BUILD_FLAGS) -o $@ $<
 
 $(OBJ_DIR)/cpu/68000/src/%.o: ../../../common/cpu/68000/src/%.asm $(INCS)
 	@[ -d "$(@D)" ] || $(MKDIR) -p "$(@D)"
-	$(VASM) $(VASM_FLAGS) -o $@ $<
+	$(VASM) $(VASM_FLAGS) $(BUILD_FLAGS) -o $@ $<
 
 $(WORK_DIR):
 	$(MKDIR) -p $(WORK_DIR)

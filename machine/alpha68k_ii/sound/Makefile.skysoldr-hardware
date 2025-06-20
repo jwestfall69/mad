@@ -1,5 +1,5 @@
 ROM=ss.7
 BUILD_DIR=build/skysoldr/hardware
-BUILD_FLAGS=-D_YM2203_NO_READ_ -D_HEADLESS_
+BUILD_FLAGS=-D_CPU_Z80_ -D_YM2203_NO_READ_ -D_HEADLESS_
 
 include common.mk

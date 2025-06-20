@@ -2,6 +2,6 @@ ROM_SIZE=32768
 ROM=pwe_06.11h
 
 BUILD_DIR=build/pang
-BUILD_FLAGS=-D_ROMSET_PANG_
+BUILD_FLAGS=-D_CPU_Z80_ -D_ROMSET_PANG_
 
 include common.mk
