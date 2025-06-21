@@ -119,7 +119,4 @@ The color palette is the one the game uses for the player.  So the colors for th
 be correct, but maybe completely wrong for other sprites.
 
 ## MAME vs Hardware
-* MAME has NMIs force enabled.  Schematics shows NMIs come from 051733
-  custom chip, so assume something must be written to it to enable them.  Having
-  them force enabled breaks manual work ram tests in MAME, since the NMI will
-  cause writes to the stack/work ram.  The test has been disabled in MAME.
+Nothing that required a MAME specific build

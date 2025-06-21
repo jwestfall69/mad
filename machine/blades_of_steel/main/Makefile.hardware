@@ -1,6 +1,0 @@
-BUILD_DIR=build/hardware
-OBJ_DIR=$(BUILD_DIR)/obj
-WORK_DIR=$(BUILD_DIR)/work
-BUILD_FLAGS=-D_CPU_6309_ -D_SCREEN_TATE_
-
-include common.mk

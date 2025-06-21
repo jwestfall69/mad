@@ -35,11 +35,7 @@ d_menu_list:
 	MENU_ENTRY manual_palette_ram_tests, d_str_palette_ram
 	MENU_ENTRY manual_sprite_ram_tests, d_str_sprite_ram
 	MENU_ENTRY manual_tile_ram_tests, d_str_tile_ram
-	ifd _MAME_BUILD_
-		MENU_ENTRY mame_test_disabled, d_str_work_ram
-	else
-		MENU_ENTRY manual_work_ram_tests, d_str_work_ram
-	endif
+	MENU_ENTRY manual_work_ram_tests, d_str_work_ram
 	MENU_LIST_END
 
 d_str_menu_title:		STRING "RAM TESTS"
