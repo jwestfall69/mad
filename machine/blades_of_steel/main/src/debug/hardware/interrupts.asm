@@ -19,7 +19,7 @@ interrupts_debug:
 		ldy	#d_xys_screen_list
 		RSUB	print_xy_string_list
 
-		ldd	#LAYER_A_TILE_PALETTE
+		ldd	#LAYER_A_TILE
 		std	r_old_highlight
 
 		clrd

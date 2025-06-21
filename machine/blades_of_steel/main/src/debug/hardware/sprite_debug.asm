@@ -20,7 +20,7 @@ sprite_debug:
 		ldy	#d_str_last_written
 		RSUB	print_string
 
-		ldd	#LAYER_A_TILE_PALETTE
+		ldd	#LAYER_A_TILE
 		std	r_old_highlight
 
 		; setup initial values
