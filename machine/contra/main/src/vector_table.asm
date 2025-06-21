@@ -14,9 +14,15 @@
 
 irq_handler:
 		pshs	d
+		lda	#$0
+		sta	$0007
+
 		ldd	r_irq_vblank_count
 		incd
 		std	r_irq_vblank_count
+
+		lda	#$2
+		sta	$0007
 		puls	d
 		rti
 
