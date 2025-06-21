@@ -1,8 +1,8 @@
 	include "global/include/macros.inc"
 	include "global/include/screen.inc"
 	include "global/include/sprite/dataeast/karnov.inc"
+	include "cpu/6309/include/dsub.inc"
 	include "cpu/6309/include/macros.inc"
-	include "cpu/6309/include/psub.inc"
 	include "cpu/6309/include/xy_string.inc"
 
 	include "input.inc"
@@ -77,7 +77,7 @@ draw_sprite_cb:
 		ldd	s_se_num, y
 		std	SPRITE_RAM + 6
 
-		PSUB	sprite_trigger_copy
+		RSUB	sprite_trigger_copy
 		rts
 
 	section bss

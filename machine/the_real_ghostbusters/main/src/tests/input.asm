@@ -1,8 +1,8 @@
+	include "global/include/screen.inc"
+	include "cpu/6309/include/dsub.inc"
 	include "cpu/6309/include/macros.inc"
-	include "cpu/6309/include/psub.inc"
 	include "cpu/6309/include/xy_string.inc"
 	include "cpu/6309/include/tests/input.inc"
-	include "global/include/screen.inc"
 
 	include "input.inc"
 	include "machine.inc"
@@ -13,7 +13,7 @@
 
 input_test:
 		ldy	#d_screen_xys_list
-		PSUB	print_xy_string_list
+		RSUB	print_xy_string_list
 
 		clrd
 		std	r_irq_vblank_count
@@ -46,11 +46,11 @@ input_test:
 
 		SEEK_XY	(SCREEN_START_X + 18), (SCREEN_START_Y + 3)
 		ldd	r_irq_vblank_count
-		PSUB	print_hex_word
+		RSUB	print_hex_word
 
 		SEEK_XY	(SCREEN_START_X + 18), (SCREEN_START_Y + 4)
 		ldd	r_pulse_vblank_count
-		PSUB	print_hex_word
+		RSUB	print_hex_word
 
 
 		lda	REG_INPUT

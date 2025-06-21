@@ -1,17 +1,17 @@
+	include "cpu/6309/include/dsub.inc"
 	include "cpu/6309/include/macros.inc"
-	include "cpu/6309/include/psub.inc"
 
 	include "input.inc"
 	include "machine.inc"
 	include "mad.inc"
 
-	global delay_psub
-	global memory_rewrite_psub
+	global delay_dsub
+	global memory_rewrite_dsub
 	global joystick_update_byte
 	global joystick_lr_update_byte
 	global joystick_update_word
 	global joystick_lr_update_word
-	global sound_play_byte_psub
+	global sound_play_byte_dsub
 	global wait_button_press
 	global wait_button_release
 
@@ -21,7 +21,7 @@
 
 ; params:
 ;  w = number of loops
-delay_psub:
+delay_dsub:
 		cmpd	#0		; 4 cycles
 		cmpd	#0		; 4 cycles
 		cmpd	#0		; 4 cycles
@@ -33,19 +33,19 @@ delay_psub:
 		cmpd	#0		; 4 cycles
 		cmpd	#0		; 4 cycles
 		decw			; 3 cycles
-		bne	 delay_psub 	; 2 cycles
-		PSUB_RETURN
+		bne	 delay_dsub 	; 2 cycles
+		DSUB_RETURN
 
 ; params:
 ;  w = size
 ;  x = start address
-memory_rewrite_psub:
+memory_rewrite_dsub:
 		WATCHDOG
 		lda	,x
 		sta	,x+
 		decw
-		bne	memory_rewrite_psub
-		PSUB_RETURN
+		bne	memory_rewrite_dsub
+		DSUB_RETURN
 
 ; Looking at joystick input, adjust the byte in memory by
 ;  +$1 for UP
@@ -239,7 +239,7 @@ joystick_lr_update_word:
 
 ; params:
 ;  a = byte to play
-sound_play_byte_psub:
+sound_play_byte_dsub:
 		tfr	a, b
 		lde	#$8
 
@@ -265,7 +265,7 @@ sound_play_byte_psub:
 
 		dece
 		bne	.loop_next_bit
-		PSUB_RETURN
+		DSUB_RETURN
 
 ; stall until the passed button is pressed
 ; params:
@@ -281,7 +281,7 @@ wait_button_press:
 		beq	.pressed
 
 		ldw	#$1ff
-		PSUB	delay
+		RSUB	delay
 		bra	.loop_input
 
 	.pressed:
@@ -303,7 +303,7 @@ wait_button_release:
 		bne	.released
 
 		ldw	#$1ff
-		PSUB	delay
+		RSUB	delay
 		bra	.loop_input
 
 	.released:

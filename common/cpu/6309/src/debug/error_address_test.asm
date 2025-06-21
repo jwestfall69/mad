@@ -1,8 +1,8 @@
 	include "global/include/macros.inc"
 	include "global/include/screen.inc"
+	include "cpu/6309/include/dsub.inc"
 	include "cpu/6309/include/error_codes.inc"
 	include "cpu/6309/include/macros.inc"
-	include "cpu/6309/include/psub.inc"
 	include "cpu/6309/include/xy_string.inc"
 
 	include "input.inc"
@@ -15,11 +15,11 @@
 
 error_address_test:
 		ldy	#d_screen_xys_list
-		PSUB	print_xy_string_list
+		RSUB	print_xy_string_list
 
 		SEEK_XY (SCREEN_START_X + 17), (SCREEN_START_Y + 5)
 		lda	#EC_MASK
-		PSUB	print_hex_byte
+		RSUB	print_hex_byte
 
 		ldf	#$1
 
@@ -28,7 +28,7 @@ error_address_test:
 		tfr	f, a
 		anda	#EC_MASK
 		tfr	a, f
-		PSUB	print_hex_byte
+		RSUB	print_hex_byte
 
 		tfr	f, a
 		clrb
@@ -40,7 +40,7 @@ error_address_test:
 
 		SEEK_XY	(SCREEN_START_X + 15), (SCREEN_START_Y + 7)
 		pshsw
-		PSUB	print_hex_word
+		RSUB	print_hex_word
 		pulsw
 
 	.loop_input:
@@ -79,7 +79,7 @@ error_address_test:
 
 		SEEK_XY SCREEN_START_X, (SCREEN_START_Y + 12)
 		ldy	#d_str_triggered
-		PSUB	print_string
+		RSUB	print_string
 
 		tfr	f, a
 		jmp	error_address

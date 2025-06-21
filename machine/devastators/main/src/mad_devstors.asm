@@ -1,6 +1,6 @@
 	include "global/include/macros.inc"
+	include "cpu/6309/include/dsub.inc"
 	include "cpu/6309/include/macros.inc"
-	include "cpu/6309/include/psub.inc"
 
 	include "machine.inc"
 	include "mad.inc"
@@ -10,6 +10,8 @@
 	section code
 
 _start:
+		INTS_DISABLE
+
 		ldd	#$1380
 		sta	$7c00	; reset of customs? no rendering without
 		stb	$1f80	; bank switch
@@ -29,6 +31,8 @@ _start:
 		sta	$1e80	; screen flip
 		stb	$3800	; irq?
 
+		DSUB_MODE_PSUB
+
 		SOUND_STOP
 
 		PSUB	screen_init
@@ -36,13 +40,11 @@ _start:
 		PSUB	auto_mad_rom_crc32_test
 		PSUB	auto_work_ram_tests
 
-		lds	#(WORK_RAM + WORK_RAM_SIZE - 2)
+		DSUB_MODE_RSUB
+
 		jsr	auto_func_tests
 
 		lda	#SOUND_NUM_SUCCESS
 		SOUND_PLAY
 
 		jsr	main_menu
-
-	section data
-DERP:	STRING "DERP"

@@ -1,5 +1,5 @@
+	include "cpu/6309/include/dsub.inc"
 	include "cpu/6309/include/macros.inc"
-	include "cpu/6309/include/psub.inc"
 	include "cpu/6309/include/handlers/auto_test.inc"
 	include "global/include/screen.inc"
 
@@ -18,12 +18,12 @@ auto_test_func_handler:
 		beq	.all_tests_done
 
 		SEEK_LN	SCREEN_START_Y
-		PSUB	print_clear_line
+		RSUB	print_clear_line
 
 		pshs	y
 		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
 		ldy	s_at_name_ptr, y
-		PSUB	print_string
+		RSUB	print_string
 		puls	y
 		pshs	y
 
@@ -33,7 +33,7 @@ auto_test_func_handler:
 
 		; re-init the screen since the test may have
 		; screwed it up
-		PSUB	screen_init
+		RSUB	screen_init
 
 		puls	y
 		leay	s_at_struct_size, y

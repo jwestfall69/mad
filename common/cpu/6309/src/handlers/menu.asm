@@ -1,5 +1,5 @@
+	include "cpu/6309/include/dsub.inc"
 	include "cpu/6309/include/macros.inc"
-	include "cpu/6309/include/psub.inc"
 	include "cpu/6309/include/handlers/menu.inc"
 	include "global/include/screen.inc"
 
@@ -77,19 +77,19 @@ menu_handler:
 		lda	#MENU_X_OFFSET
 		tfr	f, b
 		addb	#MENU_Y_OFFSET
-		PSUB	screen_seek_xy
+		RSUB	screen_seek_xy
 
 		lda	#CURSOR_CLEAR_CHAR
-		PSUB	print_char
+		RSUB	print_char
 
 		; draw new cursor location
 		lda	#MENU_X_OFFSET
 		tfr	e, b
 		addb	#MENU_Y_OFFSET
-		PSUB	screen_seek_xy
+		RSUB	screen_seek_xy
 
 		lda	#CURSOR_CHAR
-		PSUB	print_char
+		RSUB	print_char
 		puls	b
 
 		bra	.loop_menu_input
@@ -97,7 +97,7 @@ menu_handler:
 	.menu_entry_run:
 		ste	r_menu_cursor
 
-		PSUB	screen_init
+		RSUB	screen_init
 
 		; convert into the array offset
 		; for the selected menu item
@@ -113,7 +113,7 @@ menu_handler:
 
 		SEEK_XY SCREEN_START_X, SCREEN_START_Y
 		ldy	s_me_name_ptr, y
-		PSUB	print_string
+		RSUB	print_string
 		puls	y
 
 		lde	r_menu_cursor
@@ -143,8 +143,8 @@ print_menu_list:
 		lda	#(MENU_X_OFFSET + 1)
 		ldb	#MENU_Y_OFFSET
 		addr	e, b
-		PSUB	screen_seek_xy
-		PSUB	print_string
+		RSUB	screen_seek_xy
+		RSUB	print_string
 
 		puls	x, d, y
 		leay	s_me_struct_size, y		; got next entry

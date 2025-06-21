@@ -1,5 +1,5 @@
+	include "cpu/6309/include/dsub.inc"
 	include "cpu/6309/include/macros.inc"
-	include "cpu/6309/include/psub.inc"
 	include "global/include/screen.inc"
 
 	include "input.inc"
@@ -18,7 +18,7 @@ sound_test_handler:
 	.loop_test:
 		SEEK_XY	(SCREEN_START_X + 12), (SCREEN_START_Y + 6)
 		lda	r_sound_num
-		PSUB	print_hex_byte
+		RSUB	print_hex_byte
 
 		WATCHDOG
 		pshs	b

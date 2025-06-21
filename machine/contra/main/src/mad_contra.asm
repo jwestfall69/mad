@@ -1,5 +1,5 @@
+	include "cpu/6309/include/dsub.inc"
 	include "cpu/6309/include/macros.inc"
-	include "cpu/6309/include/psub.inc"
 
 	include "machine.inc"
 	include "mad.inc"
@@ -52,10 +52,14 @@ _start:
 		sta	$00f2	; ?
 		sta	$00fa	; ?
 
+		DSUB_MODE_PSUB
+
 		PSUB	screen_init
 		PSUB	auto_mad_rom_address_test
 		PSUB	auto_mad_rom_crc32_test
 		PSUB	auto_work_ram_tests
+
+		DSUB_MODE_RSUB
 
 		lds	#(WORK_RAM + WORK_RAM_SIZE - 2)
 		jsr	auto_func_tests

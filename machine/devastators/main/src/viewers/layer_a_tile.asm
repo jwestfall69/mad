@@ -1,7 +1,7 @@
 	include "global/include/macros.inc"
 	include "global/include/screen.inc"
+	include "cpu/6309/include/dsub.inc"
 	include "cpu/6309/include/macros.inc"
-	include "cpu/6309/include/psub.inc"
 	include "cpu/6309/include/xy_string.inc"
 
 	include "machine.inc"
@@ -14,7 +14,7 @@
 TILE_OFFSET_MASK	equ $1fff
 
 layer_a_tile_viewer:
-		PSUB	screen_init
+		RSUB	screen_init
 
 		; shift over layer a so its the same offset as fix
 		lda	#$6
@@ -25,7 +25,7 @@ layer_a_tile_viewer:
 
 		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
 		ldy	#d_str_title
-		PSUB	print_string
+		RSUB	print_string
 
 		clrd
 		ldw	#TILE_OFFSET_MASK
@@ -35,7 +35,7 @@ layer_a_tile_viewer:
 		rts
 
 layer_a_seek_xy_cb:
-		PSUB	screen_seek_xy
+		RSUB	screen_seek_xy
 
 		; convert fix location to layer a
 		leax	$800, x

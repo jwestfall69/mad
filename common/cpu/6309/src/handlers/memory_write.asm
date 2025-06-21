@@ -1,7 +1,7 @@
 	include "global/include/macros.inc"
 	include "global/include/screen.inc"
+	include "cpu/6309/include/dsub.inc"
 	include "cpu/6309/include/macros.inc"
-	include "cpu/6309/include/psub.inc"
 	include "cpu/6309/include/xy_string.inc"
 	include "cpu/6309/include/handlers/memory_write.inc"
 
@@ -42,7 +42,7 @@ memory_write_handler:
 		clr	r_active_byte
 
 		ldy	#d_screen_xys_list
-		PSUB	print_xy_string_list
+		RSUB	print_xy_string_list
 
 	.loop_redraw_data:
 		jsr	print_data
@@ -53,7 +53,7 @@ memory_write_handler:
 		ldb	#START_ROW
 		addb	r_active_byte
 
-		PSUB	screen_seek_xy
+		RSUB	screen_seek_xy
 
 		ldy	r_mw_settings
 		jsr	[s_mw_highlight_cb, y]
@@ -148,20 +148,20 @@ print_data:
 		lda	#START_COLUMN
 		ldb	#START_ROW
 		addb	r_scratch
-		PSUB	screen_seek_xy
+		RSUB	screen_seek_xy
 
 		ldb	r_scratch
 		lda	b, y
-		PSUB	print_bits_byte
+		RSUB	print_bits_byte
 
 		lda	#START_COLUMN + 10
 		ldb	#START_ROW
 		addb	r_scratch
-		PSUB	screen_seek_xy
+		RSUB	screen_seek_xy
 
 		ldb	r_scratch
 		lda	b, y
-		PSUB	print_hex_byte
+		RSUB	print_hex_byte
 
 		dec	r_scratch
 		bpl	.print_next_byte

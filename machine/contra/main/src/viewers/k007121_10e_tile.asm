@@ -1,7 +1,7 @@
 	include "global/include/macros.inc"
 	include "global/include/screen.inc"
+	include "cpu/6309/include/dsub.inc"
 	include "cpu/6309/include/macros.inc"
-	include "cpu/6309/include/psub.inc"
 	include "cpu/6309/include/xy_string.inc"
 
 	include "machine.inc"
@@ -14,14 +14,14 @@
 TILE_OFFSET_MASK	equ $3fff
 
 k007121_10e_tile_viewer:
-		PSUB	screen_init
+		RSUB	screen_init
 
 		ldy	#K007121_10E_TILE_A_PALETTE
 		jsr	tvc_init
 
 		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
 		ldy	#d_str_title
-		PSUB	print_string
+		RSUB	print_string
 
 		ldd	#$0
 		ldw	#TILE_OFFSET_MASK
@@ -31,7 +31,7 @@ k007121_10e_tile_viewer:
 		rts
 
 seek_xy_cb:
-		PSUB	screen_seek_xy
+		RSUB	screen_seek_xy
 		rts
 
 ; params:
@@ -43,7 +43,7 @@ seek_xy_cb:
 ;  T = tile num
 draw_tile_cb:
 		exg	b, a
-		PSUB	print_byte
+		RSUB	print_byte
 
 		lda	#$b6
 		bitb	#$20

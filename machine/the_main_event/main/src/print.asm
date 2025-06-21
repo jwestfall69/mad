@@ -1,24 +1,24 @@
+	include "cpu/6309/include/dsub.inc"
 	include "cpu/6309/include/macros.inc"
-	include "cpu/6309/include/psub.inc"
 
 	include "machine.inc"
 
-	global print_bits_byte_psub
-	global print_byte_psub
-	global print_char_psub
-	global print_char_repeat_psub
-	global print_clear_line_psub
-	global print_hex_byte_psub
-	global print_hex_nibble_psub
-	global print_hex_word_psub
-	global print_string_psub
+	global print_bits_byte_dsub
+	global print_byte_dsub
+	global print_char_dsub
+	global print_char_repeat_dsub
+	global print_clear_line_dsub
+	global print_hex_byte_dsub
+	global print_hex_nibble_dsub
+	global print_hex_word_dsub
+	global print_string_dsub
 
 	section code
 
 ; params:
 ;  a = byte
 ;  x = location in tile ram
-print_bits_byte_psub:
+print_bits_byte_dsub:
 		; printing backwards
 		leax	7, x
 		lde	#$8
@@ -36,21 +36,21 @@ print_bits_byte_psub:
 
 		dece
 		bne	.loop_next_nibble
-		PSUB_RETURN
+		DSUB_RETURN
 
 
 
 ; params:
 ;  a = raw byte
 ;  x = location in tile ram
-print_byte_psub:
+print_byte_dsub:
 		sta	,x
-		PSUB_RETURN
+		DSUB_RETURN
 
 ; params:
 ;  a = char
 ;  x = location in tile ram
-print_char_psub:
+print_char_dsub:
 		; Deal with annoying tile font
 		cmpa	#' '
 		bne	.not_space
@@ -91,13 +91,13 @@ print_char_psub:
 
 	.do_print:
 		sta	,x
-		PSUB_RETURN
+		DSUB_RETURN
 
 ; params:
 ;  a = char
 ;  b = number of times
 ;  x = start location in tile ram
-print_char_repeat_psub:
+print_char_repeat_dsub:
 
 	; Not doing anything fancy like on print_string
 	; as only screen_clear calls this. It can just
@@ -106,19 +106,19 @@ print_char_repeat_psub:
 		sta	,x+
 		decb
 		bne	.loop_next_char
-	PSUB_RETURN
+	DSUB_RETURN
 
 ; params:
 ;  x = start location in tile ram
-print_clear_line_psub:
+print_clear_line_dsub:
 	lda	#$fe
 	ldb	#$24
-	bra	print_char_repeat_psub
+	bra	print_char_repeat_dsub
 
 ; params:
 ;  a = byte
 ;  x = start location in tile ram
-print_hex_byte_psub:
+print_hex_byte_dsub:
 
 		; printing backwards
 		leax	1, x
@@ -140,22 +140,22 @@ print_hex_byte_psub:
 
 		dece
 		bne	.loop_next_nibble
-		PSUB_RETURN
+		DSUB_RETURN
 
 ; params:
 ;  a = nibble
 ;  x = start location in tile ram
-print_hex_nibble_psub:
+print_hex_nibble_dsub:
 
 		anda	#$f
 		adda	#$ac		; gets us the font which is 0-9,A-Z
 		sta	,x
-		PSUB_RETURN
+		DSUB_RETURN
 
 ; params:
 ;  d = word
 ;  x = start location in tile ram
-print_hex_word_psub:
+print_hex_word_dsub:
 
 		; printing backwards
 		leax	3, x
@@ -177,13 +177,13 @@ print_hex_word_psub:
 
 		dece
 		bne	.loop_next_nibble
-		PSUB_RETURN
+		DSUB_RETURN
 
 
 ; params:
 ;  x = start location in tile ram
 ;  y = start address of string
-print_string_psub:
+print_string_dsub:
 		lda	,y+
 
 	; Deal with annoying tile font
@@ -229,4 +229,4 @@ print_string_psub:
 		sta	,x+
 		lda	,y+
 		bne	.loop_next_char
-	PSUB_RETURN
+	DSUB_RETURN

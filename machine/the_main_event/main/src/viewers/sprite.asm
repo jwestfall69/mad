@@ -1,8 +1,8 @@
 	include "global/include/macros.inc"
 	include "global/include/screen.inc"
 	include "global/include/sprite/konami/k051960.inc"
+	include "cpu/6309/include/dsub.inc"
 	include "cpu/6309/include/macros.inc"
-	include "cpu/6309/include/psub.inc"
 	include "cpu/6309/include/xy_string.inc"
 
 	include "input.inc"
@@ -17,11 +17,11 @@
 SPRITE_NUM_MASK		equ $1fff
 
 sprite_viewer:
-		PSUB	screen_init
+		RSUB	screen_init
 
 		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
 		ldy	#d_str_title
-		PSUB	print_string
+		RSUB	print_string
 
 		jsr	sprite_viewer_palette_setup
 

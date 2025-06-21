@@ -1,7 +1,7 @@
 	include "global/include/macros.inc"
 	include "global/include/screen.inc"
+	include "cpu/6309/include/dsub.inc"
 	include "cpu/6309/include/macros.inc"
-	include "cpu/6309/include/psub.inc"
 	include "cpu/6309/include/xy_string.inc"
 
 	include "input.inc"
@@ -16,7 +16,7 @@ ACTIVE_K007121_18E		equ $1
 
 tile_scroll_test:
 		ldy	#d_screen_xys_list
-		PSUB	print_xy_string_list
+		RSUB	print_xy_string_list
 
 		ldd	#$0
 		sta	r_active
@@ -61,31 +61,31 @@ tile_scroll_test:
 
 	.print_active:
 		SEEK_XY	(SCREEN_START_X + 16), (SCREEN_START_Y + 3)
-		PSUB	print_string
+		RSUB	print_string
 
 		lda	r_10e_x
 		sta	REG_K007121_10E_SCROLL_X
 		SEEK_XY	(SCREEN_START_X + 12), (SCREEN_START_Y + 4)
-		PSUB	print_hex_byte
+		RSUB	print_hex_byte
 
 		ldd	r_10e_y
 		anda	#$1
 		std	r_10e_y
 		stb	REG_K007121_10E_SCROLL_Y
 		SEEK_XY	(SCREEN_START_X + 15), (SCREEN_START_Y + 4)
-		PSUB	print_hex_word
+		RSUB	print_hex_word
 
 		lda	r_18e_x
 		sta	REG_K007121_18E_SCROLL_X
 		SEEK_XY	(SCREEN_START_X + 12), (SCREEN_START_Y + 5)
-		PSUB	print_hex_byte
+		RSUB	print_hex_byte
 
 		ldd	r_18e_y
 		anda	#$1
 		std	r_18e_y
 		stb	REG_K007121_18E_SCROLL_Y
 		SEEK_XY	(SCREEN_START_X + 15), (SCREEN_START_Y + 5)
-		PSUB	print_hex_word
+		RSUB	print_hex_word
 
 		; high bit
 		lda	r_10e_y

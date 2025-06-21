@@ -1,4 +1,4 @@
-	include "cpu/6309/include/psub.inc"
+	include "cpu/6309/include/dsub.inc"
 
 	include "input.inc"
 	include "machine.inc"
@@ -18,7 +18,7 @@ input_update:
 		; small delay to help stop button press bounce
 		pshsw
 		ldw	#$1ff
-		PSUB	delay
+		RSUB	delay
 		pulsw
 
 		lda	REG_INPUT

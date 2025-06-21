@@ -1,5 +1,5 @@
-	include "cpu/6309/include/psub.inc"
 	include "global/include/screen.inc"
+	include "cpu/6309/include/dsub.inc"
 
 	include "machine.inc"
 
@@ -15,11 +15,11 @@ print_input_list:
 		beq	.list_end
 
 		lda	#(SCREEN_START_X + 5)
-		PSUB	screen_seek_xy
+		RSUB	screen_seek_xy
 
 		lda	[, y++]
 		coma
-		PSUB	print_bits_byte
+		RSUB	print_bits_byte
 		bra	print_input_list
 
 	.list_end:

@@ -1,8 +1,8 @@
 	include "global/include/macros.inc"
 	include "global/include/screen.inc"
+	include "cpu/6309/include/dsub.inc"
 	include "cpu/6309/include/error_codes.inc"
 	include "cpu/6309/include/macros.inc"
-	include "cpu/6309/include/psub.inc"
 	include "cpu/6309/include/xy_string.inc"
 
 	include "input.inc"
@@ -36,7 +36,7 @@
 
 watchdog_time:
 		ldy	#d_screen_xys_list
-		PSUB	print_xy_string_list
+		RSUB	print_xy_string_list
 
 	; Wait for the user to release button b1 from when they
 	; pressed it to select the this menu item
@@ -79,7 +79,7 @@ watchdog_time:
 	.run_test:
 		SEEK_XY SCREEN_START_X, (SCREEN_START_Y + 12)
 		ldy	#d_str_triggered
-		PSUB	print_string
+		RSUB	print_string
 
 		WATCHDOG
 	.stall:

@@ -1,7 +1,7 @@
 	include "global/include/macros.inc"
 	include "global/include/screen.inc"
+	include "cpu/6309/include/dsub.inc"
 	include "cpu/6309/include/macros.inc"
-	include "cpu/6309/include/psub.inc"
 	include "cpu/6309/include/xy_string.inc"
 
 	include "machine.inc"
@@ -36,7 +36,7 @@ tvc_init:
 ;  T = tile num
 tvc_draw_tile_cb:
 		exg	b, a
-		PSUB	print_byte
+		RSUB	print_byte
 
 		bitb	#$10
 		beq	.skip_bit_4

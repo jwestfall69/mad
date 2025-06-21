@@ -1,6 +1,6 @@
 	include "global/include/screen.inc"
+	include "cpu/6309/include/dsub.inc"
 	include "cpu/6309/include/macros.inc"
-	include "cpu/6309/include/psub.inc"
 	include "cpu/6309/include/xy_string.inc"
 
 	include "machine.inc"
@@ -20,10 +20,10 @@
 memory_viewer_handler:
 		sty	r_read_memory_cb
 		pshs	x
-		PSUB	screen_init
+		RSUB	screen_init
 
 		ldy	#d_screen_xys_list
-		PSUB	print_xy_string_list
+		RSUB	print_xy_string_list
 		puls	x
 
 	.loop_next_input:
@@ -95,51 +95,51 @@ memory_dump:
 		; address
 		lda	#SCREEN_START_X
 		ldb	r_dump_row
-		PSUB	screen_seek_xy
+		RSUB	screen_seek_xy
 		ldd	r_dump_address
-		PSUB	print_hex_word
+		RSUB	print_hex_word
 
 		; 1st word
 		lda	#(SCREEN_START_X + 6)
 		ldb	r_dump_row
-		PSUB	screen_seek_xy
+		RSUB	screen_seek_xy
 		ldd	r_dump_data
-		PSUB	print_hex_word
+		RSUB	print_hex_word
 
 		; 2nd word
 		lda	#(SCREEN_START_X + 11)
 		ldb	r_dump_row
-		PSUB	screen_seek_xy
+		RSUB	screen_seek_xy
 		ldd	r_dump_data + 2
-		PSUB	print_hex_word
+		RSUB	print_hex_word
 
 		; 1st byte
 		lda	#(SCREEN_START_X + 17)
 		ldb	r_dump_row
-		PSUB	screen_seek_xy
+		RSUB	screen_seek_xy
 		lda	r_dump_data
-		PSUB	print_byte
+		RSUB	print_byte
 
 		; 2nd byte
 		lda	#(SCREEN_START_X + 18)
 		ldb	r_dump_row
-		PSUB	screen_seek_xy
+		RSUB	screen_seek_xy
 		lda	r_dump_data + 1
-		PSUB	print_byte
+		RSUB	print_byte
 
 		; 3rd byte
 		lda	#(SCREEN_START_X + 19)
 		ldb	r_dump_row
-		PSUB	screen_seek_xy
+		RSUB	screen_seek_xy
 		lda	r_dump_data + 2
-		PSUB	print_byte
+		RSUB	print_byte
 
 		; 4th btye
 		lda	#(SCREEN_START_X + 20)
 		ldb	r_dump_row
-		PSUB	screen_seek_xy
+		RSUB	screen_seek_xy
 		lda	r_dump_data + 3
-		PSUB	print_byte
+		RSUB	print_byte
 
 		lda	r_dump_row
 		inca

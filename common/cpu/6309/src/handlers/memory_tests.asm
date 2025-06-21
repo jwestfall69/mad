@@ -1,5 +1,5 @@
+	include "cpu/6309/include/dsub.inc"
 	include "cpu/6309/include/macros.inc"
-	include "cpu/6309/include/psub.inc"
 	include "cpu/6309/include/xy_string.inc"
 	include "cpu/6309/include/handlers/memory_tests.inc"
 
@@ -17,7 +17,7 @@ memory_tests_handler:
 		tfr	x, y
 
 		ldx	s_mt_start_address, y
-		PSUB	memory_output_test
+		RSUB	memory_output_test
 		tsta
 		lbne	.test_failed_output
 
@@ -28,14 +28,14 @@ memory_tests_handler:
 
 		ldx	s_mt_start_address, y
 		leax	1, x
-		PSUB	memory_output_test
+		RSUB	memory_output_test
 		tsta
 		lbne	.test_failed_output
 
 	.skip_odd_output_test:
 		ldy	r_mt_data_ptr
 		ldx	s_mt_start_address, y
-		PSUB	memory_write_test
+		RSUB	memory_write_test
 		tsta
 		lbne	.test_failed_write
 
@@ -46,7 +46,7 @@ memory_tests_handler:
 
 		ldx	s_mt_start_address, y
 		leax	1, x
-		PSUB	memory_write_test
+		RSUB	memory_write_test
 		tsta
 		lbne	.test_failed_write
 
@@ -55,7 +55,7 @@ memory_tests_handler:
 		ldx	s_mt_start_address, y
 		ldd	s_mt_size, y
 		lde	#$00
-		PSUB	memory_data_test
+		RSUB	memory_data_test
 		tsta
 		lbne	.test_failed_data
 
@@ -63,7 +63,7 @@ memory_tests_handler:
 		ldx	s_mt_start_address, y
 		ldd	s_mt_size, y
 		lde	#$55
-		PSUB	memory_data_test
+		RSUB	memory_data_test
 		tsta
 		lbne	.test_failed_data
 
@@ -71,7 +71,7 @@ memory_tests_handler:
 		ldx	s_mt_start_address, y
 		ldd	s_mt_size, y
 		lde	#$aa
-		PSUB	memory_data_test
+		RSUB	memory_data_test
 		tsta
 		lbne	.test_failed_data
 
@@ -79,14 +79,14 @@ memory_tests_handler:
 		ldx	s_mt_start_address, y
 		ldd	s_mt_size, y
 		lde	#$ff
-		PSUB	memory_data_test
+		RSUB	memory_data_test
 		tsta
 		lbne	.test_failed_data
 
 		ldy	r_mt_data_ptr
 		ldx	s_mt_start_address, y
 		lda	s_mt_num_address_lines, y
-		PSUB	memory_address_test
+		RSUB	memory_address_test
 		tsta
 		bne	.test_failed_address
 
@@ -97,7 +97,7 @@ memory_tests_handler:
 
 		ldx	s_mt_start_address, y
 		ldd	s_mt_size, y
-		PSUB	memory_march_test
+		RSUB	memory_march_test
  		tsta
 		bne	.test_failed_march
 

@@ -1,7 +1,7 @@
 	include "global/include/macros.inc"
 	include "global/include/screen.inc"
+	include "cpu/6309/include/dsub.inc"
 	include "cpu/6309/include/macros.inc"
-	include "cpu/6309/include/psub.inc"
 	include "cpu/6309/include/xy_string.inc"
 
 	include "input.inc"
@@ -25,7 +25,7 @@
 sprite_draw_order:
 		SEEK_XY	SCREEN_START_X, (SCREEN_B1_Y + 8)
 		ldy	#d_str_b1_convert
-		PSUB	print_string
+		RSUB	print_string
 
 		jsr	smc_palette_setup
 

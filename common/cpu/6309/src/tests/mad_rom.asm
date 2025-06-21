@@ -1,14 +1,14 @@
 	include "global/include/macros.inc"
 	include "global/include/screen.inc"
+	include "cpu/6309/include/dsub.inc"
 	include "cpu/6309/include/error_codes.inc"
 	include "cpu/6309/include/macros.inc"
-	include "cpu/6309/include/psub.inc"
 
 	include "machine.inc"
 	include "mad.inc"
 
-	global auto_mad_rom_address_test_psub
-	global auto_mad_rom_crc32_test_psub
+	global auto_mad_rom_address_test_dsub
+	global auto_mad_rom_crc32_test_dsub
 	global crc32_return
 
 	section code
@@ -17,7 +17,7 @@
 ; address space.  Its mirror 0, then we have
 ; to work our ways backwards for the additional
 ; mirrors.
-auto_mad_rom_address_test_psub:
+auto_mad_rom_address_test_dsub:
 
 		SEEK_LN	SCREEN_START_Y
 		PSUB	print_clear_line
@@ -40,7 +40,7 @@ auto_mad_rom_address_test_psub:
 		incb
 		deca
 		bne	.loop_next_mirror
-		PSUB_RETURN
+		DSUB_RETURN
 
 	.test_failed:
 
@@ -76,7 +76,7 @@ auto_mad_rom_address_test_psub:
 		jmp	error_address
 
 
-auto_mad_rom_crc32_test_psub:
+auto_mad_rom_crc32_test_dsub:
 
 		SEEK_LN	SCREEN_START_Y
 		PSUB	print_clear_line
@@ -92,8 +92,8 @@ auto_mad_rom_crc32_test_psub:
 		ldx	#MAD_ROM_START
 
 		; crc32 uses all registers except for v, making it
-		; impossible for us to do a nested psub to it. We can
-		; however backup our psub return address.
+		; impossible for us to do a nested dsub to it. We can
+		; however backup our dsub return address.
 		tfr	u, v
 		jmp	crc32
 crc32_return:
@@ -105,7 +105,7 @@ crc32_return:
 		cmpw	MAD_ROM_CRC32_ADDRESS + 2
 		bne	.test_failed
 
-		PSUB_RETURN
+		DSUB_RETURN
 
 	.test_failed:
 		tfr	w, y

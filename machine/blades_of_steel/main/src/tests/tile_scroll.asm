@@ -1,7 +1,7 @@
 	include "global/include/macros.inc"
 	include "global/include/screen.inc"
+	include "cpu/6309/include/dsub.inc"
 	include "cpu/6309/include/macros.inc"
-	include "cpu/6309/include/psub.inc"
 	include "cpu/6309/include/xy_string.inc"
 
 	include "input.inc"
@@ -16,7 +16,7 @@ ACTIVE_LAYER_B		equ $1
 
 tile_scroll_test:
 		ldy	#d_screen_xys_list
-		PSUB	print_xy_string_list
+		RSUB	print_xy_string_list
 
 		ldd	#$0
 		sta	r_active_layer
@@ -27,12 +27,12 @@ tile_scroll_test:
 
 		SEEK_XY	10, 14
 		ldy	#d_str_layer_a
-		PSUB	print_string
+		RSUB	print_string
 
 		SEEK_XY	10, 15
 		leax	$1000, x	; adjust x to be in layer b
 		ldy	#d_str_layer_b
-		PSUB	print_string
+		RSUB	print_string
 
 		; setup text color on layer a/b
 		ldd	#$3e0	; green
@@ -49,31 +49,31 @@ tile_scroll_test:
 		lda	#'A'
 	.print_active:
 		SEEK_XY	(SCREEN_START_X + 13), (SCREEN_START_Y + 3)
-		PSUB	print_char
+		RSUB	print_char
 
 		lda	r_layer_a_x
 		sta	REG_LAYER_A_SCROLL_X
 		SEEK_XY	(SCREEN_START_X + 8), (SCREEN_START_Y + 4)
-		PSUB	print_hex_byte
+		RSUB	print_hex_byte
 
 		ldd	r_layer_a_y
 		anda	#$1
 		std	r_layer_a_y
 		stb	REG_LAYER_A_SCROLL_Y
 		SEEK_XY	(SCREEN_START_X + 11), (SCREEN_START_Y + 4)
-		PSUB	print_hex_word
+		RSUB	print_hex_word
 
 		lda	r_layer_b_x
 		sta	REG_LAYER_B_SCROLL_X
 		SEEK_XY	(SCREEN_START_X + 8), (SCREEN_START_Y + 5)
-		PSUB	print_hex_byte
+		RSUB	print_hex_byte
 
 		ldd	r_layer_b_y
 		anda	#$1
 		std	r_layer_b_y
 		stb	REG_LAYER_B_SCROLL_Y
 		SEEK_XY	(SCREEN_START_X + 11), (SCREEN_START_Y + 5)
-		PSUB	print_hex_word
+		RSUB	print_hex_word
 
 		; high bit
 		; xxxx xxba

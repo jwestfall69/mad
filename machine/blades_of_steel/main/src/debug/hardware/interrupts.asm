@@ -1,7 +1,7 @@
 	include "global/include/macros.inc"
 	include "global/include/screen.inc"
+	include "cpu/6309/include/dsub.inc"
 	include "cpu/6309/include/macros.inc"
-	include "cpu/6309/include/psub.inc"
 	include "cpu/6309/include/xy_string.inc"
 	include "cpu/6309/include/handlers/memory_write.inc"
 
@@ -17,7 +17,7 @@ interrupts_debug:
 		std	LAYER_A_TILE_PALETTE + $18
 
 		ldy	#d_xys_screen_list
-		PSUB	print_xy_string_list
+		RSUB	print_xy_string_list
 
 		ldd	#LAYER_A_TILE_PALETTE
 		std	r_old_highlight
@@ -63,36 +63,36 @@ write_memory_cb:
 		sta	$2600
 
 		SEEK_XY	(SCREEN_START_X + 6), (SCREEN_START_Y + 10)
-		PSUB	print_hex_byte
+		RSUB	print_hex_byte
 
 		lda	r_mw_buffer + 1
 		sta	$2f90
 		SEEK_XY	(SCREEN_START_X + 6), (SCREEN_START_Y + 11)
-		PSUB	print_hex_byte
+		RSUB	print_hex_byte
 
 		lda	r_mw_buffer + 2
 		sta	$2f91
 		SEEK_XY	(SCREEN_START_X + 6), (SCREEN_START_Y + 12)
-		PSUB	print_hex_byte
+		RSUB	print_hex_byte
 
 		lda	r_mw_buffer + 3
 		sta	$2f92
 		SEEK_XY	(SCREEN_START_X + 6), (SCREEN_START_Y + 13)
-		PSUB	print_hex_byte
+		RSUB	print_hex_byte
 		rts
 
 loop_cb:
 		SEEK_XY	(SCREEN_START_X + 6), (SCREEN_START_Y + 16)
 		ldd	r_nmi_count
-		PSUB	print_hex_word
+		RSUB	print_hex_word
 
 		SEEK_XY	(SCREEN_START_X + 6), (SCREEN_START_Y + 17)
 		ldd	r_firq_count
-		PSUB	print_hex_word
+		RSUB	print_hex_word
 
 		SEEK_XY	(SCREEN_START_X + 6), (SCREEN_START_Y + 18)
 		ldd	r_irq_count
-		PSUB	print_hex_word
+		RSUB	print_hex_word
 
 		rts
 
@@ -115,7 +115,6 @@ d_xys_screen_list:
 			XY_STRING SCREEN_START_X, (SCREEN_START_Y + 16), " NMI"
 			XY_STRING SCREEN_START_X, (SCREEN_START_Y + 17), "FIRQ"
 			XY_STRING SCREEN_START_X, (SCREEN_START_Y + 18), " IRQ"
-
 			XY_STRING_LIST_END
 
 	section bss

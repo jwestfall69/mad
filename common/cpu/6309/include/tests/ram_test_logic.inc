@@ -24,7 +24,7 @@ auto_\1_ram_tests:
 
 manual_\1_ram_tests:
 		ldy	#d_screen_xys_list
-		PSUB	print_xy_string_list
+		RSUB	print_xy_string_list
 
 		clrd
 
@@ -33,7 +33,7 @@ manual_\1_ram_tests:
 		WATCHDOG
 
 		SEEK_XY	SCREEN_PASSES_VALUE_X, SCREEN_PASSES_Y
-		PSUB	print_hex_word
+		RSUB	print_hex_word
 
 		jsr	auto_\1_ram_tests
 		tsta
@@ -58,15 +58,15 @@ manual_\1_ram_tests:
 	.test_paused:
 
 	if \3 & RTL_FLAG_PAUSE_REDRAW
-		PSUB	screen_init
+		RSUB	screen_init
 
 		ldy	#d_screen_xys_list
-		PSUB	print_xy_string_list
+		RSUB	print_xy_string_list
 
 		SEEK_XY	SCREEN_PASSES_VALUE_X, SCREEN_PASSES_Y
 		puls	d
 		pshs	d
-		PSUB	print_hex_word
+		RSUB	print_hex_word
 	endif
 		lda	#INPUT_B1
 		jsr	wait_button_release

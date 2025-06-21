@@ -1,7 +1,7 @@
 	include "global/include/macros.inc"
 	include "global/include/screen.inc"
+	include "cpu/6309/include/dsub.inc"
 	include "cpu/6309/include/macros.inc"
-	include "cpu/6309/include/psub.inc"
 	include "cpu/6309/include/handlers/memory_write.inc"
 
 	include "machine.inc"
@@ -13,7 +13,7 @@
 sprite_debug:
 		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 13)
 		ldy	#d_str_last_written
-		PSUB	print_string
+		RSUB	print_string
 
 		ldd	#FIX_TILE
 		std	r_old_highlight
@@ -59,11 +59,11 @@ write_memory_cb:
 		pshs	x
 		lda	r_x_offset
 		ldb	#SCREEN_START_Y + 15
-		PSUB	screen_seek_xy
+		RSUB	screen_seek_xy
 
 		ldd	, y++
 		pshs	d
-		PSUB	print_hex_word
+		RSUB	print_hex_word
 		puls	d
 
 		puls	x
@@ -75,7 +75,7 @@ write_memory_cb:
 		dec	r_scratch
 		bne	.loop_next_word
 
-		PSUB	sprite_trigger_copy
+		RSUB	sprite_trigger_copy
 		rts
 
 loop_cb:

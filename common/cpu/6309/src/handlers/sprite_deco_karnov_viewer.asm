@@ -1,8 +1,8 @@
 	include "global/include/macros.inc"
 	include "global/include/screen.inc"
 	include "global/include/sprite/dataeast/karnov.inc"
+	include "cpu/6309/include/dsub.inc"
 	include "cpu/6309/include/macros.inc"
-	include "cpu/6309/include/psub.inc"
 	include "cpu/6309/include/xy_string.inc"
 
 	include "input.inc"
@@ -34,7 +34,7 @@ sprite_deco_karnov_viewer_handler:
 		clr	r_cursor_old
 
 		ldy	#d_screen_xys_list
-		PSUB	print_xy_string_list
+		RSUB	print_xy_string_list
 
 		jsr	sprite_update
 
@@ -123,9 +123,9 @@ cursor_update:
 		lda	#CURSOR_START_X
 		ldb	r_cursor_old
 		addb	#CURSOR_START_Y
-		PSUB	screen_seek_xy
+		RSUB	screen_seek_xy
 		lda	#CURSOR_CLEAR_CHAR
-		PSUB	print_char
+		RSUB	print_char
 
 		lda	r_cursor
 		cmpa	#SA_MAX
@@ -144,9 +144,9 @@ cursor_update:
 		ldb	r_cursor
 		stb	r_cursor_old
 		addb	#CURSOR_START_Y
-		PSUB	screen_seek_xy
+		RSUB	screen_seek_xy
 		lda	#CURSOR_CHAR
-		PSUB	print_char
+		RSUB	print_char
 		rts
 
 sprite_update:
@@ -155,22 +155,22 @@ sprite_update:
 		SEEK_XY	(SCREEN_START_X + 9), (SCREEN_START_Y + 2)
 		ldy	r_sprite_struct
 		ldd	s_se_num, y
-		PSUB	print_hex_word
+		RSUB	print_hex_word
 
 		SEEK_XY	(SCREEN_START_X + 12), (SCREEN_START_Y + 3)
 		ldy	r_sprite_struct
 		lda	s_se_size, y
-		PSUB	print_hex_nibble
+		RSUB	print_hex_nibble
 
 		SEEK_XY	(SCREEN_START_X + 9), (SCREEN_START_Y + 4)
 		ldy	r_sprite_struct
 		ldd	s_se_pos_x, y
-		PSUB	print_hex_word
+		RSUB	print_hex_word
 
 		SEEK_XY	(SCREEN_START_X + 9), (SCREEN_START_Y + 5)
 		ldy	r_sprite_struct
 		ldd	s_se_pos_y, y
-		PSUB	print_hex_word
+		RSUB	print_hex_word
 		rts
 
 	section data

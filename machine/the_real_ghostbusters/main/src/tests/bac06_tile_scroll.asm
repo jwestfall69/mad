@@ -1,7 +1,7 @@
 	include "global/include/macros.inc"
 	include "global/include/screen.inc"
+	include "cpu/6309/include/dsub.inc"
 	include "cpu/6309/include/macros.inc"
-	include "cpu/6309/include/psub.inc"
 	include "cpu/6309/include/xy_string.inc"
 
 	include "input.inc"
@@ -14,7 +14,7 @@
 
 bac06_tile_scroll_test:
 		ldy	#d_screen_xys_list
-		PSUB	print_xy_string_list
+		RSUB	print_xy_string_list
 
 		ldd	#$0
 		std	r_pos_x
@@ -35,14 +35,14 @@ bac06_tile_scroll_test:
 		std	r_pos_x
 		std	REG_BAC06_SCROLL_X
 		SEEK_XY	(SCREEN_START_X + 9), (SCREEN_START_Y + 4)
-		PSUB	print_hex_word
+		RSUB	print_hex_word
 
 		ldd	r_pos_y
 		anda	#$1
 		std	r_pos_y
 		std	REG_BAC06_SCROLL_Y
 		SEEK_XY	(SCREEN_START_X + 9), (SCREEN_START_Y + 5)
-		PSUB	print_hex_word
+		RSUB	print_hex_word
 
 		ldx	#r_pos_x
 		ldy	#r_pos_y

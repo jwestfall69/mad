@@ -1,6 +1,6 @@
 	include "global/include/screen.inc"
+	include "cpu/6309/include/dsub.inc"
 	include "cpu/6309/include/macros.inc"
-	include "cpu/6309/include/psub.inc"
 	include "cpu/6309/include/xy_string.inc"
 
 	include "input.inc"
@@ -12,7 +12,7 @@
 
 prog_bank_test:
 		ldy	#d_screen_xys_list
-		PSUB	print_xy_string_list
+		RSUB	print_xy_string_list
 
 	.loop_input:
 		WATCHDOG
@@ -45,9 +45,9 @@ run_test:
 
 		; re-init the screen in the even the user runs the
 		; test multiple times
-		PSUB	screen_init
+		RSUB	screen_init
 		ldy	#d_screen_xys_list
-		PSUB	print_xy_string_list
+		RSUB	print_xy_string_list
 
 		clra
 		sta	r_bank
@@ -82,25 +82,25 @@ run_test:
 		bgt	.loop_next_mirror
 
 		ldy	#d_str_test_passed
-		PSUB	print_xy_string
+		RSUB	print_xy_string
 		rts
 
 	.test_failed:
 		pshs	b
 		ldy	#d_screen_xys_test_failed_list
-		PSUB	print_xy_string_list
+		RSUB	print_xy_string_list
 
 		SEEK_XY	(SCREEN_START_X + 10), (SCREEN_START_Y + 5)
 		lda	r_bank
-		PSUB	print_hex_byte
+		RSUB	print_hex_byte
 
 		SEEK_XY	(SCREEN_START_X + 10), (SCREEN_START_Y + 6)
 		lda	r_mirror
-		PSUB	print_hex_byte
+		RSUB	print_hex_byte
 
 		SEEK_XY	(SCREEN_START_X + 10), (SCREEN_START_Y + 7)
 		puls	a
-		PSUB	print_hex_byte
+		RSUB	print_hex_byte
 		rts
 
 	section data

@@ -1,7 +1,7 @@
 	include "global/include/macros.inc"
 	include "global/include/screen.inc"
+	include "cpu/6309/include/dsub.inc"
 	include "cpu/6309/include/macros.inc"
-	include "cpu/6309/include/psub.inc"
 	include "cpu/6309/include/xy_string.inc"
 
 	include "error_codes.inc"
@@ -9,12 +9,12 @@
 	include "machine.inc"
 	include "mad.inc"
 
-	global	auto_work_ram_tests_psub
+	global	auto_work_ram_tests_dsub
 	global	manual_work_ram_tests
 
 	section code
 
-auto_work_ram_tests_psub:
+auto_work_ram_tests_dsub:
 
 		SEEK_LN	SCREEN_START_Y
 		PSUB	print_clear_line
@@ -72,11 +72,11 @@ auto_work_ram_tests_psub:
 		PSUB	memory_march_test
 		tsta
 		bne	.test_failed_march
-		PSUB_RETURN
+		DSUB_RETURN
 
 	; NOTE: PSUB'ing print_error_work_ram_memory
 	; actually makes us nest too deep causing us to
-	; lose the return point for auto_work_ram_tests_psub.
+	; lose the return point for auto_work_ram_tests_dsub.
 	; However this doesn't matter because in the case
 	; of a failed work ram test we won't be returning
 	.test_failed_address:
@@ -137,7 +137,7 @@ auto_work_ram_tests_psub:
 ;  b = actual value
 ;  e = expected value
 ;  x = failed address
-print_error_work_ram_memory_psub:
+print_error_work_ram_memory_dsub:
 		tfr	e, a
 		tfr	d, y
 		tfr	x, d
@@ -165,14 +165,16 @@ print_error_work_ram_memory_psub:
 		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 4)
 		ldy	#d_str_actual
 		PSUB	print_string
-		PSUB_RETURN
+		DSUB_RETURN
 
 manual_work_ram_tests:
 		ldy	#d_screen_xys_list
-		PSUB	print_xy_string_list
+		RSUB	print_xy_string_list
 
 		clrd
 		std	R_WORK_RAM_PASSES
+
+		DSUB_MODE_PSUB
 
 	.loop_next_pass:
 		SEEK_XY	SCREEN_PASSES_VALUE_X, SCREEN_PASSES_Y
@@ -191,6 +193,8 @@ manual_work_ram_tests:
 		bra	.loop_next_pass
 
 	.test_exit:
+		DSUB_MODE_RSUB
+
 		clr	r_menu_cursor
 		jmp	main_menu
 

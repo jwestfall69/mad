@@ -1,5 +1,5 @@
+	include "cpu/6309/include/dsub.inc"
 	include "cpu/6309/include/macros.inc"
-	include "cpu/6309/include/psub.inc"
 
 	include "machine.inc"
 	include "mad.inc"
@@ -10,7 +10,6 @@
 
 _start:
 		INTS_DISABLE
-		SOUND_STOP
 
 		clr	$3840
 		lda	#$82
@@ -30,12 +29,18 @@ _start:
 		deca
 		bne	.loop_clear
 
+		DSUB_MODE_PSUB
+
+		SOUND_STOP
+
 		PSUB	screen_init
+
 		PSUB	auto_mad_rom_address_test
 		PSUB	auto_mad_rom_crc32_test
 		PSUB	auto_work_ram_tests
 
-		lds	#(WORK_RAM + WORK_RAM_SIZE - 2)
+		DSUB_MODE_RSUB
+
 		jsr	auto_func_tests
 
 		lda	#SOUND_NUM_SUCCESS

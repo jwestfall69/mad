@@ -1,5 +1,5 @@
+	include "cpu/6309/include/dsub.inc"
 	include "cpu/6309/include/macros.inc"
-	include "cpu/6309/include/psub.inc"
 	include "cpu/6309/include/print_error.inc"
 	include "cpu/6309/include/handlers/error.inc"
 
@@ -25,7 +25,7 @@ error_handler:
 
 		; screen maybe messed up depending
 		; on which test is running
-		PSUB	screen_init
+		DSUB	screen_init
 
 		lda	r_pe_data_a
 		ldx	#d_ec_list
@@ -70,7 +70,7 @@ error_handler:
 		jsr	, x
 
 		lda	r_pe_data_a
-		PSUB	sound_play_byte
+		DSUB	sound_play_byte
 
 	ifnd _ERROR_ADDRESS_DISABLED_
 		lda	r_pe_data_a

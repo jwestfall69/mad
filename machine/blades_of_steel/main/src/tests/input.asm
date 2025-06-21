@@ -1,8 +1,8 @@
+	include "global/include/screen.inc"
+	include "cpu/6309/include/dsub.inc"
 	include "cpu/6309/include/macros.inc"
-	include "cpu/6309/include/psub.inc"
 	include "cpu/6309/include/xy_string.inc"
 	include "cpu/6309/include/tests/input.inc"
-	include "global/include/screen.inc"
 
 	include "input.inc"
 	include "machine.inc"
@@ -13,7 +13,7 @@
 
 input_test:
 		ldy	#d_screen_xys_list
-		PSUB	print_xy_string_list
+		RSUB	print_xy_string_list
 
 	.loop_test:
 		WATCHDOG

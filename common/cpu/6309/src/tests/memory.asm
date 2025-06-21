@@ -1,14 +1,14 @@
+	include "cpu/6309/include/dsub.inc"
 	include "cpu/6309/include/macros.inc"
-	include "cpu/6309/include/psub.inc"
 
 	include "machine.inc"
 
-	global memory_address_test_psub
-	global memory_data_test_psub
-	global memory_march_test_psub
-	global memory_output_test_psub
-	global memory_output_behind_245_test_psub
-	global memory_write_test_psub
+	global memory_address_test_dsub
+	global memory_data_test_dsub
+	global memory_march_test_dsub
+	global memory_output_test_dsub
+	global memory_output_behind_245_test_dsub
+	global memory_write_test_dsub
 
 	section code
 
@@ -23,7 +23,7 @@
 ;  b = actual value
 ;  e = expected value
 ;  x = failed address
-memory_address_test_psub:
+memory_address_test_dsub:
 
 		inca			; bump up for 0 address and # loops
 		inca
@@ -63,14 +63,14 @@ memory_address_test_psub:
 		bne	.loop_next_read_address
 		WATCHDOG
 		clra
-		PSUB_RETURN
+		DSUB_RETURN
 
 	.test_failed:
 		WATCHDOG
 		leax	d, x
 		tfr	f, b
 		lda	#$1
-		PSUB_RETURN
+		DSUB_RETURN
 
 
 ; params:
@@ -82,7 +82,7 @@ memory_address_test_psub:
 ;  b = actual value
 ;  e = expected value
 ;  x = failed address
-memory_data_test_psub:
+memory_data_test_dsub:
 
 		tfr	d, y
 	.loop_next_write_address:
@@ -102,14 +102,14 @@ memory_data_test_psub:
 		bne	.loop_next_read_address
 		WATCHDOG
 		clra
-		PSUB_RETURN
+		DSUB_RETURN
 
 	.test_failed:
 		WATCHDOG
 		tfr	f, b
 		leax	-1, x
 		lda	#$1
-		PSUB_RETURN
+		DSUB_RETURN
 
 
 ; params:
@@ -120,7 +120,7 @@ memory_data_test_psub:
 ;  b = actual value
 ;  e = expected value
 ;  x = failed address
-memory_march_test_psub:
+memory_march_test_dsub:
 
 		tfr	d, y
 
@@ -156,14 +156,14 @@ memory_march_test_psub:
 		bne	.loop_down_test
 		WATCHDOG
 		clra
-		PSUB_RETURN
+		DSUB_RETURN
 
 	.test_failed:
 		WATCHDOG
 		clre
 		tfr	f, b
 		lda	#$1
-		PSUB_RETURN
+		DSUB_RETURN
 
 
 ; This is testing for dead output from whatever
@@ -177,7 +177,7 @@ memory_march_test_psub:
 ;  x = address
 ; returns:
 ;  a = 0 (pass), 1 (fail)
-memory_output_test_psub:
+memory_output_test_dsub:
 		ldb	#$64
 
 	.loop_next:
@@ -195,12 +195,12 @@ memory_output_test_psub:
 		bne	.loop_next
 		WATCHDOG
 		clra
-		PSUB_RETURN
+		DSUB_RETURN
 
 	.test_failed:
 		WATCHDOG
 		lda	#$1
-		PSUB_RETURN
+		DSUB_RETURN
 
 
 ; This test should get used if there is an 74LS245
@@ -213,7 +213,7 @@ memory_output_test_psub:
 ;  x = address
 ; returns:
 ;  a = 0 (pass), 1 (fail)
-memory_output_behind_245_test_psub:
+memory_output_behind_245_test_dsub:
 
 		clra
 	.loop_next_address:
@@ -240,12 +240,12 @@ memory_output_behind_245_test_psub:
 		bne	.loop_next_address
 		WATCHDOG
 		lda	#$1
-		PSUB_RETURN
+		DSUB_RETURN
 
 	.test_passed:
 		WATCHDOG
 		clra
-		PSUB_RETURN
+		DSUB_RETURN
 
 
 ; - reads a byte from the memory address
@@ -257,7 +257,7 @@ memory_output_behind_245_test_psub:
 ;  x = address
 ; returns:
 ;  a = 0 (pass), 1 (fail)
-memory_write_test_psub:
+memory_write_test_dsub:
 		WATCHDOG
 
 		lda	, x
@@ -270,8 +270,8 @@ memory_write_test_psub:
 		beq	.test_failed
 
 		clra
-		PSUB_RETURN
+		DSUB_RETURN
 
 	.test_failed:
 		lda #$1
-		PSUB_RETURN
+		DSUB_RETURN

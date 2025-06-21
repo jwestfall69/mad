@@ -1,44 +1,44 @@
+	include "cpu/6309/include/dsub.inc"
 	include "cpu/6309/include/macros.inc"
-	include "cpu/6309/include/psub.inc"
 
 	include "machine.inc"
 
-	global screen_init_psub
-	global screen_seek_xy_psub
+	global screen_init_dsub
+	global screen_seek_xy_dsub
 
 	section code
 
-screen_init_psub:
+screen_init_dsub:
 		ldx	#PALETTE_RAM
 		ldw	#PALETTE_RAM_SIZE
 		lda	#$00
-		PSUB	memory_fill
+		DSUB	memory_fill
 
 		ldx	#TILE_ATTR_RAM
 		ldw	#TILE_ATTR_RAM_SIZE
 		lda	#$01
-		PSUB	memory_fill
+		DSUB	memory_fill
 
 		; fill with spaces
 		ldx	#TILE_RAM
 		ldw	#TILE_RAM_SIZE
 		lda	#$fe
-		PSUB	memory_fill
+		DSUB	memory_fill
 
 		ldx	#LAYER_A_SCROLL
 		ldw	#LAYER_A_SCROLL_SIZE
 		clra
-		PSUB	memory_fill
+		DSUB	memory_fill
 
 		ldx	#LAYER_B_SCROLL
 		ldw	#LAYER_B_SCROLL_SIZE
 		clra
-		PSUB	memory_fill
+		DSUB	memory_fill
 
 		ldx	#SPRITE_RAM
 		ldw	#$400
 		clra
-		PSUB	memory_fill
+		DSUB	memory_fill
 
 		; txt color
 		ldd	#$ffff
@@ -46,18 +46,18 @@ screen_init_psub:
 
 		SEEK_XY	6, 0
 		ldy	#d_str_version
-		PSUB	print_string
+		DSUB	print_string
 
 		SEEK_LN	1
 		lda	#$4c
 		ldb	#$24
-		PSUB	print_char_repeat
-		PSUB_RETURN
+		DSUB	print_char_repeat
+		DSUB_RETURN
 
 ; params:
 ;  a = x
 ;  b = y
-screen_seek_xy_psub:
+screen_seek_xy_dsub:
 		SEEK_XY 0, 0
 
 		leax	a, x
@@ -66,4 +66,4 @@ screen_seek_xy_psub:
 		rord
 		rord
 		leax	d, x
-		PSUB_RETURN
+		DSUB_RETURN

@@ -1,7 +1,7 @@
 	include "global/include/macros.inc"
 	include "global/include/screen.inc"
+	include "cpu/6309/include/dsub.inc"
 	include "cpu/6309/include/macros.inc"
-	include "cpu/6309/include/psub.inc"
 	include "cpu/6309/include/xy_string.inc"
 
 	include "input.inc"
@@ -26,11 +26,11 @@ tile8_viewer_handler:
 		sty	r_draw_tile_cb
 
 		ldy	#d_screen_xys_list
-		PSUB	print_xy_string_list
+		RSUB	print_xy_string_list
 
 		SEEK_XY	(START_COLUMN + 2), (SCREEN_START_Y + 4)
 		ldy	#d_str_0f
-		PSUB	print_string
+		RSUB	print_string
 
 	.loop_redraw:
 		ldd	r_tile_offset
@@ -41,7 +41,7 @@ tile8_viewer_handler:
 		std	r_current_tile
 
 		SEEK_XY	(SCREEN_START_X + 8), (SCREEN_START_Y + 2)
-		PSUB	print_hex_word
+		RSUB	print_hex_word
 
 		ldf	#$10	; number or rows
 		lda	#START_ROW
@@ -53,10 +53,10 @@ tile8_viewer_handler:
 		sta	r_current_column
 
 		ldb	r_current_row
-		PSUB	screen_seek_xy
+		RSUB	screen_seek_xy
 
 		lda	,y+
-		PSUB	print_char
+		RSUB	print_char
 
 		inc	r_current_column
 		inc	r_current_column

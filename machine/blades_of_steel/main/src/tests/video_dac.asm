@@ -1,7 +1,7 @@
-	include "cpu/6309/include/macros.inc"
-	include "cpu/6309/include/psub.inc"
-	include "cpu/6309/include/xy_string.inc"
 	include "global/include/screen.inc"
+	include "cpu/6309/include/dsub.inc"
+	include "cpu/6309/include/macros.inc"
+	include "cpu/6309/include/xy_string.inc"
 
 	include "input.inc"
 	include "mad.inc"
@@ -12,10 +12,10 @@
 	section code
 
 video_dac_test:
-		PSUB	screen_init
+		RSUB	screen_init
 
 		ldy	#d_screen_xys_list
-		PSUB	print_xy_string_list
+		RSUB	print_xy_string_list
 
 		; The game only has 1 palette per tile layer and
 		; only 2 layers.  So we have to double up the number
@@ -215,7 +215,7 @@ draw_colors:
 	.loop_next_color_bit:
 		lda	r_draw_colors_x_offset
 		ldb	r_draw_colors_y_offset
-		PSUB	screen_seek_xy
+		RSUB	screen_seek_xy
 
 		ldd	,y++
 

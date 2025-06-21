@@ -1,9 +1,5 @@
 	; dsub (in psub mode) allows 1 level of nesting
-	; by making use of the u and s registers.  We
-	; obviously need to be mindful of using the s
-	; register, so we need to makes sure int's and
-	; nmi's don't fire.  The latter can be disabled
-	; on konami games that have them (only 2 it seems)
+	; by making use of the u and v registers.  
 
 	; We are using the value of the s register to
 	; determine if we are in PSUB or RSUB mode. If
@@ -12,11 +8,11 @@
 	; mode.
 	macro DSUB_MODE_PSUB
 		ldu	#$fffe
-		lds	#$fffe
 	endm
 
 	macro DSUB_MODE_RSUB
-		lds	#(WORK_RAM + WORK_RAM_SIZE)
+		ldu	#$0
+		lds	#(WORK_RAM + WORK_RAM_SIZE - 2)
 	endm
 
 	; Based on what mode we are in do the right
@@ -25,13 +21,13 @@
 	; another _dsub, where the outer _dsub could
 	; be called in either mode
 	macro DSUB
-		cmps	#$c000
+		cmpu	#$c000
 		blo	.\@do_jsr
-		tfr	u, s
+		tfr	u, v
 		ldu	#.\@psub_return
 		jmp	\1_dsub
 	.\@psub_return:
-		tfr	s, u
+		tfr	v, u
 		bra	.\@dsub_end
 
 	.\@do_jsr:
@@ -40,7 +36,7 @@
 	endm
 
 	macro DSUB_RETURN
-		cmps	#$c000
+		cmpu	#$c000
 		blo	.\@do_rts
 		jmp	0, u
 	.\@do_rts:
@@ -52,10 +48,10 @@
 	endm
 
 	macro PSUB
-		tfr	u, s
+		tfr	u, v
 		ldu	#.\@
 		jmp	\1_dsub
 	.\@:
-		tfr	s, u
+		tfr	v, u
 	endm
 
