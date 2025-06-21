@@ -1,9 +1,9 @@
 	include "global/include/macros.inc"
 	include "global/include/screen.inc"
+	include "global/include/sprite/konami/k007121.inc"
 	include "cpu/6309/include/macros.inc"
 	include "cpu/6309/include/psub.inc"
 	include "cpu/6309/include/xy_string.inc"
-	include "cpu/6309/include/handlers/sprite_k007121_viewer.inc"
 
 	include "input.inc"
 	include "machine.inc"
@@ -17,7 +17,7 @@
 SPRITE_NUM_MASK		equ $3fff
 
 k007121_10e_sprite_viewer:
-		jsr	k007121_10e_sprite_palette_setup
+		jsr	k007121_10e_sprite_viewer_palette_setup
 
 		ldx	#r_sprite_struct
 
@@ -88,7 +88,7 @@ draw_sprite_cb:
 
 ; Palette Layout
 ;  xBBB BBGG GGGR RRRR
-k007121_10e_sprite_palette_setup:
+k007121_10e_sprite_viewer_palette_setup:
 		ldx	#d_palette_data
 		ldy	#K007121_10E_SPRITE_PALETTE
 		ldb	#PALETTE_SIZE

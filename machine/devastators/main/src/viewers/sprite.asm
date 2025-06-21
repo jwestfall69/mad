@@ -1,9 +1,9 @@
 	include "global/include/macros.inc"
 	include "global/include/screen.inc"
+	include "global/include/sprite/konami/k051960.inc"
 	include "cpu/6309/include/macros.inc"
 	include "cpu/6309/include/psub.inc"
 	include "cpu/6309/include/xy_string.inc"
-	include "cpu/6309/include/handlers/sprite_k051960_viewer.inc"
 
 	include "input.inc"
 	include "machine.inc"
