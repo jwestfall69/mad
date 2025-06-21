@@ -63,6 +63,7 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
 
 OBJS += $(OBJ_DIR)/cpu/6309/src/debug/hardware/watchdog_time.o \
         $(OBJ_DIR)/cpu/6309/src/handlers/memory_write.o \
+        $(OBJ_DIR)/debug/hardware/interrupts.o \
         $(OBJ_DIR)/debug/hardware/sprite_debug.o \
         $(OBJ_DIR)/menus/debug_hardware.o
 

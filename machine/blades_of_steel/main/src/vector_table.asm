@@ -1,4 +1,6 @@
-	global r_irq_vblank_count
+	global r_irq_count
+	global r_firq_count
+	global r_nmi_count
 
 	section vectors
 
@@ -14,17 +16,39 @@
 
 irq_handler:
 		pshs	d
-		ldd	r_irq_vblank_count
+		ldd	r_irq_count
 		incd
-		std	r_irq_vblank_count
+		std	r_irq_count
 		puls	d
 		rti
 
 firq_handler:
+		pshs	d
+		lda	#$0
+		sta	$2600
+
+		ldd	r_firq_count
+		incd
+		std	r_firq_count
+
+		lda	#$2
+		sta	$2600
+		puls	d
+		rti
+
 nmi_handler:
+		pshs	d
+		ldd	r_nmi_count
+		incd
+		std	r_nmi_count
+		puls	d
+		rti
+
 swi_handler:
 		rti
 
 	section bss
 
-r_irq_vblank_count:	dcb.w 1
+r_irq_count:		dcb.w 1
+r_firq_count:		dcb.w 1
+r_nmi_count:		dcb.w 1
