@@ -68,8 +68,9 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
 
 OBJS += $(OBJ_DIR)/cpu/6309/src/debug/hardware/watchdog_time.o \
         $(OBJ_DIR)/cpu/6309/src/handlers/memory_write.o \
-        $(OBJ_DIR)/debug/hardware/k057133_high_reg.o \
-        $(OBJ_DIR)/debug/hardware/k057133_low_reg.o \
+        $(OBJ_DIR)/debug/hardware/k051733_collision.o \
+        $(OBJ_DIR)/debug/hardware/k051733_math.o \
+        $(OBJ_DIR)/debug/hardware/k051733_rand.o \
         $(OBJ_DIR)/debug/hardware/sprite_debug.o \
         $(OBJ_DIR)/menus/debug_hardware.o
 

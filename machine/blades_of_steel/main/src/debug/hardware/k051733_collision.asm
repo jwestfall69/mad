@@ -7,11 +7,11 @@
 
 	include "machine.inc"
 
-	global k057133_high_reg_debug
+	global k051733_collision_debug
 
 	section code
 
-k057133_high_reg_debug:
+k051733_collision_debug:
 		; highlight color
 		ldd	#$001f
 		std	LAYER_A_TILE_PALETTE + $18
@@ -50,7 +50,7 @@ highlight_cb:
 		rts
 
 write_memory_cb:
-		ldx	#K057133_BASE + $6
+		ldx	#K051733_BASE + $6
 		ldy	#r_mw_buffer
 		lda	#$a
 		sta	r_scratch
@@ -80,15 +80,14 @@ write_memory_cb:
 		RSUB	screen_seek_xy
 
 		lda	,y
-		sta	K057133_BASE + $13
+		sta	K051733_BASE + $13
 		RSUB	print_hex_byte
-		rts
-
-loop_cb:
 
 		SEEK_XY	(SCREEN_START_X + 5), (SCREEN_START_Y + 18)
-		lda	K057133_BASE + $7
+		lda	K051733_BASE + $7
 		RSUB	print_hex_byte
+
+loop_cb:
 		rts
 
 
@@ -109,7 +108,7 @@ d_xys_screen_list:
 			XY_STRING (SCREEN_START_X + 14), (SCREEN_START_Y + 12), "2F8E"
 			XY_STRING (SCREEN_START_X + 14), (SCREEN_START_Y + 13), "2F8F"
 			XY_STRING (SCREEN_START_X + 14), (SCREEN_START_Y + 14), "2F93"
-			XY_STRING SCREEN_START_X, (SCREEN_START_Y + 16), "READING VALUE"
+			XY_STRING SCREEN_START_X, (SCREEN_START_Y + 16), "READ VALUE"
 			XY_STRING SCREEN_START_X, (SCREEN_START_Y + 18), "2F87"
 			XY_STRING_LIST_END
 
