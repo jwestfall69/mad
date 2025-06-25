@@ -78,7 +78,7 @@ sprite_k051960_viewer_handler:
 	.not_ss_sprite_num:
 		cmpa	#SA_SPRITE_SIZE
 		bne	.not_ss_sprite_size
-		lda	#$3
+		lda	#$7
 		ldx	#r_input_edge
 		leay	s_se_size, y
 		bra	.joystick_lr_update_byte
