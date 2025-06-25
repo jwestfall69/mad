@@ -6,11 +6,12 @@
 	include "mad.inc"
 
 	global delay_dsub
-	global memory_rewrite_dsub
 	global joystick_update_byte
 	global joystick_lr_update_byte
 	global joystick_update_word
 	global joystick_lr_update_word
+	global memory_copy_dsub
+	global memory_rewrite_dsub
 	global sound_play_byte_dsub
 	global wait_button_press
 	global wait_button_release
@@ -34,17 +35,6 @@ delay_dsub:
 		cmpd	#0		; 4 cycles
 		decw			; 3 cycles
 		bne	 delay_dsub 	; 2 cycles
-		DSUB_RETURN
-
-; params:
-;  w = size
-;  x = start address
-memory_rewrite_dsub:
-		WATCHDOG
-		lda	,x
-		sta	,x+
-		decw
-		bne	memory_rewrite_dsub
 		DSUB_RETURN
 
 ; Looking at joystick input, adjust the byte in memory by
@@ -236,6 +226,31 @@ joystick_lr_update_word:
 	.return_no_change:
 		clra
 		rts
+
+; params:
+;  x = src address
+;  y = dst address
+;  w = size in bytes
+memory_copy_dsub:
+		WATCHDOG
+		lda	, x+
+		sta	, y+
+		decw
+		bne	memory_copy_dsub
+		DSUB_RETURN
+
+
+; params:
+;  w = size
+;  x = start address
+memory_rewrite_dsub:
+		WATCHDOG
+		lda	, x
+		sta	, x+
+		decw
+		bne	memory_rewrite_dsub
+		DSUB_RETURN
+
 
 ; params:
 ;  a = byte to play
