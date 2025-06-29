@@ -1,6 +1,7 @@
 	include "global/include/macros.inc"
-	include "cpu/6309/include/macros.inc"
-	include "cpu/6309/include/handlers/auto_test.inc"
+
+	include "cpu/6x09/include/macros.inc"
+	include "cpu/6x09/include/handlers/auto_test.inc"
 
 	global	auto_func_tests
 

@@ -1,8 +1,9 @@
 	include "global/include/macros.inc"
 	include "global/include/screen.inc"
+
+	include "cpu/6x09/include/macros.inc"
+
 	include "cpu/konami2/include/dsub.inc"
-	include "cpu/konami2/include/macros.inc"
-	include "cpu/konami2/include/xy_string.inc"
 
 	include "machine.inc"
 	include "mad.inc"
@@ -30,7 +31,7 @@ layer_b_tile_viewer:
 		ldd	#TILE_OFFSET_MASK
 		ldx	#layer_b_seek_xy_cb
 		ldy	#tvc_draw_tile_cb
-		jsr	tile8_viewer_handler
+		jsr	tile_8x8_viewer_handler
 		rts
 
 layer_b_seek_xy_cb:
@@ -42,4 +43,4 @@ layer_b_seek_xy_cb:
 
 	section data
 
-d_str_title: 	STRING "LAYER B TILE VIEWER"
+d_str_title:	STRING "LAYER B TILE VIEWER"

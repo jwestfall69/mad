@@ -1,4 +1,5 @@
 	include "cpu/6309/include/error_codes.inc"
+
 	include "machine.inc"
 
 	global error_address
@@ -47,6 +48,6 @@ error_address:
 		decw			; $105a
 		bne	.delay		; $26f8
 		bra	.loop		; $20f0
- 	einline
+	einline
 	endr
 

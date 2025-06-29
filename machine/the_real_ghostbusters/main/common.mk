@@ -11,31 +11,32 @@ VLINK_FLAGS = -brawbin1 -T$(MAD_NAME).ld
 MKDIR = mkdir
 DD = dd
 
-OBJS = $(OBJ_DIR)/cpu/6309/src/crc32.o \
-       $(OBJ_DIR)/cpu/6309/src/error_address.o \
-       $(OBJ_DIR)/cpu/6309/src/footer.o \
-       $(OBJ_DIR)/cpu/6309/src/input_update.o \
-       $(OBJ_DIR)/cpu/6309/src/memory_fill.o \
-       $(OBJ_DIR)/cpu/6309/src/print_error.o \
-       $(OBJ_DIR)/cpu/6309/src/util.o \
-       $(OBJ_DIR)/cpu/6309/src/xy_string.o \
-       $(OBJ_DIR)/cpu/6309/src/debug/error_address_test.o \
-       $(OBJ_DIR)/cpu/6309/src/debug/mad_git_hash.o \
-       $(OBJ_DIR)/cpu/6309/src/handlers/auto_test.o \
-       $(OBJ_DIR)/cpu/6309/src/handlers/error.o \
-       $(OBJ_DIR)/cpu/6309/src/handlers/memory_tests.o \
-       $(OBJ_DIR)/cpu/6309/src/handlers/memory_viewer.o \
-       $(OBJ_DIR)/cpu/6309/src/handlers/menu.o \
-       $(OBJ_DIR)/cpu/6309/src/handlers/sound.o \
-       $(OBJ_DIR)/cpu/6309/src/handlers/sprite_deco_karnov_viewer.o \
-       $(OBJ_DIR)/cpu/6309/src/handlers/tile8_viewer.o \
-       $(OBJ_DIR)/cpu/6309/src/handlers/tile16_viewer.o \
-       $(OBJ_DIR)/cpu/6309/src/tests/input.o \
-       $(OBJ_DIR)/cpu/6309/src/tests/memory.o \
-       $(OBJ_DIR)/cpu/6309/src/tests/mad_rom.o \
-       $(OBJ_DIR)/cpu/6309/src/tests/work_ram.o
+OBJS  = $(OBJ_DIR)/cpu/6x09/src/error_address.o \
+        $(OBJ_DIR)/cpu/6x09/src/header.o \
+        $(OBJ_DIR)/cpu/6x09/src/input_update.o \
+        $(OBJ_DIR)/cpu/6x09/src/print_error.o \
+        $(OBJ_DIR)/cpu/6x09/src/util.o \
+        $(OBJ_DIR)/cpu/6x09/src/xy_string.o \
+        $(OBJ_DIR)/cpu/6x09/src/debug/error_address_test.o \
+        $(OBJ_DIR)/cpu/6x09/src/debug/mad_git_hash.o \
+        $(OBJ_DIR)/cpu/6x09/src/handlers/auto_test.o \
+        $(OBJ_DIR)/cpu/6x09/src/handlers/error.o \
+        $(OBJ_DIR)/cpu/6x09/src/handlers/memory_viewer.o \
+        $(OBJ_DIR)/cpu/6x09/src/handlers/menu.o \
+        $(OBJ_DIR)/cpu/6x09/src/handlers/sound.o \
+        $(OBJ_DIR)/cpu/6x09/src/handlers/sprite_deco_karnov_viewer.o \
+        $(OBJ_DIR)/cpu/6x09/src/handlers/tile_8x8_viewer.o \
+        $(OBJ_DIR)/cpu/6x09/src/tests/input.o
 
-# code from this machine
+OBJS += $(OBJ_DIR)/cpu/6309/src/crc32.o \
+        $(OBJ_DIR)/cpu/6309/src/footer.o \
+        $(OBJ_DIR)/cpu/6309/src/memory_fill.o \
+        $(OBJ_DIR)/cpu/6309/src/handlers/memory_tests.o \
+        $(OBJ_DIR)/cpu/6309/src/handlers/tile_16x16_viewer.o \
+        $(OBJ_DIR)/cpu/6309/src/tests/memory.o \
+        $(OBJ_DIR)/cpu/6309/src/tests/mad_rom.o \
+        $(OBJ_DIR)/cpu/6309/src/tests/work_ram.o
+
 OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/errors.o \
         $(OBJ_DIR)/print.o \
@@ -60,15 +61,25 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/viewers/bac06_tile.o \
         $(OBJ_DIR)/viewers/sprite.o
 
-OBJS += $(OBJ_DIR)/cpu/6309/src/handlers/memory_write.o \
-        $(OBJ_DIR)/debug/hardware/sprite_debug.o \
+ifneq (,$(findstring _DEBUG_HARDWARE_,$(BUILD_FLAGS)))
+OBJS += $(OBJ_DIR)/cpu/6x09/src/handlers/memory_write.o \
+        $(OBJ_DIR)/debug/hardware/sprite.o \
         $(OBJ_DIR)/menus/debug_hardware.o
+endif
 
-INCS = $(wildcard include/*.inc) \
+INCS = $(wildcard ../../../common/global/include/*.inc) \
+       $(wildcard ../../../common/global/include/*/*.inc) \
+       $(wildcard ../../../common/global/include/*/*/*.inc) \
        $(wildcard ../../../common/global/include/*.inc) \
+       $(wildcard ../../../common/cpu/6x09/include/*.inc) \
+       $(wildcard ../../../common/cpu/6x09/include/*/*.inc) \
+       $(wildcard ../../../common/cpu/6x09/include/*/*/*.inc) \
        $(wildcard ../../../common/cpu/6309/include/*.inc) \
-       $(wildcard ../../../common/cpu/6309/include/tests/*.inc) \
-       $(wildcard ../../../common/cpu/6309/include/tests/*/*.inc)
+       $(wildcard ../../../common/cpu/6309/include/*/*.inc) \
+       $(wildcard ../../../common/cpu/6309/include/*/*/*.inc) \
+       $(wildcard include/*.inc) \
+       $(wildcard include/*/*.inc) \
+       $(wildcard include/*/*/*.inc)
 
 $(WORK_DIR)/$(MAD_NAME).bin: include/error_codes.inc $(WORK_DIR) $(BUILD_DIR) $(OBJS) ../README.md
 	$(VLINK) $(VLINK_FLAGS) -o $(WORK_DIR)/$(MAD_NAME).bin $(OBJS)
@@ -89,6 +100,10 @@ $(OBJ_DIR)/%.o: src/%.asm $(INCS)
 	$(VASM) $(VASM_FLAGS) $(BUILD_FLAGS) -o $@ $<
 
 $(OBJ_DIR)/cpu/6309/src/%.o: ../../../common/cpu/6309/src/%.asm $(INCS)
+	@[ -d "$(@D)" ] || $(MKDIR) -p "$(@D)"
+	$(VASM) $(VASM_FLAGS) $(BUILD_FLAGS) -o $@ $<
+
+$(OBJ_DIR)/cpu/6x09/src/%.o: ../../../common/cpu/6x09/src/%.asm $(INCS)
 	@[ -d "$(@D)" ] || $(MKDIR) -p "$(@D)"
 	$(VASM) $(VASM_FLAGS) $(BUILD_FLAGS) -o $@ $<
 

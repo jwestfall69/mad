@@ -13,15 +13,23 @@ SOUND_NUM_BIT_ONE	equ $11
 ; Instead we need to store it in some other location..
 R_WORK_RAM_PASSES	equ VIDEO_RAM
 
+	; we are only allowed to use d register
 	macro SOUND_BIT_DELAY
-		lda	#$7f
-
+		ldd	#$ffff
 	.\@:
 		WATCHDOG
-		ldw	#$1ff
-		PSUB	delay
-		deca
-		bne	.\@
+		cmpd	#0		; 4 cycles
+		cmpd	#0		; 4 cycles
+		cmpd	#0		; 4 cycles
+		cmpd	#0		; 4 cycles
+		cmpd	#0		; 4 cycles
+		cmpd	#0		; 4 cycles
+		cmpd	#0		; 4 cycles
+		cmpd	#0		; 4 cycles
+		cmpd	#0		; 4 cycles
+		cmpd	#0		; 4 cycles
+		subd	#$1
+		bne	.\@		; 2 cycles
 	endm
 
 ; video dac

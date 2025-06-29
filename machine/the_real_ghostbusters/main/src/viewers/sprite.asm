@@ -1,9 +1,10 @@
 	include "global/include/macros.inc"
 	include "global/include/screen.inc"
 	include "global/include/sprite/dataeast/karnov.inc"
+
+	include "cpu/6x09/include/macros.inc"
+
 	include "cpu/6309/include/dsub.inc"
-	include "cpu/6309/include/macros.inc"
-	include "cpu/6309/include/xy_string.inc"
 
 	include "input.inc"
 	include "machine.inc"

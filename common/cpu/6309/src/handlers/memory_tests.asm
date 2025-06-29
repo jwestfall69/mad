@@ -1,6 +1,6 @@
+	include "cpu/6x09/include/macros.inc"
+
 	include "cpu/6309/include/dsub.inc"
-	include "cpu/6309/include/macros.inc"
-	include "cpu/6309/include/xy_string.inc"
 	include "cpu/6309/include/handlers/memory_tests.inc"
 
 	include "machine.inc"
@@ -98,7 +98,7 @@ memory_tests_handler:
 		ldx	s_mt_start_address, y
 		ldd	s_mt_size, y
 		RSUB	memory_march_test
- 		tsta
+		tsta
 		bne	.test_failed_march
 
 	.skip_march_test:
@@ -124,8 +124,10 @@ memory_tests_handler:
 		lda	#MT_ERROR_WRITE_BASE
 
 	.add_base_ec:
+		pshs	y
 		ldy	r_mt_data_ptr
 		adda	s_mt_base_ec, y
+		puls	y
 		rts
 
 	section bss

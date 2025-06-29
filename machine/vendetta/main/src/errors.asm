@@ -1,8 +1,10 @@
 	include "global/include/macros.inc"
+
+	include "cpu/6x09/include/macros.inc"
+	include "cpu/6x09/include/print_error.inc"
+	include "cpu/6x09/include/handlers/error.inc"
+
 	include "cpu/konami2/include/error_codes.inc"
-	include "cpu/konami2/include/macros.inc"
-	include "cpu/konami2/include/print_error.inc"
-	include "cpu/konami2/include/handlers/error.inc"
 
 	include "error_codes.inc"
 
@@ -43,17 +45,17 @@ d_str_palette_ram_march:	STRING "PALETTE RAM MARCH"
 d_str_palette_ram_output:	STRING "PALETTE RAM DEAD OUTPUT"
 d_str_palette_ram_write:	STRING "PALETTE RAM WRITE"
 
-d_str_tile_attr_ram_address:	STRING "TILE_ATTR RAM ADDRESS"
-d_str_tile_attr_ram_data:	STRING "TILE_ATTR RAM DATA"
-d_str_tile_attr_ram_march:	STRING "TILE_ATTR RAM MARCH"
-d_str_tile_attr_ram_output:	STRING "TILE_ATTR RAM DEAD OUTPUT"
-d_str_tile_attr_ram_write:	STRING "TILE_ATTR RAM WRITE"
+d_str_tile_attr_ram_address:	STRING "TILE ATTR RAM ADDRESS"
+d_str_tile_attr_ram_data:	STRING "TILE ATTR RAM DATA"
+d_str_tile_attr_ram_march:	STRING "TILE ATTR RAM MARCH"
+d_str_tile_attr_ram_output:	STRING "TILE ATTR RAM DEAD OUTPUT"
+d_str_tile_attr_ram_write:	STRING "TILE ATTR RAM WRITE"
 
-d_str_tile_ram_address:		STRING "TILE_RAM ADDRESS"
-d_str_tile_ram_data:		STRING "TILE_RAM DATA"
-d_str_tile_ram_march:		STRING "TILE_RAM MARCH"
-d_str_tile_ram_output:		STRING "TILE_RAM DEAD OUTPUT"
-d_str_tile_ram_write:		STRING "TILE_RAM WRITE"
+d_str_tile_ram_address:		STRING "TILE RAM ADDRESS"
+d_str_tile_ram_data:		STRING "TILE RAM DATA"
+d_str_tile_ram_march:		STRING "TILE RAM MARCH"
+d_str_tile_ram_output:		STRING "TILE RAM DEAD OUTPUT"
+d_str_tile_ram_write:		STRING "TILE RAM WRITE"
 
 d_str_sprite_ram_address:	STRING "SPRITE RAM ADDRESS"
 d_str_sprite_ram_data:		STRING "SPRITE RAM DATA"

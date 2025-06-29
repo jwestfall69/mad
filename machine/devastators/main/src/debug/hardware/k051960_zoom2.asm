@@ -1,8 +1,10 @@
 	include "global/include/macros.inc"
 	include "global/include/screen.inc"
+
+	include "cpu/6x09/include/macros.inc"
+	include "cpu/6x09/include/xy_string.inc"
+
 	include "cpu/6309/include/dsub.inc"
-	include "cpu/6309/include/macros.inc"
-	include "cpu/6309/include/xy_string.inc"
 
 	include "machine.inc"
 	include "input.inc"
@@ -19,7 +21,7 @@ k051960_zoom2_debug:
 		clr	r_zoom
 
 		ldy	#d_screen_xys_list
-		RSUB	print_xy_string_list
+		jsr	print_xy_string_list
 
 		; sprite palette
 		ldx	#SPRITE_PALETTE + (7 * PALETTE_SIZE) + $2
@@ -29,8 +31,8 @@ k051960_zoom2_debug:
 
 		ldx	#d_sprite_data
 		ldy	#SPRITE_RAM
-		ldw	#(4 * 8)
-		RSUB	memory_copy
+		ldd	#(4 * 8)
+		jsr	memory_copy
 
 		; grid color
 		ldx	#FIX_TILE_PALETTE + (2 * PALETTE_SIZE) + $2

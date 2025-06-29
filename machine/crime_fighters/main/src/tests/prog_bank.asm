@@ -1,7 +1,10 @@
+	include "global/include/macros.inc"
 	include "global/include/screen.inc"
+
+	include "cpu/6x09/include/macros.inc"
+	include "cpu/6x09/include/xy_string.inc"
+
 	include "cpu/konami2/include/dsub.inc"
-	include "cpu/konami2/include/macros.inc"
-	include "cpu/konami2/include/xy_string.inc"
 
 	include "input.inc"
 	include "machine.inc"
@@ -74,8 +77,9 @@ run_test:
 		cmpa	r_setln
 		bgt	.loop_next_mirror
 
+		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 3)
 		ldy	#d_str_test_passed
-		jsr	print_xy_string
+		RSUB	print_string
 		rts
 
 	.test_failed:
@@ -113,7 +117,7 @@ d_screen_xys_test_failed_list:
 	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 7), "ACTUAL"
 	XY_STRING_LIST_END
 
-d_str_test_passed:	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 3), "TEST PASSED"
+d_str_test_passed:	STRING "TEST PASSED"
 
 	section bss
 

@@ -1,8 +1,10 @@
 	include "global/include/macros.inc"
 	include "global/include/screen.inc"
+
+	include "cpu/6x09/include/macros.inc"
+	include "cpu/6x09/include/handlers/menu.inc"
+
 	include "cpu/konami2/include/dsub.inc"
-	include "cpu/konami2/include/macros.inc"
-	include "cpu/konami2/include/handlers/menu.inc"
 
 	include "machine.inc"
 
@@ -30,7 +32,9 @@ debug_menu:
 	section data
 
 d_menu_list:
-	MENU_ENTRY debug_hardware_menu, d_str_debug_hardware
+	ifd _DEBUG_HARDWARE_
+		MENU_ENTRY debug_hardware_menu, d_str_debug_hardware
+	endif
 	;MENU_ENTRY ec_dupe_check, d_str_ec_dupe_check
 	MENU_ENTRY error_address_test, d_str_error_address_test
 	MENU_ENTRY mad_git_hash, d_str_mad_git_hash

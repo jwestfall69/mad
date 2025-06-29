@@ -1,9 +1,11 @@
 	include "global/include/macros.inc"
 	include "global/include/screen.inc"
+
+	include "cpu/6x09/include/macros.inc"
+	include "cpu/6x09/include/xy_string.inc"
+	include "cpu/6x09/include/handlers/memory_write.inc"
+
 	include "cpu/6309/include/dsub.inc"
-	include "cpu/6309/include/macros.inc"
-	include "cpu/6309/include/xy_string.inc"
-	include "cpu/6309/include/handlers/memory_write.inc"
 
 	include "machine.inc"
 
@@ -17,7 +19,7 @@ k051733_collision_debug:
 		std	LAYER_A_TILE_PALETTE + $18
 
 		ldy	#d_xys_screen_list
-		RSUB	print_xy_string_list
+		jsr	print_xy_string_list
 
 		ldd	#LAYER_A_TILE
 		std	r_old_highlight

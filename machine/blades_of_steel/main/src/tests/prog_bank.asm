@@ -1,7 +1,10 @@
+	include "global/include/macros.inc"
 	include "global/include/screen.inc"
+
+	include "cpu/6x09/include/macros.inc"
+	include "cpu/6x09/include/xy_string.inc"
+
 	include "cpu/6309/include/dsub.inc"
-	include "cpu/6309/include/macros.inc"
-	include "cpu/6309/include/xy_string.inc"
 
 	include "input.inc"
 	include "machine.inc"
@@ -12,7 +15,7 @@
 
 prog_bank_test:
 		ldy	#d_screen_xys_list
-		RSUB	print_xy_string_list
+		jsr	print_xy_string_list
 
 	.loop_input:
 		WATCHDOG
@@ -44,7 +47,7 @@ run_test:
 		; test multiple times
 		RSUB	screen_init
 		ldy	#d_screen_xys_list
-		RSUB	print_xy_string_list
+		jsr	print_xy_string_list
 
 		clra
 		sta	r_bank
@@ -74,14 +77,15 @@ run_test:
 		cmpa	r_bank
 		bgt	.loop_next_mirror
 
+		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 3)
 		ldy	#d_str_test_passed
-		RSUB	print_xy_string
+		RSUB	print_string
 		rts
 
 	.test_failed:
 		pshs	b
 		ldy	#d_screen_xys_test_failed_list
-		RSUB	print_xy_string_list
+		jsr	print_xy_string_list
 
 		SEEK_XY	(SCREEN_START_X + 10), (SCREEN_START_Y + 5)
 		lda	r_bank
@@ -121,7 +125,7 @@ d_screen_xys_test_failed_list:
 	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 7), "ACTUAL"
 	XY_STRING_LIST_END
 
-d_str_test_passed:	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 3), "TEST PASSED"
+d_str_test_passed:	STRING "TEST PASSED"
 
 	section bss
 

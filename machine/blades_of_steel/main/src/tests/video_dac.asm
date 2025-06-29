@@ -1,7 +1,9 @@
 	include "global/include/screen.inc"
+
+	include "cpu/6x09/include/macros.inc"
+	include "cpu/6x09/include/xy_string.inc"
+
 	include "cpu/6309/include/dsub.inc"
-	include "cpu/6309/include/macros.inc"
-	include "cpu/6309/include/xy_string.inc"
 
 	include "input.inc"
 	include "mad.inc"
@@ -15,7 +17,7 @@ video_dac_test:
 		RSUB	screen_init
 
 		ldy	#d_screen_xys_list
-		RSUB	print_xy_string_list
+		jsr	print_xy_string_list
 
 		; The game only has 1 palette per tile layer and
 		; only 2 layers.  So we have to double up the number

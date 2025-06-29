@@ -1,5 +1,5 @@
 MAD_NAME=mad_aliens
-BUILD_FLAGS=-D_CPU_KONAMI2_
+BUILD_FLAGS=-D_CPU_KONAMI2_ -D_DEBUG_HARDWARE_
 ROM_SIZE=65536
 BUILD_DIR=build
 OBJ_DIR=$(BUILD_DIR)/obj
@@ -13,28 +13,28 @@ VLINK_FLAGS = -brawbin1 -T$(MAD_NAME).ld
 MKDIR = mkdir
 DD = dd
 
-OBJS = $(OBJ_DIR)/cpu/konami2/src/footer.o \
-       $(OBJ_DIR)/cpu/konami2/src/header.o \
-       $(OBJ_DIR)/cpu/konami2/src/input_update.o \
-       $(OBJ_DIR)/cpu/konami2/src/print_error.o \
-       $(OBJ_DIR)/cpu/konami2/src/util.o \
-       $(OBJ_DIR)/cpu/konami2/src/xy_string.o \
-       $(OBJ_DIR)/cpu/konami2/src/debug/error_address_test.o \
-       $(OBJ_DIR)/cpu/konami2/src/debug/mad_git_hash.o \
-       $(OBJ_DIR)/cpu/konami2/src/handlers/auto_test.o \
-       $(OBJ_DIR)/cpu/konami2/src/handlers/error.o \
-       $(OBJ_DIR)/cpu/konami2/src/handlers/memory_tests.o \
-       $(OBJ_DIR)/cpu/konami2/src/handlers/memory_viewer.o \
-       $(OBJ_DIR)/cpu/konami2/src/handlers/menu.o \
-       $(OBJ_DIR)/cpu/konami2/src/handlers/sound.o \
-       $(OBJ_DIR)/cpu/konami2/src/handlers/sprite_k051960_viewer.o \
-       $(OBJ_DIR)/cpu/konami2/src/handlers/tile8_viewer.o \
-       $(OBJ_DIR)/cpu/konami2/src/tests/input.o \
-       $(OBJ_DIR)/cpu/konami2/src/tests/mad_rom.o \
-       $(OBJ_DIR)/cpu/konami2/src/tests/memory.o \
-       $(OBJ_DIR)/cpu/konami2/src/tests/work_ram.o
+OBJS  = $(OBJ_DIR)/cpu/6x09/src/header.o \
+        $(OBJ_DIR)/cpu/6x09/src/input_update.o \
+        $(OBJ_DIR)/cpu/6x09/src/print_error.o \
+        $(OBJ_DIR)/cpu/6x09/src/util.o \
+        $(OBJ_DIR)/cpu/6x09/src/xy_string.o \
+        $(OBJ_DIR)/cpu/6x09/src/debug/error_address_test.o \
+        $(OBJ_DIR)/cpu/6x09/src/debug/mad_git_hash.o \
+        $(OBJ_DIR)/cpu/6x09/src/handlers/auto_test.o \
+        $(OBJ_DIR)/cpu/6x09/src/handlers/error.o \
+        $(OBJ_DIR)/cpu/6x09/src/handlers/memory_viewer.o \
+        $(OBJ_DIR)/cpu/6x09/src/handlers/menu.o \
+        $(OBJ_DIR)/cpu/6x09/src/handlers/sound.o \
+        $(OBJ_DIR)/cpu/6x09/src/handlers/sprite_k051960_viewer.o \
+        $(OBJ_DIR)/cpu/6x09/src/handlers/tile_8x8_viewer.o \
+        $(OBJ_DIR)/cpu/6x09/src/tests/input.o
 
-# code from this machine
+OBJS += $(OBJ_DIR)/cpu/konami2/src/footer.o \
+        $(OBJ_DIR)/cpu/konami2/src/handlers/memory_tests.o \
+        $(OBJ_DIR)/cpu/konami2/src/tests/mad_rom.o \
+        $(OBJ_DIR)/cpu/konami2/src/tests/memory.o \
+        $(OBJ_DIR)/cpu/konami2/src/tests/work_ram.o
+
 OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/error_address.o \
         $(OBJ_DIR)/errors.o \
@@ -64,16 +64,26 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/viewers/sprite.o \
         $(OBJ_DIR)/viewers/tile_viewer_common.o
 
-OBJS += $(OBJ_DIR)/cpu/konami2/src/debug/hardware/watchdog_time.o \
-        $(OBJ_DIR)/cpu/konami2/src/handlers/memory_write.o \
-        $(OBJ_DIR)/debug/hardware/sprite_debug.o \
+ifneq (,$(findstring _DEBUG_HARDWARE_,$(BUILD_FLAGS)))
+OBJS += $(OBJ_DIR)/cpu/6x09/src/debug/hardware/watchdog_time.o \
+        $(OBJ_DIR)/cpu/6x09/src/handlers/memory_write.o \
+        $(OBJ_DIR)/debug/hardware/sprite.o \
         $(OBJ_DIR)/menus/debug_hardware.o
+endif
 
-INCS = $(wildcard include/*.inc) \
+INCS = $(wildcard ../../../common/global/include/*.inc) \
+       $(wildcard ../../../common/global/include/*/*.inc) \
+       $(wildcard ../../../common/global/include/*/*/*.inc) \
        $(wildcard ../../../common/global/include/*.inc) \
+       $(wildcard ../../../common/cpu/6x09/include/*.inc) \
+       $(wildcard ../../../common/cpu/6x09/include/*/*.inc) \
+       $(wildcard ../../../common/cpu/6x09/include/*/*/*.inc) \
        $(wildcard ../../../common/cpu/konami2/include/*.inc) \
-       $(wildcard ../../../common/cpu/konami2/include/tests/*.inc) \
-       $(wildcard ../../../common/cpu/konami2/include/tests/*/*.inc)
+       $(wildcard ../../../common/cpu/konami2/include/*/*.inc) \
+       $(wildcard ../../../common/cpu/konami2/include/*/*/*.inc) \
+       $(wildcard include/*.inc) \
+       $(wildcard include/*/*.inc) \
+       $(wildcard include/*/*/*.inc)
 
 $(WORK_DIR)/$(MAD_NAME).bin: include/error_codes.inc $(WORK_DIR) $(BUILD_DIR) $(OBJS) ../README.md
 	$(VLINK) $(VLINK_FLAGS) -o $(WORK_DIR)/$(MAD_NAME).bin $(OBJS)
@@ -94,6 +104,10 @@ $(OBJ_DIR)/%.o: src/%.asm $(INCS)
 	$(VASM) $(VASM_FLAGS) $(BUILD_FLAGS) -o $@ $<
 
 $(OBJ_DIR)/cpu/konami2/src/%.o: ../../../common/cpu/konami2/src/%.asm $(INCS)
+	@[ -d "$(@D)" ] || $(MKDIR) -p "$(@D)"
+	$(VASM) $(VASM_FLAGS) $(BUILD_FLAGS) -o $@ $<
+
+$(OBJ_DIR)/cpu/6x09/src/%.o: ../../../common/cpu/6x09/src/%.asm $(INCS)
 	@[ -d "$(@D)" ] || $(MKDIR) -p "$(@D)"
 	$(VASM) $(VASM_FLAGS) $(BUILD_FLAGS) -o $@ $<
 

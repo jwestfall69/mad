@@ -46,13 +46,21 @@ VD_TILE_C1B4_PAL_OFFSET	equ $1a
 VD_TILE_C1BA_NUM	equ $ffe	; all bits enabled
 VD_TILE_C1BA_PAL_OFFSET	equ $1c
 
+	; we are only allowed to use d register
 	macro SOUND_BIT_DELAY
-		lda	#$7f
-
+		ldd	#$ffff
 	.\@:
 		WATCHDOG
-		ldw	#$1ff
-		PSUB	delay
-		deca
-		bne	.\@
+		cmpd	#0		; 4 cycles
+		cmpd	#0		; 4 cycles
+		cmpd	#0		; 4 cycles
+		cmpd	#0		; 4 cycles
+		cmpd	#0		; 4 cycles
+		cmpd	#0		; 4 cycles
+		cmpd	#0		; 4 cycles
+		cmpd	#0		; 4 cycles
+		cmpd	#0		; 4 cycles
+		cmpd	#0		; 4 cycles
+		subd	#$1
+		bne	.\@		; 2 cycles
 	endm

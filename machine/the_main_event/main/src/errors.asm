@@ -1,8 +1,10 @@
 	include "global/include/macros.inc"
+
+	include "cpu/6x09/include/macros.inc"
+	include "cpu/6x09/include/print_error.inc"
+	include "cpu/6x09/include/handlers/error.inc"
+
 	include "cpu/6309/include/error_codes.inc"
-	include "cpu/6309/include/macros.inc"
-	include "cpu/6309/include/print_error.inc"
-	include "cpu/6309/include/handlers/error.inc"
 
 	include "error_codes.inc"
 
@@ -54,8 +56,8 @@ d_str_tile_ram_march:		STRING "TILE RAM MARCH"
 d_str_tile_ram_output:		STRING "TILE RAM DEAD OUTPUT"
 d_str_tile_ram_write:		STRING "TILE RAM WRITE"
 
-d_str_tile_attr_ram_address:	STRING "TILE_ATTR RAM ADDRESS"
-d_str_tile_attr_ram_data:	STRING "TILE_ATTR RAM DATA"
-d_str_tile_attr_ram_march:	STRING "TILE_ATTR RAM MARCH"
-d_str_tile_attr_ram_output:	STRING "TILE_ATTR RAM DEAD OUTPUT"
-d_str_tile_attr_ram_write:	STRING "TILE_ATTR RAM WRITE"
+d_str_tile_attr_ram_address:	STRING "TILE ATTR RAM ADDRESS"
+d_str_tile_attr_ram_data:	STRING "TILE ATTR RAM DATA"
+d_str_tile_attr_ram_march:	STRING "TILE ATTR RAM MARCH"
+d_str_tile_attr_ram_output:	STRING "TILE ATTR RAM DEAD OUTPUT"
+d_str_tile_attr_ram_write:	STRING "TILE ATTR RAM WRITE"

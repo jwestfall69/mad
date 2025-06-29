@@ -1,8 +1,10 @@
 	include "global/include/macros.inc"
+
+	include "cpu/6x09/include/macros.inc"
+	include "cpu/6x09/include/print_error.inc"
+	include "cpu/6x09/include/handlers/error.inc"
+
 	include "cpu/konami2/include/error_codes.inc"
-	include "cpu/konami2/include/macros.inc"
-	include "cpu/konami2/include/print_error.inc"
-	include "cpu/konami2/include/handlers/error.inc"
 
 	include "error_codes.inc"
 

@@ -1,8 +1,10 @@
 	include "global/include/macros.inc"
 	include "global/include/screen.inc"
+
+	include "cpu/6x09/include/macros.inc"
+	include "cpu/6x09/include/xy_string.inc"
+
 	include "cpu/6309/include/dsub.inc"
-	include "cpu/6309/include/macros.inc"
-	include "cpu/6309/include/xy_string.inc"
 
 	include "machine.inc"
 
@@ -24,7 +26,7 @@ bac06_tile_viewer:
 		ldw	#TILE_OFFSET_MASK
 		ldx	#bac06_seek_xy_cb
 		ldy	#bac06_draw_tile_cb
-		jsr	tile16_viewer_handler
+		jsr	tile_16x16_viewer_handler
 		rts
 
 

@@ -1,3 +1,5 @@
+	include "cpu/6x09/include/macros.inc"
+
 	include "cpu/konami2/include/dsub.inc"
 	include "cpu/konami2/include/macros.inc"
 

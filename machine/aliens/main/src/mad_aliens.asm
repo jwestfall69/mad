@@ -1,7 +1,9 @@
 	include "global/include/macros.inc"
 	include "global/include/screen.inc"
+
+	include "cpu/6x09/include/macros.inc"
+
 	include "cpu/konami2/include/dsub.inc"
-	include "cpu/konami2/include/macros.inc"
 
 	include "machine.inc"
 	include "mad.inc"
@@ -54,7 +56,7 @@ _start:
 
 		DSUB_MODE_RSUB
 
-		;jsr	auto_func_tests
+		jsr	auto_func_tests
 
 		lda	#SOUND_NUM_SUCCESS
 		SOUND_PLAY
@@ -63,4 +65,4 @@ _start:
 
 	section data
 
-d_str_testing_work_ram: 	STRING "TESTING WORK RAM"
+d_str_testing_work_ram:		STRING "TESTING WORK RAM"

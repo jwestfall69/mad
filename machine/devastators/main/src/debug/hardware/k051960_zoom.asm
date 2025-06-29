@@ -1,8 +1,10 @@
 	include "global/include/macros.inc"
 	include "global/include/screen.inc"
+
+	include "cpu/6X09/include/macros.inc"
+	include "cpu/6X09/include/handlers/memory_write.inc"
+
 	include "cpu/6309/include/dsub.inc"
-	include "cpu/6309/include/macros.inc"
-	include "cpu/6309/include/handlers/memory_write.inc"
 
 	include "machine.inc"
 	include "input.inc"
@@ -19,13 +21,13 @@ k051960_zoom_debug:
 		; sprite palette
 		ldx	#d_palette_data
 		ldy	#SPRITE_PALETTE + (7 * PALETTE_SIZE)
-		ldw	#$20
-		RSUB	memory_copy
+		ldd	#$20
+		jsr	memory_copy
 
 		ldx	#d_sprite_data
 		ldy	#r_mw_buffer
-		ldw	#$10
-		RSUB	memory_copy
+		ldd	#$10
+		jsr	memory_copy
 
 		; force a write of the buffer
 		jsr	write_memory_cb

@@ -1,5 +1,6 @@
+	include "cpu/6x09/include/macros.inc"
+
 	include "cpu/6309/include/dsub.inc"
-	include "cpu/6309/include/macros.inc"
 
 	include "machine.inc"
 
@@ -21,7 +22,7 @@
 ; returns:
 ;  a = 0 (pass), 1 (fail)
 ;  b = actual value
-;  e = expected value
+;  y = expected value
 ;  x = failed address
 memory_address_test_dsub:
 
@@ -69,6 +70,7 @@ memory_address_test_dsub:
 		WATCHDOG
 		leax	d, x
 		tfr	f, b
+		tfr	e, y
 		lda	#$1
 		DSUB_RETURN
 
@@ -80,7 +82,7 @@ memory_address_test_dsub:
 ; returns:
 ;  a = 0 (pass), 1 (fail)
 ;  b = actual value
-;  e = expected value
+;  y = expected value
 ;  x = failed address
 memory_data_test_dsub:
 
@@ -107,6 +109,7 @@ memory_data_test_dsub:
 	.test_failed:
 		WATCHDOG
 		tfr	f, b
+		tfr	e, y
 		leax	-1, x
 		lda	#$1
 		DSUB_RETURN
@@ -118,7 +121,7 @@ memory_data_test_dsub:
 ; returns:
 ;  a = 0 (pass), 1 (fail)
 ;  b = actual value
-;  e = expected value
+;  y = expected value
 ;  x = failed address
 memory_march_test_dsub:
 
@@ -162,6 +165,7 @@ memory_march_test_dsub:
 		WATCHDOG
 		clre
 		tfr	f, b
+		tfr	e, y
 		lda	#$1
 		DSUB_RETURN
 

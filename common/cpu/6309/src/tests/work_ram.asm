@@ -1,8 +1,10 @@
 	include "global/include/macros.inc"
 	include "global/include/screen.inc"
+
+	include "cpu/6x09/include/macros.inc"
+	include "cpu/6x09/include/xy_string.inc"
+
 	include "cpu/6309/include/dsub.inc"
-	include "cpu/6309/include/macros.inc"
-	include "cpu/6309/include/xy_string.inc"
 
 	include "error_codes.inc"
 	include "input.inc"
@@ -169,7 +171,7 @@ print_error_work_ram_memory_dsub:
 
 manual_work_ram_tests:
 		ldy	#d_screen_xys_list
-		RSUB	print_xy_string_list
+		jsr	print_xy_string_list
 
 		clrd
 		std	R_WORK_RAM_PASSES
