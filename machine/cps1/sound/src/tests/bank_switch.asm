@@ -1,6 +1,4 @@
-
-	include "error_codes.inc"
-	include "machine.inc"
+	include "cpu/z80/include/common.inc"
 
 	global bank_switch_tests
 

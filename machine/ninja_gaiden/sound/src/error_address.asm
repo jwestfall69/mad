@@ -1,8 +1,7 @@
 ; gaiden sound cpu has a watchdog and requires some special stuff to
 ; work around it, more below
 
-	include "cpu/z80/include/error_codes.inc"
-	include "machine.inc"
+	include "cpu/z80/include/common.inc"
 
 	global error_address
 

@@ -1,5 +1,4 @@
-	include "cpu/z80/include/macros.inc"
-	include "cpu/z80/include/z80.inc"
+	include "cpu/z80/include/common.inc"
 
 	global r_irq_count
 

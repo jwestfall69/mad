@@ -1,8 +1,4 @@
-	include "cpu/6809/include/macros.inc"
-	include "cpu/6809/include/psub.inc"
-
-	include "error_codes.inc"
-	include "machine.inc"
+	include "cpu/6809/include/common.inc"
 
 	global ym2151_tests
 

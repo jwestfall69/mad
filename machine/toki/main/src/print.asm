@@ -1,8 +1,4 @@
-	include "cpu/68000/include/dsub.inc"
-	include "cpu/68000/include/macros.inc"
-
-	include "machine.inc"
-	include "mad.inc"
+	include "cpu/68000/include/common.inc"
 
 	global print_bits_byte_dsub
 	global print_byte_dsub
@@ -23,25 +19,25 @@
 ;  a6 = address in fg ram to start printing at
 print_bits_byte_dsub:
 
-                ; printing backwards to need to shift over
-		add.l   #7*2, a6
-		moveq   #7, d2
+		; printing backwards to need to shift over
+		add.l	#7*2, a6
+		moveq	#7, d2
 	.loop_next_bit:
-		btst    #0, d0
+		btst	#0, d0
 
-		beq     .print_zero
+		beq	.print_zero
 
-		moveq   #'1', d1
-		bra     .do_print
+		moveq	#'1', d1
+		bra	.do_print
 
 	.print_zero:
-		moveq   #'0', d1
+		moveq	#'0', d1
 
 	.do_print:
-		move.w  d1, (a6)
-		subq.l  #2, a6
-		lsr.b   #1, d0
-		dbra    d2, .loop_next_bit
+		move.w	d1, (a6)
+		subq.l	#2, a6
+		lsr.b	#1, d0
+		dbra	d2, .loop_next_bit
 		bra	screen_update_dsub
 
 ; params:

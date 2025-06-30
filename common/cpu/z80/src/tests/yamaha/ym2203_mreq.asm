@@ -1,10 +1,6 @@
 ; Yamaha ym2203 FM
+	include "cpu/z80/include/common.inc"
 	include "global/include/yamaha/ym2203.inc"
-	include "cpu/z80/include/dsub.inc"
-	include "cpu/z80/include/macros.inc"
-
-	include "machine.inc"
-	include "error_codes.inc"
 
 	global ym2203_busy_bit_test
 	global ym2203_timera_irq_test

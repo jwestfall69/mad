@@ -1,5 +1,4 @@
-	include "global/include/macros.inc"
-	include "cpu/68000/include/macros.inc"
+	include "cpu/68000/include/common.inc"
 	include "cpu/68000/include/handlers/auto_test.inc"
 
 	global d_auto_test_dsub_list

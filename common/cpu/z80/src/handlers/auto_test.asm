@@ -1,9 +1,5 @@
-	include "cpu/z80/include/dsub.inc"
-	include "cpu/z80/include/macros.inc"
+	include "cpu/z80/include/common.inc"
 	include "cpu/z80/include/handlers/auto_test.inc"
-	include "global/include/screen.inc"
-
-	include "machine.inc"
 
 	global auto_test_func_handler
 

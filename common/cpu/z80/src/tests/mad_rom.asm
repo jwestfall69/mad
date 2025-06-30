@@ -1,11 +1,4 @@
-	include "global/include/macros.inc"
-	include "global/include/screen.inc"
-	include "cpu/z80/include/error_codes.inc"
-	include "cpu/z80/include/macros.inc"
-	include "cpu/z80/include/dsub.inc"
-
-	include "machine.inc"
-	include "mad.inc"
+	include "cpu/z80/include/common.inc"
 
 	global mad_rom_crc32_test_dsub
 	global mad_rom_address_test_dsub

@@ -1,4 +1,4 @@
-	include "cpu/z80/include/dsub.inc"
+	include "cpu/z80/include/common.inc"
 
 	global dsub_enter
 	global dsub_return

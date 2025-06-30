@@ -1,10 +1,6 @@
-	include "global/include/macros.inc"
-	include "cpu/z80/include/error_codes.inc"
-	include "cpu/z80/include/macros.inc"
+	include "cpu/z80/include/common.inc"
 	include "cpu/z80/include/print_error.inc"
 	include "cpu/z80/include/handlers/error.inc"
-
-	include "error_codes.inc"
 
 	global d_ec_list
 

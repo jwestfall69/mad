@@ -1,6 +1,4 @@
-	include "cpu/z80/include/dsub.inc"
-
-	include "machine.inc"
+	include "cpu/z80/include/common.inc"
 
 	global memory_fill_dsub
 	global memory_fill_word_dsub

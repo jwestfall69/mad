@@ -1,8 +1,4 @@
-	include "cpu/68000/include/dsub.inc"
-	include "cpu/68000/include/macros.inc"
-
-	include "machine.inc"
-	include "mad.inc"
+	include "cpu/68000/include/common.inc"
 
 	global print_error_memory_override_dsub
 

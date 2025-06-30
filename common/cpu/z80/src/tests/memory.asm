@@ -1,7 +1,4 @@
-	include "cpu/z80/include/dsub.inc"
-	include "cpu/z80/include/macros.inc"
-
-	include "machine.inc"
+	include "cpu/z80/include/common.inc"
 
 	global memory_address_test_dsub
 	global memory_data_pattern_test_dsub

@@ -1,4 +1,4 @@
-	include "cpu/z80/include/error_codes.inc"
+	include "cpu/z80/include/common.inc"
 
 	global error_address
 

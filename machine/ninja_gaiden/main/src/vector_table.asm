@@ -1,9 +1,7 @@
-	include "cpu/68000/include/macros.inc"
-
-	include "machine.inc"
-	include "mad.inc"
+	include "cpu/68000/include/common.inc"
 
 	global r_irq_vblank_count
+
 	section vectors, data
 
 		dc.l	SP_INIT_ADDR

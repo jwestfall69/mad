@@ -1,13 +1,5 @@
-	include "cpu/68000/include/dsub.inc"
-	include "cpu/68000/include/macros.inc"
-	include "cpu/68000/include/memory_fill.inc"
+	include "cpu/68000/include/common.inc"
 	include "cpu/68000/include/tests/memory.inc"
-	include "cpu/68000/include/xy_string.inc"
-	include "global/include/screen.inc"
-
-	include "error_codes.inc"
-	include "input.inc"
-	include "machine.inc"
 
 	global auto_palette_ram_tests
 	global manual_palette_ram_tests

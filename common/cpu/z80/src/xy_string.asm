@@ -1,4 +1,4 @@
-	include "cpu/z80/include/dsub.inc"
+	include "cpu/z80/include/common.inc"
 
 	global print_xy_string
 	global print_xy_string_list

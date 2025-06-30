@@ -1,5 +1,4 @@
-	include "machine.inc"
-	include "mad.inc"
+	include "cpu/68000/include/common.inc"
 
 	global r_irq_vblank_count
 

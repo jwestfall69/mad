@@ -1,7 +1,4 @@
-	include "cpu/z80/include/dsub.inc"
-	include "global/include/screen.inc"
-
-	include "machine.inc"
+	include "cpu/z80/include/common.inc"
 
 	global print_input_list
 

@@ -1,7 +1,4 @@
-	include "cpu/68000/include/dsub.inc"
-	include "cpu/68000/include/macros.inc"
-
-	include "machine.inc"
+	include "cpu/68000/include/common.inc"
 
 	section code
 

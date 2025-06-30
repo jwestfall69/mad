@@ -1,10 +1,5 @@
-	include "global/include/macros.inc"
-	include "global/include/screen.inc"
-	include "cpu/z80/include/dsub.inc"
-	include "cpu/z80/include/macros.inc"
+	include "cpu/z80/include/common.inc"
 	include "cpu/z80/include/print_error.inc"
-
-	include "machine.inc"
 
 	global print_error_address
 	global print_error_hex_byte

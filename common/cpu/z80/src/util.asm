@@ -1,6 +1,4 @@
-	include "cpu/z80/include/dsub.inc"
-
-	include "machine.inc"
+	include "cpu/z80/include/common.inc"
 
 	global delay_dsub
 

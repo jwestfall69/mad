@@ -1,5 +1,4 @@
-	include "machine.inc"
-	include "mad.inc"
+	include "cpu/68000/include/common.inc"
 
 	global r_irq1_count
 	global r_irq2_count

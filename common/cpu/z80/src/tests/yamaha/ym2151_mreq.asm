@@ -1,10 +1,6 @@
 ; Yamaha YM2151 FM
+	include "cpu/z80/include/common.inc"
 	include "global/include/yamaha/ym2151.inc"
-	include "cpu/z80/include/dsub.inc"
-	include "cpu/z80/include/macros.inc"
-
-	include "machine.inc"
-	include "error_codes.inc"
 
 	global ym2151_busy_bit_test
 	global ym2151_timera_irq_test

@@ -1,12 +1,5 @@
-	include "cpu/68000/include/dsub.inc"
-	include "cpu/68000/include/macros.inc"
-	include "cpu/68000/include/xy_string.inc"
+	include "cpu/68000/include/common.inc"
 	include "cpu/68000/include/tests/input.inc"
-	include "global/include/screen.inc"
-
-	include "input.inc"
-	include "machine.inc"
-	include "mad.inc"
 
 	global input_test
 

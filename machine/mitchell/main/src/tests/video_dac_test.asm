@@ -1,11 +1,4 @@
-	include "cpu/z80/include/dsub.inc"
-	include "cpu/z80/include/macros.inc"
-	include "cpu/z80/include/xy_string.inc"
-	include "global/include/screen.inc"
-
-	include "input.inc"
-	include "mad.inc"
-	include "machine.inc"
+	include "cpu/z80/include/common.inc"
 
 	global video_dac_test
 

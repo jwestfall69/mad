@@ -1,10 +1,6 @@
-	include "global/include/macros.inc"
-	include "cpu/68000/include/error_codes.inc"
-	include "cpu/68000/include/macros.inc"
+	include "cpu/68000/include/common.inc"
 	include "cpu/68000/include/print_error.inc"
 	include "cpu/68000/include/handlers/error.inc"
-
-	include "error_codes.inc"
 
 	global d_ec_list
 

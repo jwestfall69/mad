@@ -1,11 +1,5 @@
-	include "global/include/macros.inc"
-	include "global/include/screen.inc"
-	include "cpu/z80/include/macros.inc"
-	include "cpu/z80/include/dsub.inc"
-	include "cpu/z80/include/xy_string.inc"
+	include "cpu/z80/include/common.inc"
 	include "cpu/z80/include/handlers/menu.inc"
-
-	include "machine.inc"
 
 	global memory_viewer_menu
 

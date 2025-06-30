@@ -1,11 +1,5 @@
-	include "global/include/macros.inc"
-	include "global/include/screen.inc"
-	include "cpu/68000/include/dsub.inc"
-	include "cpu/68000/include/macros.inc"
+	include "cpu/68000/include/common.inc"
 	include "cpu/68000/include/handlers/menu.inc"
-
-	include "machine.inc"
-	include "mad.inc"
 
 	global debug_menu
 

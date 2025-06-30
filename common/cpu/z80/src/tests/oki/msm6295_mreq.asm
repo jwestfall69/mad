@@ -1,6 +1,5 @@
 ; OKI MSM6295 ADPCM
-	include "cpu/z80/include/dsub.inc"
-	include "cpu/z80/include/macros.inc"
+	include "cpu/z80/include/common.inc"
 
 	global msm6295_not_playing_test
 	global msm6295_play_test

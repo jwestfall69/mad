@@ -1,9 +1,4 @@
-	include "cpu/68000/include/dsub.inc"
-	include "cpu/68000/include/macros.inc"
-	include "cpu/68000/include/memory_fill.inc"
-
-	include "machine.inc"
-	include "mad.inc"
+	include "cpu/68000/include/common.inc"
 
 	global screen_init_dsub
 	global screen_seek_xy_dsub

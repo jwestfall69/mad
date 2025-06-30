@@ -1,12 +1,5 @@
-	include "cpu/z80/include/dsub.inc"
-	include "cpu/z80/include/macros.inc"
-	include "cpu/z80/include/xy_string.inc"
+	include "cpu/z80/include/common.inc"
 	include "cpu/z80/include/tests/input_io.inc"
-	include "global/include/screen.inc"
-
-	include "input.inc"
-	include "machine.inc"
-	include "mad.inc"
 
 	global input_test
 

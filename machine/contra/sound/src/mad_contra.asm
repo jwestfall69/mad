@@ -1,9 +1,4 @@
-	include "cpu/6809/include/error_codes.inc"
-	include "cpu/6809/include/macros.inc"
-	include "cpu/6809/include/psub.inc"
-
-	include "machine.inc"
-	include "mad.inc"
+	include "cpu/6809/include/common.inc"
 
 	global _start
 

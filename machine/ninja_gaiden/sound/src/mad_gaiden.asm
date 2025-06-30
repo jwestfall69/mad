@@ -1,8 +1,4 @@
-	include "cpu/z80/include/error_codes.inc"
-	include "cpu/z80/include/macros.inc"
-	include "cpu/z80/include/dsub.inc"
-
-	include "machine.inc"
+	include "cpu/z80/include/common.inc"
 
 	global _start
 

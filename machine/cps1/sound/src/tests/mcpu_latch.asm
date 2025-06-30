@@ -1,8 +1,4 @@
-	include "cpu/z80/include/macros.inc"
-	include "cpu/z80/include/dsub.inc"
-
-	include "error_codes.inc"
-	include "machine.inc"
+	include "cpu/z80/include/common.inc"
 
 	global mcpu_latch_tests
 	section code

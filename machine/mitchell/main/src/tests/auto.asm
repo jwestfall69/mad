@@ -1,5 +1,4 @@
-	include "global/include/macros.inc"
-	include "cpu/z80/include/macros.inc"
+	include "cpu/z80/include/common.inc"
 	include "cpu/z80/include/handlers/auto_test.inc"
 
 	global auto_func_tests

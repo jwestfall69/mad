@@ -1,8 +1,4 @@
-	include "cpu/68000/include/dsub.inc"
-	include "cpu/68000/include/macros.inc"
-
-	include "machine.inc"
-	include "mad.inc"
+	include "cpu/68000/include/common.inc"
 
 	global _start
 
@@ -15,7 +11,7 @@ _start:
 		SOUND_STOP
 
 		move.b #$13, $10e801
-		move.b #0, $a0001 	; coin
+		move.b #0, $a0001	; coin
 		move.b #$10, $140000	; k051960
 		move.b #$0, $106402
 		move.b #$0, $106400

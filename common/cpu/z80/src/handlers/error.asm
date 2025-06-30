@@ -1,10 +1,6 @@
-	include "cpu/z80/include/dsub.inc"
-	include "cpu/z80/include/macros.inc"
+	include "cpu/z80/include/common.inc"
 	include "cpu/z80/include/print_error.inc"
 	include "cpu/z80/include/handlers/error.inc"
-
-	include "machine.inc"
-	include "mad.inc"
 
 	global error_handler
 

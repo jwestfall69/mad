@@ -1,11 +1,4 @@
-	include "global/include/macros.inc"
-	include "global/include/screen.inc"
-	include "cpu/z80/include/dsub.inc"
-	include "cpu/z80/include/macros.inc"
-	include "cpu/z80/include/xy_string.inc"
-
-	include "input.inc"
-	include "machine.inc"
+	include "cpu/z80/include/common.inc"
 
 	global tile8_viewer_handler
 
