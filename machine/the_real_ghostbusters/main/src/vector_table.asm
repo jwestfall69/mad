@@ -1,5 +1,3 @@
-	include "machine.inc"
-
 	global r_irq_vblank_count
 
 	section vectors

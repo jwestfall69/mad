@@ -1,14 +1,4 @@
-	include "global/include/macros.inc"
-	include "global/include/screen.inc"
-
-	include "cpu/6x09/include/macros.inc"
-	include "cpu/6x09/include/xy_string.inc"
-
-	include "cpu/konami2/include/dsub.inc"
-	include "cpu/konami2/include/macros.inc"
-
-	include "input.inc"
-	include "machine.inc"
+	include "cpu/konami2/include/common.inc"
 
 	global tile_scroll_test
 

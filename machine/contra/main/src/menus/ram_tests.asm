@@ -1,13 +1,5 @@
-	include "global/include/macros.inc"
-	include "global/include/screen.inc"
-
-	include "cpu/6x09/include/macros.inc"
+	include "cpu/6309/include/common.inc"
 	include "cpu/6x09/include/handlers/menu.inc"
-
-	include "cpu/6309/include/dsub.inc"
-
-	include "input.inc"
-	include "machine.inc"
 
 	global ram_tests_menu
 

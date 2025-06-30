@@ -1,7 +1,4 @@
-	include "cpu/6x09/include/macros.inc"
-
-	include "cpu/konami2/include/dsub.inc"
-	include "cpu/konami2/include/macros.inc"
+	include "cpu/konami2/include/common.inc"
 
 	global print_bits_byte_dsub
 	global print_byte_dsub

@@ -1,14 +1,5 @@
-	include "global/include/macros.inc"
-	include "global/include/screen.inc"
+	include "cpu/6309/include/common.inc"
 	include "global/include/sprite/konami/k007121.inc"
-
-	include "cpu/6x09/include/macros.inc"
-
-	include "cpu/6309/include/dsub.inc"
-
-	include "input.inc"
-	include "machine.inc"
-	include "mad.inc"
 
 	global k007121_10e_sprite_viewer_palette_setup
 	global k007121_10e_sprite_viewer

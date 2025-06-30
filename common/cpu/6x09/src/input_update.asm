@@ -1,5 +1,4 @@
-	include "input.inc"
-	include "machine.inc"
+	include "cpu/6x09/include/common.inc"
 
 	global input_update
 

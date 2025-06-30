@@ -1,10 +1,5 @@
-	include "global/include/screen.inc"
-
-	include "cpu/6x09/include/dsub.inc"
-	include "cpu/6x09/include/macros.inc"
+	include "cpu/6x09/include/common.inc"
 	include "cpu/6x09/include/handlers/auto_test.inc"
-
-	include "machine.inc"
 
 	global auto_test_func_handler
 

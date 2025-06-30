@@ -1,11 +1,4 @@
-	include "global/include/screen.inc"
-
-	include "cpu/6x09/include/dsub.inc"
-	include "cpu/6x09/include/macros.inc"
-
-	include "input.inc"
-	include "machine.inc"
-	include "mad.inc"
+	include "cpu/6x09/include/common.inc"
 
 	global sound_test_handler
 

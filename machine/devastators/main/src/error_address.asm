@@ -1,6 +1,4 @@
-	include "cpu/6309/include/error_codes.inc"
-
-	include "machine.inc"
+	include "cpu/6309/include/common.inc"
 
 	global error_address
 

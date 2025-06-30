@@ -1,10 +1,4 @@
-	include "cpu/6x09/include/macros.inc"
-
-	include "cpu/konami2/include/dsub.inc"
-	include "cpu/konami2/include/macros.inc"
-
-	include "machine.inc"
-	include "mad.inc"
+	include "cpu/konami2/include/common.inc"
 
 	global screen_init_dsub
 	global screen_seek_xy_dsub

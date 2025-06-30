@@ -1,10 +1,5 @@
-	include "global/include/screen.inc"
-	include "cpu/6x09/include/dsub.inc"
+	include "cpu/6x09/include/common.inc"
 	include "cpu/6x09/include/handlers/menu.inc"
-
-	include "input.inc"
-	include "machine.inc"
-	include "mad.inc"
 
 	global menu_handler
 	global r_menu_cursor

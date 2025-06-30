@@ -1,11 +1,4 @@
-	include "global/include/screen.inc"
-	include "global/include/macros.inc"
-	include "cpu/konami2/include/dsub.inc"
-	include "cpu/konami2/include/error_codes.inc"
-	include "cpu/konami2/include/macros.inc"
-
-	include "machine.inc"
-	include "mad.inc"
+	include "cpu/konami2/include/common.inc"
 
 	global mad_rom_address_test_dsub
 	global mad_rom_crc16_test_dsub

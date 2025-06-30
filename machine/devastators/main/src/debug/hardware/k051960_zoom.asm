@@ -1,13 +1,5 @@
-	include "global/include/macros.inc"
-	include "global/include/screen.inc"
-
-	include "cpu/6X09/include/macros.inc"
+	include "cpu/6309/include/common.inc"
 	include "cpu/6X09/include/handlers/memory_write.inc"
-
-	include "cpu/6309/include/dsub.inc"
-
-	include "machine.inc"
-	include "input.inc"
 
 	global k051960_zoom_debug
 

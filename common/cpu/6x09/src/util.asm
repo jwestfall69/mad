@@ -1,8 +1,4 @@
-	include "cpu/6x09/include/dsub.inc"
-
-	include "input.inc"
-	include "machine.inc"
-	include "mad.inc"
+	include "cpu/6x09/include/common.inc"
 
 	global delay
 	global joystick_update_byte
@@ -32,7 +28,7 @@ delay:
 		cmpd	#0		; 4 cycles
 		cmpd	#0		; 4 cycles
 		subd	#$1
-		bne	delay	 	; 2 cycles
+		bne	delay		; 2 cycles
 		rts
 
 ; Looking at joystick input, adjust the byte in memory by

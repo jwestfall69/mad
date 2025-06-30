@@ -1,8 +1,5 @@
 ; These memory tests are only valid on non-work ram memory regions
-	include "cpu/konami2/include/dsub.inc"
-	include "cpu/konami2/include/macros.inc"
-
-	include "machine.inc"
+	include "cpu/konami2/include/common.inc"
 
 	global memory_address_test
 	global memory_data_test

@@ -13,8 +13,7 @@ VLINK_FLAGS = -brawbin1 -T$(MAD_NAME).ld
 MKDIR = mkdir
 DD = dd
 
-OBJS  = $(OBJ_DIR)/cpu/6x09/src/header.o \
-        $(OBJ_DIR)/cpu/6x09/src/input_update.o \
+OBJS  = $(OBJ_DIR)/cpu/6x09/src/input_update.o \
         $(OBJ_DIR)/cpu/6x09/src/print_error.o \
         $(OBJ_DIR)/cpu/6x09/src/util.o \
         $(OBJ_DIR)/cpu/6x09/src/xy_string.o \

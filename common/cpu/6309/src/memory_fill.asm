@@ -1,6 +1,4 @@
-	include "cpu/6309/include/dsub.inc"
-
-	include "machine.inc"
+	include "cpu/6309/include/common.inc"
 
 	global memory_fill_dsub
 	global memory_fill_word_dsub

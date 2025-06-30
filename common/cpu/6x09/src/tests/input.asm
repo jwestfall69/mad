@@ -1,8 +1,4 @@
-	include "global/include/screen.inc"
-
-	include "cpu/6x09/include/dsub.inc"
-
-	include "machine.inc"
+	include "cpu/6x09/include/common.inc"
 
 	global print_input_list
 

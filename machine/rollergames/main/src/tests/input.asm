@@ -1,11 +1,5 @@
-	include "global/include/screen.inc"
-
-	include "cpu/6x09/include/macros.inc"
-	include "cpu/6x09/include/xy_string.inc"
+	include "cpu/konami2/include/common.inc"
 	include "cpu/6x09/include/tests/input.inc"
-
-	include "input.inc"
-	include "machine.inc"
 
 	global input_test
 

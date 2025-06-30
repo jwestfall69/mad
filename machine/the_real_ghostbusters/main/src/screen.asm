@@ -1,8 +1,4 @@
-	include "cpu/6x09/include/macros.inc"
-
-	include "cpu/6309/include/dsub.inc"
-
-	include "machine.inc"
+	include "cpu/6309/include/common.inc"
 
 	global screen_init_dsub
 	global screen_seek_xy_dsub

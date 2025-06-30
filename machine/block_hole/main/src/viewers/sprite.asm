@@ -1,15 +1,5 @@
-	include "global/include/macros.inc"
-	include "global/include/screen.inc"
+	include "cpu/konami2/include/common.inc"
 	include "global/include/sprite/konami/k051960.inc"
-
-	include "cpu/6x09/include/macros.inc"
-	include "cpu/6x09/include/xy_string.inc"
-
-	include "cpu/konami2/include/dsub.inc"
-
-	include "input.inc"
-	include "machine.inc"
-	include "mad.inc"
 
 	global sprite_viewer
 	global sprite_viewer_palette_setup

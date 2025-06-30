@@ -1,13 +1,4 @@
-	include "global/include/macros.inc"
-	include "global/include/screen.inc"
-
-	include "cpu/6x09/include/dsub.inc"
-	include "cpu/6x09/include/macros.inc"
-	include "cpu/6x09/include/xy_string.inc"
-
-	include "input.inc"
-	include "machine.inc"
-	include "mad.inc"
+	include "cpu/6x09/include/common.inc"
 
 	global mad_git_hash
 

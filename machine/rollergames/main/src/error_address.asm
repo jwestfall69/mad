@@ -1,6 +1,4 @@
-	include "cpu/konami2/include/error_codes.inc"
-
-	include "machine.inc"
+	include "cpu/konami2/include/common.inc"
 
 	global error_address
 

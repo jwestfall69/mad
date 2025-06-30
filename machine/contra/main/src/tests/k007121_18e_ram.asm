@@ -1,14 +1,5 @@
-	include "global/include/screen.inc"
-
-	include "cpu/6x09/include/xy_string.inc"
-	include "cpu/6x09/include/macros.inc"
+	include "cpu/6309/include/common.inc"
 	include "cpu/6x09/include/tests/ram_test_logic.inc"
-
-	include "cpu/6309/include/dsub.inc"
 	include "cpu/6309/include/handlers/memory_tests.inc"
-
-	include "error_codes.inc"
-	include "input.inc"
-	include "machine.inc"
 
 	RAM_TEST_LOGIC k007121_18e, K007121_18E, RTL_FLAG_PAUSE_REDRAW, MT_FLAG_NONE

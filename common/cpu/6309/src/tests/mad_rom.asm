@@ -1,13 +1,4 @@
-	include "global/include/macros.inc"
-	include "global/include/screen.inc"
-
-	include "cpu/6x09/include/error_codes.inc"
-	include "cpu/6x09/include/macros.inc"
-
-	include "cpu/6309/include/dsub.inc"
-
-	include "machine.inc"
-	include "mad.inc"
+	include "cpu/6309/include/common.inc"
 
 	global auto_mad_rom_address_test_dsub
 	global auto_mad_rom_crc32_test_dsub
