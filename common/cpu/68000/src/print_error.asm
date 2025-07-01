@@ -1,10 +1,5 @@
-	include "global/include/macros.inc"
-	include "global/include/screen.inc"
-	include "cpu/68000/include/dsub.inc"
-	include "cpu/68000/include/macros.inc"
+	include "cpu/68000/include/common.inc"
 	include "cpu/68000/include/print_error.inc"
-
-	include "machine.inc"
 
 	global print_error_address_dsub
 	global print_error_crc32_dsub
@@ -55,7 +50,7 @@ print_error_crc32_dsub:
 		move.l	d4, d0
 		DSUB	print_hex_long
 
-		SEEK_LN	SCREEN_START_Y
+		SEEK_XY	0, SCREEN_START_Y
 		DSUB	print_clear_line
 
 		; error description
@@ -90,7 +85,7 @@ print_error_hex_byte_dsub:
 		move.b	d2, d0
 		DSUB	print_hex_byte
 
-		SEEK_LN	SCREEN_START_Y
+		SEEK_XY	0, SCREEN_START_Y
 		DSUB	print_clear_line
 
 		; error description
@@ -123,7 +118,7 @@ print_error_invalid_dsub:
 		move.b	d4, d0
 		DSUB	print_hex_byte
 
-		SEEK_LN	SCREEN_START_Y
+		SEEK_XY	0, SCREEN_START_Y
 		DSUB	print_clear_line
 
 		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
@@ -164,7 +159,7 @@ print_error_memory_dsub:
 		move.w	d4, d0
 		DSUB	print_hex_word
 
-		SEEK_LN	SCREEN_START_Y
+		SEEK_XY	0, SCREEN_START_Y
 		DSUB	print_clear_line
 
 		; error description

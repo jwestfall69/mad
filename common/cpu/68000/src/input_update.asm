@@ -1,7 +1,4 @@
-	include "cpu/68000/include/dsub.inc"
-
-	include "input.inc"
-	include "machine.inc"
+	include "cpu/68000/include/common.inc"
 
 	global input_update
 

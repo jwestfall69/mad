@@ -1,4 +1,4 @@
-	include "cpu/68000/include/error_codes.inc"
+	include "cpu/68000/include/common.inc"
 
 	global error_address
 

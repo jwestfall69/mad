@@ -1,10 +1,6 @@
-	include "cpu/68000/include/dsub.inc"
-	include "cpu/68000/include/macros.inc"
-	include "cpu/68000/include/xy_string.inc"
+	include "cpu/68000/include/common.inc"
 	include "cpu/68000/include/handlers/memory_tests.inc"
 	include "cpu/68000/include/tests/memory.inc"
-
-	include "machine.inc"
 
 	global memory_byte_tests_handler_dsub
 

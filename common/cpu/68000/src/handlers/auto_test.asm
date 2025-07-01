@@ -1,9 +1,5 @@
-	include "cpu/68000/include/dsub.inc"
-	include "cpu/68000/include/macros.inc"
+	include "cpu/68000/include/common.inc"
 	include "cpu/68000/include/handlers/auto_test.inc"
-	include "global/include/screen.inc"
-
-	include "machine.inc"
 
 	global auto_test_dsub_handler_dsub
 	global auto_test_func_handler
@@ -23,7 +19,7 @@ auto_test_dsub_handler_dsub:
 		cmp.l	#0, a0					; table is null terminated
 		beq	.all_tests_done
 
-		SEEK_LN	SCREEN_START_Y
+		SEEK_XY	0, SCREEN_START_Y
 		DSUB	print_clear_line
 
 		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
@@ -59,7 +55,7 @@ auto_test_func_handler:
 		tst.l	(a1)			; table is null terminated
 		beq	.all_tests_done
 
-		SEEK_LN	SCREEN_START_Y
+		SEEK_XY	0, SCREEN_START_Y
 		RSUB	print_clear_line
 
 		SEEK_XY	SCREEN_START_X, SCREEN_START_Y

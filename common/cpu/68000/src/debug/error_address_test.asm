@@ -1,12 +1,4 @@
-	include "global/include/macros.inc"
-	include "global/include/screen.inc"
-	include "cpu/68000/include/dsub.inc"
-	include "cpu/68000/include/error_codes.inc"
-	include "cpu/68000/include/macros.inc"
-	include "cpu/68000/include/xy_string.inc"
-
-	include "input.inc"
-	include "machine.inc"
+	include "cpu/68000/include/common.inc"
 
 	global error_address_test
 

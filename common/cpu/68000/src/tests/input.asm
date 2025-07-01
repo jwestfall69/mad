@@ -1,7 +1,4 @@
-	include "cpu/68000/include/dsub.inc"
-	include "global/include/screen.inc"
-
-	include "machine.inc"
+	include "cpu/68000/include/common.inc"
 
 	global print_input_list
 

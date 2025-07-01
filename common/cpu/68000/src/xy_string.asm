@@ -1,4 +1,4 @@
-	include "cpu/68000/include/dsub.inc"
+	include "cpu/68000/include/common.inc"
 
 	global print_xy_string_dsub
 	global print_xy_string_list_dsub

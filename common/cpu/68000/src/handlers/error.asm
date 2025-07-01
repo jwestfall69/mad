@@ -1,10 +1,6 @@
-	include "cpu/68000/include/dsub.inc"
-	include "cpu/68000/include/macros.inc"
+	include "cpu/68000/include/common.inc"
 	include "cpu/68000/include/print_error.inc"
 	include "cpu/68000/include/handlers/error.inc"
-
-	include "machine.inc"
-	include "mad.inc"
 
 	global error_handler_dsub
 

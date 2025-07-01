@@ -1,9 +1,4 @@
-	include "cpu/68000/include/dsub.inc"
-	include "cpu/68000/include/error_codes.inc"
-	include "cpu/68000/include/macros.inc"
-
-	include "mad.inc"
-	include "machine.inc"
+	include "cpu/68000/include/common.inc"
 
 	global auto_mad_rom_crc32_test_dsub
 	global auto_mad_rom_address_test_dsub
