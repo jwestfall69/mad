@@ -49,9 +49,9 @@ screen_init_dsub:
 		ld	de, d_str_version
 		NSUB	print_string
 
-		SEEK_LN	1
+		SEEK_XY	0, 1
 		ld	c, '-'
-		ld	b, 48
+		ld	b, SCREEN_NUM_COLUMNS
 		NSUB	print_char_repeat
 		DSUB_RETURN
 

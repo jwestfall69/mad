@@ -76,11 +76,6 @@ CHAR_COLON			equ ':'
 
 SOUND_NUM_STOP			equ $01
 
-SCREEN_TILES_PER_LINE		equ 32
-SCREEN_BYTES_PER_TILE		equ 2
-SCREEN_BYTES_PER_LINE		equ (SCREEN_BYTES_PER_TILE * SCREEN_TILES_PER_LINE)
-
-
 	macro SOUND_PLAY
 		move.b	d0, REG_SOUND
 	endm
@@ -91,24 +86,3 @@ SCREEN_BYTES_PER_LINE		equ (SCREEN_BYTES_PER_TILE * SCREEN_TILES_PER_LINE)
 
 	macro WATCHDOG
 	endm
-
-	ifd _SCREEN_TATE_
-		; in order to print a string, you have to put each char $40 bytes apart
-		macro SEEK_XY
-			lea	((TILE1_RAM + $207e + (\1 * SCREEN_BYTES_PER_LINE)) - (\2 * SCREEN_BYTES_PER_TILE)), a6
-		endm
-
-		macro SEEK_LN
-			lea	((TILE1_RAM + $207e) - (\1 * SCREEN_BYTES_PER_TILE)), a6
-		endm
-
-	else
-		; normal style printing
-		macro SEEK_XY
-			lea	(TILE1_RAM + $2040 + (\1 * SCREEN_BYTES_PER_TILE) + (\2 * SCREEN_BYTES_PER_LINE)), a6
-		endm
-
-		macro SEEK_LN
-			lea	(TILE1_RAM + $2040 + (\1 * SCREEN_BYTES_PER_LINE)), a6
-		endm
-	endif

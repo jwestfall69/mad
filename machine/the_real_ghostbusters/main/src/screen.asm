@@ -26,9 +26,9 @@ screen_init_dsub:
 		ldy	#d_str_version
 		DSUB	print_string
 
-		SEEK_LN	1
+		SEEK_XY	0, 1
 		lda	#'-'
-		ldb	#$20
+		ldb	#SCREEN_NUM_COLUMNS
 		DSUB	print_char_repeat
 		DSUB_RETURN
 

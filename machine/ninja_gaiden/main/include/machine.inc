@@ -48,20 +48,6 @@ CHAR_COLON			equ ' '
 
 SOUND_NUM_STOP			equ $ff
 
-
-SCREEN_TILES_PER_LINE		equ 32
-SCREEN_BYTES_PER_TILE		equ 2
-SCREEN_BYTES_PER_LINE		equ (SCREEN_BYTES_PER_TILE * SCREEN_TILES_PER_LINE)
-
-	macro SEEK_XY
-		lea	(TXT_RAM + $900 + (\1 * SCREEN_BYTES_PER_TILE) + (\2 * SCREEN_BYTES_PER_LINE)), a6
-	endm
-
-	macro SEEK_LN
-		lea	(TXT_RAM + $900 + (\1 * SCREEN_BYTES_PER_LINE)), a6
-	endm
-
-
 	macro SOUND_PLAY
 		move.b	d0, REG_SOUND1
 	endm

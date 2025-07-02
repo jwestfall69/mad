@@ -13,4 +13,5 @@
 		include "global/include/screen.inc"
 		include "cpu/z80/include/xy_string.inc"
 		include "input.inc"
+		include "screen.inc"
 	endif

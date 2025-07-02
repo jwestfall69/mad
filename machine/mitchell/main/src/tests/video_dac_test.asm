@@ -275,10 +275,10 @@ draw_color_bit:
 		ld	(iy + 3), b
 
 		push	bc
-		ld	bc, SCREEN_BYTES_PER_LINE
+		ld	bc, SCREEN_BYTES_PER_ROW
 		add	ix, bc
 
-		ld	bc, SCREEN_BYTES_PER_LINE / 2
+		ld	bc, SCREEN_BYTES_PER_ROW / 2
 		add	iy, bc
 		pop	bc
 

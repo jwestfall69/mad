@@ -48,7 +48,6 @@ LAYER_B_SCROLL			equ K052109_BASE + $3800
 LAYER_B_SCROLL_SIZE		equ $400
 
 ; K052109 registers
-; Note: x/y are swapped because screen is tate
 REG_LAYER_A_SCROLL_Y		equ K052109_BASE + $1a00
 REG_LAYER_A_SCROLL_X		equ K052109_BASE + $180c
 REG_LAYER_B_SCROLL_Y		equ K052109_BASE + $3a00
@@ -69,19 +68,6 @@ REG_INPUT_DSW3			equ $1f98
 REG_INPUT_SYSTEM		equ $1f94
 
 CHAR_COLON			equ $fe		; empty
-
-; note only 36 tiles are visable
-SCREEN_TILES_PER_LINE		equ 64
-SCREEN_BYTES_PER_TILE		equ 1
-SCREEN_BYTES_PER_LINE		equ (SCREEN_BYTES_PER_TILE * SCREEN_TILES_PER_LINE)
-
-	macro	SEEK_XY
-		ldx	#(FIX_TILE + $74f + (\2 * SCREEN_BYTES_PER_TILE) - (\1 * SCREEN_BYTES_PER_LINE))
-	endm
-
-	macro	SEEK_LN
-		ldx	#(FIX_TILE + $74f + (\1 * SCREEN_BYTES_PER_TILE))
-	endm
 
 	macro	WATCHDOG
 		sta	REG_WATCHDOG

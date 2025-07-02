@@ -256,7 +256,7 @@ draw_color_bit:
 		stb	1, y
 		stb	2, y
 		stb	3, y
-		leay	SCREEN_BYTES_PER_LINE, y
+		leay	SCREEN_BYTES_PER_ROW, y
 		dxjnz	.loop_next_row
 		rts
 

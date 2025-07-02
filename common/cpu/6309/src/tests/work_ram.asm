@@ -7,7 +7,7 @@
 
 auto_work_ram_tests_dsub:
 
-		SEEK_LN	SCREEN_START_Y
+		SEEK_XY	0, SCREEN_START_Y
 		PSUB	print_clear_line
 
 		SEEK_XY SCREEN_START_X, SCREEN_START_Y

@@ -62,28 +62,6 @@ CHAR_COLON			equ ':'
 
 ;SOUND_NUM_STOP			equ $xx
 
-SCREEN_TILES_PER_LINE		equ 32
-SCREEN_BYTES_PER_TILE		equ 4
-SCREEN_BYTES_PER_LINE		equ (SCREEN_BYTES_PER_TILE * SCREEN_TILES_PER_LINE)
-
-	ifd _SCREEN_TATE_
-		macro SEEK_XY
-			lea	(SCROLL1_RAM + $1788 - ((\2 * SCREEN_BYTES_PER_LINE)) + (\1 * SCREEN_BYTES_PER_TILE)), a6
-		endm
-
-		macro SEEK_LN
-			lea	(SCROLL1_RAM + $1788 - (\1 * SCREEN_BYTES_PER_LINE)), a6
-		endm
-	else
-		macro SEEK_XY
-			lea	(SCROLL1_RAM + $8 + (\1 * SCREEN_BYTES_PER_LINE)) + (\2 * SCREEN_BYTES_PER_TILE), a6
-		endm
-
-		macro SEEK_LN
-			lea	(SCROLL1_RAM + $8 + (\1 * SCREEN_BYTES_PER_TILE)), a6
-		endm
-	endif
-
 	macro SOUND_INIT
 		move.b	#$88, $619ffb
 		move.b	#$ff, $619ffd

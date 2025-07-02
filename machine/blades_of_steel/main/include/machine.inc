@@ -58,19 +58,6 @@ REG_INPUT_DSW3			equ $2e00
 
 CHAR_COLON			equ $10
 
-; note only 28 tiles are visable
-SCREEN_TILES_PER_LINE		equ 32
-SCREEN_BYTES_PER_TILE		equ 1
-SCREEN_BYTES_PER_LINE		equ (SCREEN_BYTES_PER_TILE * SCREEN_TILES_PER_LINE)
-
-	macro	SEEK_XY
-		ldx	#(LAYER_A_TILE + $3a0 + (\2 * SCREEN_BYTES_PER_TILE) - (\1 * SCREEN_BYTES_PER_LINE))
-	endm
-
-	macro	SEEK_LN
-		ldx	#(LAYER_A_TILE + $3a0 + (\1 * SCREEN_BYTES_PER_TILE))
-	endm
-
 	macro	WATCHDOG
 		sta	REG_WATCHDOG
 	endm

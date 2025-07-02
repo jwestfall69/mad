@@ -1,11 +1,4 @@
-	include "cpu/68000/include/dsub.inc"
-	include "cpu/68000/include/macros.inc"
-	include "cpu/68000/include/xy_string.inc"
-	include "global/include/screen.inc"
-
-	include "input.inc"
-	include "mad.inc"
-	include "machine.inc"
+	include "cpu/68000/include/common.inc"
 
 	global video_dac_test
 
@@ -34,7 +27,7 @@ video_dac_test:
 	else
 		SEEK_XY	(SCREEN_START_X + 29), (SCREEN_START_Y + 17)
 	endif
-		move.b 	r_brightness, d0
+		move.b	r_brightness, d0
 		RSUB	print_hex_nibble
 
 		bsr	input_update
@@ -225,9 +218,9 @@ draw_color_bit:
 		move.l	d0, 8(a6, d2.w)
 	ifd _SCREEN_TATE_
 		move.l	d0, 12(a6, d2.w)
-		sub.w	#SCREEN_BYTES_PER_LINE, d2	; next row
+		sub.w	#SCREEN_BYTES_PER_ROW, d2	; next row
 	else
-		add.w	#SCREEN_BYTES_PER_LINE, d2	; next row
+		add.w	#SCREEN_BYTES_PER_ROW, d2	; next row
 	endif
 		dbra	d1, .loop_next_column
 		rts

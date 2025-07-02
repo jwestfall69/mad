@@ -10,7 +10,7 @@
 	section code
 
 manual_work_ram_tests:
-		SEEK_LN	SCREEN_START_Y
+		SEEK_XY	0, SCREEN_START_Y
 		RSUB	print_clear_line
 
 		ldy	#d_screen_xys_list
@@ -108,7 +108,7 @@ work_ram_address_test_dsub:
 		DSUB_RETURN
 
 	.test_failed:
-		SEEK_LN SCREEN_START_Y
+		SEEK_XY 0, SCREEN_START_Y
 		PSUB	print_clear_line
 
 		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
@@ -149,7 +149,7 @@ work_ram_data_test_dsub:
 		DSUB_RETURN
 
 	.test_failed:
-		SEEK_LN SCREEN_START_Y
+		SEEK_XY 0, SCREEN_START_Y
 		PSUB	print_clear_line
 
 		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
@@ -191,7 +191,7 @@ work_ram_output_test_dsub:
 		DSUB_RETURN
 
 	.test_failed:
-		SEEK_LN SCREEN_START_Y
+		SEEK_XY	0, SCREEN_START_Y
 		PSUB	print_clear_line
 
 		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
@@ -241,7 +241,7 @@ work_ram_march_test_dsub:
 	.test_failed:
 		WATCHDOG
 
-		SEEK_LN SCREEN_START_Y
+		SEEK_XY	0, SCREEN_START_Y
 		PSUB	print_clear_line
 
 		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
@@ -270,7 +270,7 @@ work_ram_write_test_dsub:
 		cmpa	, x
 		bne	.test_passed
 
-		SEEK_LN SCREEN_START_Y
+		SEEK_XY	0, SCREEN_START_Y
 		PSUB	print_clear_line
 
 		SEEK_XY	SCREEN_START_X, SCREEN_START_Y

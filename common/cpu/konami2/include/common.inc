@@ -12,3 +12,4 @@
 	include "input.inc"
 	include "machine.inc"
 	include "mad.inc"
+	include "screen.inc"

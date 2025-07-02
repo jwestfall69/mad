@@ -80,28 +80,6 @@ REG_INPUT_SYSTEM		equ $0010
 
 CHAR_COLON			equ $10
 
-; note only 28 tiles are visable
-SCREEN_TILES_PER_LINE		equ 32
-SCREEN_BYTES_PER_TILE		equ 1
-SCREEN_BYTES_PER_LINE		equ (SCREEN_BYTES_PER_TILE * SCREEN_TILES_PER_LINE)
-
-	; rows 0 - 4 are in hdr tile ram and the rest of the screen is in fg tile ram
-	macro	SEEK_XY
-	if \2 >= 5
-		ldx	#(K007121_10E_TILE_A + $3a0 + ((\2 - 5) * SCREEN_BYTES_PER_TILE) - (\1 * SCREEN_BYTES_PER_LINE))
-	else
-		ldx	#(K007121_10E_TILE_B + $3a0 + (\2 * SCREEN_BYTES_PER_TILE) - (\1 * SCREEN_BYTES_PER_LINE))
-	endif
-	endm
-
-	macro	SEEK_LN
-	if \1 >= 5
-		ldx	#(K007121_10E_TILE_A + $3a0 + ((\1 - 5) * SCREEN_BYTES_PER_TILE))
-	else
-		ldx	#(K007121_10E_TILE_B + $3a0 + (\1 * SCREEN_BYTES_PER_TILE))
-	endif
-	endm
-
 	macro	WATCHDOG
 		sta	REG_WATCHDOG
 	endm

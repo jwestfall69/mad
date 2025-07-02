@@ -38,18 +38,6 @@ CHAR_COLON			equ $40
 
 SOUND_NUM_STOP			equ $ff
 
-SCREEN_TILES_PER_LINE		equ 64	; only 32 visible at a time?
-SCREEN_BYTES_PER_TILE		equ 2
-SCREEN_BYTES_PER_LINE		equ (SCREEN_BYTES_PER_TILE * SCREEN_TILES_PER_LINE)
-
-	macro SEEK_XY
-		lea	(TILE_RAM + $118 + (\1 * SCREEN_BYTES_PER_TILE) + (\2 * SCREEN_BYTES_PER_LINE)), a6
-	endm
-
-	macro SEEK_LN
-		lea	(TILE_RAM + $118 + (\1 * SCREEN_BYTES_PER_LINE)), a6
-	endm
-
 	macro WATCHDOG
 		move.b d0, REG_WATCHDOG
 	endm

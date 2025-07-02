@@ -12,7 +12,7 @@ auto_test_func_handler:
 		ldx	s_at_function_ptr, y
 		beq	.all_tests_done
 
-		SEEK_LN	SCREEN_START_Y
+		SEEK_XY	0, SCREEN_START_Y
 		RSUB	print_clear_line
 
 		pshs	y

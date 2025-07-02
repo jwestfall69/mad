@@ -36,8 +36,8 @@ screen_init_dsub:
 		WATCHDOG
 
 		; -'s on 2nd line
-		SEEK_LN 1
-		CHAR_REPEAT #$0c, #40
+		SEEK_XY 0, 1
+		CHAR_REPEAT #$0c, #SCREEN_NUM_COLUMNS
 
 		SEEK_XY 5,0
 		ldy	#d_str_version

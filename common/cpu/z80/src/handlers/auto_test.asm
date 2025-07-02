@@ -22,7 +22,7 @@ auto_test_func_handler:
 
 	.next_test:
 
-		SEEK_LN	SCREEN_START_Y
+		SEEK_XY	0, SCREEN_START_Y
 		RSUB	print_clear_line
 
 		SEEK_XY	SCREEN_START_X, SCREEN_START_Y

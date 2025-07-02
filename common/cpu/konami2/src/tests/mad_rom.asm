@@ -12,7 +12,7 @@
 mad_rom_address_test_dsub:
 		WATCHDOG
 
-		SEEK_LN	SCREEN_START_Y
+		SEEK_XY	0, SCREEN_START_Y
 		PSUB	print_clear_line
 
 		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
@@ -46,7 +46,7 @@ mad_rom_address_test_dsub:
 		tfr	b, a
 		PSUB	print_hex_byte
 
-		SEEK_LN	SCREEN_START_Y
+		SEEK_XY	0, SCREEN_START_Y
 		PSUB	print_clear_line
 
 		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
@@ -67,7 +67,7 @@ mad_rom_address_test_dsub:
 
 mad_rom_crc16_test_dsub:
 
-		SEEK_LN	SCREEN_START_Y
+		SEEK_XY	0, SCREEN_START_Y
 		PSUB	print_clear_line
 
 		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
@@ -122,7 +122,7 @@ mad_rom_crc16_test_dsub:
 		ldd	MAD_ROM_CRC16_ADDRESS
 		PSUB	print_hex_word
 
-		SEEK_LN	SCREEN_START_Y
+		SEEK_XY	0, SCREEN_START_Y
 		PSUB	print_clear_line
 
 		SEEK_XY	SCREEN_START_X, SCREEN_START_Y

@@ -42,20 +42,6 @@ CHAR_COLON			equ ':'
 
 SOUND_NUM_STOP			equ $0f
 
-SCREEN_TILES_PER_LINE		equ 32
-SCREEN_BYTES_PER_TILE		equ 4
-SCREEN_BYTES_PER_LINE		equ (SCREEN_BYTES_PER_TILE * SCREEN_TILES_PER_LINE)
-
-	; goto the correct tile memory location before printing text
-	; to the screen
-	macro SEEK_XY
-		lea	(TILE_RAM + $78 + (\2 * SCREEN_BYTES_PER_LINE) - (\1 * SCREEN_BYTES_PER_TILE)), a6
-	endm
-
-	macro SEEK_LN
-		lea	(TILE_RAM + $78 + (\1 * SCREEN_BYTES_PER_LINE)), a6
-	endm
-
 	macro SOUND_PLAY
 		move.b	d0, REG_SOUND
 	endm

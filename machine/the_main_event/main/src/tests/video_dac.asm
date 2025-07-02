@@ -232,7 +232,7 @@ draw_color_bit:
 		stb	1, x
 		stb	2, x
 		stb	3, x
-		leax	SCREEN_BYTES_PER_LINE, x
+		leax	SCREEN_BYTES_PER_ROW, x
 		dece
 		bne	.loop_next_row
 		rts

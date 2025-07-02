@@ -9,9 +9,9 @@ TILE_OFFSET_MASK	equ $1fff
 layer_b_tile_viewer:
 		RSUB	screen_init
 
-		; shift over layer b so its the same offset as fix
+		; shift up layer b so its the same offset as fix
 		lda	#$6
-		sta	REG_LAYER_B_SCROLL_X
+		sta	REG_LAYER_B_SCROLL_Y
 
 		ldy	#LAYER_B_TILE_PALETTE + (PALETTE_SIZE * TVC_PALETTE_NUM)
 		jsr	tvc_init

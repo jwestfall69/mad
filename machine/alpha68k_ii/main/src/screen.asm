@@ -18,7 +18,7 @@ screen_init_dsub:
 
 		SEEK_XY	0, 1
 		move.l	#'-', d0
-		moveq	#32, d1
+		moveq	#SCREEN_NUM_COLUMNS, d1
 		DSUB	print_char_repeat
 		DSUB_RETURN
 

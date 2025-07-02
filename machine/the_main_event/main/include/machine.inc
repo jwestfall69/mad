@@ -69,19 +69,6 @@ REG_INPUT_SYSTEM		equ $1f94
 
 CHAR_COLON			equ $fe		; empty
 
-; note only 36 tiles are visable
-SCREEN_TILES_PER_LINE		equ 64
-SCREEN_BYTES_PER_TILE		equ 1
-SCREEN_BYTES_PER_LINE		equ (SCREEN_BYTES_PER_TILE * SCREEN_TILES_PER_LINE)
-
-	macro	SEEK_XY
-		ldx	#(FIX_TILE + $8e + \1 + (\2 * SCREEN_BYTES_PER_LINE))
-	endm
-
-	macro	SEEK_LN
-		ldx	#(FIX_TILE + $8e + (\1 * SCREEN_BYTES_PER_LINE))
-	endm
-
 	macro	WATCHDOG
 		sta	REG_WATCHDOG
 	endm

@@ -61,24 +61,6 @@ CHAR_COLON			equ ':'
 
 SOUND_NUM_STOP			equ $ff
 
-
-SCREEN_TILES_PER_LINE		equ 32
-SCREEN_BYTES_PER_TILE		equ 2
-SCREEN_BYTES_PER_LINE		equ (SCREEN_BYTES_PER_TILE * SCREEN_TILES_PER_LINE)
-
-	macro SEEK_XY
-		lea	(FG_RAM + 128 + (\1 * SCREEN_BYTES_PER_TILE) + (\2 * SCREEN_BYTES_PER_LINE)), a6
-	endm
-
-	macro SEEK_LN
-		lea	(FG_RAM + 128 + (\1 * SCREEN_BYTES_PER_LINE)), a6
-	endm
-
-
-	macro SCREEN_UPDATE
-		move.w	d0, MMIO_SCREEN_UPDATE
-	endm
-
 	; its unclear what sending #$80/$82 is doing
 	macro SOUND_PLAY
 		move.w	d0, REG_SOUND1

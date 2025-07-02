@@ -77,14 +77,14 @@ _start:
 
 
 	.skip_sound_init_delay:
-		SEEK_LN	(SCREEN_START_Y + 2)
+		SEEK_XY	0, (SCREEN_START_Y + 2)
 		PSUB	print_clear_line
 
 		WATCHDOG
 		PSUB	mad_rom_address_test
 		PSUB	mad_rom_crc16_test
 
-		SEEK_LN	SCREEN_START_Y
+		SEEK_XY	0, SCREEN_START_Y
 		PSUB	print_clear_line
 
 		SEEK_XY	SCREEN_START_X, SCREEN_START_Y

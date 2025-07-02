@@ -49,13 +49,9 @@ screen_init_dsub:
 		lea	d_str_version, a0
 		DSUB	print_string
 
-		SEEK_LN	1
+		SEEK_XY	0, 1
 		move.l	#'-', d0
-	ifd _SCREEN_TATE_
-		moveq	#28, d1
-	else
-		moveq	#48, d1
-	endif
+		moveq	#SCREEN_NUM_COLUMNS, d1
 		DSUB	print_char_repeat
 		DSUB_RETURN
 

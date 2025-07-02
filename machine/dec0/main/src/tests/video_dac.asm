@@ -217,7 +217,7 @@ draw_color_bit:
 		move.w	d0, (a6, d2.w)
 		move.w	d0, 2(a6, d2.w)
 		move.w	d0, 4(a6, d2.w)
-		add.w	#SCREEN_BYTES_PER_LINE, d2	; next row
+		add.w	#SCREEN_BYTES_PER_ROW, d2	; next row
 		dbra	d1, .loop_next_row
 		rts
 

@@ -8,7 +8,7 @@
 mad_rom_crc32_test_dsub:
 
 	ifnd _HEADLESS_
-		SEEK_LN	SCREEN_START_Y
+		SEEK_XY	0, SCREEN_START_Y
 		PSUB	print_clear_line
 
 		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
@@ -64,7 +64,7 @@ mad_rom_crc32_test_dsub:
 		ld	bc, (MAD_ROM_CRC32_ADDRESS + 2)
 		PSUB	print_hex_word
 
-		SEEK_LN	SCREEN_START_Y
+		SEEK_XY	0, SCREEN_START_Y
 		PSUB	print_clear_line
 
 		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
@@ -90,7 +90,7 @@ mad_rom_crc32_test_dsub:
 mad_rom_address_test_dsub:
 
 	ifnd _HEADLESS_
-		SEEK_LN	SCREEN_START_Y
+		SEEK_XY	0, SCREEN_START_Y
 		PSUB	print_clear_line
 
 		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
@@ -128,7 +128,7 @@ mad_rom_address_test_dsub:
 		SEEK_XY	(SCREEN_START_X + 12), (SCREEN_START_Y + 2)
 		PSUB	print_hex_byte
 
-		SEEK_LN	SCREEN_START_Y
+		SEEK_XY	0, SCREEN_START_Y
 		PSUB	print_clear_line
 
 		SEEK_XY	SCREEN_START_X, SCREEN_START_Y

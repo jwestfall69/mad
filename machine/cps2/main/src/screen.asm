@@ -1,9 +1,4 @@
-	include "cpu/68000/include/dsub.inc"
-	include "cpu/68000/include/macros.inc"
-	include "cpu/68000/include/memory_fill.inc"
-
-	include "machine.inc"
-	include "mad.inc"
+	include "cpu/68000/include/common.inc"
 
 	global screen_init_dsub
 	global screen_seek_xy_dsub
@@ -30,9 +25,9 @@ screen_init_dsub:
 		lea	d_str_version, a0
 		DSUB	print_string
 
-		SEEK_LN	1
+		SEEK_XY	0, 1
 		move.l	#'-', d0
-		moveq	#48, d1
+		moveq	#SCREEN_NUM_COLUMNS, d1
 		DSUB	print_char_repeat
 
 ; this function doesn't appear to be safe to run on

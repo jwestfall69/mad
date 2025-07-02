@@ -44,22 +44,9 @@ IO_VIDEO_BANK			equ $07
 VIDEO_BANK_TILE			equ $0
 VIDEO_BANK_OBJECT		equ $1
 
-
 IO_YM2413_DATA			equ $03
 IO_YM2413_ADDRESS		equ $04
 IO_MSM6295			equ $05
 
-; note only 48 tiles are visable
-SCREEN_TILES_PER_LINE		equ 64
-SCREEN_BYTES_PER_TILE		equ 2
-SCREEN_BYTES_PER_LINE		equ (SCREEN_BYTES_PER_TILE * SCREEN_TILES_PER_LINE)
-
-	macro	SEEK_XY
-		ld	hl, TILE_RAM + $90 + (\1 * SCREEN_BYTES_PER_TILE) + (\2 * SCREEN_BYTES_PER_LINE)
-	endm
-
-	macro	SEEK_LN
-		ld	hl, TILE_RAM + $90 + (\1 * SCREEN_BYTES_PER_LINE)
-	endm
 	macro WATCHDOG
 	endm
