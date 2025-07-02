@@ -12,8 +12,7 @@ START_ROW	equ SCREEN_START_Y + 7
 ; up to the r_seek_xy_cb to deal with translating those so the 16x16
 ; tile show up at the correct location on screen (ie divide them by 2)
 ; params:
-;  d = tile offset
-;  w = offset mask
+;  d = offset mask
 ;  x = seek_xy function
 ;  y = draw_tile function
 tile_16x16_viewer_handler:
@@ -25,8 +24,9 @@ tile_16x16_viewer_handler:
 		; 0x2 = bottom left
 		; 0x3 = bottom right
 		clr	r_quadrant
+		std	r_tile_offset_mask
+		clrd
 		std	r_tile_offset
-		stw	r_tile_offset_mask
 		stx	r_seek_xy_cb
 		sty	r_draw_tile_cb
 

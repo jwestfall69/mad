@@ -16,8 +16,7 @@ k007121_10e_tile_viewer:
 		ldy	#d_str_title
 		RSUB	print_string
 
-		ldd	#$0
-		ldw	#TILE_OFFSET_MASK
+		ldd	#TILE_OFFSET_MASK
 		ldx	#seek_xy_cb
 		ldy	#draw_tile_cb
 		jsr	tile_8x8_viewer_handler

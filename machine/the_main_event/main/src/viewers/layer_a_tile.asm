@@ -20,8 +20,7 @@ layer_a_tile_viewer:
 		ldy	#d_str_title
 		RSUB	print_string
 
-		ldd	#$100
-		ldw	#TILE_OFFSET_MASK
+		ldd	#TILE_OFFSET_MASK
 		ldx	#layer_a_seek_xy_cb
 		ldy	#tvc_draw_tile_cb
 		jsr	tile_8x8_viewer_handler

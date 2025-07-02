@@ -14,8 +14,7 @@ fix_tile_viewer:
 		ldy	#d_str_title
 		RSUB	print_string
 
-		ldd	#$0
-		ldw	#TILE_OFFSET_MASK
+		ldd	#TILE_OFFSET_MASK
 		ldx	#fix_seek_xy_cb
 		ldy	#fix_draw_tile_cb
 		jsr	tile_8x8_viewer_handler
@@ -35,4 +34,4 @@ fix_draw_tile_cb:
 
 	section data
 
-d_str_title: 	STRING "FIX TILE VIEWER"
+d_str_title:	STRING "FIX TILE VIEWER"

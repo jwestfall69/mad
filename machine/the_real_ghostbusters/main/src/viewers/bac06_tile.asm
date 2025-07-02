@@ -14,8 +14,7 @@ bac06_tile_viewer:
 		ldy	#d_str_title
 		RSUB	print_string
 
-		ldd	#$0
-		ldw	#TILE_OFFSET_MASK
+		ldd	#TILE_OFFSET_MASK
 		ldx	#bac06_seek_xy_cb
 		ldy	#bac06_draw_tile_cb
 		jsr	tile_16x16_viewer_handler
@@ -29,7 +28,7 @@ bac06_seek_xy_cb:
 		ldx	#BAC06_RAM
 		leax	a, x
 
-		tfr 	b, a
+		tfr	b, a
 		clrb
 		rord
 		rord
@@ -48,4 +47,4 @@ bac06_draw_tile_cb:
 
 	section data
 
-d_str_title: 	STRING "BAC06 TILE VIEWER"
+d_str_title:	STRING "BAC06 TILE VIEWER"
