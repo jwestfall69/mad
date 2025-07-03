@@ -102,6 +102,7 @@ print_hex_dsub:
 		; location based on the number of nibbles we will
 		; be printing
 		move.l	d1, d2
+		subq.b	#1, d2
 		lsl.b	#1, d2
 		adda.l	d2, a6
 		sub.b	#1, d1
