@@ -1,6 +1,8 @@
 	include "cpu/68000/include/common.inc"
 
 	global delay_dsub
+	global joystick_lr_update_byte
+	global joystick_lr_update_word
 	global memory_rewrite_dsub
 	global sound_play_byte_dsub
 	global wait_button_press_dsub
@@ -15,6 +17,95 @@ delay_dsub:
 		subq.l	#1, d0		;  4 cycles
 		bne	delay_dsub	; 10 cycles
 		DSUB_RETURN
+
+
+; Looking at joystick left/right, adjust the byte in memory
+; -$1 for LEFT
+; +$1 for RIGHT
+; If b1 is held down, then inc/dec is $10
+; Then apply the mask to the byte
+; params:
+;  d.b = mask
+;  a0 = #r_input_edge|#r_input_raw
+;  a1 = address of byte to update
+; returns:
+;  a = 0 no change, 1 = chan
+joystick_lr_update_byte:
+		move.b	d0, d2
+		moveq	#$1, d1		; inc/dec amount
+
+		; don't allow $10 inc/dec mount if mask wouldn't allow
+		; a value of >= $10
+		cmp.b	#$10, d2
+		blo	.b1_not_pressed
+
+		move.b	r_input_raw, d0
+		btst	#INPUT_B1_BIT, d0
+		beq	.b1_not_pressed
+		add.b	#$f, d1
+
+	.b1_not_pressed:
+		move.b	(a0), d0
+		btst	#INPUT_LEFT_BIT, d0
+		beq	.left_not_pressed
+		sub.b	d1, (a1)
+		bra	.apply_mask_return
+
+	.left_not_pressed:
+		btst	#INPUT_RIGHT_BIT, d0
+		beq	.return_no_change
+		add.b	d1, (a1)
+
+	.apply_mask_return:
+		and.b	d2, (a1)
+		moveq	#$1, d0
+		rts
+
+	.return_no_change:
+		clr	d0
+		rts
+
+; Looking at joystick left/right, adjust the byte in memory
+; -$1 for LEFT
+; +$1 for RIGHT
+; If b1 is held down, then inc/dec is $10
+; Then apply the mask to the byte
+; params:
+;  d.w = mask
+;  a0 = #r_input_edge|#r_input_raw
+;  a1 = address of byte to update
+; returns:
+;  a = 0 no change, 1 = chan
+joystick_lr_update_word:
+		move.w	d0, d2
+		moveq	#$1, d1		; inc/dec amount
+
+		move.b	r_input_raw, d0
+		btst	#INPUT_B1_BIT, d0
+		beq	.b1_not_pressed
+		add.w	#$f, d1
+
+	.b1_not_pressed:
+		move.b	(a0), d0
+		btst	#INPUT_LEFT_BIT, d0
+		beq	.left_not_pressed
+		sub.w	d1, (a1)
+		bra	.apply_mask_return
+
+	.left_not_pressed:
+		btst	#INPUT_RIGHT_BIT, d0
+		beq	.return_no_change
+		add.w	d1, (a1)
+
+	.apply_mask_return:
+		and.w	d2, (a1)
+		moveq	#$1, d0
+		rts
+
+	.return_no_change:
+		clr	d0
+		rts
+
 
 ; writes a region of memory (mainly just used to force
 ; mame to consider the memorry dirty, causing it to update

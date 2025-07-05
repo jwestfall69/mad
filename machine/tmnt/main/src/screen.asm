@@ -6,36 +6,40 @@
 	section code
 
 screen_init_dsub:
-		lea	TILE_RAM, a0
-		move.l	#$1000, d0
+		lea	FIX_TILE, a0
+		move.l	#FIX_TILE_SIZE, d0
 		move.w	#$10, d1
 		DSUB	memory_fill_tile
 
-		lea	TILE_RAM+$2000, a0
-		move.l	#$1000, d0
+		lea	LAYER_A_TILE, a0
+		move.l	#LAYER_A_TILE_SIZE, d0
 		move.w	#$10, d1
 		DSUB	memory_fill_tile
 
-		lea	TILE_RAM+$4000, a0
-		move.l	#$1000, d0
+		lea	LAYER_B_TILE, a0
+		move.l	#LAYER_B_TILE_SIZE, d0
 		move.w	#$10, d1
 		DSUB	memory_fill_tile
 
-		lea	TILE_RAM+$6000, a0
-		move.l	#$800, d0
-		move.w	#$0000, d1
+		lea	LAYER_A_SCROLL, a0
+		move.l	#LAYER_A_SCROLL_SIZE + LAYER_B_SCROLL_SIZE, d0
+		moveq	#$0, d1
 		DSUB	memory_fill_tile
 
-		move.w	#$0, $106b00
-		move.w	#$0, $106e00
 		move.b	#$0, $106900
 		move.b	#$0, $106b00
 		move.b	#$0, $106e00
 		move.b	#$0, $106c00
+		move.b	#$0, $0c0001
+
+		lea	SPRITE_RAM, a0
+		move.l	#SPRITE_RAM_SIZE, d0
+		moveq	#$0, d1
+		DSUB	memory_fill_tile
 
 		lea	PALETTE_RAM, a0
 		move.l	#PALETTE_RAM_SIZE, d0
-		moveq	#0, d1
+		moveq	#$0, d1
 		DSUB	memory_fill
 
 		; text color

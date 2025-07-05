@@ -3,4 +3,4 @@
 	include "cpu/68000/include/tests/ram_test_logic.inc"
 
 	; sprite ram only works with byte read/writes
-	RAM_TEST_LOGIC sprite, SPRITE, RTL_FLAG_BYTE_TESTS, MT_FLAG_LOWER_ONLY
+	RAM_TEST_LOGIC sprite, SPRITE, RTL_FLAG_BYTE_TESTS, MT_FLAG_NONE
