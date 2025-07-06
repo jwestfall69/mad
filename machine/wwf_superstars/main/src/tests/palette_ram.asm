@@ -80,6 +80,8 @@ manual_palette_ram_tests:
 
 		lea	d_screen_xys_list, a0
 		RSUB	print_xy_string_list
+		jsr	print_passes
+		jsr	print_b2_return_to_menu
 
 		moveq	#0, d6		; passes, memory tests don't touch it
 
@@ -189,11 +191,9 @@ d_data_patterns:
 d_data_patterns_end:
 
 d_screen_xys_list:
-	XY_STRING SCREEN_START_X, SCREEN_PASSES_Y, "PASSES"
 	ifd _MAME_BUILD_
 		XY_STRING SCREEN_START_X, (SCREEN_PASSES_Y + 2), "MAME BUILD - TEST DISABLED"
 	else
 		XY_STRING SCREEN_START_X, (SCREEN_PASSES_Y + 2), "EXPECT ROLLING COLORS"
 	endif
-	XY_STRING SCREEN_START_X, SCREEN_B2_Y, "B2 - RETURN TO MENU"
 	XY_STRING_LIST_END

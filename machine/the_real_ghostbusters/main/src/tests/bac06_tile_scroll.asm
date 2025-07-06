@@ -8,6 +8,7 @@
 bac06_tile_scroll_test:
 		ldy	#d_screen_xys_list
 		jsr	print_xy_string_list
+		jsr	print_b2_return_to_menu
 
 		ldd	#$0
 		std	r_pos_x

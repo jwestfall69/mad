@@ -9,6 +9,7 @@
 mame_test_disabled:
 		ldy	#d_screen_xys_list
 		jsr	print_xy_string_list
+		jsr	print_b2_return_to_menu
 
 		lda	#INPUT_B2
 		jsr	wait_button_press
@@ -23,7 +24,6 @@ d_screen_xys_list:
 	else
 		XY_STRING SCREEN_START_X, (SCREEN_PASSES_Y + 2), "MAME BUILD - TEST DISABLED"
 	endif
-		XY_STRING SCREEN_START_X, SCREEN_B2_Y, "B2 - RETURN TO MENU"
 		XY_STRING_LIST_END
 
 	endif

@@ -39,6 +39,8 @@ manual_\1_ram_tests:
 
 		lea	d_screen_xys_list, a0
 		RSUB	print_xy_string_list
+		jsr	print_passes
+		jsr	print_b2_return_to_menu
 
 		moveq	#0, d6		; passes, memory tests don't touch it
 
@@ -72,6 +74,8 @@ manual_\1_ram_tests:
 
 		lea	d_screen_xys_list, a0
 		RSUB	print_xy_string_list
+		jsr	print_passes
+		jsr	print_b2_return_to_menu
 
 		SEEK_XY	SCREEN_PASSES_VALUE_X, SCREEN_PASSES_Y
 		move.l	d6, d0
@@ -90,7 +94,6 @@ manual_\1_ram_tests:
 	align 1
 
 d_mt_data:
-
 	if \3 & RTL_FLAG_ADDRESS_LIST
 		MT_PARAMS \2_RAM, d_memory_address_list, \2_RAM_SIZE, \2_RAM_ADDRESS_LINES, \2_RAM_MASK, \2_RAM_BASE_EC, \4
 	else
@@ -101,14 +104,10 @@ d_screen_xys_list:
 	if \3 & RTL_FLAG_PAUSE_REDRAW
 		XY_STRING SCREEN_START_X, SCREEN_START_Y, "\2 RAM TEST"
 	endif
-	XY_STRING SCREEN_START_X, SCREEN_PASSES_Y, "PASSES"
-
 	if \3 & RTL_FLAG_MAME_DISABLE
 		XY_STRING SCREEN_START_X, (SCREEN_PASSES_Y + 2), "MAME BUILD - TEST DISABLED"
 	endif
-
 	XY_STRING SCREEN_START_X, SCREEN_B1_Y, "B1 - PAUSE"
-	XY_STRING SCREEN_START_X, SCREEN_B2_Y, "B2 - RETURN TO MENU"
 	XY_STRING_LIST_END
 
 	endm

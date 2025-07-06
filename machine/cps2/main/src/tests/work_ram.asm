@@ -12,8 +12,9 @@ auto_work_ram_tests_dsub:
 		bra	memory_tests_handler_dsub
 
 manual_work_ram_tests:
-		lea	d_screen_xys_list, a0
-		RSUB	print_xy_string_list
+		jsr	print_passes
+		jsr	print_b2_return_to_menu
+
 		DSUB_MODE_PSUB
 
 		moveq	#0, d6		; passes, memory tests don't touch it
@@ -54,8 +55,3 @@ d_memory_address_list:
 
 d_mt_data:
 	MT_PARAMS WORK_RAM, d_memory_address_list, WORK_RAM_SIZE, WORK_RAM_ADDRESS_LINES, WORK_RAM_MASK, WORK_RAM_BASE_EC, MT_FLAG_NONE
-
-d_screen_xys_list:
-	XY_STRING SCREEN_START_X, SCREEN_PASSES_Y, "PASSES"
-	XY_STRING SCREEN_START_X, SCREEN_B2_Y, "B2 - RETURN TO MENU"
-	XY_STRING_LIST_END

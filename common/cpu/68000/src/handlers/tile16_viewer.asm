@@ -32,6 +32,7 @@ tile16_viewer_handler:
 
 		lea	d_screen_xys_list, a0
 		RSUB	print_xy_string_list
+		jsr	print_b2_return_to_menu
 
 	.loop_redraw:
 		move.w	r_tile_offset, d6
@@ -149,7 +150,6 @@ tile16_viewer_handler:
 d_screen_xys_list:
 	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 2), <"OFFSET",CHAR_COLON>
 	XY_STRING SCREEN_START_X, SCREEN_B1_Y, "B1 - SWITCH QUAD"
-	XY_STRING SCREEN_START_X, SCREEN_B2_Y, "B2 - RETURN TO MENU"
 	XY_STRING_LIST_END
 
 ; not part of d_screen_xys_list so we can use in row headers

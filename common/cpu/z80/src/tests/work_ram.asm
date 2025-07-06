@@ -201,8 +201,8 @@ print_error_work_ram_memory_dsub:
 	ifnd _HEADLESS_
 
 manual_work_ram_tests:
-		ld	de, d_screen_xys_list
-		call	print_xy_string_list
+		call	print_passes
+		call	print_b2_return_to_menu
 
 		ld	bc, 0
 		ld	(R_WORK_RAM_PASSES), bc
@@ -235,11 +235,6 @@ manual_work_ram_tests:
 		jp	main_menu
 
 	section data
-
-d_screen_xys_list:
-	XY_STRING SCREEN_START_X, SCREEN_PASSES_Y, "PASSES"
-	XY_STRING SCREEN_START_X, SCREEN_B2_Y, "B2 - RETURN TO MENU"
-	XY_STRING_LIST_END
 
 ; These are padded so we fully overwrite "TESTING WORK RAM"
 d_str_work_ram_address:		STRING "WORK RAM ADDRESS"

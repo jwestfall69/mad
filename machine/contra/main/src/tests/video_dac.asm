@@ -9,6 +9,7 @@ video_dac_test:
 
 		ldy	#d_screen_xys_list
 		jsr	print_xy_string_list
+		jsr	print_b2_return_to_menu
 
 		jsr	palette_setup
 		jsr	generate_tiles_table
@@ -339,7 +340,6 @@ d_screen_xys_list:
 	XY_STRING SCREEN_START_X, SCREEN_START_Y, "VIDEO DAC TEST"
 	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 2), "B0  B1  B2  B3  B4  ALL"
 	XY_STRING SCREEN_START_X, SCREEN_B1_Y, "B1 - FULL SCREEN"
-	XY_STRING SCREEN_START_X, SCREEN_B2_Y, "B2 - RETURN TO MENU"
 	XY_STRING_LIST_END
 
 	section bss

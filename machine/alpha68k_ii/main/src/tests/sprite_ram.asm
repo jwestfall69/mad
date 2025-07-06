@@ -18,9 +18,8 @@ auto_sprite_ram_tests:
 		rts
 
 manual_sprite_ram_tests:
-
-		lea	d_screen_xys_list, a0
-		RSUB	print_xy_string_list
+		jsr	print_passes
+		jsr	print_b2_return_to_menu
 
 		moveq	#0, d6		; passes, memory tests don't touch it
 
@@ -52,8 +51,3 @@ manual_sprite_ram_tests:
 
 d_mt_data:
 	MT_PARAMS SPRITE_RAM, MT_NULL_ADDRESS_LIST, SPRITE_RAM_SIZE, SPRITE_RAM_ADDRESS_LINES, SPRITE_RAM_MASK, SPRITE_RAM_BASE_EC, MT_FLAG_LOWER_ONLY
-
-d_screen_xys_list:
-	XY_STRING SCREEN_START_X, SCREEN_PASSES_Y, "PASSES"
-	XY_STRING SCREEN_START_X, SCREEN_B2_Y, "B2 - RETURN TO MENU"
-	XY_STRING_LIST_END

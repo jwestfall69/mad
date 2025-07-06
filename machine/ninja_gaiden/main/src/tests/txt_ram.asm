@@ -51,6 +51,8 @@ manual_txt_ram_tests:
 
 		lea	d_screen_xys_list, a0
 		RSUB	print_xy_string_list
+		jsr	print_passes
+		jsr	print_b2_return_to_menu
 
 		SEEK_XY	SCREEN_PASSES_VALUE_X, SCREEN_PASSES_Y
 		move.l	d6, d0
@@ -72,7 +74,5 @@ d_mt_data:
 
 d_screen_xys_list:
 	XY_STRING SCREEN_START_X, SCREEN_START_Y, "TXT RAM TEST"
-	XY_STRING SCREEN_START_X, SCREEN_PASSES_Y, "PASSES"
 	XY_STRING SCREEN_START_X, SCREEN_B1_Y, "B1 - PAUSE"
-	XY_STRING SCREEN_START_X, SCREEN_B2_Y, "B2 - RETURN TO MENU"
 	XY_STRING_LIST_END

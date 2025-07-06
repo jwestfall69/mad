@@ -4,6 +4,8 @@
 	global joystick_lr_update_byte
 	global joystick_lr_update_word
 	global memory_rewrite_dsub
+	global print_b2_return_to_menu
+	global print_passes
 	global sound_play_byte_dsub
 	global wait_button_press_dsub
 	global wait_button_release_dsub
@@ -123,6 +125,20 @@ memory_rewrite_dsub:
 		bne	.loop_next_address
 		DSUB_RETURN
 
+; these 2 print function help de-dupe some common
+; strings in many tests/menu items
+print_b2_return_to_menu:
+		SEEK_XY	SCREEN_START_X, SCREEN_B2_Y
+		lea	d_str_b2_return_to_menu, a0
+		RSUB	print_string
+		rts
+
+print_passes:
+		SEEK_XY	SCREEN_START_X, SCREEN_PASSES_Y
+		lea	d_str_passes, a0
+		RSUB	print_string
+		rts
+
 ; play the bits of the passed byte to the sound cpu/latch
 ; params:
 ;  d0 = byte to play
@@ -184,3 +200,8 @@ wait_button_release_dsub:
 
 	.released:
 		DSUB_RETURN
+
+	section data
+
+d_str_b2_return_to_menu:	STRING "B2 - RETURN TO MENU"
+d_str_passes:			STRING "PASSES"

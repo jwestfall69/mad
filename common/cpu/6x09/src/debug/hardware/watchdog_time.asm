@@ -28,6 +28,7 @@
 watchdog_time:
 		ldy	#d_screen_xys_list
 		jsr	print_xy_string_list
+		jsr	print_b2_return_to_menu
 
 	; Wait for the user to release button b1 from when they
 	; pressed it to select the this menu item
@@ -84,7 +85,6 @@ d_screen_xys_list:
 	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 3), "CONJUNCTION WITH A"
 	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 4), "LOGIC ANALYZER"
 	XY_STRING SCREEN_START_X, SCREEN_B1_Y, "B1 - WATCHDOG THEN STALL"
-	XY_STRING SCREEN_START_X, SCREEN_B2_Y, "B2 - RETURN TO MENU"
 	XY_STRING_LIST_END
 
 d_str_triggered:	STRING "TRIGGERED"

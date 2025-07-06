@@ -7,6 +7,7 @@
 error_address_test:
 		ld	de, d_screen_xys_list
 		call	print_xy_string_list
+		call	print_b2_return_to_menu
 
 		SEEK_XY (SCREEN_START_X + 17), (SCREEN_START_Y + 5)
 		ld	c, EC_MASK
@@ -95,7 +96,6 @@ d_screen_xys_list:
 	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 6), <"ERROR CODE", CHAR_COLON>
 	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 7), <"ERROR ADDRESS", CHAR_COLON>
 	XY_STRING SCREEN_START_X, SCREEN_B1_Y, "B1 - TRIGGER ERROR ADDRESS"
-	XY_STRING SCREEN_START_X, SCREEN_B2_Y, "B2 - RETURN TO MENU"
 	XY_STRING_LIST_END
 
 d_str_triggered:	STRING "TRIGGERED"

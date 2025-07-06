@@ -18,8 +18,10 @@ tile8_viewer_handler:
 		move.l	a0, (r_seek_xy_cb)
 		move.l	a1, (r_draw_tile_cb)
 
-		lea	d_screen_xys_list, a0
-		RSUB	print_xy_string_list
+		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 2)
+		lea	d_str_offset, a0
+		RSUB	print_string
+		jsr	print_b2_return_to_menu
 
 		SEEK_XY	(START_COLUMN + 2), (SCREEN_START_Y + 4)
 		lea	d_str_0f, a0
@@ -107,12 +109,7 @@ tile8_viewer_handler:
 	section data
 	align 1
 
-d_screen_xys_list:
-	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 2), <"OFFSET",CHAR_COLON>
-	XY_STRING SCREEN_START_X, SCREEN_B2_Y, "B2 - RETURN TO MENU"
-	XY_STRING_LIST_END
-
-; not part of d_screen_xys_list so we can use in row headers
+d_str_offset:		STRING <"OFFSET",CHAR_COLON>
 d_str_0f:		STRING "0123456789ABCDEF"
 
 	section bss

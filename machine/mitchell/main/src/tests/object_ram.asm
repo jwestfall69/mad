@@ -19,6 +19,8 @@ auto_object_ram_tests:
 manual_object_ram_tests:
 		ld	de, d_screen_xys_list
 		call	print_xy_string_list
+		call	print_passes
+		call	print_b2_return_to_menu
 
 		ld	bc, 0		; # of passes
 
@@ -56,6 +58,8 @@ manual_object_ram_tests:
 
 		ld	de, d_screen_xys_list
 		call	print_xy_string_list
+		call	print_passes
+		call	print_b2_return_to_menu
 
 		SEEK_XY	SCREEN_PASSES_VALUE_X, SCREEN_PASSES_Y
 		pop	bc
@@ -78,7 +82,5 @@ d_mt_data:
 
 d_screen_xys_list:
 	XY_STRING SCREEN_START_X, SCREEN_START_Y, "OBJECT RAM TEST"
-	XY_STRING SCREEN_START_X, SCREEN_PASSES_Y, "PASSES"
 	XY_STRING SCREEN_START_X, SCREEN_B1_Y, "B1 - PAUSE"
-	XY_STRING SCREEN_START_X, SCREEN_B2_Y, "B2 - RETURN TO MENU"
 	XY_STRING_LIST_END

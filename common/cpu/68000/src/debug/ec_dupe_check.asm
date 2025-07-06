@@ -13,10 +13,7 @@
 ; byte in our array and the remainder is the bit within that
 ; byte.  If we already see a bit set it means we have a dupe.
 ec_dupe_check:
-
-		SEEK_XY	SCREEN_START_X, SCREEN_B2_Y
-		lea	d_str_b2_return, a0
-		RSUB	print_string
+		jsr	print_b2_return_to_menu
 
 		lea	r_ec_seen, a0
 		move.l	#32, d0
@@ -76,8 +73,7 @@ ec_dupe_check:
 	section data
 	align 1
 
-d_str_b2_return:	STRING "B2 - RETURN TO MENU"
-d_str_dupe_found: 	STRING <"DUPE FOUND", CHAR_COLON>
+d_str_dupe_found:	STRING <"DUPE FOUND", CHAR_COLON>
 d_str_no_dupes:		STRING "NO DUPES FOUND"
 
 	section bss

@@ -10,6 +10,7 @@ ACTIVE_LAYER_B		equ $1
 tile_scroll_test:
 		ldy	#d_screen_xys_list
 		jsr	print_xy_string_list
+		jsr	print_b2_return_to_menu
 
 		ldd	#$0
 		sta	r_active_layer
@@ -142,7 +143,6 @@ d_screen_xys_list:
 	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 5), "LAYER B"
 	XY_STRING SCREEN_START_X, (SCREEN_B1_Y - 1), "JOY - SCROLL ACTIVE LAYER"
 	XY_STRING SCREEN_START_X, SCREEN_B1_Y, "B1 - SWITCH LAYER"
-	XY_STRING SCREEN_START_X, SCREEN_B2_Y, "B2 - RETURN TO MENU"
 	XY_STRING_LIST_END
 
 d_str_layer_a:		STRING "LAYER A"

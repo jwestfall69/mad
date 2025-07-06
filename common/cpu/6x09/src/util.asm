@@ -6,6 +6,8 @@
 	global joystick_update_word
 	global joystick_lr_update_word
 	global memory_copy
+	global print_b2_return_to_menu
+	global print_passes
 	global sound_play_byte_dsub
 	global wait_button_press
 	global wait_button_release
@@ -252,6 +254,20 @@ memory_copy:
 		bne	.loop_next_byte
 		rts
 
+; these 2 print function help de-dupe some common
+; strings in many tests/menu items
+print_b2_return_to_menu:
+		SEEK_XY SCREEN_START_X, SCREEN_B2_Y
+		ldy	#d_str_b2_return_to_menu
+		RSUB	print_string
+		rts
+
+print_passes:
+		SEEK_XY SCREEN_START_X, SCREEN_PASSES_Y
+		ldy	#d_str_passes
+		RSUB	print_string
+		rts
+
 ; params:
 ;  a = byte to play
 sound_play_byte_dsub:
@@ -326,6 +342,11 @@ wait_button_release:
 	.released:
 		puls	b
 		rts
+
+	section data
+
+d_str_b2_return_to_menu:	STRING "B2 - RETURN TO MENU"
+d_str_passes:			STRING "PASSES"
 
 	section bss
 

@@ -21,8 +21,10 @@ tile_8x8_viewer_handler:
 		ldd	#$0
 		std	r_tile_offset
 
-		ldy	#d_screen_xys_list
-		jsr	print_xy_string_list
+		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 2)
+		ldy	#d_str_offset
+		RSUB	print_string
+		jsr	print_b2_return_to_menu
 
 		SEEK_XY	(COLUMN_START + 2), (SCREEN_START_Y + 4)
 		ldy	#d_str_0f
@@ -128,12 +130,7 @@ tile_8x8_viewer_handler:
 
 	section data
 
-d_screen_xys_list:
-	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 2), <"OFFSET",CHAR_COLON>
-	XY_STRING SCREEN_START_X, SCREEN_B2_Y, "B2 - RETURN TO MENU"
-	XY_STRING_LIST_END
-
-; not part of d_screen_xys_list so we can use in row headers
+d_str_offset:		STRING <"OFFSET",CHAR_COLON>
 d_str_0f:		STRING "0123456789ABCDEF"
 
 	section bss

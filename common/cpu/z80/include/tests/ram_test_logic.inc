@@ -24,6 +24,8 @@ auto_\1_ram_tests:
 manual_\1_ram_tests:
 		ld	de, d_screen_xys_list
 		call	print_xy_string_list
+		call	print_passes
+		call	print_b2_return_to_menu
 
 		ld	bc, 0		; # of passes
 
@@ -60,6 +62,8 @@ manual_\1_ram_tests:
 
 		ld	de, d_screen_xys_list
 		call	print_xy_string_list
+		call	print_passes
+		call	print_b2_return_to_menu
 
 		SEEK_XY	SCREEN_PASSES_VALUE_X, SCREEN_PASSES_Y
 		pop	bc
@@ -84,9 +88,7 @@ d_screen_xys_list:
 	if \3 & RTL_FLAG_PAUSE_REDRAW
 		XY_STRING SCREEN_START_X, SCREEN_START_Y, "\2 RAM TEST"
 	endif
-	XY_STRING SCREEN_START_X, SCREEN_PASSES_Y, "PASSES"
 	XY_STRING SCREEN_START_X, SCREEN_B1_Y, "B1 - PAUSE"
-	XY_STRING SCREEN_START_X, SCREEN_B2_Y, "B2 - RETURN TO MENU"
 	XY_STRING_LIST_END
 
 	endm

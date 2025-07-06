@@ -9,6 +9,7 @@ error_address_test:
 
 		lea	d_screen_xys_list, a0
 		RSUB	print_xy_string_list
+		jsr	print_b2_return_to_menu
 
 		SEEK_XY (SCREEN_START_X + 19), (SCREEN_START_Y + 5)
 		move.b	#EC_MASK, d0
@@ -87,7 +88,6 @@ d_screen_xys_list:
 		XY_STRING SCREEN_START_X, SCREEN_B1_Y, "B1 - TRIGGER ERROR ADDRESS"
 	endif
 
-	XY_STRING SCREEN_START_X, SCREEN_B2_Y, "B2 - RETURN TO MENU"
 	XY_STRING_LIST_END
 
 d_str_triggered:	STRING "TRIGGERED"

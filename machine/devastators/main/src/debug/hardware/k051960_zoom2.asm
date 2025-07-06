@@ -13,6 +13,7 @@ k051960_zoom2_debug:
 
 		ldy	#d_screen_xys_list
 		jsr	print_xy_string_list
+		jsr	print_b2_return_to_menu
 
 		; sprite palette
 		ldx	#SPRITE_PALETTE + (7 * PALETTE_SIZE) + $2
@@ -129,7 +130,6 @@ d_sprite_data:
 d_screen_xys_list:
 	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 1), "ZOOM"
 	XY_STRING SCREEN_START_X, SCREEN_B1_Y, "LR - DEC/INC ZOOM"
-	XY_STRING SCREEN_START_X, SCREEN_B2_Y, "B2 - RETURN TO MENU"
 	XY_STRING_LIST_END
 
 	section bss

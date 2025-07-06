@@ -14,6 +14,7 @@ video_dac_test:
 
 		lea	d_screen_xys_list, a0
 		RSUB	print_xy_string_list
+		jsr	print_b2_return_to_menu
 
 		bsr	palette_setup
 		bsr	generate_tiles_table
@@ -302,7 +303,6 @@ d_screen_xys_list:
 
 	XY_STRING SCREEN_START_X, (SCREEN_B1_Y - 1), "LR - ADJUST BRIGHTNESS"
 	XY_STRING SCREEN_START_X, SCREEN_B1_Y, "B1 - FULL SCREEN"
-	XY_STRING SCREEN_START_X, SCREEN_B2_Y, "B2 - RETURN TO MENU"
 	XY_STRING_LIST_END
 
 	section bss

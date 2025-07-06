@@ -32,6 +32,7 @@ sprite_k007420_viewer_handler:
 
 		ldy	#d_screen_xys_list
 		jsr	print_xy_string_list
+		jsr	print_b2_return_to_menu
 
 	.loop_sprite_update:
 		jsr	sprite_update
@@ -192,7 +193,6 @@ d_screen_xys_list:
 	else
 		XY_STRING SCREEN_START_X, SCREEN_B1_Y, "B1 - HOLD TO ADJUST TIMES 10"
 	endif
-	XY_STRING SCREEN_START_X, SCREEN_B2_Y, "B2 - RETURN TO MENU"
 	XY_STRING_LIST_END
 
 	section bss

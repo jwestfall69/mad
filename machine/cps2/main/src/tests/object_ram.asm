@@ -27,23 +27,24 @@ auto_object_ram_tests:
 		rts
 
 manual_object_ram_tests:
-
-		lea	d_screen_xys_list, a0
-		RSUB	print_xy_string_list
+		SEEK_XY	SCREEN_START_X, SCREEN_B1_Y
+		lea	d_str_b1_pause, a0
+		RSUB	print_string
+		jsr	print_passes
+		jsr	print_b2_return_to_menu
 
 		moveq	#0, d6		; passes, memory tests don't touch it
 
 	.loop_next_pass:
+		SEEK_XY	SCREEN_PASSES_VALUE_X, SCREEN_PASSES_Y
+		move.l	d6, d0
+		RSUB	print_hex_long
 
 		jsr	auto_object_ram_tests
 		tst.b	d0
 		bne	.test_failed
 
 		addq.l	#1, d6
-
-		SEEK_XY	SCREEN_PASSES_VALUE_X, SCREEN_PASSES_Y
-		move.l	d6, d0
-		RSUB	print_hex_long
 
 		btst	#INPUT_B2_BIT, REG_INPUT
 		beq	.test_exit
@@ -95,8 +96,4 @@ object_ram_bank_switch_test_dsub:
 d_mt_data:
 		MT_PARAMS OBJECT_RAM, MT_NULL_ADDRESS_LIST, OBJECT_RAM_SIZE, OBJECT_RAM_ADDRESS_LINES, OBJECT_RAM_MASK, OBJECT_RAM_BASE_EC, MT_FLAG_NONE
 
-d_screen_xys_list:
-	XY_STRING SCREEN_START_X, SCREEN_PASSES_Y, "PASSES"
-	XY_STRING SCREEN_START_X, SCREEN_B1_Y, "B1 - PAUSE"
-	XY_STRING SCREEN_START_X, SCREEN_B2_Y, "B2 - RETURN TO MENU"
-	XY_STRING_LIST_END
+d_str_b1_pause:		STRING "B1 - PAUSE"
