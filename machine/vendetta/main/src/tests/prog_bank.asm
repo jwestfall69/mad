@@ -7,6 +7,7 @@
 prog_bank_test:
 		ldy	#d_screen_xys_list
 		jsr	print_xy_string_list
+		jsr	print_b2_return_to_menu
 
 	.loop_input:
 		WATCHDOG
@@ -96,8 +97,7 @@ run_test:
 
 d_screen_xys_list:
 	XY_STRING SCREEN_START_X, SCREEN_START_Y, "PROG BANK TEST"
-	XY_STRING SCREEN_START_X, SCREEN_B1_Y, "B1 RUN TEST"
-	XY_STRING SCREEN_START_X, SCREEN_B2_Y, "B2 RETURN TO MENU"
+	XY_STRING SCREEN_START_X, SCREEN_B1_Y, "B1 - RUN TEST"
 	XY_STRING_LIST_END
 
 d_screen_xys_test_failed_list:
