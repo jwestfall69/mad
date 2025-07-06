@@ -6,19 +6,23 @@
 	section code
 
 ; sprite attributes
-SA_SPRITE_NUM		equ $0
-SA_SPRITE_SIZE		equ $1
-SA_SPRITE_ZOOM		equ $2
+SA_NUM			equ $0
+SA_SIZE			equ $1
+SA_ZOOM			equ $2
 SA_POS_X		equ $3
 SA_POS_Y		equ $4
 SA_MAX			equ SA_POS_Y
+
+SA_SIZE_MASK		equ $7
+SA_ZOOM_MASK		equ $3ff
+SA_POS_X_MASK		equ $1ff
+SA_POS_Y_MASK		equ $ff
 
 ; params:
 ;  d = sprite num mask
 ;  x = address of sprite struct
 ;  y = address of draw_sprite callback
 sprite_k007420_viewer_handler:
-
 		std	r_sprite_num_mask
 		stx	r_sprite_struct
 		sty	r_draw_sprite_cb
@@ -29,9 +33,10 @@ sprite_k007420_viewer_handler:
 		ldy	#d_screen_xys_list
 		jsr	print_xy_string_list
 
+	.loop_sprite_update:
 		jsr	sprite_update
 
-	.update_cursor:
+	.loop_cursor_update:
 		jsr	cursor_update
 
 	.loop_input:
@@ -42,13 +47,20 @@ sprite_k007420_viewer_handler:
 		bita	#INPUT_UP
 		beq	.up_not_pressed
 		dec	r_cursor
-		bra	.update_cursor
+		bpl	.loop_cursor_update
+		lda	#SA_MAX
+		sta	r_cursor
+		bra	.loop_cursor_update
 
 	.up_not_pressed:
 		bita	#INPUT_DOWN
 		beq	.down_not_pressed
 		inc	r_cursor
-		bra	.update_cursor
+		lda	r_cursor
+		cmpa	#SA_MAX
+		ble	.loop_cursor_update
+		clr	r_cursor
+		bra	.loop_cursor_update
 
 	.down_not_pressed:
 		bita	#INPUT_B2
@@ -60,7 +72,7 @@ sprite_k007420_viewer_handler:
 		; selected attribute/cursor
 		ldy	r_sprite_struct
 		lda	r_cursor
-		cmpa	#SA_SPRITE_NUM
+		cmpa	#SA_NUM
 		bne	.not_sa_sprite_num
 		ldd	r_sprite_num_mask
 		ldx	#r_input_edge
@@ -68,17 +80,17 @@ sprite_k007420_viewer_handler:
 		bra	.joystick_lr_update_word
 
 	.not_sa_sprite_num:
-		cmpa	#SA_SPRITE_SIZE
+		cmpa	#SA_SIZE
 		bne	.not_sa_sprite_size
-		lda	#$7
+		lda	#SA_SIZE_MASK
 		ldx	#r_input_edge
 		leay	s_se_size, y
 		bra	.joystick_lr_update_byte
 
 	.not_sa_sprite_size:
-		cmpa	#SA_SPRITE_ZOOM
+		cmpa	#SA_ZOOM
 		bne	.not_sa_sprite_zoom
-		ldd	#$3ff
+		ldd	#SA_ZOOM_MASK
 		ldx	#r_input_edge
 		leay	s_se_zoom, y
 		bra	.joystick_lr_update_word
@@ -86,7 +98,7 @@ sprite_k007420_viewer_handler:
 	.not_sa_sprite_zoom:
 		cmpa	#SA_POS_X
 		bne	.not_sa_pos_x
-		ldd	#$1ff
+		ldd	#SA_POS_X_MASK
 		ldx	#r_input_raw
 		leay	s_se_pos_x, y
 		bra	.joystick_lr_update_word
@@ -94,7 +106,7 @@ sprite_k007420_viewer_handler:
 	.not_sa_pos_x:
 		cmpa	#SA_POS_Y
 		bne	.not_sa_pos_y
-		lda	#$ff
+		lda	#SA_POS_Y_MASK
 		ldx	#r_input_raw
 		leay	s_se_pos_y, y
 		bra	.joystick_lr_update_byte
@@ -115,8 +127,7 @@ sprite_k007420_viewer_handler:
 	.check_value_change:
 		cmpa	#$0
 		lbeq	.loop_input
-		jsr	sprite_update
-		jmp	.loop_input
+		jmp	.loop_sprite_update
 
 CURSOR_START_X		equ (SCREEN_START_X - 1)
 CURSOR_START_Y		equ (SCREEN_START_Y + 2)
@@ -128,19 +139,6 @@ cursor_update:
 		lda	#CURSOR_CLEAR_CHAR
 		RSUB	print_char
 
-		lda	r_cursor
-		cmpa	#SA_MAX
-		ble	.not_over
-		clr	r_cursor
-		bra	.draw_cursor
-
-	.not_over:
-		cmpa	#$0
-		bpl	.draw_cursor
-		lda	#SA_MAX
-		sta	r_cursor
-
-	.draw_cursor:
 		lda	#CURSOR_START_X
 		ldb	r_cursor
 		stb	r_cursor_old
