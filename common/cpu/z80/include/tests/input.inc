@@ -1,10 +1,10 @@
 	; struct input {
 	;   byte y
-	;   byte io#
+	;   word io# | mmio
 	; }
 	macro INPUT_ENTRY
 		dc.b \1
-		dc.b \2
+		dc.w \2
 	endm
 
 	macro INPUT_LIST_END

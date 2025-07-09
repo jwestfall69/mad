@@ -1,5 +1,5 @@
 	include "cpu/z80/include/common.inc"
-	include "cpu/z80/include/tests/input_io.inc"
+	include "cpu/z80/include/tests/input.inc"
 
 	global input_test
 

@@ -19,7 +19,12 @@ input_update:
 		ld	bc, $1ff
 		RSUB	delay
 
+	ifd _INPUT_IO_
 		in	a, (IO_INPUT)
+	else
+		ld	a, (REG_INPUT)
+	endif
+
 		xor	$ff
 		ld	b, a
 		ld	a, (r_input_raw)
@@ -37,7 +42,12 @@ input_update:
 check_button_press_dsub:
 		exx
 
+	ifd _INPUT_IO_
 		in	a, (IO_INPUT)
+	else
+		ld	a, (REG_INPUT)
+	endif
+
 		and	b
 		jr	z, .pressed
 
@@ -54,7 +64,13 @@ check_button_press_dsub:
 ;  b = button bit mask
 wait_button_press:
 		WATCHDOG
+
+	ifd _INPUT_IO_
 		in	a, (IO_INPUT)
+	else
+		ld	a, (REG_INPUT)
+	endif
+
 		and	b
 		jr	z, .pressed
 
@@ -72,7 +88,13 @@ wait_button_press:
 ;  b = button bit mask
 wait_button_release:
 		WATCHDOG
+
+	ifd _INPUT_IO_
 		in	a, (IO_INPUT)
+	else
+		ld	a, (REG_INPUT)
+	endif
+
 		and	b
 		jr	nz, .released
 

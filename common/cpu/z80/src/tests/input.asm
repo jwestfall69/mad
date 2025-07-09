@@ -16,13 +16,20 @@ print_input_list:
 		ld	b, SCREEN_START_X + 5
 		RSUB	screen_seek_xy
 
-		ld	c, (ix + 1)		; io #
+	ifd _INPUT_IO_
+		ld	c, (ix + 1)
 		in	a, (c)
+	else
+		ld	d, (ix + 2)
+		ld	e, (ix + 1)
+		ld	a, (de)
+	endif
+
 		xor	$ff
 		ld	c, a
 		RSUB	print_bits_byte
 
-		ld	bc, 2
+		ld	bc, 3
 		add	ix, bc
 		jr	print_input_list
 
