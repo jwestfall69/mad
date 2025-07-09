@@ -83,7 +83,7 @@ menu_handler:
 		ld	c, a
 		RSUB	screen_seek_xy
 
-		ld	c, ' '
+		ld	c, CURSOR_CLEAR_CHAR
 		RSUB	print_char
 
 		; draw new cursor
@@ -92,7 +92,7 @@ menu_handler:
 		add	a, MENU_Y_OFFSET
 		ld	c, a
 		RSUB	screen_seek_xy
-		ld	c, '-'
+		ld	c, CURSOR_CHAR
 		RSUB	print_char
 		jr	.loop_menu_input
 
@@ -166,7 +166,7 @@ print_menu_list:
 	.list_end:
 
 		ld	a, (iy)
-		sub 	MENU_Y_OFFSET
+		sub	MENU_Y_OFFSET
 		ret
 
 	section bss
