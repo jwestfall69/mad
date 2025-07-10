@@ -35,9 +35,9 @@ error_address_test:
 
 		add	hl, bc		; add on base address
 
-		SEEK_XY	(SCREEN_START_X + 15), (SCREEN_START_Y + 7)
 		ld	b, h
 		ld	c, l
+		SEEK_XY	(SCREEN_START_X + 15), (SCREEN_START_Y + 7)
 		RSUB	print_hex_word
 
 	.loop_input:
