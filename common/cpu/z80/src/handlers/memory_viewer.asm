@@ -100,10 +100,7 @@ memory_dump:
 		jr	.read_memory_done
 
 	.has_read_memory_cb:
-		ld	ix, r_read_memory_cb
-		ld	l, (ix)
-		ld	h, (ix + 1)
-
+		ld	hl, (r_read_memory_cb)
 		ld	ix, (r_dump_address)
 		ld	de, .read_memory_done
 		push	de
