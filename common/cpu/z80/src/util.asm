@@ -1,6 +1,7 @@
 	include "cpu/z80/include/common.inc"
 
 	global delay_dsub
+	global r_scratch
 
 	ifnd _HEADLESS_
 
@@ -45,3 +46,13 @@ d_str_b2_return_to_menu:	STRING "B2 - RETURN TO MENU"
 d_str_passes:			STRING "PASSES"
 
 	endif
+
+	section bss
+
+; The cpu doesn't support register to register add/sub/cmp/etc
+; instructions, this is a global scratch location that can be
+; used to help work around this (after work ram is tested good).
+; ie:
+;		stb	r_scratch
+;		adda	r_scratch
+r_scratch:		dcb.w 1
