@@ -23,4 +23,7 @@ _start:
 
 		call	auto_func_tests
 
+		ld	a, SOUND_NUM_SUCCESS
+		SOUND_PLAY
+
 		jp	main_menu

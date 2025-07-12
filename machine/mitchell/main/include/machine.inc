@@ -1,3 +1,4 @@
+	include "global/include/oki/msm6295.inc"
 	include "romset.inc"
 
 ROM_START			equ $0
@@ -52,4 +53,25 @@ IO_YM2413_ADDRESS		equ $04
 IO_MSM6295			equ $05
 
 	macro WATCHDOG
+	endm
+
+	; we are only allowed to use a/de registers
+	macro SOUND_PLAY
+		or	MSM6295_PHRASE_SEL
+		out	(IO_MSM6295), a
+		nop
+		nop
+		nop
+		nop
+		nop
+		nop
+		nop
+		nop
+		ld	a, MSM6295_CHANNEL4 << 4
+		out	(IO_MSM6295), a
+	endm
+
+	macro SOUND_STOP
+		ld	a, MSM6295_CHANNEL4 << 3
+		out	(IO_MSM6295), a
 	endm

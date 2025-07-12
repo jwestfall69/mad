@@ -8,6 +8,7 @@
 	global joystick_update_byte
 	global print_b2_return_to_menu
 	global print_passes
+	global sound_play_byte_dsub
 
 	endif
 
@@ -81,6 +82,41 @@ print_passes:
 		ld	de, d_str_passes
 		RSUB	print_string
 		ret
+
+; params:
+;  b = byte to play
+sound_play_byte_dsub:
+		exx
+
+		ld	l, $8
+		ld	h, b
+
+	.loop_next_bit:
+		WATCHDOG
+		sla	h
+		jr	nc, .is_zero
+
+		ld	a, SOUND_NUM_BIT_ONE
+		jr	.sound_play
+
+	.is_zero:
+		ld	a, SOUND_NUM_BIT_ZERO
+
+	.sound_play:
+		SOUND_PLAY
+
+	; if the machine can only generate tones, we need to
+	; stop playing it after a bit
+	ifd _SOUND_TONE_
+		SOUND_BIT_DELAY
+		SOUND_STOP
+	endif
+
+		SOUND_BIT_DELAY
+
+		dec	l
+		jp	nz, .loop_next_bit
+		DSUB_RETURN
 
 	section data
 

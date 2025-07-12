@@ -25,6 +25,7 @@ OBJS = $(OBJ_DIR)/cpu/z80/src/crc32.o \
        $(OBJ_DIR)/cpu/z80/src/handlers/memory_tests.o \
        $(OBJ_DIR)/cpu/z80/src/handlers/memory_viewer.o \
        $(OBJ_DIR)/cpu/z80/src/handlers/menu.o \
+       $(OBJ_DIR)/cpu/z80/src/handlers/sound.o \
        $(OBJ_DIR)/cpu/z80/src/handlers/tile8_viewer.o \
        $(OBJ_DIR)/cpu/z80/src/tests/input.o \
        $(OBJ_DIR)/cpu/z80/src/tests/mad_rom.o \
@@ -46,6 +47,7 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/tests/color_ram.o \
         $(OBJ_DIR)/tests/input.o \
         $(OBJ_DIR)/tests/object_ram.o \
+        $(OBJ_DIR)/tests/sound.o \
         $(OBJ_DIR)/tests/tile_ram.o \
         $(OBJ_DIR)/tests/video_dac_test.o
 

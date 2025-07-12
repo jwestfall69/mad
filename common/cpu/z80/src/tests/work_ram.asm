@@ -80,7 +80,7 @@ auto_work_ram_tests_dsub:
 		PSUB	print_string
 
 		ld	b, EC_WORK_RAM_ADDRESS
-	;	PSUB	sound_play_byte
+		PSUB	sound_play_byte
 	endif
 
 		ld	a, EC_WORK_RAM_ADDRESS
@@ -96,7 +96,7 @@ auto_work_ram_tests_dsub:
 		PSUB	print_string
 
 		ld	b, EC_WORK_RAM_DATA
-	;	PSUB	sound_play_byte
+		PSUB	sound_play_byte
 	endif
 
 		ld	a, EC_WORK_RAM_DATA
@@ -111,7 +111,7 @@ auto_work_ram_tests_dsub:
 		PSUB	print_string
 
 		ld	b, EC_WORK_RAM_MARCH
-	;	PSUB	sound_play_byte
+		PSUB	sound_play_byte
 	endif
 
 		ld	a, EC_WORK_RAM_MARCH
@@ -124,7 +124,7 @@ auto_work_ram_tests_dsub:
 		PSUB	print_string
 
 		ld	b, EC_WORK_RAM_OUTPUT
-	;	PSUB	sound_play_byte
+		PSUB	sound_play_byte
 	endif
 
 		ld	a, EC_WORK_RAM_OUTPUT
@@ -137,7 +137,7 @@ auto_work_ram_tests_dsub:
 		PSUB	print_string
 
 		ld	b, EC_WORK_RAM_WRITE
-	;	PSUB	sound_play_byte
+		PSUB	sound_play_byte
 	endif
 
 		ld	a, EC_WORK_RAM_WRITE

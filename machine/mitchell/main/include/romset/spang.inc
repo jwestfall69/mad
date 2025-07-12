@@ -1,7 +1,11 @@
-CURSOR_CHAR			equ '*'
-CURSOR_CLEAR_CHAR		equ ' '
+CURSOR_CHAR		equ '*'
+CURSOR_CLEAR_CHAR	equ ' '
 
-CHAR_COLON			equ ':'
+CHAR_COLON		equ ':'
+
+SOUND_NUM_SUCCESS	equ $18 ; super pang
+SOUND_NUM_BIT_ZERO	equ $0d ; dorp
+SOUND_NUM_BIT_ONE	equ $01 ; pop
 
 	macro ROMSET_PALETTE_SETUP
 		ld	bc, PALETTE_TEXT_COLOR

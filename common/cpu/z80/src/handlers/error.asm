@@ -82,9 +82,9 @@ error_handler:
 		jp	(hl)
 	.pe_return:
 
-
-	;	ld	a, (r_pe_data_a)
-	;	RSUB	sound_play_byte
+		ld	a, (r_pe_data_a)
+		ld	b, a
+		RSUB	sound_play_byte
 
 	ifnd _ERROR_ADDRESS_DISABLED_
 		ld	a, (r_pe_data_a)
