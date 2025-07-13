@@ -14,8 +14,8 @@
 memory_viewer_handler:
 		ld	(r_read_memory_cb), iy
 
-		RSUB 	screen_init
-		ld 	de, d_screen_xys_list
+		RSUB	screen_init
+		ld	de, d_screen_xys_list
 		call	print_xy_string_list
 
 	.loop_next_input:
@@ -61,6 +61,7 @@ memory_viewer_handler:
 	.sub_offset:
 		push	ix
 		pop	hl
+		or	a		; clear carry
 		sbc	hl, bc
 		push	hl
 		pop	ix

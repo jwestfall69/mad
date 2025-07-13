@@ -243,6 +243,6 @@ d_str_work_ram_march:		STRING "WORK RAM MARCH  "
 d_str_work_ram_output:		STRING "WORK RAM OUTPUT "
 d_str_work_ram_write:		STRING "WORK RAM WRITE  "
 
-d_str_testing_work_ram: 	STRING "TESTING WORK RAM"
+d_str_testing_work_ram:		STRING "TESTING WORK RAM"
 
 	endif

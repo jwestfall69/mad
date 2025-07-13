@@ -250,6 +250,7 @@ draw_color_bit:
 		pop	ix
 
 		ld	de, $d000
+		or	a	; clear carry
 		sbc	hl, de
 		srl	h
 		rr	l

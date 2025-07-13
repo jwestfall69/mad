@@ -43,22 +43,23 @@ fg_seek_xy_cb:
 ; color ram = xPPP PPPP
 fg_draw_tile_cb:
 
-	; write tile
-	ld	(hl), c
-	inc	hl
-	ld	(hl), b
-	dec	hl
+		; write tile
+		ld	(hl), c
+		inc	hl
+		ld	(hl), b
+		dec	hl
 
-	; location in color ram is /2 the offset of
-	; the location in tile ram
-	ld	bc, $d000
-	sbc	hl, bc
-	srl	h
-	rr	l
-	ld	bc, $c800
-	add	hl, bc
-	ld	(hl), PALETTE_NUM
-	ret
+		; location in color ram is /2 the offset of
+		; the location in tile ram
+		ld	bc, $d000
+		or	a	; clear carry
+		sbc	hl, bc
+		srl	h
+		rr	l
+		ld	bc, $c800
+		add	hl, bc
+		ld	(hl), PALETTE_NUM
+		ret
 
 	section data
 
@@ -67,4 +68,4 @@ d_palette_data:
 	dc.w	$06c4, $0c64, $0b39, $02cb, $0e94, $036b, $04d8
 	dc.w	$064c, $050d
 
-d_str_title: 	STRING "FG TILE VIEWER"
+d_str_title:	STRING "FG TILE VIEWER"

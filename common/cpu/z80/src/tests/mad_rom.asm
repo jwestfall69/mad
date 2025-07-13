@@ -23,10 +23,12 @@ mad_rom_crc32_test_dsub:
 		PSUB	crc32
 
 		ld	hl, (MAD_ROM_CRC32_ADDRESS)
+		or	a		; clear carry
 		sbc	hl, bc
 		jr	nz, .test_failed
 
 		ld	hl, (MAD_ROM_CRC32_ADDRESS + 2)
+		or	a		; clear carry
 		sbc	hl, de
 		jr	nz, .test_failed
 

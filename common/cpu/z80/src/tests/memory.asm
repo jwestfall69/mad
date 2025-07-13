@@ -45,6 +45,7 @@ memory_address_test_dsub:
 	.loop_next_write_address:
 		add	hl, de
 		ld	(hl), a
+		or	a		; clear carry
 		sbc	hl, de
 
 		inc	a
@@ -71,6 +72,7 @@ memory_address_test_dsub:
 		ld	c, (hl)
 		cp	c
 		jr	nz, .test_failed
+		or	a		; clear carry
 		sbc	hl, de
 
 		inc	a
@@ -175,6 +177,7 @@ memory_march_test_dsub:
 		ld	e, a
 
 		; s, verify $0, write $ff
+		or	a		; clear carry
 		sbc	hl, de
 
 	.loop_up_test:
