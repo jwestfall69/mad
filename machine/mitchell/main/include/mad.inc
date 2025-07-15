@@ -1,6 +1,7 @@
 MAD_ROM_SIZE		equ $4000
 
 PALETTE_TEXT_COLOR	equ $0fff
+PALETTE_HIGHLIGHT_COLOR	equ $0f00
 
 ; There aren't enough registers to save the number of passes
 ; work ram tests have run and we can't store it in work ram.

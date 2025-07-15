@@ -39,24 +39,39 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/screen.o \
         $(OBJ_DIR)/vector_table.o \
         $(OBJ_DIR)/version.o \
-        $(OBJ_DIR)/debug/fg_tile_viewer.o \
         $(OBJ_DIR)/menus/debug.o \
+        $(OBJ_DIR)/menus/graphics_viewer.o \
         $(OBJ_DIR)/menus/main.o \
         $(OBJ_DIR)/menus/memory_viewer.o \
+        $(OBJ_DIR)/menus/ram_tests.o \
+        $(OBJ_DIR)/romset/$(ROMSET).o \
         $(OBJ_DIR)/tests/auto.o \
-        $(OBJ_DIR)/tests/color_ram.o \
         $(OBJ_DIR)/tests/input.o \
-        $(OBJ_DIR)/tests/object_ram.o \
+        $(OBJ_DIR)/tests/sprite_ram.o \
         $(OBJ_DIR)/tests/sound.o \
         $(OBJ_DIR)/tests/tile_ram.o \
-        $(OBJ_DIR)/tests/video_dac_test.o
+        $(OBJ_DIR)/tests/tile_attr_ram.o \
+        $(OBJ_DIR)/tests/video_dac_test.o \
+        $(OBJ_DIR)/viewers/sprite_viewer.o \
+        $(OBJ_DIR)/viewers/tile_viewer.o
 
 
-INCS = $(wildcard include/*.inc) \
+ifneq (,$(findstring _DEBUG_HARDWARE_,$(BUILD_FLAGS)))
+OBJS += $(OBJ_DIR)/cpu/z80/src/handlers/memory_write.o \
+        $(OBJ_DIR)/debug/hardware/sprite.o \
+        $(OBJ_DIR)/menus/debug_hardware.o
+endif
+
+INCS = $(wildcard ../../../common/global/include/*.inc) \
+       $(wildcard ../../../common/global/include/*/*.inc) \
+       $(wildcard ../../../common/global/include/*/*/*.inc) \
        $(wildcard ../../../common/global/include/*.inc) \
        $(wildcard ../../../common/cpu/z80/include/*.inc) \
-       $(wildcard ../../../common/cpu/z80/include/tests/*.inc) \
-       $(wildcard ../../../common/cpu/z80/include/tests/*/*.inc)
+       $(wildcard ../../../common/cpu/z80/include/*/*.inc) \
+       $(wildcard ../../../common/cpu/z80/include/*/*/*.inc) \
+       $(wildcard include/*.inc) \
+       $(wildcard include/*/*.inc) \
+       $(wildcard include/*/*/*.inc)
 
 $(WORK_DIR)/$(MAD_NAME).bin: include/error_codes.inc $(WORK_DIR) $(BUILD_DIR) $(OBJS)
 	$(VLINK) $(VLINK_FLAGS) -o $(WORK_DIR)/$(MAD_NAME).bin $(OBJS)

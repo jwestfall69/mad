@@ -8,13 +8,19 @@
 screen_init_dsub:
 		exx
 
-		ld	a, CTRL_UNKNOWN_BIT3
+		ld	a, CTRL_ENABLE_SPRITE_ROMS|CTRL_ENABLE_TILE_ROMS|CTRL_PALETTE_WRITE_REQUEST
 		out	(IO_CONTROL), a
-	.loop_wait_vblank:
-		in	a, (IO_INPUT_SYS2)
-		cpl
-		and	$08
-		jr	z, .loop_wait_vblank
+
+		; After requesting CTRL_PALETTE_WRITE_REQUEST on IO_CONTROL you
+		; need to wait for bit SYS2_PALETTE_WRITE_READY to be 1 on
+		; IO_INPUT_SYS2 before you start writing to palette ram.  If
+		; you attempt write to palette ram before this the writes will
+		; be ignored.  The bit however should get set to 1 at the next
+		; vblank.  To avoid getting stuck polling IO_INPUT_SYS2 if
+		; there is a fault we are just doing a manual delay to get us
+		; to that vblank
+		ld	bc, $7ff
+		NSUB	delay
 
 		ld	hl, PALETTE_RAM
 		ld	de, PALETTE_RAM_SIZE
@@ -23,27 +29,29 @@ screen_init_dsub:
 
 		ROMSET_PALETTE_SETUP
 
-		ld	hl, COLOR_RAM
-		ld	de, COLOR_RAM_SIZE
-		ld	c, $0
-		NSUB	memory_fill
+		ld	a, CTRL_ENABLE_SPRITE_ROMS|CTRL_ENABLE_TILE_ROMS
+		out	(IO_CONTROL), a
 
-		ld	a, VIDEO_BANK_OBJECT
-		out	(IO_VIDEO_BANK), a
-		ld	hl, TILE_RAM
-		ld	de, TILE_RAM_SIZE
-		ld	c, $00
-		NSUB	memory_fill
-
-		ld	a, VIDEO_BANK_TILE
-		out	(IO_VIDEO_BANK), a
 		ld	hl, TILE_RAM
 		ld	de, TILE_RAM_SIZE
 		ld	bc, $2000
 		NSUB	memory_fill_word
 
-		ld	a, CTRL_UNKNOWN_BIT6
-		out	(IO_CONTROL), a
+		ld	hl, TILE_ATTR_RAM
+		ld	de, TILE_ATTR_RAM_SIZE
+		ld	c, $0
+		NSUB	memory_fill
+
+		ld	a, VIDEO_BANK_SPRITE
+		out	(IO_VIDEO_BANK), a
+
+		ld	hl, SPRITE_RAM
+		ld	de, SPRITE_RAM_SIZE
+		ld	c, $00
+		NSUB	memory_fill
+
+		ld	a, VIDEO_BANK_TILE
+		out	(IO_VIDEO_BANK), a
 
 		SEEK_XY	11, 0
 		ld	de, d_str_version
@@ -53,6 +61,10 @@ screen_init_dsub:
 		ld	c, '-'
 		ld	b, SCREEN_NUM_COLUMNS
 		NSUB	print_char_repeat
+
+		; this likely isn't doing anything, see irq_handler
+		; for more info
+		out	(IO_SPRITE_COPY_REQUEST), a
 		DSUB_RETURN
 
 ; b = x

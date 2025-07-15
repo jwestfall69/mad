@@ -21,7 +21,15 @@
 delay_dsub:
 		exx
 	.loop:
-		WATCHDOG
+		WATCHDOG		; ??
+		cp	$0		; 7 cycles
+		cp	$0		; 7 cycles
+		cp	$0		; 7 cycles
+		cp	$0		; 7 cycles
+		cp	$0		; 7 cycles
+		cp	$0		; 7 cycles
+		cp	$0		; 7 cycles
+		cp	$0		; 7 cycles
 		dec	bc		; 6 cycles
 		ld	a, c		; 4 cycles
 		or	b		; 4 cycles
@@ -236,7 +244,7 @@ d_str_passes:			STRING "PASSES"
 
 	section bss
 
-; The cpu doesn't support register to register add/sub/cmp/etc
+; The cpu doesn't support register to register add/sub/cp/etc
 ; instructions, this is a global scratch location that can be
 ; used to help work around this (after work ram is tested good).
 ; ie:

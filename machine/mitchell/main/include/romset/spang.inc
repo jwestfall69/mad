@@ -9,15 +9,30 @@ SOUND_NUM_BIT_ONE	equ $01 ; pop
 
 	macro ROMSET_PALETTE_SETUP
 		ld	bc, PALETTE_TEXT_COLOR
-		ld	(PALETTE_RAM + 2), bc
-		ld	(PALETTE_RAM + 4), bc
-		ld	(PALETTE_RAM + 6), bc
-		ld	(PALETTE_RAM + 8), bc
-		ld	(PALETTE_RAM + 10), bc
-		ld	(PALETTE_RAM + 12), bc
-		ld	(PALETTE_RAM + 14), bc
-		ld	(PALETTE_RAM + 16), bc
+		ld	(TILE_PALETTE + 2), bc
+		ld	(TILE_PALETTE + 4), bc
+		ld	(TILE_PALETTE + 6), bc
+		ld	(TILE_PALETTE + 8), bc
+		ld	(TILE_PALETTE + 10), bc
+		ld	(TILE_PALETTE + 12), bc
+		ld	(TILE_PALETTE + 14), bc
+		ld	(TILE_PALETTE + 16), bc
 	endm
+
+	macro ROMSET_HIGHLIGHT_PALETTE_SETUP
+		ld	bc, PALETTE_HIGHLIGHT_COLOR
+		ld	(TILE_PALETTE + PALETTE_SIZE + 2), bc
+		ld	(TILE_PALETTE + PALETTE_SIZE + 4), bc
+		ld	(TILE_PALETTE + PALETTE_SIZE + 6), bc
+		ld	(TILE_PALETTE + PALETTE_SIZE + 8), bc
+		ld	(TILE_PALETTE + PALETTE_SIZE + 10), bc
+		ld	(TILE_PALETTE + PALETTE_SIZE + 12), bc
+		ld	(TILE_PALETTE + PALETTE_SIZE + 14), bc
+		ld	(TILE_PALETTE + PALETTE_SIZE + 16), bc
+	endm
+
+; sprite viewer
+SV_SPRITE_NUM		equ $53
 
 ; video dac
 VD_NUM_COLORS		equ $4		; includes all/combined

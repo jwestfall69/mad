@@ -11,14 +11,11 @@ video_dac_test:
 		call	print_xy_string_list
 		call	print_b2_return_to_menu
 
-		; wait for vblank before palette writes.
-		; There is a risk this might sometimes stall
-		; on real hardware
-	.loop_wait_vblank:
-		in	a, (IO_INPUT_SYS2)
-		cpl
-		and	$08
-		jr	z, .loop_wait_vblank
+		ld	a, CTRL_ENABLE_SPRITE_ROMS|CTRL_ENABLE_TILE_ROMS|CTRL_PALETTE_WRITE_REQUEST
+		out	(IO_CONTROL), a
+
+		ld	bc, $7ff
+		NSUB	delay
 
 		; Palette Layout
 		;  xxxx RRRR GGGG BBBB
@@ -41,6 +38,9 @@ video_dac_test:
 		ld	ix, PALETTE_RAM + (PALETTE_SIZE * 4)
 		ld	bc, $0fff
 		call	palette_color_setup
+
+		ld	a, CTRL_ENABLE_SPRITE_ROMS|CTRL_ENABLE_TILE_ROMS
+		out	(IO_CONTROL), a
 
 		call	generate_tiles_table
 		call	draw_colors
@@ -71,7 +71,7 @@ full_screen:
 		;  b is the first index (color)
 		;  c is the second index (color bit for that color)
 		; start at [0][0], red bit 0
-		ld	bc, $101
+		ld	bc, $0
 
 	.draw_full_screen:
 		ld	ix, r_tiles_table
@@ -95,9 +95,9 @@ full_screen:
 		ld	b, (ix)		; palette number
 		ld	c, (ix + 1)	; tile number
 
-		ld	ix, COLOR_RAM
+		ld	ix, TILE_ATTR_RAM
 		ld	iy, TILE_RAM
-		ld	de, COLOR_RAM_SIZE
+		ld	de, TILE_ATTR_RAM_SIZE
 
 	.loop_next_address:
 		ld	(ix), b		; palette number to color ram

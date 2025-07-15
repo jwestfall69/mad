@@ -25,13 +25,22 @@ irq_handler:
 		inc	hl
 		ld	(r_irq_count), hl
 
-		; pang does this in irq, but doing
-		; it here causes dashes on the screen?
-		;out	($06), a
+		in	a, (IO_INPUT_SYS2)
+		cpl
+		and	SYS2_VBLANK
+		jr	z, .not_vblank
+
+		; if in vblank request a sprite copy.  There is some
+		; timing weirdness trying to do this outside of the
+		; irq handler.  Manually waiting for vblank and then
+		; doing the copy request doesn't always trigger it.
+		out	(IO_SPRITE_COPY_REQUEST), a
+
+	.not_vblank:
 		pop	hl
 		pop	af
 		ei
-		reti
+		ret
 
 nmi_handler:
 		jp	_start

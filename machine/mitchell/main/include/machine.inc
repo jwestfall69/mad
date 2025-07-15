@@ -4,25 +4,30 @@
 ROM_START			equ $0
 ROM_SIZE			equ $8000
 
-COLOR_RAM			equ $c800
-COLOR_RAM_SIZE			equ $800
-COLOR_RAM_ADDRESS_LINES		equ 11
+TILE_ATTR_RAM			equ $c800
+TILE_ATTR_RAM_SIZE		equ $800
+TILE_ATTR_RAM_ADDRESS_LINES	equ 11
 
-OBJECT_RAM			equ $d000
-OBJECT_RAM_SIZE			equ $1000
-OBJECT_RAM_ADDRESS_LINES	equ 12
+SPRITE_RAM			equ $d000
+SPRITE_RAM_SIZE			equ $1000
+SPRITE_RAM_ADDRESS_LINES	equ 12
+; tiles and sprite share the same palettes
+; so just making sprites use number 3
+SPRITE_PALETTE_NUM		equ 3
+SPRITE_PALETTE			equ PALETTE_RAM + (SPRITE_PALETTE_NUM * PALETTE_SIZE)
 
 PALETTE_RAM			equ $c000
 PALETTE_RAM_SIZE		equ $800
 PALETTE_RAM_ADDRESS_LINES	equ 11
 PALETTE_SIZE			equ $20
 
-; object/tile ram are the same address space
+; sprite/tile ram are the same address space
 ; and have to be bank switched to switch
 ; between them
 TILE_RAM			equ $d000
 TILE_RAM_SIZE			equ $1000
 TILE_RAM_ADDRESS_LINES		equ 12
+TILE_PALETTE			equ PALETTE_RAM
 
 WORK_RAM_CHIP			equ $e000
 WORK_RAM_CHIP_SIZE		equ $2000
@@ -35,18 +40,23 @@ IO_INPUT_P1			equ $01
 IO_INPUT_P2			equ $02
 IO_INPUT_SYS1			equ $00
 IO_INPUT_SYS2			equ $05
+SYS2_VBLANK			equ $01
+SYS2_PALETTE_WRITE_READY	equ $08
 
 IO_CONTROL			equ $00
 CTRL_PALETTE_BANK0		equ $00
 CTRL_PALETTE_BANK1		equ $20
-CTRL_UNKNOWN_BIT3		equ $08
-CTRL_UNKNOWN_BIT6		equ $40
+CTRL_PALETTE_WRITE_REQUEST	equ $08
+CTRL_ENABLE_TILE_ROMS		equ $40
+CTRL_ENABLE_SPRITE_ROMS		equ $80
 
 IO_ROM_BANK			equ $02
 
+IO_SPRITE_COPY_REQUEST		equ $06
+
 IO_VIDEO_BANK			equ $07
 VIDEO_BANK_TILE			equ $0
-VIDEO_BANK_OBJECT		equ $1
+VIDEO_BANK_SPRITE		equ $1
 
 IO_YM2413_DATA			equ $03
 IO_YM2413_ADDRESS		equ $04

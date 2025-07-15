@@ -2,21 +2,29 @@
 	include "cpu/z80/include/handlers/memory_tests.inc"
 	include "cpu/z80/include/tests/ram_test_logic.inc"
 
-	global auto_object_ram_tests
-	global manual_object_ram_tests
+	global auto_sprite_ram_tests
+	global manual_sprite_ram_tests
 
 	section code
 
-auto_object_ram_tests:
+auto_sprite_ram_tests:
 
-		ld	a, VIDEO_BANK_OBJECT
+		ld	a, VIDEO_BANK_SPRITE
 		out	(IO_VIDEO_BANK), a
 
 		ld	ix, d_mt_data
 		call	memory_tests_handler
+
+		push	af
+
+		ld	a, VIDEO_BANK_TILE
+		out	(IO_VIDEO_BANK), a
+
+		pop	af
+
 		ret
 
-manual_object_ram_tests:
+manual_sprite_ram_tests:
 		ld	de, d_screen_xys_list
 		call	print_xy_string_list
 		call	print_passes
@@ -27,13 +35,11 @@ manual_object_ram_tests:
 	.loop_next_pass:
 		WATCHDOG
 
-		ld	a, VIDEO_BANK_TILE
-		out	(IO_VIDEO_BANK), a
 		SEEK_XY	SCREEN_PASSES_VALUE_X, SCREEN_PASSES_Y
 		push	bc
 		RSUB	print_hex_word
 
-		call	auto_object_ram_tests
+		call	auto_sprite_ram_tests
 		jr	nz, .test_failed
 
 		call	input_update
@@ -78,9 +84,9 @@ manual_object_ram_tests:
 	section data
 
 d_mt_data:
-	MT_PARAMS OBJECT_RAM, OBJECT_RAM_SIZE, OBJECT_RAM_ADDRESS_LINES, OBJECT_RAM_BASE_EC, MT_FLAG_NONE
+	MT_PARAMS SPRITE_RAM, SPRITE_RAM_SIZE, SPRITE_RAM_ADDRESS_LINES, SPRITE_RAM_BASE_EC, MT_FLAG_NONE
 
 d_screen_xys_list:
-	XY_STRING SCREEN_START_X, SCREEN_START_Y, "OBJECT RAM TEST"
+	XY_STRING SCREEN_START_X, SCREEN_START_Y, "SPRITE RAM TEST"
 	XY_STRING SCREEN_START_X, SCREEN_B1_Y, "B1 - PAUSE"
 	XY_STRING_LIST_END
