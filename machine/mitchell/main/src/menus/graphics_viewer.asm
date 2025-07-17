@@ -28,7 +28,7 @@ graphics_viewer_menu:
 
 d_menu_list:
 	MENU_ENTRY tile_viewer, d_str_tile_viewer
-;	MENU_ENTRY sprite_viewer, d_str_sprite_viewer
+	MENU_ENTRY sprite_viewer, d_str_sprite_viewer
 	MENU_LIST_END
 
 

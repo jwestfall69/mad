@@ -6,6 +6,7 @@
 	global print_char_repeat_dsub
 	global print_clear_line_dsub
 	global print_hex_byte_dsub
+	global print_hex_nibble_dsub
 	global print_hex_word_dsub
 	global print_string_dsub
 
@@ -116,6 +117,31 @@ print_hex_byte_dsub:
 
 		dec	e
 		jr	nz, .loop_next_nibble
+		DSUB_RETURN
+
+; params:
+;  c = nibble
+; hl = location in video ram
+print_hex_nibble_dsub:
+		exx
+
+		ld	a, $f
+		and	a, c
+
+		cp	$a
+		jp	m, .is_digit
+
+		add	a, 'A' - $a
+		jr	.do_print
+
+	.is_digit:
+		add	a, '0'
+
+	.do_print:
+		ld	(hl), $0
+		dec	hl
+		ld	(hl), a
+		dec	hl
 		DSUB_RETURN
 
 ; params:

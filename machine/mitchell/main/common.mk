@@ -27,6 +27,7 @@ OBJS = $(OBJ_DIR)/cpu/z80/src/crc32.o \
        $(OBJ_DIR)/cpu/z80/src/handlers/menu.o \
        $(OBJ_DIR)/cpu/z80/src/handlers/sound.o \
        $(OBJ_DIR)/cpu/z80/src/handlers/tile8_viewer.o \
+       $(OBJ_DIR)/cpu/z80/src/handlers/values_edit.o \
        $(OBJ_DIR)/cpu/z80/src/tests/input.o \
        $(OBJ_DIR)/cpu/z80/src/tests/mad_rom.o \
        $(OBJ_DIR)/cpu/z80/src/tests/memory.o \
@@ -52,8 +53,8 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/tests/tile_ram.o \
         $(OBJ_DIR)/tests/tile_attr_ram.o \
         $(OBJ_DIR)/tests/video_dac_test.o \
-        $(OBJ_DIR)/viewers/sprite_viewer.o \
-        $(OBJ_DIR)/viewers/tile_viewer.o
+        $(OBJ_DIR)/viewers/sprite.o \
+        $(OBJ_DIR)/viewers/tile.o
 
 
 ifneq (,$(findstring _DEBUG_HARDWARE_,$(BUILD_FLAGS)))
