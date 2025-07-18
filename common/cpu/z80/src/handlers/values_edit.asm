@@ -68,6 +68,7 @@ values_edit_handler:
 		; seek to the correct ve_entry based on the r_cursor
 		ld	ix, (r_ve_list)
 		ld	a, (r_cursor)
+		ld	(r_cursor_prev), a
 		ld	bc, s_vee_struct_size
 	.loop_next_ve_entry:
 		cp	$0
@@ -92,7 +93,6 @@ values_edit_handler:
 		bit	INPUT_UP_BIT, a
 		jr	z, .up_not_pressed
 		ld	a, (r_cursor)
-		ld	(r_cursor_prev), a
 		dec	a
 		ld	(r_cursor), a
 		jp	p, .loop_redraw_cursor
@@ -108,7 +108,6 @@ values_edit_handler:
 		; deal with no a > b compare instruction
 		inc	b
 		ld	a, (r_cursor)
-		ld	(r_cursor_prev), a
 		inc	a
 		ld	(r_cursor), a
 		cp	b

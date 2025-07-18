@@ -16,7 +16,7 @@ sprite_viewer:
 		ld	bc, SV_SPRITE_NUM
 		ld	(r_sprite_num), bc
 
-		ld	bc, $100
+		ld	bc, $a0
 		ld	(r_sprite_pos_x), bc
 
 		ld	a, $80
@@ -97,7 +97,9 @@ sprite_viewer_palette_setup:
 
 	section data
 
-d_ve_settings:	VE_SETTINGS value_changed_cb, loop_input_cb
+d_ve_settings:
+	VE_SETTINGS value_changed_cb, loop_input_cb
+
 d_ve_list:
 	VE_ENTRY VE_TYPE_WORD, VE_INPUT_EDGE, r_sprite_num, $3ff
 	VE_ENTRY VE_TYPE_WORD, VE_INPUT_RAW, r_sprite_pos_x, $1ff
