@@ -208,9 +208,6 @@ d_screen_xys_list:
 
 	section bss
 
-r_value_changed_cb:	dcb.w 1
-r_loop_input_cb:	dcb.w 1
-
 r_ve_list:		dcb.w 1
 r_ve_settings:		dcb.w 1
 
