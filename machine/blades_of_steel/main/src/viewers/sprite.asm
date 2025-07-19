@@ -1,53 +1,50 @@
 	include "cpu/6309/include/common.inc"
-	include "global/include/sprite/konami/k007420.inc"
+	include "cpu/6x09/include/handlers/values_edit.inc"
 
 	global sprite_viewer
 	global sprite_viewer_palette_setup
 
 	section code
 
-SPRITE_NUM_MASK		equ $1ff
-
 sprite_viewer:
-		RSUB	screen_init
-
-		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
-		ldy	#d_str_title
-		RSUB	print_string
-
 		jsr	sprite_viewer_palette_setup
 
-		ldx	#r_sprite_struct
+		ldy	#d_screen_xys_list
+		jsr	print_xy_string_list
 
-		; setup initial struct values
 		ldd	#$b4
-		std	s_se_num, x
-
-		lda	#$4
-		sta	s_se_size, x
+		std	r_sprite_num
 
 		ldd	#$60
-		std	s_se_pos_x, x
+		std	r_sprite_pos_x
+
 		lda	#$90
-		sta	s_se_pos_y, x
+		sta	r_sprite_pos_y
+
+		lda	#$4
+		sta	r_sprite_size
 
 		ldd	#$80
-		std	s_se_zoom, x
+		std	r_sprite_zoom
 
-		ldd	#SPRITE_NUM_MASK
-		ldy	#draw_sprite_cb
-		jsr	sprite_k007420_viewer_handler
+		clra
+		sta	r_sprite_flip_x
+		sta	r_sprite_flip_y
 
-		clr	REG_CONTROL
+		ldx	#d_ve_settings
+		ldy	#d_ve_list
+
+		jsr	values_edit_handler
 		rts
-; Per MAME
+
+; Per MAME (k007420)
 ; * Sprite Format
 ; * ------------------
 ; *
 ; * Byte | Bit(s)   | Use
 ; * -----+-76543210-+----------------
 ; *   0  | xxxxxxxx | y position
-; *   1  | xxxxxxxx | sprite code (low 8 bits)
+; *   1  | xxxxxxxx | sprite number (low 8 bits)
 ; *   2  | xxxxxxxx | depends on external conections. Usually banking
 ; *   3  | xxxxxxxx | x position (low 8 bits)
 ; *   4  | x------- | x position (high bit)
@@ -58,65 +55,102 @@ sprite_viewer:
 ; *   5  | xxxxxxxx | zoom (low 8 bits)  0x080 = normal, < 0x80 enlarge, > 0x80 reduce
 ; *   6  | xxxxxxxx | unused
 ; *   7  | xxxxxxxx | unused
-
-draw_sprite_cb:
-		ldy	#r_sprite_struct
-
-		lda	s_se_pos_y, y
+value_changed_cb:
+		lda	r_sprite_pos_y
 		sta	SPRITE_RAM
 
 		; sprite num is limited to $1ff. Lower byte goes to
 		; sprite ram.  Bit 8 picks bank 0/1 via bit 7 of
 		; REG_CONTROL
-		ldd	s_se_num, y
+		ldd	r_sprite_num
 		stb	SPRITE_RAM + 1
 
 		asra
 		rora
 		sta	REG_CONTROL
 
-		ldd	s_se_pos_x, y
+		ldd	r_sprite_pos_x
 		stb	SPRITE_RAM + 3
-		sta	SPRITE_RAM + 4
 
-		ldd	s_se_zoom, y
-		stb	SPRITE_RAM + 5
-		ora	SPRITE_RAM + 4
-		sta	SPRITE_RAM + 4
+		cmpa	#$0
+		beq	.skip_sprite_num_high_bit
+		lda	#$80
 
-		lda	s_se_size, y
-		asla
-		asla
-		asla
-		asla
-		ora	SPRITE_RAM + 4
-		sta	SPRITE_RAM + 4
+	.skip_sprite_num_high_bit:
+		ldb	r_sprite_size
+		aslb
+		aslb
+		aslb
+		aslb
+		stb	r_scratch
+		ora	r_scratch
+		ldb	r_sprite_flip_y
+		beq	.skip_sprite_flip_y
+		ora	#$08
+	.skip_sprite_flip_y:
 
+		ldb	r_sprite_flip_x
+		beq	.skip_sprite_flip_x
+		ora	#$04
+	.skip_sprite_flip_x:
+
+		; top 2 bits of zoom
+		ora	r_sprite_zoom
+		sta	SPRITE_RAM + 4
+		lda	r_sprite_zoom + 1
+		sta	SPRITE_RAM + 5
 		rts
 
-; Palette Layout
-;  xBBB BBGG GGGR RRRR
+loop_input_cb:
+		rts
+
 sprite_viewer_palette_setup:
 		ldx	#d_palette_data
 		ldy	#SPRITE_PALETTE
 		ldb	#PALETTE_SIZE
 
-	.loop_next_color:
+	.loop_next_byte:
 		lda	,x+
 		sta	,y+
 		decb
-		bne	.loop_next_color
+		bne	.loop_next_byte
 		rts
 
-
 	section data
+
+d_ve_settings:
+	VE_SETTINGS value_changed_cb, loop_input_cb
+
+d_ve_list:
+	VE_ENTRY VE_TYPE_WORD, VE_INPUT_EDGE, r_sprite_num, $1ff
+	VE_ENTRY VE_TYPE_NIBBLE, VE_INPUT_EDGE, r_sprite_size, $7
+	VE_ENTRY VE_TYPE_WORD, VE_INPUT_EDGE, r_sprite_zoom, $3ff
+	VE_ENTRY VE_TYPE_WORD, VE_INPUT_RAW, r_sprite_pos_x, $1ff
+	VE_ENTRY VE_TYPE_BYTE, VE_INPUT_RAW, r_sprite_pos_y, $ff
+	VE_ENTRY VE_TYPE_NIBBLE, VE_INPUT_EDGE, r_sprite_flip_x, $1
+	VE_ENTRY VE_TYPE_NIBBLE, VE_INPUT_EDGE, r_sprite_flip_y, $1
+	VE_LIST_END
+
+d_screen_xys_list:
+	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 2), "SPRITE NUM"
+	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 3), "SIZE"
+	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 4), "ZOOM"
+	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 5), "POS X"
+	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 6), "POS Y"
+	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 7), "FLIP X"
+	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 8), "FLIP Y"
+	XY_STRING_LIST_END
 
 d_palette_data:
 	dc.w	$0000, $0400, $429c, $31f9, $00f0, $4621, $001f, $77bd
 	dc.w	$03ff, $3800, $7500, $6810, $0340, $01e0, $001f, $0010
 
-d_str_title:	STRING "SPRITE VIEWER"
-
 	section bss
 
-r_sprite_struct:	dcb.b s_se_struct_size
+r_sprite_num:		dcb.w 1
+r_sprite_size:		dcb.b 1
+r_sprite_zoom:		dcb.w 1
+r_sprite_pos_x:		dcb.w 1
+r_sprite_pos_y:		dcb.b 1
+r_sprite_flip_x:	dcb.b 1
+r_sprite_flip_y:	dcb.b 1

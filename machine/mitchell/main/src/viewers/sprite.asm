@@ -6,7 +6,6 @@
 
 	section code
 
-
 sprite_viewer:
 		call	sprite_viewer_palette_setup
 
@@ -77,7 +76,6 @@ value_changed_cb:
 
 loop_input_cb:
 		ret
-
 
 sprite_viewer_palette_setup:
 		ld	a, CTRL_ENABLE_SPRITE_ROMS|CTRL_ENABLE_TILE_ROMS|CTRL_PALETTE_WRITE_REQUEST

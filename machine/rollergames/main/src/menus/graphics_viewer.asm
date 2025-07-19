@@ -32,4 +32,4 @@ d_menu_list:
 d_str_menu_title:		STRING "GRAPHICS VIEWER"
 
 d_str_sprite_viewer:		STRING "SPRITE VIEWER"
-d_str_tile_viewer:		STRING "TILE TILE"
+d_str_tile_viewer:		STRING "TILE VIEWER"

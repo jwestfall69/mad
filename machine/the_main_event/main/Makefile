@@ -25,8 +25,8 @@ OBJS  = $(OBJ_DIR)/cpu/6x09/src/header.o \
         $(OBJ_DIR)/cpu/6x09/src/handlers/memory_viewer.o \
         $(OBJ_DIR)/cpu/6x09/src/handlers/menu.o \
         $(OBJ_DIR)/cpu/6x09/src/handlers/sound.o \
-        $(OBJ_DIR)/cpu/6x09/src/handlers/sprite_k051960_viewer.o \
         $(OBJ_DIR)/cpu/6x09/src/handlers/tile_8x8_viewer.o \
+        $(OBJ_DIR)/cpu/6x09/src/handlers/values_edit.o \
         $(OBJ_DIR)/cpu/6x09/src/tests/input.o
 
 OBJS += $(OBJ_DIR)/cpu/6309/src/crc32.o \

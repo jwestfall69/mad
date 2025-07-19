@@ -1,44 +1,49 @@
 	include "cpu/konami2/include/common.inc"
-	include "global/include/sprite/konami/k053247.inc"
+	include "cpu/6x09/include/handlers/values_edit.inc"
 
 	global sprite_viewer
 	global sprite_viewer_palette_setup
 
 	section code
 
-SPRITE_NUM_MASK		equ $3ff
 sprite_viewer:
-		RSUB	screen_init
-
-		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
-		ldy	#d_str_title
-		RSUB	print_string
-
 		jsr	sprite_viewer_palette_setup
 
-		ldx	#r_sprite_struct
+		ldy	#d_screen_xys_list
+		jsr	print_xy_string_list
 
-		; setup initial struct values
 		ldd	#$1
-		std	s_se_num, x
+		std	r_sprite_num
 
-		ldd	#$1ff
-		std	s_se_pos_x, x
-		ldd	#$7f
-		std	s_se_pos_y, x
+		ldd	#$260
+		std	r_sprite_pos_x
 
-		lda	#$1
-		sta	s_se_width, x
-		sta	s_se_height, x
+		ldd	#$a0
+		std	r_sprite_pos_y
 
-		lda	#$40
-		sta	s_se_zoom, x
+		lda	#$5
+		sta	r_sprite_size
 
-		ldd	#SPRITE_NUM_MASK
-		ldy	#draw_sprite_cb
-		jsr	sprite_k053247_viewer_handler
+		ldd	#$40
+		std	r_sprite_zoom_x
+		std	r_sprite_zoom_y
+
+		clra
+		sta	r_sprite_aspect_ratio
+		sta	r_sprite_flip_x
+		sta	r_sprite_flip_y
+		sta	r_sprite_mirror_x
+		sta	r_sprite_mirror_y
+		sta	r_sprite_shadow
+		sta	r_sprite_effect
+
+		ldx	#d_ve_settings
+		ldy	#d_ve_list
+
+		jsr	values_edit_handler
 		rts
-; Per MAME
+
+; Per MAME (k053247)
 ; * Sprite Format
 ; * ------------------
 ; *
@@ -62,21 +67,27 @@ sprite_viewer:
 ; *   6  | ------xx -------- | effect code: flicker, upper palette, full shadow...etc. (game dependent)
 ; *   6  | -------- xxxxxxxx | "color", but depends on external connections (implies priority)
 ; *   7  | xxxxxxxx xxxxxxxx | game dependent
-; *
-; * shadow enables transparent shadows. Note that it applies to the last sprite pen ONLY.
-; * The rest of the sprite remains normal.
-
-draw_sprite_cb:
+value_changed_cb:
 		lda	#$1
 		sta	REG_CONTROL
 
-		ldy	#r_sprite_struct
+		lda	#$80		; active sprite
+		ldb	r_sprite_aspect_ratio
+		beq	.skip_sprite_aspect_ratio
+		ora	#$40
 
-		lda	s_se_height, y
-		asla
-		asla
-		ora	s_se_width, y
-		ora	#$c0			; active sprite and maintain aspect ratio
+	.skip_sprite_aspect_ratio:
+		ldb	r_sprite_flip_y
+		beq	.skip_sprite_flip_y
+		ora	#$20
+
+	.skip_sprite_flip_y:
+		ldb	r_sprite_flip_x
+		beq	.skip_sprite_flip_x
+		ora	#$10
+
+	.skip_sprite_flip_x:
+		ora	r_sprite_size
 		sta	SPRITE_RAM
 
 		; For some reason with mad on hardware it won't draw the
@@ -86,7 +97,7 @@ draw_sprite_cb:
 		lda	#$01
 		sta	SPRITE_RAM + 1
 
-		ldd	s_se_num, y
+		ldd	r_sprite_num
 		aslb
 		rola
 		aslb
@@ -101,21 +112,40 @@ draw_sprite_cb:
 		rola
 		std	SPRITE_RAM + 2
 
-		ldd	s_se_pos_y, y
+		ldd	r_sprite_pos_y
 		std	SPRITE_RAM + 4
-
-		ldd	s_se_pos_x, y
+		ldd	r_sprite_pos_x
 		std	SPRITE_RAM + 6
+		ldd	r_sprite_zoom_y
+		std	SPRITE_RAM + 8
+		ldd	r_sprite_zoom_x
+		std	SPRITE_RAM + 10
 
-		lda	s_se_zoom, y
-		sta	SPRITE_RAM + 9
+
+		lda	r_sprite_shadow
+		asla
+		asla
+		ora	r_sprite_effect
+
+		ldb	r_sprite_mirror_y
+		beq	.skip_sprite_mirror_y
+		ora	#$80
+
+	.skip_sprite_mirror_y:
+		ldb	r_sprite_mirror_x
+		beq	.skip_sprite_mirror_x
+		ora	#$40
+
+	.skip_sprite_mirror_x:
+		sta	SPRITE_RAM + 12
 
 		lda	#$0
 		sta	REG_CONTROL
 		rts
 
-; Palette Layout
-;  xBBB BBGG GGGR RRRR
+loop_input_cb:
+		rts
+
 sprite_viewer_palette_setup:
 		lda	#$1
 		sta	REG_CONTROL
@@ -124,26 +154,69 @@ sprite_viewer_palette_setup:
 		ldy	#SPRITE_PALETTE
 		ldb	#PALETTE_SIZE
 
-	.loop_next_color:
+	.loop_next_byte:
 		lda	,x+
 		sta	,y+
 		decb
-		bne	.loop_next_color
+		bne	.loop_next_byte
 
 		lda	#$0
 		sta	REG_CONTROL
-
 		rts
 
-
 	section data
+
+d_ve_settings:
+	VE_SETTINGS value_changed_cb, loop_input_cb
+
+d_ve_list:
+	VE_ENTRY VE_TYPE_WORD, VE_INPUT_EDGE, r_sprite_num, $ffff
+	VE_ENTRY VE_TYPE_NIBBLE, VE_INPUT_EDGE, r_sprite_size, $f
+	VE_ENTRY VE_TYPE_NIBBLE, VE_INPUT_EDGE, r_sprite_aspect_ratio, $1
+	VE_ENTRY VE_TYPE_WORD, VE_INPUT_EDGE, r_sprite_zoom_x, $ffff
+	VE_ENTRY VE_TYPE_WORD, VE_INPUT_EDGE, r_sprite_zoom_y, $ffff
+	VE_ENTRY VE_TYPE_WORD, VE_INPUT_RAW, r_sprite_pos_x, $3ff
+	VE_ENTRY VE_TYPE_WORD, VE_INPUT_RAW, r_sprite_pos_y, $3ff
+	VE_ENTRY VE_TYPE_NIBBLE, VE_INPUT_EDGE, r_sprite_flip_x, $1
+	VE_ENTRY VE_TYPE_NIBBLE, VE_INPUT_EDGE, r_sprite_flip_y, $1
+	VE_ENTRY VE_TYPE_NIBBLE, VE_INPUT_EDGE, r_sprite_mirror_x, $1
+	VE_ENTRY VE_TYPE_NIBBLE, VE_INPUT_EDGE, r_sprite_mirror_y, $1
+	VE_ENTRY VE_TYPE_NIBBLE, VE_INPUT_EDGE, r_sprite_shadow, $3
+	VE_ENTRY VE_TYPE_NIBBLE, VE_INPUT_EDGE, r_sprite_effect, $3
+	VE_LIST_END
+
+d_screen_xys_list:
+	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 2), "SPRITE NUM"
+	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 3), "SIZE"
+	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 4), "ASPECT RATIO"
+	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 5), "ZOOM X"
+	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 6), "ZOOM Y"
+	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 7), "POS X"
+	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 8), "POS Y"
+	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 9), "FLIP X"
+	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 10), "FLIP Y"
+	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 11), "MIRROR X"
+	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 12), "MIRROR Y"
+	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 13), "SHADOW"
+	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 14), "EFFECT"
+	XY_STRING_LIST_END
 
 d_palette_data:
 	dc.w	$0000, $00f2, $25bc, $42bf, $5f5f, $7bdf, $2908, $45ad
 	dc.w	$66b5, $000e, $0017, $001f, $05df, $084a, $08f8, $0000
 
-d_str_title:	STRING "SPRITE VIEWER"
-
 	section bss
 
-r_sprite_struct:	dcb.b s_se_struct_size
+r_sprite_num:		dcb.w 1
+r_sprite_size:		dcb.b 1
+r_sprite_aspect_ratio:	dcb.b 1
+r_sprite_zoom_x:	dcb.w 1
+r_sprite_zoom_y:	dcb.w 1
+r_sprite_pos_x:		dcb.w 1
+r_sprite_pos_y:		dcb.w 1
+r_sprite_flip_x:	dcb.b 1
+r_sprite_flip_y:	dcb.b 1
+r_sprite_mirror_x:	dcb.b 1
+r_sprite_mirror_y:	dcb.b 1
+r_sprite_shadow:	dcb.b 1
+r_sprite_effect:	dcb.b 1

@@ -24,8 +24,8 @@ OBJS  = $(OBJ_DIR)/cpu/6x09/src/input_update.o \
         $(OBJ_DIR)/cpu/6x09/src/handlers/memory_viewer.o \
         $(OBJ_DIR)/cpu/6x09/src/handlers/menu.o \
         $(OBJ_DIR)/cpu/6x09/src/handlers/sound.o \
-        $(OBJ_DIR)/cpu/6x09/src/handlers/sprite_k053247_viewer.o \
         $(OBJ_DIR)/cpu/6x09/src/handlers/tile_8x8_viewer.o \
+        $(OBJ_DIR)/cpu/6x09/src/handlers/values_edit.o \
         $(OBJ_DIR)/cpu/6x09/src/tests/input.o
 
 OBJS += $(OBJ_DIR)/cpu/konami2/src/footer.o \

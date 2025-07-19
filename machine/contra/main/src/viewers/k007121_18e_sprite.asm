@@ -1,38 +1,43 @@
 	include "cpu/6309/include/common.inc"
-	include "global/include/sprite/konami/k007121.inc"
+	include "cpu/6x09/include/handlers/values_edit.inc"
 
 	global k007121_18e_sprite_viewer
+	global k007121_18e_sprite_viewer_palette_setup
 
 	section code
 
-SPRITE_NUM_MASK		equ $3fff
-
 k007121_18e_sprite_viewer:
-		jsr	sprite_palette_setup
+		jsr	k007121_18e_sprite_viewer_palette_setup
 
-		ldx	#r_sprite_struct
+		ldy	#d_screen_xys_list
+		jsr	print_xy_string_list
 
-		; setup initial struct values
 		ldd	#$2068
-		std	s_se_num, x
+		std	r_sprite_num
+
+		ldd	#$50
+		std	r_sprite_pos_x
+
+		lda	#$70
+		sta	r_sprite_pos_y
 
 		lda	#$4
-		sta	s_se_size, x
+		sta	r_sprite_size
 
-		ldd	#$30
-		std	s_se_pos_x, x
-		lda	#$80
-		sta	s_se_pos_y, x
+		clra
+		sta	r_sprite_flip_x
+		sta	r_sprite_flip_y
 
 		lda	#$b6
 		sta	REG_K007121_18E_C3
 
-		ldd	#SPRITE_NUM_MASK
-		ldy	#draw_sprite_cb
-		jsr	sprite_k007121_viewer_handler
+		ldx	#d_ve_settings
+		ldy	#d_ve_list
 
+		jsr	values_edit_handler
 		rts
-; Per MAME
+
+; Per MAME (k007121)
 ; * Sprite Format
 ; * ------------------
 ; *
@@ -53,11 +58,8 @@ k007121_18e_sprite_viewer:
 ; *   4  | ---x---- | flip x
 ; *   4  | ----xxx- | sprite size 000=16x16 001=16x8 010=8x16 011=8x8 100=32x32
 ; *   4  | -------x | x position (high bit)
-
-draw_sprite_cb:
-		ldy	#r_sprite_struct
-
-		ldd	s_se_num, y
+value_changed_cb:
+		ldd	r_sprite_num
 		stb	K007121_18E_SPRITE
 
 		tfr	a, b
@@ -68,21 +70,35 @@ draw_sprite_cb:
 		asla
 		asla
 
-		ldb	s_se_size, y
-		aslb
-		orr	b, a
+		ldb	r_sprite_flip_y
+		beq	.skip_sprite_flip_y
+		ora	#$20
+	.skip_sprite_flip_y:
 
-		ldw	s_se_pos_x, y
-		orr	e, a
+		ldb	r_sprite_flip_x
+		beq	.skip_sprite_flip_x
+		ora	#$10
+	.skip_sprite_flip_x:
+
+		ldb	r_sprite_size
+		aslb
+		stb	r_scratch
+		ora	r_scratch
+		ora	r_sprite_pos_x
 		sta	K007121_18E_SPRITE + 4
-		stf	K007121_18E_SPRITE + 3
-		lda	s_se_pos_y, y
+
+		lda	r_sprite_pos_x + 1
+		sta	K007121_18E_SPRITE + 3
+		lda	r_sprite_pos_y
 		sta	K007121_18E_SPRITE + 2
+		rts
+
+loop_input_cb:
 		rts
 
 ; Palette Layout
 ;  xBBB BBGG GGGR RRRR
-sprite_palette_setup:
+k007121_18e_sprite_viewer_palette_setup:
 		ldx	#d_palette_data
 		ldy	#K007121_18E_SPRITE_PALETTE
 		ldb	#PALETTE_SIZE
@@ -97,10 +113,36 @@ sprite_palette_setup:
 
 	section data
 
+d_ve_settings:
+	VE_SETTINGS value_changed_cb, loop_input_cb
+
+d_ve_list:
+	VE_ENTRY VE_TYPE_WORD, VE_INPUT_EDGE, r_sprite_num, $3fff
+	VE_ENTRY VE_TYPE_NIBBLE, VE_INPUT_EDGE, r_sprite_size, $7
+	VE_ENTRY VE_TYPE_WORD, VE_INPUT_RAW, r_sprite_pos_x, $1ff
+	VE_ENTRY VE_TYPE_BYTE, VE_INPUT_RAW, r_sprite_pos_y, $ff
+	VE_ENTRY VE_TYPE_NIBBLE, VE_INPUT_EDGE, r_sprite_flip_x, $1
+	VE_ENTRY VE_TYPE_NIBBLE, VE_INPUT_EDGE, r_sprite_flip_y, $1
+	VE_LIST_END
+
+d_screen_xys_list:
+	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 2), "SPRITE NUM"
+	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 3), "SIZE"
+	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 4), "POS X"
+	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 5), "POS Y"
+	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 6), "FLIP X"
+	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 7), "FLIP Y"
+	XY_STRING_LIST_END
+
 d_palette_data:
 	dc.w	$0000, $c05d, $ae01, $712d, $b435, $1742, $584e, $4b01
 	dc.w	$ae31, $5246, $b556, $1900, $1902, $be3a, $9c73, $0004
 
 	section bss
 
-r_sprite_struct:	dcb.b s_se_struct_size
+r_sprite_num:		dcb.w 1
+r_sprite_size:		dcb.b 1
+r_sprite_pos_x:		dcb.w 1
+r_sprite_pos_y:		dcb.b 1
+r_sprite_flip_x:	dcb.b 1
+r_sprite_flip_y:	dcb.b 1
