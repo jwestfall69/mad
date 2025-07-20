@@ -33,17 +33,21 @@ screen_init_dsub:
 
 		ROMSET_PALETTE_SETUP
 
-		SEEK_XY	0, 1
-		move.l	#'-', d0
-		moveq	#SCREEN_NUM_COLUMNS, d1
-		DSUB	print_char_repeat
-
 	ifd _SCREEN_TATE_
 		SEEK_XY	4, 0
 	else
 		SEEK_XY	5, 0
 	endif
 		lea	d_str_version, a0
+		DSUB	print_string
+
+		SEEK_XY	0, 1
+		move.l	#'-', d0
+		moveq	#SCREEN_NUM_COLUMNS, d1
+		DSUB	print_char_repeat
+
+		SEEK_XY	((SCREEN_NUM_COLUMNS - _ROMSET_STR_LENGTH_) - 1), 1
+		lea	d_str_romset, a0
 		DSUB	print_string
 		DSUB_RETURN
 

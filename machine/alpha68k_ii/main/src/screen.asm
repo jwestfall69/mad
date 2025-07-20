@@ -20,6 +20,10 @@ screen_init_dsub:
 		move.l	#'-', d0
 		moveq	#SCREEN_NUM_COLUMNS, d1
 		DSUB	print_char_repeat
+
+		SEEK_XY	((SCREEN_NUM_COLUMNS - _ROMSET_STR_LENGTH_) - 1), 1
+		lea	d_str_romset, a0
+		DSUB	print_string
 		DSUB_RETURN
 
 

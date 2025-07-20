@@ -1,8 +1,8 @@
 MAD_NAME=mad_cps1
-
 BUILD_DIR=build/$(ROMSET)
 OBJ_DIR=$(BUILD_DIR)/obj
 WORK_DIR=$(BUILD_DIR)/work
+BUILD_FLAGS += -D_ROMSET_STR_LENGTH_=$(shell echo -n '$(ROMSET_EXT)' | wc -c)
 
 VASM = vasmm68k_mot
 VASM_FLAGS = -Fvobj -m68000 -spaces -chklabels -Iinclude -I../../../common -wfail -quiet
@@ -75,7 +75,7 @@ include/error_codes.inc: include/error_codes.cfg
 	../../../util/gen-error-codes -b 7 include/error_codes.cfg include/error_codes.inc
 
 src/version.asm:
-	../../../util/gen-version-asm-file -m CPS1 -i ../../../common/global/src/version.asm.in -o src/version.asm
+	../../../util/gen-version-asm-file -m CPS1 -r "$(ROMSET_EXT)" -i ../../../common/global/src/version.asm.in -o src/version.asm
 
 $(OBJ_DIR)/%.o: src/%.asm $(INCS)
 	@[ -d "$(@D)" ] || $(MKDIR) -p "$(@D)"

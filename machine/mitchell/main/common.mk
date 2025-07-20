@@ -1,6 +1,8 @@
 MAD_NAME=mad_mitchell
+BUILD_DIR=build/$(ROMSET)
 OBJ_DIR=$(BUILD_DIR)/obj
 WORK_DIR=$(BUILD_DIR)/work
+BUILD_FLAGS += -D_ROMSET_STR_LENGTH_=$(shell echo -n '$(ROMSET)' | wc -c)
 
 VASM = vasmz80_mot
 VASM_FLAGS = -Fvobj -spaces -chklabels -Iinclude -I../../../common -wfail -quiet
@@ -83,7 +85,7 @@ include/error_codes.inc: include/error_codes.cfg
 	../../../util/gen-error-codes -b 6 include/error_codes.cfg include/error_codes.inc
 
 src/version.asm:
-	../../../util/gen-version-asm-file -m MITCHELL -i ../../../common/global/src/version.asm.in -o src/version.asm
+	../../../util/gen-version-asm-file -m MITCHELL -r $(ROMSET) -i ../../../common/global/src/version.asm.in -o src/version.asm
 
 $(OBJ_DIR)/%.o: src/%.asm $(INCS)
 	@[ -d "$(@D)" ] || $(MKDIR) -p "$(@D)"

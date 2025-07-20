@@ -30,6 +30,9 @@ screen_init_dsub:
 		moveq	#SCREEN_NUM_COLUMNS, d1
 		DSUB	print_char_repeat
 
+		SEEK_XY	((SCREEN_NUM_COLUMNS - _ROMSET_STR_LENGTH_) - 1), 1
+		lea	d_str_romset, a0
+		DSUB	print_string
 ; this function doesn't appear to be safe to run on
 ; hardware when interrupts are enabled.  Presumably
 ; the vblank interrupt is firing while the scanline is

@@ -62,6 +62,10 @@ screen_init_dsub:
 		ld	b, SCREEN_NUM_COLUMNS
 		NSUB	print_char_repeat
 
+		SEEK_XY ((SCREEN_NUM_COLUMNS - _ROMSET_STR_LENGTH_) - 1), 1
+		ld	de, d_str_romset
+		NSUB	print_string
+
 		; this likely isn't doing anything, see irq_handler
 		; for more info
 		out	(IO_SPRITE_COPY_REQUEST), a
