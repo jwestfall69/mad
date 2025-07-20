@@ -25,9 +25,9 @@ error_address_test:
 		ld	c, a
 		RSUB	print_hex_byte
 
-		; jump address is $2000 | (a << 7)
+		; jump address is ERROR_ADDRESS_BASE | (a << 7)
 		ld	a, (r_error_code)
-		ld	bc, $2000
+		ld	bc, ERROR_ADDRESS_BASE
 		ld	hl, $0		; make the error code be bits 7 to 12 of hl
 		ld	h, a
 		srl	h

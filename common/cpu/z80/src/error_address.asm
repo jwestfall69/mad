@@ -10,9 +10,9 @@
 ; be pusling.  This leaves us with 6 useable address lines (A7 to A12)
 ; to communicate the error code to the user.
 error_address:
-		; jump address is $2000 | (a << 7)
+		; jump address is ERROR_ADDRESS_BASE | (a << 7)
 		and	EC_MASK
-		ld	bc, $2000
+		ld	bc, ERROR_ADDRESS_BASE
 		ld	hl, $0		; make the error code be bits 7 to 12 of hl
 		ld	h, a
 		srl	h
@@ -32,7 +32,7 @@ error_address:
 
 	section error_addresses
 	; The mad_<machine>.ld file is setup to put the error_addresses section
-	; starting at $2000 of the rom.  Below will fill $2000 to $3ff0.
+	; starting at ERROR_ADDRESS_BASE of the rom.
 
 	; error address jump points are every 128 bytes, so we need to make
 	; sure the below code block is a power of 2 that is <= 128 bytes.  In
