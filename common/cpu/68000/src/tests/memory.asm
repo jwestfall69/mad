@@ -426,6 +426,7 @@ memory_write_list_test_dsub:
 		DSUB_RETURN
 
 	section data
+	align 1
 
 DATA_PATTERNS:
 	dc.w	$0000, $5555, $aaaa, $ffff
