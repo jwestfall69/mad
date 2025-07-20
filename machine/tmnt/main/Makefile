@@ -33,8 +33,8 @@ OBJS = $(OBJ_DIR)/cpu/68000/src/crc32.o \
        $(OBJ_DIR)/cpu/68000/src/handlers/memory_byte_tests.o \
        $(OBJ_DIR)/cpu/68000/src/handlers/memory_viewer.o \
        $(OBJ_DIR)/cpu/68000/src/handlers/sound.o \
-       $(OBJ_DIR)/cpu/68000/src/handlers/sprite_k051960_viewer.o \
        $(OBJ_DIR)/cpu/68000/src/handlers/tile8_viewer.o \
+       $(OBJ_DIR)/cpu/68000/src/handlers/values_edit.o \
        $(OBJ_DIR)/cpu/68000/src/tests/input.o \
        $(OBJ_DIR)/cpu/68000/src/tests/mad_rom.o \
        $(OBJ_DIR)/cpu/68000/src/tests/memory.o \
