@@ -11,7 +11,7 @@ DD = dd
 
 OBJS = $(OBJ_DIR)/cpu/z80/src/crc32.o \
        $(OBJ_DIR)/cpu/z80/src/dsub.o \
-       $(OBJ_DIR)/cpu/z80/src/error_address.o \
+       $(OBJ_DIR)/cpu/z80/src/error_address_6000.o \
        $(OBJ_DIR)/cpu/z80/src/footer.o \
        $(OBJ_DIR)/cpu/z80/src/input_update.o \
        $(OBJ_DIR)/cpu/z80/src/memory_fill.o \

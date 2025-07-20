@@ -13,10 +13,10 @@ SECTIONS {
 	.rodata: {
 		*(data)
 	} > ROM
-	 .error_addresses 0x2000: {
+	 .error_addresses 0x6000: {
 		*(error_addresses)
 	} > ROM
-	.footer 0x3ffb: {
+	.footer 0x7ffb: {
 		*(footer)
 	} > ROM
 	.bss (NOLOAD): {
