@@ -2,4 +2,4 @@
 	include "cpu/68000/include/handlers/memory_tests.inc"
 	include "cpu/68000/include/tests/ram_test_logic.inc"
 
-	RAM_TEST_LOGIC fg_sprite, FG_SPRITE, RTL_FLAG_PAUSE_REDRAW, MT_FLAG_LOWER_ONLY
+	RAM_TEST_LOGIC fix_sprite, FIX_SPRITE, RTL_FLAG_PAUSE_REDRAW, MT_FLAG_LOWER_ONLY

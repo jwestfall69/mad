@@ -21,14 +21,14 @@ d_auto_test_dsub_list:
 	AUTO_TEST_LIST_END
 
 d_auto_test_func_list:
+	AUTO_TEST_ENTRY auto_fix_sprite_ram_tests, d_str_testing_fix_sprite_ram
 	AUTO_TEST_ENTRY auto_palette_ram_tests, d_str_testing_palette_ram
-	AUTO_TEST_ENTRY auto_fg_sprite_ram_tests, d_str_testing_fg_sprite_ram
-	AUTO_TEST_ENTRY auto_bg_ram_tests, d_str_testing_bg_ram
+	AUTO_TEST_ENTRY auto_tile_ram_tests, d_str_testing_tile_ram
 	AUTO_TEST_LIST_END
 
-d_str_testing_bg_ram:		STRING "TESTING BG RAM"
+d_str_testing_fix_sprite_ram:	STRING "TESTING FIX/SPRITE RAM"
 d_str_testing_mad_rom_address:	STRING "TESTING MAD ROM ADDRESS"
 d_str_testing_mad_rom_crc32:	STRING "TESTING MAD ROM CRC32"
-d_str_testing_fg_sprite_ram:	STRING "TESTING FG/SPRITE RAM"
 d_str_testing_palette_ram:	STRING "TESTING PALETTE RAM"
+d_str_testing_tile_ram:		STRING "TESTING TILE RAM"
 d_str_testing_work_ram:		STRING "TESTING WORK RAM"

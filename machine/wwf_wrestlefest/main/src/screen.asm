@@ -15,12 +15,14 @@ screen_init_dsub:
 		lea	d_memory_fill_list, a0
 		DSUB	memory_fill_list
 
+		move.w	#$0, REG_SPRITE_COPY
+
 		; text color
-		lea	PALETTE_RAM + $1e, a0
+		lea	FIX_TILE_PALETTE + $1e, a0
 		move.w	#$0fff, (a0)
 
 		; text shadow
-		lea	PALETTE_RAM + $2, a0
+		lea	FIX_TILE_PALETTE + $2, a0
 		move.w	#$0111, (a0)
 
 		; background color ($0)
@@ -56,7 +58,7 @@ screen_seek_xy_dsub:
 	align 1
 
 d_memory_fill_list:
-	MEMORY_FILL_ENTRY FG_SPRITE_RAM, FG_SPRITE_RAM_SIZE, $0
-	MEMORY_FILL_ENTRY BG_RAM, BG_RAM_SIZE, $0
+	MEMORY_FILL_ENTRY FIX_SPRITE_RAM, FIX_SPRITE_RAM_SIZE, $0
 	MEMORY_FILL_ENTRY PALETTE_RAM, PALETTE_RAM_SIZE, $0
+	MEMORY_FILL_ENTRY TILE_RAM, TILE_RAM_SIZE, $0
 	MEMORY_FILL_LIST_END

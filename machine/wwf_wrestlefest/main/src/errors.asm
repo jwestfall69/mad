@@ -22,25 +22,25 @@ d_ec_list:
 	EC_ENTRY EC_WORK_RAM_WRITE_UPPER, PRINT_ERROR_ADDRESS, d_str_work_ram_write_upper
 	EC_ENTRY EC_WORK_RAM_WRITE_BOTH, PRINT_ERROR_ADDRESS, d_str_work_ram_write_both
 
-	EC_ENTRY EC_BG_RAM_ADDRESS, PRINT_ERROR_MEMORY, d_str_bg_ram_address
-	EC_ENTRY EC_BG_RAM_DATA_LOWER, PRINT_ERROR_MEMORY, d_str_bg_ram_data_lower
-	EC_ENTRY EC_BG_RAM_DATA_UPPER, PRINT_ERROR_MEMORY, d_str_bg_ram_data_upper
-	EC_ENTRY EC_BG_RAM_DATA_BOTH, PRINT_ERROR_MEMORY, d_str_bg_ram_data_both
-	EC_ENTRY EC_BG_RAM_MARCH_LOWER, PRINT_ERROR_MEMORY, d_str_bg_ram_march_lower
-	EC_ENTRY EC_BG_RAM_MARCH_UPPER, PRINT_ERROR_MEMORY, d_str_bg_ram_march_upper
-	EC_ENTRY EC_BG_RAM_MARCH_BOTH, PRINT_ERROR_MEMORY, d_str_bg_ram_march_both
-	EC_ENTRY EC_BG_RAM_OUTPUT_LOWER, PRINT_ERROR_ADDRESS, d_str_bg_ram_output_lower
-	EC_ENTRY EC_BG_RAM_OUTPUT_UPPER, PRINT_ERROR_ADDRESS, d_str_bg_ram_output_upper
-	EC_ENTRY EC_BG_RAM_OUTPUT_BOTH, PRINT_ERROR_ADDRESS, d_str_bg_ram_output_both
-	EC_ENTRY EC_BG_RAM_WRITE_LOWER, PRINT_ERROR_ADDRESS, d_str_bg_ram_write_lower
-	EC_ENTRY EC_BG_RAM_WRITE_UPPER, PRINT_ERROR_ADDRESS, d_str_bg_ram_write_upper
-	EC_ENTRY EC_BG_RAM_WRITE_BOTH, PRINT_ERROR_ADDRESS, d_str_bg_ram_write_both
+	EC_ENTRY EC_TILE_RAM_ADDRESS, PRINT_ERROR_MEMORY, d_str_tile_ram_address
+	EC_ENTRY EC_TILE_RAM_DATA_LOWER, PRINT_ERROR_MEMORY, d_str_tile_ram_data_lower
+	EC_ENTRY EC_TILE_RAM_DATA_UPPER, PRINT_ERROR_MEMORY, d_str_tile_ram_data_upper
+	EC_ENTRY EC_TILE_RAM_DATA_BOTH, PRINT_ERROR_MEMORY, d_str_tile_ram_data_both
+	EC_ENTRY EC_TILE_RAM_MARCH_LOWER, PRINT_ERROR_MEMORY, d_str_tile_ram_march_lower
+	EC_ENTRY EC_TILE_RAM_MARCH_UPPER, PRINT_ERROR_MEMORY, d_str_tile_ram_march_upper
+	EC_ENTRY EC_TILE_RAM_MARCH_BOTH, PRINT_ERROR_MEMORY, d_str_tile_ram_march_both
+	EC_ENTRY EC_TILE_RAM_OUTPUT_LOWER, PRINT_ERROR_ADDRESS, d_str_tile_ram_output_lower
+	EC_ENTRY EC_TILE_RAM_OUTPUT_UPPER, PRINT_ERROR_ADDRESS, d_str_tile_ram_output_upper
+	EC_ENTRY EC_TILE_RAM_OUTPUT_BOTH, PRINT_ERROR_ADDRESS, d_str_tile_ram_output_both
+	EC_ENTRY EC_TILE_RAM_WRITE_LOWER, PRINT_ERROR_ADDRESS, d_str_tile_ram_write_lower
+	EC_ENTRY EC_TILE_RAM_WRITE_UPPER, PRINT_ERROR_ADDRESS, d_str_tile_ram_write_upper
+	EC_ENTRY EC_TILE_RAM_WRITE_BOTH, PRINT_ERROR_ADDRESS, d_str_tile_ram_write_both
 
-	EC_ENTRY EC_FG_SPRITE_RAM_ADDRESS, PRINT_ERROR_MEMORY, d_str_fg_sprite_ram_address
-	EC_ENTRY EC_FG_SPRITE_RAM_DATA, PRINT_ERROR_MEMORY, d_str_fg_sprite_ram_data
-	EC_ENTRY EC_FG_SPRITE_RAM_MARCH, PRINT_ERROR_MEMORY, d_str_fg_sprite_ram_march
-	EC_ENTRY EC_FG_SPRITE_RAM_OUTPUT, PRINT_ERROR_ADDRESS, d_str_fg_sprite_ram_output
-	EC_ENTRY EC_FG_SPRITE_RAM_WRITE, PRINT_ERROR_ADDRESS, d_str_fg_sprite_ram_write
+	EC_ENTRY EC_FIX_SPRITE_RAM_ADDRESS, PRINT_ERROR_MEMORY, d_str_fix_sprite_ram_address
+	EC_ENTRY EC_FIX_SPRITE_RAM_DATA, PRINT_ERROR_MEMORY, d_str_fix_sprite_ram_data
+	EC_ENTRY EC_FIX_SPRITE_RAM_MARCH, PRINT_ERROR_MEMORY, d_str_fix_sprite_ram_march
+	EC_ENTRY EC_FIX_SPRITE_RAM_OUTPUT, PRINT_ERROR_ADDRESS, d_str_fix_sprite_ram_output
+	EC_ENTRY EC_FIX_SPRITE_RAM_WRITE, PRINT_ERROR_ADDRESS, d_str_fix_sprite_ram_write
 
 	EC_ENTRY EC_PALETTE_RAM_ADDRESS, PRINT_ERROR_MEMORY, d_str_palette_ram_address
 	EC_ENTRY EC_PALETTE_RAM_DATA_LOWER, PRINT_ERROR_MEMORY, d_str_palette_ram_data_lower
@@ -74,25 +74,25 @@ d_str_work_ram_write_lower:		STRING "WORK RAM WRITE (LOWER)"
 d_str_work_ram_write_upper:		STRING "WORK RAM WRITE (UPPER)"
 d_str_work_ram_write_both:		STRING "WORK RAM WRITE (BOTH)"
 
-d_str_bg_ram_address:			STRING "BG RAM ADDRESS"
-d_str_bg_ram_data_lower:		STRING "BG RAM DATA (LOWER)"
-d_str_bg_ram_data_upper:		STRING "BG RAM DATA (UPPER)"
-d_str_bg_ram_data_both:			STRING "BG RAM DATA (BOTH)"
-d_str_bg_ram_march_lower:		STRING "BG RAM MARCH (LOWER)"
-d_str_bg_ram_march_upper:		STRING "BG RAM MARCH (UPPER)"
-d_str_bg_ram_march_both:		STRING "BG RAM MARCH (BOTH)"
-d_str_bg_ram_output_lower:		STRING "BG RAM DEAD OUTPUT (LOWER)"
-d_str_bg_ram_output_upper:		STRING "BG RAM DEAD OUTPUT (UPPER)"
-d_str_bg_ram_output_both:		STRING "BG RAM DEAD OUTPUT (BOTH)"
-d_str_bg_ram_write_lower:		STRING "BG RAM WRITE (LOWER)"
-d_str_bg_ram_write_upper:		STRING "BG RAM WRITE (UPPER)"
-d_str_bg_ram_write_both:		STRING "BG RAM WRITE (BOTH)"
+d_str_tile_ram_address:			STRING "TILE RAM ADDRESS"
+d_str_tile_ram_data_lower:		STRING "TILE RAM DATA (LOWER)"
+d_str_tile_ram_data_upper:		STRING "TILE RAM DATA (UPPER)"
+d_str_tile_ram_data_both:		STRING "TILE RAM DATA (BOTH)"
+d_str_tile_ram_march_lower:		STRING "TILE RAM MARCH (LOWER)"
+d_str_tile_ram_march_upper:		STRING "TILE RAM MARCH (UPPER)"
+d_str_tile_ram_march_both:		STRING "TILE RAM MARCH (BOTH)"
+d_str_tile_ram_output_lower:		STRING "TILE RAM DEAD OUTPUT (LOWER)"
+d_str_tile_ram_output_upper:		STRING "TILE RAM DEAD OUTPUT (UPPER)"
+d_str_tile_ram_output_both:		STRING "TILE RAM DEAD OUTPUT (BOTH)"
+d_str_tile_ram_write_lower:		STRING "TILE RAM WRITE (LOWER)"
+d_str_tile_ram_write_upper:		STRING "TILE RAM WRITE (UPPER)"
+d_str_tile_ram_write_both:		STRING "TILE RAM WRITE (BOTH)"
 
-d_str_fg_sprite_ram_address:		STRING "FG/SPRITE RAM ADDRESS"
-d_str_fg_sprite_ram_data:		STRING "FG/SPRITE RAM DATA"
-d_str_fg_sprite_ram_march:		STRING "FG/SPRITE RAM MARCH"
-d_str_fg_sprite_ram_output:		STRING "FG/SPRITE RAM DEAD OUTPUT"
-d_str_fg_sprite_ram_write:		STRING "FG/SPRITE RAM WRITE"
+d_str_fix_sprite_ram_address:		STRING "FIX/SPRITE RAM ADDRESS"
+d_str_fix_sprite_ram_data:		STRING "FIX/SPRITE RAM DATA"
+d_str_fix_sprite_ram_march:		STRING "FIX/SPRITE RAM MARCH"
+d_str_fix_sprite_ram_output:		STRING "FIX/SPRITE RAM DEAD OUTPUT"
+d_str_fix_sprite_ram_write:		STRING "FIX/SPRITE RAM WRITE"
 
 d_str_palette_ram_address:		STRING "PALETTE RAM ADDRESS"
 d_str_palette_ram_data_lower:		STRING "PALETTE RAM DATA (LOWER)"

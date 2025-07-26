@@ -23,16 +23,16 @@ memory_viewer_menu:
 
 		rts
 
-view_bg1_ram:
-		lea	BG_RAM, a0
+view_fix_tile:
+		lea	FIX_TILE, a0
 		bra	view_memory
 
-view_bg2_ram:
-		lea	BG2_RAM, a0
+view_layer_a_tile:
+		lea	LAYER_A_TILE, a0
 		bra	view_memory
 
-view_fg_ram:
-		lea	FG_RAM, a0
+view_layer_b_tile:
+		lea	LAYER_B_TILE, a0
 		bra	view_memory
 
 view_mmio_input:
@@ -63,9 +63,9 @@ view_memory:
 	align 1
 
 d_menu_list:
-	MENU_ENTRY view_bg1_ram, d_str_bg1_ram
-	MENU_ENTRY view_bg2_ram, d_str_bg2_ram
-	MENU_ENTRY view_fg_ram, d_str_fg_ram
+	MENU_ENTRY view_fix_tile, d_str_fix_tile
+	MENU_ENTRY view_layer_a_tile, d_str_layer_a_tile
+	MENU_ENTRY view_layer_b_tile, d_str_layer_b_tile
 	MENU_ENTRY view_mmio_input, d_str_mmio_input
 	MENU_ENTRY view_palette_ram, d_str_palette_ram
 	MENU_ENTRY view_rom_space, d_str_rom_space
@@ -75,9 +75,9 @@ d_menu_list:
 
 d_str_menu_title:		STRING "MEMORY VIEWER MENU"
 
-d_str_bg1_ram:			STRING "BG1 RAM"
-d_str_bg2_ram:			STRING "BG2 RAM"
-d_str_fg_ram:			STRING "FG RAM"
+d_str_fix_tile:			STRING "FIX TILE"
+d_str_layer_a_tile:		STRING "LAYER A TILE"
+d_str_layer_b_tile:		STRING "LAYER B TILE"
 d_str_mmio_input:		STRING "MMIO INPUT"
 d_str_palette_ram:		STRING "PALETTE RAM"
 d_str_rom_space:		STRING "ROM SPACE"
