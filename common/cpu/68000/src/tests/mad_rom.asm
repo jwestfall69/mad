@@ -27,14 +27,14 @@ auto_mad_rom_crc32_test_dsub:
 auto_mad_rom_address_test_dsub:
 		lea	MAD_ROM_MIRROR_ADDRESS, a0
 		moveq	#(ROM_SIZE / MAD_ROM_SIZE) - 1, d0
-		moveq	#0, d2
+		moveq	#0, d1
 
 	.loop_next_mirror:
-		move.b	(a0), d1
-		cmp.b	d2, d1
+		move.b	(a0), d2
+		cmp.b	d1, d2
 		bne	.test_failed
 		adda.l	#MAD_ROM_SIZE, a0
-		addq.b	#1, d2
+		addq.b	#1, d1
 		dbra	d0, .loop_next_mirror
 
 		moveq	#0, d0

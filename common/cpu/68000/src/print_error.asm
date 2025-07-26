@@ -74,6 +74,7 @@ print_error_crc32_dsub:
 ;  d2 = actual data
 ;  a1 = error description
 print_error_hex_byte_dsub:
+		move.b	d2, d3
 
 		; expected value
 		SEEK_XY	(SCREEN_START_X + 12), (SCREEN_START_Y + 2)
@@ -82,7 +83,7 @@ print_error_hex_byte_dsub:
 
 		; actual value
 		SEEK_XY	(SCREEN_START_X + 12), (SCREEN_START_Y + 3)
-		move.b	d2, d0
+		move.b	d3, d0
 		DSUB	print_hex_byte
 
 		SEEK_XY	0, SCREEN_START_Y
