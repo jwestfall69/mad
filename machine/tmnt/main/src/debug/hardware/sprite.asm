@@ -12,13 +12,14 @@ sprite_debug:
 		move.b	#$1f, FIX_TILE_PALETTE + PALETTE_SIZE + $7
 		move.b	#$1f, FIX_TILE_PALETTE + PALETTE_SIZE + $b
 
+		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 14)
+		lea	d_str_last_written, a0
+		RSUB	print_string
+
 		move.l	#FIX_TILE, r_old_highlight
 
-		move.l	#$ce660080, d0
-		move.l	d0, r_mw_buffer
-		move.l	#$00b00110, d0
-		move.l	d0, r_mw_buffer + 4
-		clr.b	r_mw_buffer + 8
+		move.l	#$ce660080, r_mw_buffer
+		move.l	#$00b00110, r_mw_buffer + 4
 
 		lea	d_mw_settings, a0
 		jsr	memory_write_handler
@@ -40,12 +41,25 @@ highlight_cb:
 write_memory_cb:
 		lea	r_mw_buffer, a0
 		lea	SPRITE_RAM, a1
-		moveq	#$7, d0
+		moveq	#$7, d3
+		move.b	#SCREEN_START_X, d5
 
 	; sprite ram can only be accessed via bytes
 	.loop_next_byte:
-		move.b	(a0)+, (a1)+
-		dbra	d0, .loop_next_byte
+		move.b	(a0)+, d4
+		move.b	d4, (a1)
+
+		move.b	d5, d0
+		move.b	#SCREEN_START_Y + 16, d1
+		RSUB	screen_seek_xy
+
+		move.b	d4, d0
+		RSUB	print_hex_byte
+
+		addq.l	#$1, a1
+		addq.b	#$3, d5
+		dbra	d3, .loop_next_byte
+
 		rts
 
 loop_cb:
@@ -54,7 +68,8 @@ loop_cb:
 	section data
 	align 1
 
-	d_mw_settings:	MW_SETTINGS 8, r_mw_buffer, highlight_cb, write_memory_cb, loop_cb
+d_mw_settings:		MW_SETTINGS 8, r_mw_buffer, highlight_cb, write_memory_cb, loop_cb
+d_str_last_written:	STRING "LAST WRITTEN"
 
 	section bss
 	align 1

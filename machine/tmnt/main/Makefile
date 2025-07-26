@@ -70,7 +70,8 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/viewers/tile_viewer_common.o
 
 ifneq (,$(findstring _DEBUG_HARDWARE_,$(BUILD_FLAGS)))
-OBJS += $(OBJ_DIR)/cpu/68000/src/handlers/memory_write.o \
+OBJS += $(OBJ_DIR)/cpu/68000/src/debug/hardware/watchdog_time.o \
+        $(OBJ_DIR)/cpu/68000/src/handlers/memory_write.o \
         $(OBJ_DIR)/debug/hardware/sprite.o \
         $(OBJ_DIR)/menus/debug_hardware.o
 endif

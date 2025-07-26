@@ -28,8 +28,10 @@ debug_hardware_menu:
 
 d_menu_list:
 	MENU_ENTRY sprite_debug, d_str_sprite_debug
+	MENU_ENTRY watchdog_time, d_str_watchdog_time
 	MENU_LIST_END
 
 d_str_menu_title:		STRING "DEBUG HARDWARE MENU"
 
 d_str_sprite_debug:		STRING "SPRITE DEBUG"
+d_str_watchdog_time:		STRING "WATCHDOG TIME"
