@@ -140,6 +140,7 @@ def main() -> int:
     parser.add_argument('-c', dest='cpu', required=True, metavar='<6309|68000|6809|konami2|z80>', type=str, help='cpu to generate for')
     parser.add_argument('-m', dest='markdown', required=True, metavar='<README.md>', type=str, help='markdown file to inject the table into')
     parser.add_argument('-t', dest='type', required=True, metavar='<main|sound>', type=str, help='diag type')
+    parser.add_argument('-b', dest='base_addr', required=False, metavar='<hex>', type=str, help='override the default base address');
     args = parser.parse_args()
 
     cfg = args.cpu + '_' + args.type
@@ -147,6 +148,10 @@ def main() -> int:
         print('ERROR: unknown \'cpu\'_\'type\' config');
         print(f'Valid \'cpu\'_\'type\'s are: {list(cfgs.keys())}')
         return -1
+
+    if args.base_addr:
+        print(f'Overiding error address base 0x{cfgs[cfg].ea_base:04x} with 0x{args.base_addr}')
+        cfgs[cfg].ea_base = int(args.base_addr, 16)
 
     error_codes = {}
     for inc in args.inc_files:
