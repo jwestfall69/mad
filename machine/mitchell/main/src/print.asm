@@ -26,6 +26,9 @@ print_bits_byte_dsub:
 	.loop_next_bit:
 		ld	a, $1
 		and	a, c
+
+	ifnd _MGAKUEN_TEXT_
+
 		jr	nz, .is_one
 		ld	a, '0'
 		jr	.do_print
@@ -35,6 +38,7 @@ print_bits_byte_dsub:
 
 	.do_print:
 
+	endif
 		ld	(hl), $0
 		dec	hl
 		ld	(hl), a
@@ -51,6 +55,34 @@ print_bits_byte_dsub:
 ;  hl = location in video ram
 print_char_dsub:
 		exx
+
+	ifd _MGAKUEN_TEXT_
+		ld	a, c
+		cp	' '
+		jr	nz, .not_space
+		ld	a, $30
+		jr	.do_print
+
+	.not_space:
+		cp	'-'
+		jr	nz, .not_dash
+		ld	a, $1d
+		jr	.do_print
+
+	.not_dash:
+		cp	'0'
+		jp	m, .do_print
+
+		cp	'9' + 1
+		jp	p, .do_print
+
+		sub	$30
+
+	.do_print:
+		ld	c, a
+
+	endif
+
 		ld	(hl), c
 		inc	hl
 		ld	(hl), $0
@@ -62,6 +94,7 @@ print_char_dsub:
 ;  hl = start location in video ram
 print_char_repeat_dsub:
 		exx
+
 	.loop_next_char:
 		ld	(hl), c
 		inc	hl
@@ -75,7 +108,13 @@ print_char_repeat_dsub:
 ;  x = start location in tile ram
 print_clear_line_dsub:
 		exx
+
+	ifd _MGAKUEN_TEXT_
+		ld	c, $30
+	else
 		ld	c, ' '
+	endif
+
 		ld	b, 48
 		jr	print_char_repeat_dsub + 1 ; skip exx
 
@@ -95,6 +134,7 @@ print_hex_byte_dsub:
 		ld	a, $f
 		and	a, c
 
+	ifnd _MGAKUEN_TEXT_
 		cp	$a
 		jp	m, .is_digit
 
@@ -105,6 +145,8 @@ print_hex_byte_dsub:
 		add	a, '0'
 
 	.do_print:
+
+	endif
 		ld	(hl), $0
 		dec	hl
 		ld	(hl), a
@@ -128,6 +170,7 @@ print_hex_nibble_dsub:
 		ld	a, $f
 		and	a, c
 
+	ifnd _MGAKUEN_TEXT_
 		cp	$a
 		jp	m, .is_digit
 
@@ -138,6 +181,8 @@ print_hex_nibble_dsub:
 		add	a, '0'
 
 	.do_print:
+
+	endif
 		ld	(hl), $0
 		dec	hl
 		ld	(hl), a
@@ -160,6 +205,8 @@ print_hex_word_dsub:
 		ld	a, $f
 		and	a, c
 
+	ifnd _MGAKUEN_TEXT_
+
 		cp	$a
 		jp	m, .is_digit
 
@@ -170,6 +217,8 @@ print_hex_word_dsub:
 		add	a, '0'
 
 	.do_print:
+
+	endif
 		ld	(hl), $0
 		dec	hl
 		ld	(hl), a
@@ -196,6 +245,31 @@ print_string_dsub:
 		ld	a, (de)
 
 	.loop_next_char:
+
+	ifd _MGAKUEN_TEXT_
+		cp	' '
+		jr	nz, .not_space
+		ld	a, $30
+		jr	.do_print
+
+	.not_space:
+		cp	'-'
+		jr	nz, .not_dash
+		ld	a, $1d
+		jr	.do_print
+
+	.not_dash:
+		cp	'0'
+		jp	m, .do_print
+
+		cp	'9' + 1
+		jp	p, .do_print
+
+		sub	$30
+
+	.do_print:
+
+	endif
 		ld	(hl), a
 		inc	hl
 		ld	(hl), $0

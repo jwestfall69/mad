@@ -5,7 +5,7 @@
 
 	section code
 
-HIGHLIGHT_PALETTE_NUM	equ $1
+HIGHLIGHT_PALETTE_NUM	equ $2
 
 sprite_debug:
 		call	sprite_viewer_palette_setup
@@ -46,7 +46,7 @@ sprite_debug:
 ; hl = location in video ram
 highlight_cb:
 		ld	iy, (r_old_highlight)
-		ld	(iy), $0
+		ld	(iy), $1
 
 		; location in color ram is /2 the offset of
 		; the location in tile ram

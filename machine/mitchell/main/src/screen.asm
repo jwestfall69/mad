@@ -34,12 +34,20 @@ screen_init_dsub:
 
 		ld	hl, TILE_RAM
 		ld	de, TILE_RAM_SIZE
+
+	ifd _MGAKUEN_TEXT_
+		ld	bc, $3000
+	else
 		ld	bc, $2000
+	endif
 		NSUB	memory_fill_word
 
+		; color index 0 on the first palette is the background
+		; color.  However some games use that index for part of the
+		; text color.  So we are using the 2nd palette for text
 		ld	hl, TILE_ATTR_RAM
 		ld	de, TILE_ATTR_RAM_SIZE
-		ld	c, $0
+		ld	c, $1
 		NSUB	memory_fill
 
 		ld	a, VIDEO_BANK_SPRITE
@@ -58,7 +66,12 @@ screen_init_dsub:
 		NSUB	print_string
 
 		SEEK_XY	0, 1
+
+	ifd _MGAKUEN_TEXT_
+		ld	c, $1d
+	else
 		ld	c, '-'
+	endif
 		ld	b, SCREEN_NUM_COLUMNS
 		NSUB	print_char_repeat
 

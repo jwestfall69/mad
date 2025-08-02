@@ -19,11 +19,7 @@ input_update:
 		ld	bc, $1ff
 		RSUB	delay
 
-	ifd _INPUT_IO_
-		in	a, (IO_INPUT)
-	else
-		ld	a, (REG_INPUT)
-	endif
+		GET_INPUT
 
 		xor	$ff
 		ld	b, a
@@ -42,11 +38,7 @@ input_update:
 check_button_press_dsub:
 		exx
 
-	ifd _INPUT_IO_
-		in	a, (IO_INPUT)
-	else
-		ld	a, (REG_INPUT)
-	endif
+		GET_INPUT
 
 		and	b
 		jr	z, .pressed
@@ -65,11 +57,7 @@ check_button_press_dsub:
 wait_button_press:
 		WATCHDOG
 
-	ifd _INPUT_IO_
-		in	a, (IO_INPUT)
-	else
-		ld	a, (REG_INPUT)
-	endif
+		GET_INPUT
 
 		and	b
 		jr	z, .pressed
@@ -89,11 +77,7 @@ wait_button_press:
 wait_button_release:
 		WATCHDOG
 
-	ifd _INPUT_IO_
-		in	a, (IO_INPUT)
-	else
-		ld	a, (REG_INPUT)
-	endif
+		GET_INPUT
 
 		and	b
 		jr	nz, .released

@@ -1,5 +1,4 @@
 MAD_NAME=mad_mitchell
-BUILD_DIR=build/$(ROMSET)
 OBJ_DIR=$(BUILD_DIR)/obj
 WORK_DIR=$(BUILD_DIR)/work
 BUILD_FLAGS += -D_ROMSET_STR_LENGTH_=$(shell echo -n '$(ROMSET)' | wc -c)
@@ -58,6 +57,11 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/viewers/sprite.o \
         $(OBJ_DIR)/viewers/tile.o
 
+ifneq (,$(findstring _CONTROLLER_MAHJONG_,$(BUILD_FLAGS)))
+OBJS += $(OBJ_DIR)/input_mahjong.o
+else ifneq (,$(findstring _CONTROLLER_2JOY_,$(BUILD_FLAGS)))
+OBJS += $(OBJ_DIR)/input_2joy.o
+endif
 
 ifneq (,$(findstring _DEBUG_HARDWARE_,$(BUILD_FLAGS)))
 OBJS += $(OBJ_DIR)/cpu/z80/src/handlers/memory_write.o \
@@ -76,13 +80,16 @@ INCS = $(wildcard ../../../common/global/include/*.inc) \
        $(wildcard include/*/*.inc) \
        $(wildcard include/*/*/*.inc)
 
-$(WORK_DIR)/$(MAD_NAME).bin: include/error_codes.inc $(WORK_DIR) $(BUILD_DIR) $(OBJS)
+$(WORK_DIR)/$(MAD_NAME).bin: include/error_codes.inc $(WORK_DIR) $(BUILD_DIR) $(OBJS) ../README.md
 	$(VLINK) $(VLINK_FLAGS) -o $(WORK_DIR)/$(MAD_NAME).bin $(OBJS)
 	../../../util/rom-inject-crc-mirror -f $(WORK_DIR)/$(MAD_NAME).bin -e little -t $(ROM_SIZE)
 	$(DD) if=$(WORK_DIR)/$(MAD_NAME).bin of=$(BUILD_DIR)/$(ROM)
 
 include/error_codes.inc: include/error_codes.cfg
 	../../../util/gen-error-codes -b 6 include/error_codes.cfg include/error_codes.inc
+
+../README.md: include/error_codes.inc ../../../common/cpu/z80/include/error_codes.inc
+	../../../util/gen-error-codes-markdown-table -i include/error_codes.inc -i ../../../common/cpu/z80/include/error_codes.inc -c z80 -t main6 -m ../README.md
 
 src/version.asm:
 	../../../util/gen-version-asm-file -m MITCHELL -r $(ROMSET) -i ../../../common/global/src/version.asm.in -o src/version.asm

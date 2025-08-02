@@ -16,14 +16,10 @@ print_input_list:
 		ld	b, SCREEN_START_X + 5
 		RSUB	screen_seek_xy
 
-	ifd _INPUT_IO_
-		ld	c, (ix + 1)
-		in	a, (c)
-	else
 		ld	d, (ix + 2)
 		ld	e, (ix + 1)
-		ld	a, (de)
-	endif
+
+		GET_INPUT_MISC
 
 		xor	$ff
 		ld	c, a

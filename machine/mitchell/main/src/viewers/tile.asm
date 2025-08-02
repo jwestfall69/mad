@@ -4,7 +4,7 @@
 
 	section code
 
-PALETTE_NUM		equ $1
+PALETTE_NUM		equ $2
 TILE_OFFSET_MASK_UPPER	equ $3f
 
 tile_viewer:
