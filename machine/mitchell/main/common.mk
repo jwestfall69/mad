@@ -89,7 +89,7 @@ include/error_codes.inc: include/error_codes.cfg
 	../../../util/gen-error-codes -b 6 include/error_codes.cfg include/error_codes.inc
 
 ../README.md: include/error_codes.inc ../../../common/cpu/z80/include/error_codes.inc
-	../../../util/gen-error-codes-markdown-table -i include/error_codes.inc -i ../../../common/cpu/z80/include/error_codes.inc -c z80 -t main6 -m ../README.md
+	../../../util/gen-error-codes-markdown-table -i include/error_codes.inc -i ../../../common/cpu/z80/include/error_codes.inc -c z80 -t main -b 6000 -m ../README.md
 
 src/version.asm:
 	../../../util/gen-version-asm-file -m MITCHELL -r $(ROMSET) -i ../../../common/global/src/version.asm.in -o src/version.asm
