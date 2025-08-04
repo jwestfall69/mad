@@ -1,5 +1,5 @@
 	include "cpu/6309/include/common.inc"
-	include "cpu/6X09/include/handlers/memory_write.inc"
+	include "cpu/6x09/include/handlers/memory_write.inc"
 
 	global k051960_zoom_debug
 
