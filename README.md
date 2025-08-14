@@ -13,13 +13,30 @@ In general adding a new board entails understanding how to initialize the
 hardware, figuring out how to print to the screen (including palette setup),
 then just hooking up the common tests (ram, io, sound, etc).  MAD has already
 helped me track down issues in my toki (bad joystick inputs) and wwfsstar
-(failed palette upper ram chip) boards.
+(failed palette upper ram chip) boards. Additionally its been used to help
+[MAME](https://github.com/search?q=repo%3Amamedev%2Fmame+Westfall&type=commits) better understand how some of the custom chips work.
 
-Below is the list of boards that I'm currently using to develop MAD.  These
-were picked because I have them and its a good mix of manufacturers, individual
-game boards vs multiple games (rom boards) on a single platform.  This has been
-to help me understand what all can be merged into common code and what type of
-one-offs may exist and how to deal with them.
+You can grab the latest compiled version here
+
+https://www.mvs-scans.com/mad/mad-main.zip
+
+Support boards
+
+### Aliens
+![Aliens](machine/aliens/docs/images/mad_aliens_main_menu.png)
+
+### Alpha68K II based games
+**Sky Solder (skysoldr)**<br>
+**Time Solder (timesold)**<br>
+
+### Blades of Steel (bladestl)
+![bladestl](machine/blades_of_steel/docs/images/mad_blades_of_steel_main_menu.png)
+
+### Block Hole (blockhl)
+![blockhl](machine/block_hole/docs/images/mad_block_hole_main_menu.png)
+
+### Contra
+![contra](machine/contra/docs/images/mad_contra_main_menu.png)
 
 ### CPS1
 **Three Wonders** (3wonders with cps_b21_bts1)<br>
@@ -41,6 +58,9 @@ one-offs may exist and how to deal with them.
 **X-Men: Children of the Atom (Asia 950105) encrypted** (xmcotaa)<br>
 ![cps2 xmcotaa](docs/images/cps2/xmcotaa.png)
 
+### Crime Fighters (crimfght)
+![crimfght](machine/crime_fighters/docs/images/mad_crime_fighters_main_menu.png)
+
 ### dec0 based games
 **Bad Dudes vs. Dragonninja** (baddudes)<br>
 ![dec0 baddudes](docs/images/dec0/baddudes.png)
@@ -54,17 +74,47 @@ one-offs may exist and how to deal with them.
 **Robocop** (robocop)<br>
 ![dec0 robocop](docs/images/dec0/robocop.png)
 
+### Devastators (devstors)
+![devstors](machine/devastators/docs/images/mad_devastators_main_menu.png)
+
+### Mitchell based games
+![mitchell](machine/mitchell/docs/images/mad_mitchell_main_menu.png)<br>
+**Mahjong Gakuen 2 Gakuen-chou no Fukushuu (mgakeun2)**<br>
+**Pang/Buster Bros**<br>
+**Poker Ladies**<br>
+**Quiz Sangokushi**<br>
+**Quiz Tonosama no Yabou (qtono1)**<br>
+**Super Pang/Super Buster Bros**<br>
+
+### Ninja Gaiden (gaiden)
+![gaiden](machine/ninja_gaiden/docs/images/mad_gaiden_main_menu.png)
+
+### Rollergames (rollerg)
+![rollerg](machine/rollergames/docs/images/mad_rollerg_main_menu.png)
+
+### Rush 'n Attack
+![rushatck](machine/rush_n_attack/docs/images/mad_rush_n_attack_main_menu.png)
+
 ### Teenage Mutant Ninja Turtles (tmnt)
-![tmnt](docs/images/tmnt.png)
+![tmnt](machine/tmnt/docs/images/mad_tmnt_main_menu.png)
+
+### The Main Event (mainevt)
+![mainevt](machine/the_main_event/docs/images/mad_the_main_event_main_menu.png)
+
+### The Real Ghostbusters (ghostb)
+![ghostb](machine/the_real_ghostbusters/docs/images/mad_the_real_ghostbusters_main_menu.png)
 
 ### Toki
 ![toki](docs/images/toki.png)
 
+### Vendetta
+![vendetta](machine/vendetta/docs/images/mad_vendetta_main_menu.png)
+
 ### WWF Superstars (wwfsstar)
-![wwfsstar](docs/images/wwfsstar.png)
+![wwfsstar](machine/wwf_superstars/docs/images/mad_wwfsstar_main_menu.png)
 
 ### WWF Wrestlefest (wwfwfest)
-![wwfwfest](docs/images/wwfwfest.png)
+![wwfwfest](machine/wwf_wrestlefest/docs/images/mad_wwfwfest_main_menu.png)
 
 ## Building
 I've been doing most of my development in window subsystem for linux (wsl).
@@ -78,9 +128,10 @@ vasm and vlink are need to for compiling the m68k source code, which are availab
 http://sun.hasenbraten.de/vasm/<br>
 http://sun.hasenbraten.de/vlink/
 
-For vasm you will need the vasm6809_mot, vasmm68k_mot and vasmz80_mot variants.
-If you are building vasm from source, you can build it with the following
-commands from where ever you decompressed vasm.tar.gz.
+The version of vasm needs to be >= 2.0c.  For vasm you will need the
+vasm6809_mot, vasmm68k_mot and vasmz80_mot variants. If you are building vasm
+from source, you can build it with the following commands from where ever you
+decompressed vasm.tar.gz.
 
 ```
 $ make CPU=6809 SYNTAX=mot
@@ -91,90 +142,44 @@ $ make CPU=z80 SYNTAX=mot
 Copy the resulting vasm6809_mot, vasmm68k_mot and vasmz80_mot (and vlink, when
 you get that compiled) so they are within your $PATH (ie: /usr/local/bin/)
 
-The first thing you will want to is run `make` in the `util` dir, which has a
-couple utils that deal with crc/mirror injection and rom splitting.
-
-Under the machine/ directory are the available board types:
+The top level `Makefile` should be able to build everything.
 
 ```
-jwestfall@DESKTOP-7LADK23:/mnt/c/Users/jwestfall/Desktop/mad/machine$ ls -la
-total 0
-drwxrwxrwx 1 jwestfall jwestfall 4096 May  9 17:56 .
-drwxrwxrwx 1 jwestfall jwestfall 4096 May 13 18:31 ..
-drwxrwxrwx 1 jwestfall jwestfall 4096 May 12 14:22 cps1
-drwxrwxrwx 1 jwestfall jwestfall 4096 May 12 14:22 dec0
-drwxrwxrwx 1 jwestfall jwestfall 4096 May 12 14:22 toki
-drwxrwxrwx 1 jwestfall jwestfall 4096 May 12 14:21 wwfsstar
-drwxrwxrwx 1 jwestfall jwestfall 4096 May 12 14:19 wwfwfest
-```
-
-Inside of these will be a `main` directory and sometimes a `sound` directory.
-The former is the diag rom for the main cpu, and the latter the sound cpu.  In
-side those directories will be Makefiles for generating the roms for the given
-board/romset.  In some cases there will be different Makefiles for mame vs
-hardware. These will be do to a behavior difference between mame vs hardware.
-The most common case is mame not allowing reads on some memory regions while its
-allowed on hardware.  The mame build will have the corresponding tests disabled
-to prevent false errors.
-
-```
-jwestfall@DESKTOP-7LADK23:/mnt/c/Users/jwestfall/Desktop/mad/machine/dec0/main$ ls -la
-total 4
--rwxrwxrwx 1 jwestfall jwestfall  106 May 14 21:59 build-baddudes-hardware.sh
--rwxrwxrwx 1 jwestfall jwestfall  154 May 14 22:00 build-baddudes-mame.sh
--rwxrwxrwx 1 jwestfall jwestfall  105 May 14 21:59 build-hbarrel-hardware.sh
--rwxrwxrwx 1 jwestfall jwestfall  153 May 14 22:00 build-hbarrel-mame.sh
--rwxrwxrwx 1 jwestfall jwestfall  106 May 14 21:59 build-hippodrm-hardware.sh
--rwxrwxrwx 1 jwestfall jwestfall  154 May 14 22:01 build-hippodrm-mame.sh
--rwxrwxrwx 1 jwestfall jwestfall  105 May 14 22:00 build-robocop-hardware.sh
--rwxrwxrwx 1 jwestfall jwestfall  153 May 14 22:01 build-robocop-mame.sh
--rwxrwxrwx 1 jwestfall jwestfall 2526 May 17 18:02 common.mk
-drwxrwxrwx 1 jwestfall jwestfall 4096 May 17 18:03 include
--rwxrwxrwx 1 jwestfall jwestfall  325 May 16 17:44 mad_dec0.ld
--rwxrwxrwx 1 jwestfall jwestfall  201 May 14 22:03 Makefile.baddudes-hardware
--rwxrwxrwx 1 jwestfall jwestfall  212 May 14 22:03 Makefile.baddudes-mame
--rwxrwxrwx 1 jwestfall jwestfall  216 May 14 22:03 Makefile.hbarrel-hardware
--rwxrwxrwx 1 jwestfall jwestfall  227 May 14 22:03 Makefile.hbarrel-mame
--rwxrwxrwx 1 jwestfall jwestfall  191 May 14 22:03 Makefile.hippodrm-hardware
--rwxrwxrwx 1 jwestfall jwestfall  202 May 14 22:03 Makefile.hippodrm-mame
--rwxrwxrwx 1 jwestfall jwestfall  201 May 14 22:03 Makefile.robocop-hardware
--rwxrwxrwx 1 jwestfall jwestfall  212 May 14 22:03 Makefile.robocop-mame
-drwxrwxrwx 1 jwestfall jwestfall 4096 May 17 18:47 src
-```
-
-The build*.sh are specific to my setup and may not work for you.  They build the
-roms then copy them into my mame's roms/[romset]/ directory.  However you can
-just run `make -f Makefile.xxx` to build the roms for the specific board/romset.
-
-```
-jwestfall@DESKTOP-7LADK23:/mnt/c/Users/jwestfall/Desktop/mad/machine/dec0/main$ make -f Makefile.robocop-hardware
-mkdir -p build/hardware/robocop/work
-mkdir -p build/hardware/robocop/obj/tests build/hardware/robocop/obj/cpu/68000/handlers build/hardware/robocop/obj/cpu/68000/tests
-make: Warning: File 'build/hardware/robocop' has modification time 2.5 s in the future
-vasmm68k_mot -Fvobj -m68000 -spaces -chklabels -Iinclude -I../../../common/include  -quiet -D_ROMSET_ROBOCOP_ -o build/hardware/robocop/obj/cpu/68000/crc32.o ../../../common/src/cpu/68000/crc32.asm
-vasmm68k_mot -Fvobj -m68000 -spaces -chklabels -Iinclude -I../../../common/include  -quiet -D_ROMSET_ROBOCOP_ -o build/hardware/robocop/obj/cpu/68000/dsub.o ../../../common/src/cpu/68000/dsub.asm
-vasmm68k_mot -Fvobj -m68000 -spaces -chklabels -Iinclude -I../../../common/include  -quiet -D_ROMSET_ROBOCOP_ -o build/hardware/robocop/obj/cpu/68000/error_address.o ../../../common/src/cpu/68000/error_address.asm
-vasmm68k_mot -Fvobj -m68000 -spaces -chklabels -Iinclude -I../../../common/include  -quiet -D_ROMSET_ROBOCOP_ -o build/hardware/robocop/obj/cpu/68000/input_update.o ../../../common/src/cpu/68000/input_update.asm
-
+jwestfall@DESKTOP-7LADK23:/mnt/c/Users/jwestfall/Desktop/mad$ make
+make -C util
+make[1]: Entering directory '/mnt/c/Users/jwestfall/Desktop/mad/util'
+cc rom-byte-split.c -o rom-byte-split
+cc rom-inject-crc-mirror.c -o rom-inject-crc-mirror
+make[1]: Leaving directory '/mnt/c/Users/jwestfall/Desktop/mad/util'
+make -C machine
+make[1]: Entering directory '/mnt/c/Users/jwestfall/Desktop/mad/machine'
+for DIR in aliens/main/ alpha68k_ii/main/ blades_of_steel/main/ block_hole/main/ contra/main/ cps1/main/ cps2/main/ crime_fighters/main/ dec0/main/ devastators/main/ mitchell/main/ ninja_gaiden/main/ rollergames/main/ rush_n_attack/main/ the_main_event/main/ the_real_ghostbusters/main/ tmnt/main/ toki/main/ vendetta/main/ wwf_superstars/main/ wwf_wrestlefest/main/; do \
+        make -C $DIR; \
+done
+make[2]: Entering directory '/mnt/c/Users/jwestfall/Desktop/mad/machine/aliens/main'
+mkdir -p build/work
+make[2]: Warning: File 'build' has modification time 74 s in the future
+vasm6809_mot -konami2 -Fvobj -spaces -chklabels -Iinclude -I../../../common -wfail -quiet -D_CPU_KONAMI2_ -D_DEBUG_HARDWARE_ -o build/obj/cpu/6x09/src/header.o ../../../common/cpu/6x09/src/header.asm
+vasm6809_mot -konami2 -Fvobj -spaces -chklabels -Iinclude -I../../../common -wfail -quiet -D_CPU_KONAMI2_ -D_DEBUG_HARDWARE_ -o build/obj/cpu/6x09/src/input_update.o ../../../common/cpu/6x09/src/input_update.asm
+vasm6809_mot -konami2 -Fvobj -spaces -chklabels -Iinclude -I../../../common -wfail -quiet -D_CPU_KONAMI2_ -D_DEBUG_HARDWARE_ -o build/obj/cpu/6x09/src/print_error.o ../../../common/cpu/6x09/src/print_error.asm
+vasm6809_mot -konami2 -Fvobj -spaces -chklabels -Iinclude -I../../../common -wfail -quiet -D_CPU_KONAMI2_ -D_DEBUG_HARDWARE_ -o build/obj/cpu/6x09/src/util.o ../../../common/cpu/6x09/src/util.asm
+vasm6809_mot -konami2 -Fvobj -spaces -chklabels -Iinclude -I../../../common -wfail -quiet -D_CPU_KONAMI2_ -D_DEBUG_HARDWARE_ -o build/obj/cpu/6x09/src/xy_string.o ../../../common/cpu/6x09/src/xy_string.asm
+vasm6809_mot -konami2 -Fvobj -spaces -chklabels -Iinclude -I../../../common -wfail -quiet -D_CPU_KONAMI2_ -D_DEBUG_HARDWARE_ -o build/obj/cpu/6x09/src/debug/error_address_test.o ../../../common/cpu/6x09/src/debug/error_address_test.asm
+vasm6809_mot -konami2 -Fvobj -spaces -chklabels -Iinclude -I../../../common -wfail -quiet -D_CPU_KONAMI2_ -D_DEBUG_HARDWARE_ -o build/obj/cpu/6x09/src/debug/mad_git_hash.o ../../../common/cpu/6x09/src/debug/mad_git_hash.asm
+vasm6809_mot -konami2 -Fvobj -spaces -chklabels -Iinclude -I../../../common -wfail -quiet -D_CPU_KONAMI2_ -D_DEBUG_HARDWARE_ -o build/obj/cpu/6x09/src/handlers/auto_test.o ../../../common/cpu/6x09/src/handlers/auto_test.asm
+vasm6809_mot -konami2 -Fvobj -spaces -chklabels -Iinclude -I../../../common -wfail -quiet -D_CPU_KONAMI2_ -D_DEBUG_HARDWARE_ -o build/obj/cpu/6x09/src/handlers/error.o ../../../common/cpu/6x09/src/handlers/error.asm
+vasm6809_mot -konami2 -Fvobj -spaces -chklabels -Iinclude -I../../../common -wfail -quiet -D_CPU_KONAMI2_ -D_DEBUG_HARDWARE_ -o build/obj/cpu/6x09/src/handlers/memory_viewer.o ../../../common/cpu/6x09/src/handlers/memory_viewer.asm
+vasm6809_mot -konami2 -Fvobj -spaces -chklabels -Iinclude -I../../../common -wfail -quiet -D_CPU_KONAMI2_ -D_DEBUG_HARDWARE_ -o build/obj/cpu/6x09/src/handlers/menu.o ../../../common/cpu/6x09/src/handlers/menu.asm
+vasm6809_mot -konami2 -Fvobj -spaces -chklabels -Iinclude -I../../../common -wfail -quiet -D_CPU_KONAMI2_ -D_DEBUG_HARDWARE_ -o build/obj/cpu/6x09/src/handlers/sound.o ../../../common/cpu/6x09/src/handlers/sound.asm
 ...
-
-vasmm68k_mot -Fvobj -m68000 -spaces -chklabels -Iinclude -I../../../common/include  -quiet -D_ROMSET_ROBOCOP_ -o build/hardware/robocop/obj/tests/tile2_ram.o src/tests/tile2_ram.asm
-vasmm68k_mot -Fvobj -m68000 -spaces -chklabels -Iinclude -I../../../common/include  -quiet -D_ROMSET_ROBOCOP_ -o build/hardware/robocop/obj/tests/tile3_ram.o src/tests/tile3_ram.asm
-vasmm68k_mot -Fvobj -m68000 -spaces -chklabels -Iinclude -I../../../common/include  -quiet -D_ROMSET_ROBOCOP_ -o build/hardware/robocop/obj/tests/work_ram.o src/tests/work_ram.asm
-vlink -brawbin1 -Tmad_dec0.ld -o build/hardware/robocop/work/mad_dec0.bin build/hardware/robocop/obj/cpu/68000/crc32.o build/hardware/robocop/obj/cpu/68000/dsub.o build/hardware/robocop/obj/cpu/68000/error_address.o build/hardware/robocop/obj/cpu/68000/input_update.o build/hardware/robocop/obj/cpu/68000/memory_fill.o build/hardware/robocop/obj/cpu/68000/menu_input_generic.o build/hardware/robocop/obj/cpu/68000/print_error.o build/hardware/robocop/obj/cpu/68000/util.o build/hardware/robocop/obj/cpu/68000/xy_string.o build/hardware/robocop/obj/cpu/68000/handlers/error.o build/hardware/robocop/obj/cpu/68000/handlers/memory_viewer.o build/hardware/robocop/obj/cpu/68000/handlers/memory_tests.o build/hardware/robocop/obj/cpu/68000/handlers/menu.o build/hardware/robocop/obj/cpu/68000/handlers/sound.o build/hardware/robocop/obj/cpu/68000/tests/auto.o build/hardware/robocop/obj/cpu/68000/tests/input.o build/hardware/robocop/obj/cpu/68000/tests/mad_rom.o build/hardware/robocop/obj/cpu/68000/tests/memory.o build/hardware/robocop/obj/mad_dec0.o build/hardware/robocop/obj/errors.o build/hardware/robocop/obj/footer.o build/hardware/robocop/obj/main_menu.o build/hardware/robocop/obj/memory_viewer_menu.o build/hardware/robocop/obj/print.o build/hardware/robocop/obj/screen.o build/hardware/robocop/obj/vector_table.o build/hardware/robocop/obj/tests/auto.o build/hardware/robocop/obj/tests/input.o build/hardware/robocop/obj/tests/palette_ram.o build/hardware/robocop/obj/tests/palette_ext_ram.o build/hardware/robocop/obj/tests/sound.o build/hardware/robocop/obj/tests/sprite_ram.o build/hardware/robocop/obj/tests/tile1_ram.o build/hardware/robocop/obj/tests/tile2_ram.o build/hardware/robocop/obj/tests/tile3_ram.o build/hardware/robocop/obj/tests/work_ram.o
-../../../util/rom-inject-crc-mirror -f build/hardware/robocop/work/mad_dec0.bin -t 131072
-Using ROM: build/hardware/robocop/work/mad_dec0.bin
-Start Size:   0x8000
-Target Size:  0x20000
-CRC32 Range:  0x0 - 0x7ffb
-CRC32:        0x3b6a6732
-Mirrors:      0x3
-../../../util/rom-byte-split build/hardware/robocop/work/mad_dec0.bin build/hardware/robocop/ep05-4.11c build/hardware/robocop/ep01-4.11b
-Input ROM: build/hardware/robocop/work/mad_dec0.bin (131072 bytes)
-Output ROM #1: build/hardware/robocop/ep05-4.11c (65536 bytes)
-Output ROM #2: build/hardware/robocop/ep01-4.11b (65536 bytes)
-make: warning:  Clock skew detected.  Your build may be incomplete.
 ```
 
-From there you can use the Output ROMs in the build/ directory with mame or burn
-them to eproms to use on the hardware.
+If you are want to mess with a specific machine/board you can run the `Makefile`
+under `machine/<machine>`.  Each machine will have a `main` directory which will
+be MAD for the main CPU.  Some machines will have a `sound` directory which will
+be MAD for the sound CPU.
+
+Once compiled the roms will be located under
+`machine/<machine>/(main|sound)/build` directory.  In some cases there will be
+separate builds for MAME and hardware.  This will be because MAME is doing
+something different from hardware and it warrents having the different builds.
