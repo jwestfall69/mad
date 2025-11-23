@@ -1,0 +1,38 @@
+	include "cpu/konami2/include/common.inc"
+
+	global layer_a_tile_viewer
+
+	section code
+
+TILE_OFFSET_MASK	equ $ffff
+
+layer_a_tile_viewer:
+		RSUB	screen_init
+
+		; shift over layer a so its the same offset as fix
+		lda	#$6
+		sta	REG_LAYER_A_SCROLL_X
+
+		ldy	#LAYER_A_TILE_PALETTE + (PALETTE_SIZE * TVC_PALETTE_NUM)
+		jsr	tvc_init
+
+		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
+		ldy	#d_str_title
+		RSUB	print_string
+
+		ldd	#TILE_OFFSET_MASK
+		ldx	#layer_a_seek_xy_cb
+		ldy	#tvc_draw_tile_cb
+		jsr	tile_8x8_viewer_handler
+		rts
+
+layer_a_seek_xy_cb:
+		RSUB	screen_seek_xy
+
+		; convert fix location to layer a
+		leax	$800, x
+		rts
+
+	section data
+
+d_str_title:	STRING "LAYER A TILE VIEWER"
