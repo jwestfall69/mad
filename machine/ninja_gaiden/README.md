@@ -1,9 +1,22 @@
 # Ninja Gaiden
-![mad gaiden main menu](docs/images/mad_gaiden_main_menu.png)
-![mad gaiden tile viewer](docs/images/mad_gaiden_tile_viewer.png)
-![mad gaiden video dac test](docs/images/mad_gaiden_video_dac_test.png)
+- [MAD Pictures](#mad-pictures)
+- [PCB Pictures](#pcb-pictures)
+- [Manual / Schematics](#manual--schematics)
+- [MAD Eproms](#mad-eproms)
+- [RAM Locations](#ram-locations)
+- [Errors/Error Codes](#errorserror-codes)
+  - [Main CPU](#main-cpu)
+  - [Sound CPU](#sound-cpu)
+- [MAD Notes](#mad-notes)
+- [MAME vs Hardware](#mame-vs-hardware)
 
-## PCBs
+# MAD Pictures
+![mad gaiden main menu](docs/images/mad_gaiden_main_menu.png)
+![mad gaiden video dac test](docs/images/mad_gaiden_video_dac_test.png)<br>
+![mad gaiden txt tile viewer](docs/images/mad_gaiden_txt_tile_viewer.png)
+![mad gaiden sprite viewer](docs/images/mad_gaiden_sprite_viewer.png)
+
+## PCB Pictures
 CPU Board:<br>
 <a href="docs/images/ninja_gaiden_cpu_pcb_top.png"><img src="docs/images/ninja_gaiden_cpu_pcb_top.png" width="40%"></a>
 <a href="docs/images/ninja_gaiden_cpu_pcb_bottom.png"><img src="docs/images/ninja_gaiden_cpu_pcb_bottom.png" width="40%"></a>
@@ -21,6 +34,11 @@ face each other.  The sprite ROM board plugs into the graphics board in the 2 so
 in the top left of the graphics board picture.  There may also be a version of
 game where the 8 empty rom locations in the top left of the graphics board picture are
 populated with the sprite roms instead of there being a dedicated sprite rom board.
+
+## Manual / Schematics
+[Manual](docs/ninja_gaiden_manual.pdf)
+
+Schematics don't seem to exist.
 
 ## MAD Eproms
 
@@ -197,10 +215,16 @@ On z80 the error address is `$2000 | error_code << 7`.  Error codes on z80 are 6
 <sup>Table last updated by gen-error-codes-markdown-table on 2025-03-22 @ 19:01 UTC</sup>
 <!-- ec_table_sound_end -->
 
-## MAME vs Hardware
+## MAD Notes
+There are 2 versions of MAD for the main CPU, normal and flipped.  This refers
+to the orientation of the screen.  The latter version is mainly for debugging
+some stuff on hardware.
 
-* There is some inconsistency with the 'y' scroll register (`$07a104`)
-    * A value of $20 causes MAD's header to be off the top of the screen in mame, while its
-      correct on hardware
-    * A value of $0 causes MAD's header to be correct in mame, but down 2 rows
-      on hardware
+
+## MAME vs Hardware
+* There is some inconsistency with the global 'y' offset registers.  The default
+  values will make everything align correctly between hardware and mame, but
+  anything other then that will cause tiles/sprites to diverge.
+* Mame doesn't implement the global 'x' offset registers.  Again the default
+  values will make everything align correctly.  Changing the values will cause
+  hardware to move the tiles/sprites while it does nothing in mame.

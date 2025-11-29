@@ -1,0 +1,7 @@
+BUILD_FLAGS=-D_CPU_68000_ -D_STALL_DELAY_ -D_DEBUG_HARDWARE_
+
+BUILD_DIR=build/normal
+OBJ_DIR=$(BUILD_DIR)/obj
+WORK_DIR=$(BUILD_DIR)/work
+
+include common.mk

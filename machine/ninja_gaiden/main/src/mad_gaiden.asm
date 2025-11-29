@@ -7,37 +7,64 @@
 _start:
 		INTS_DISABLE
 
-		; hardware init
+		move.l	#$fffff, d0
+	.loop_delay:
+		dbra	d0, .loop_delay
+
+	ifd _SCREEN_FLIP_
+		; hardware init / screen flipped
 		; bg layer
-		move.w #$ffb2, $7a300
-		move.w #$fff0, $7a304
-		move.w #$0010, $7a308
-		move.w #$0000, $7a30c
-		move.w #$0004, $7a310
+		move.w	#$014d, $7a300 ; x offset
+		move.w	#$fff0, $7a304 ; y scroll
+		move.w	#$00ef, $7a308 ; y offset
+		move.w	#$0000, $7a30c ; x scroll
+		move.w	#$0004, $7a310 ; 16x16 tiles
 
 		; fg layer
-		move.w #$ffb2, $7a200
-		move.w #$fff0, $7a204
-		move.w #$0010, $7a208
-		move.w #$0000, $7a20c
-		move.w #$0004, $7a210
+		move.w	#$014d, $7a200 ; x offset
+		move.w	#$fff0, $7a204 ; y scroll
+		move.w	#$00ef, $7a208 ; y offset
+		move.w	#$0000, $7a20c ; x scroll
+		move.w	#$0004, $7a210 ; 16x16 tiles
 
 		; txt layer
-		move.w #$ffb2, $7a100
+		move.w	#$004d, $7a100 ; x offset
+		move.w	#$0000, $7a104 ; y scroll
+		move.w	#$00ef, $7a108 ; y offset
+		move.w	#$0000, $7a10c ; x scroll
+		move.w	#$0003, $7a110 ; 8x8 tiles
 
-		; mame and hardware don't seem to agree on the 'y' scroll
-		; value meaning.  A value of $20 in mame causes the header
-		; to be off the top of the screen.  A value of $0 on hardware
-		; causes the header to start 2 rows down.
-	ifd _MAME_BUILD_
-		move.w #$0000, $7a104
+		move.w	#$0001, $7a808 ; screen flip
 	else
-		move.w #$0020, $7a104
+		; hardware init / screen not flipped
+		; bg layer
+		move.w	#$ffb2, $7a300 ; x offset
+		move.w	#$fff0, $7a304 ; y scroll
+		move.w	#$0010, $7a308 ; y offset
+		move.w	#$0004, $7a30c ; x scroll
+		move.w	#$0004, $7a310 ; 16x16 tiles
+
+		; fg layer
+		move.w	#$ffb2, $7a200 ; x offset
+		move.w	#$fff0, $7a204 ; y scroll
+		move.w	#$0010, $7a208 ; y offset
+		move.w	#$0004, $7a20c ; x scroll
+		move.w	#$0004, $7a210 ; 16x16 tiles
+
+		; txt layer
+		move.w	#$ffb2, $7a100 ; x offset
+		move.w	#$0000, $7a104 ; y scroll
+		move.w	#$0010, $7a108 ; y offset
+		move.w	#$0000, $7a10c ; x scroll
+		move.w	#$0003, $7a110 ; 8x8 tiles
+
+		move.w	#$0000, $7a808 ; don't screen flip
 	endif
-		move.w #$0000, $7a108
-		move.w #$0000, $7a10c
-		move.w #$0003, $7a110
-		move.w #$0, $7a808
+
+		move.w	#$000f, $7a000 ; ?
+		move.w	#$0010, $7a002 ; sprite y offset
+		move.w	#$00ef, $7a004 ; ?
+		move.w	#$0001, $7a006 ; enable sprite rendering
 
 		SOUND_STOP
 

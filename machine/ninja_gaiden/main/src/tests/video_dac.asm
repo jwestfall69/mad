@@ -15,22 +15,22 @@ video_dac_test:
 		;  xxxx BBBB GGGG RRRR
 		; red palette setup
 		; palette #0 seems to start at $200
-		lea	PALETTE_RAM+$200+PALETTE_SIZE, a0
+		lea	TXT_PALETTE + PALETTE_SIZE, a0
 		move.w	#$f, d0
 		bsr	palette_setup_color
 
 		; green palette setup
-		lea	PALETTE_RAM+$200+(PALETTE_SIZE*2), a0
+		lea	TXT_PALETTE + (PALETTE_SIZE*2), a0
 		move.w	#$f0, d0
 		bsr	palette_setup_color
 
 		; blue palette setup
-		lea	PALETTE_RAM+$200+(PALETTE_SIZE*3), a0
+		lea	TXT_PALETTE + (PALETTE_SIZE*3), a0
 		move.w	#$f00, d0
 		bsr	palette_setup_color
 
 		; combined/all palette setup
-		lea	PALETTE_RAM+$200+(PALETTE_SIZE*4), a0
+		lea	TXT_PALETTE + (PALETTE_SIZE*4), a0
 		move.w	#$fff, d0
 		bsr	palette_setup_color
 

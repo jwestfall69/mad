@@ -12,7 +12,7 @@ screen_init_dsub:
 		DSUB	memory_fill_list
 
 		; text color
-		lea	PALETTE_RAM + $20e, a0
+		lea	TXT_PALETTE + $e, a0
 		move.w	#$0fff, (a0)
 
 		; text shadow ($202)
