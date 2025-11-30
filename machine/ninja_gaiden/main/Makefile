@@ -1,8 +1,8 @@
 
 all:
-	make -f Makefile.hardware
-	make -f Makefile.mame
+	make -f Makefile.normal
+	make -f Makefile.flipped
 
 clean:
-	make -f Makefile.hardware clean
-	make -f Makefile.mame clean
+	make -f Makefile.normal clean
+	make -f Makefile.flipped clean
