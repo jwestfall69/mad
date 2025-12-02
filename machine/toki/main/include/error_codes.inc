@@ -1,4 +1,4 @@
-; last updated by gen-error-codes on 2025-03-21 @ 21:12 UTC
+; last updated by gen-error-codes on 2025-12-02 @ 04:58 UTC
 RAM_BASE_EC                    equ $01
 EC_RAM_ADDRESS                 equ $01 ; 0000001
 EC_RAM_DATA_LOWER              equ $02 ; 0000010

@@ -13,30 +13,14 @@ screen_init_dsub:
 		moveq	#0, d1
 		DSUB	memory_fill
 
-		; There is some render difference between
-		; hardware and mame such that hardware's
-		; background ends up green while mame is
-		; black.  It seems like something on the
-		; hardware side isn't fully initialized
-		; causing the background to point at a
-		; random palette entry for its color.  Until
-		; I can figure out wtf, I'm disabling the
-		; poison.
-
-		; bits are xxxx BBBB GGGG RRRR
-		; poison palette by making everything green
-		;lea	PALETTE_RAM, a0
-		;move.l	#PALETTE_RAM_SIZE, d0
-		;move.w	#$0f0, d1
-		;DSUB	memory_fill
-
 		; text color
-		move.w	#$fff, PALETTE_RAM + $216
+		move.w	#$fff, TXT_PALETTE + $16
 
 		; text shadow color
-		move.w	#$222, PALETTE_RAM + $208
+		move.w	#$222, TXT_PALETTE + $8
 
 		; background color
+		move.w	#0, PALETTE_RAM + $41c
 		move.w	#0, PALETTE_RAM + $61e
 
 		SEEK_XY	5, 0
@@ -47,6 +31,8 @@ screen_init_dsub:
 		move.l	#'-', d0
 		moveq	#SCREEN_NUM_COLUMNS, d1
 		DSUB	print_char_repeat
+
+		move.b	#$1, r_sprite_copy_req
 		DSUB_RETURN
 
 ; in cases where we need to goto x, y location at runtime

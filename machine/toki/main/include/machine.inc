@@ -10,12 +10,19 @@ NOT_WORK_RAM_SIZE		equ $2800
 
 WORK_RAM			equ $060000
 WORK_RAM_SIZE			equ $c000
-SPRITE_RAM			equ $06d800
-BG1_RAM				equ $06e800
-BG2_RAM				equ $06f000
 
-FG_RAM				equ $06f800
-FG_RAM_SIZE			equ $800
+BG_RAM				equ $06e800
+BG_PALETTE			equ PALETTE_RAM + $400
+
+FG_RAM				equ $06f000
+FG_PALETTE			equ PALETTE_RAM + $600
+
+TXT_RAM				equ $06f800
+TXT_RAM_SIZE			equ $800
+TXT_PALETTE			equ PALETTE_RAM + $200
+
+SPRITE_RAM			equ $06d800
+SPRITE_PALETTE			equ PALETTE_RAM + $0
 
 PALETTE_RAM			equ $06e000
 PALETTE_RAM_SIZE		equ $800
@@ -29,8 +36,9 @@ ROM_SIZE			equ $40000
 
 ; the hardware doesn't seem to update video output
 ; unless a write happens to this address
-MMIO_SCREEN_UPDATE		equ $0a0040
-MMIO_SCREEN_FLIP		equ $0a0050
+REG_SCREEN_UPDATE		equ $0a0040
+REG_SCREEN_FLIP			equ $0a0050
+REG_SPRITE_COPY			equ $0a0048	; not safe to hit outside of vblank
 
 REG_SOUND1			equ $080000
 REG_SOUND2			equ $080002

@@ -23,12 +23,8 @@ memory_viewer_menu:
 
 		rts
 
-view_bg1_ram:
-		lea	BG1_RAM, a0
-		bra	view_memory
-
-view_bg2_ram:
-		lea	BG2_RAM, a0
+view_bg_ram:
+		lea	BG_RAM, a0
 		bra	view_memory
 
 view_fg_ram:
@@ -55,6 +51,10 @@ view_sprite_ram:
 		lea	SPRITE_RAM, a0
 		bra	view_memory
 
+view_txt_ram:
+		lea	TXT_RAM, a0
+		bra	view_memory
+
 view_work_ram:
 		lea	WORK_RAM, a0
 
@@ -68,25 +68,25 @@ view_memory:
 	align 1
 
 d_menu_list:
-	MENU_ENTRY view_bg1_ram, d_str_bg1_ram
-	MENU_ENTRY view_bg2_ram, d_str_bg2_ram
+	MENU_ENTRY view_bg_ram, d_str_bg_ram
 	MENU_ENTRY view_fg_ram, d_str_fg_ram
 	MENU_ENTRY view_mmio_input, d_str_mmio_input
 	MENU_ENTRY view_mmio_screen, d_str_mmio_screen
 	MENU_ENTRY view_palette_ram, d_str_palette_ram
 	MENU_ENTRY view_rom_space, d_str_rom_space
 	MENU_ENTRY view_sprite_ram, d_str_sprite_ram
+	MENU_ENTRY view_txt_ram, d_str_txt_ram
 	MENU_ENTRY view_work_ram, d_str_work_ram
 	MENU_LIST_END
 
 d_str_menu_title:		STRING "MEMORY VIEWER MENU"
 
-d_str_bg1_ram:			STRING "BG1 RAM"
-d_str_bg2_ram:			STRING "BG2 RAM"
+d_str_bg_ram:			STRING "BG RAM"
 d_str_fg_ram:			STRING "FG RAM"
 d_str_mmio_input:		STRING "MMIO INPUT"
 d_str_mmio_screen:		STRING "MMIO SCREEN"
 d_str_palette_ram:		STRING "PALETTE RAM"
 d_str_rom_space:		STRING "ROM SPACE"
 d_str_sprite_ram:		STRING "SPRITE RAM"
+d_str_txt_ram:			STRING "TXT RAM"
 d_str_work_ram:			STRING "WORK RAM"

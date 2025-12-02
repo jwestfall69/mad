@@ -1,6 +1,7 @@
 	include "cpu/68000/include/common.inc"
 
 	global fg_tile_viewer
+	global fg_tile_viewer_palette_setup
 
 	section code
 
@@ -8,25 +9,31 @@ PALETTE_NUM		equ $1
 TILE_OFFSET_MASK	equ $fff
 
 fg_tile_viewer:
-		RSUB	screen_init
-		bsr	fg_palette_setup
+		bsr	fg_tile_viewer_palette_setup
 
-		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
-		lea	d_str_title, a0
-		RSUB	print_string
+		; x/y scroll
+		move.w	#$10, $0a002a
+		move.w	#$fd, $0a002c
+		move.w	#$0, $0a003a
+		move.w	#$0a, $0a003c
+
+		;lea	FG_RAM + $80, a0
+		;move.l	#$700, d0
+		;move.w	#$1002, d1
+		;DSUB	memory_fill
 
 		moveq	#$0, d0
 		move.w	#TILE_OFFSET_MASK, d1
 		lea	fg_seek_xy_cb, a0
 		lea	fg_draw_tile_cb, a1
-		bsr	tile8_viewer_handler
+		bsr	tile16_viewer_handler
 		rts
 
 ; Palette Layout
 ;  xxxx BBBB GGGG RRRR
-fg_palette_setup:
+fg_tile_viewer_palette_setup:
 
-		lea	PALETTE_RAM+$200+(PALETTE_SIZE*PALETTE_NUM), a0
+		lea	FG_PALETTE + (PALETTE_SIZE * PALETTE_NUM), a0
 		lea	d_palette_data, a1
 		moveq	#(PALETTE_SIZE/2 - 1), d0
 
@@ -37,12 +44,19 @@ fg_palette_setup:
 		rts
 
 fg_seek_xy_cb:
-		RSUB	screen_seek_xy
+		SEEK_XY	0, 0
+		lea	(-$800, a6), a6
+		and.l	#$ff, d0
+		and.l	#$ff, d1
+		;lsl.w	#1, d0
+		lsl.w	#5, d1
+		adda.l	d0, a6
+		adda.l	d1, a6
 		rts
 
 ; params:
 ;  d0 = tile (word)
-;  a6 = already at location in fg ram
+;  a6 = already at location in txt ram
 ; Tile Layout
 ;  PPPP TTTT TTTT TTTT
 ; where
@@ -57,8 +71,5 @@ fg_draw_tile_cb:
 	align 1
 
 d_palette_data:
-	dc.w	$0817, $0ed0, $00bc, $0a35, $09d5, $009c, $0c66
-	dc.w	$06c4, $0c64, $0b39, $02cb, $0e94, $036b, $04d8
-	dc.w	$064c, $050d
-
-d_str_title: 	STRING "FG TILE VIEWER"
+	dc.w	$0abb, $09aa, $0677, $0566, $0455, $0344, $0233, $0122
+	dc.w	$0011, $0355, $0344, $0234, $0135, $0766, $0645, $0000
