@@ -46,9 +46,12 @@ writes will trigger data to be copied out of th 2x32K chips and into the logic
 that handles it.
 
 ```
-0x0a0040 - TXT Tiles and palette(?) data copy
+0x0a0040 - Tiles and palette data copy
 0x0a0048 - Sprite data copy
 ```
+
+These have been confirmed with a logic analyzer and from getting stuff to
+display on screen.
 
 ## Errors/Error Codes
 The main CPU and sound CPU MAD rom should be used independently from each
@@ -90,8 +93,9 @@ The sound CPU is a z80.  No MAD rom exists yet for the sound CPU.
 
 ## MAD Notes
 * FG/BG Tile viewers currently don't work on hardware.  I haven't been able to
-  track down what is causing the problem.  There must be some dma request that
-  needs to happen to copy the FG/BG Tile data out of ram like exists for TXT
-  tiles/sprites/palette data.
+  track down what is causing the problem.  A write to 0x0a0040 definitely triggers a copy
+  of BG/FG tiles (along with TXT tiles and palette data) based on logic analyzer
+  gathering.  So I'm either missing some hardware initialization or there is
+  some timing weirdness with it
 
 ## MAME vs Hardware
