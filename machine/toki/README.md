@@ -92,10 +92,6 @@ are 7 bits.
 The sound CPU is a z80.  No MAD rom exists yet for the sound CPU.
 
 ## MAD Notes
-* FG/BG Tile viewers currently don't work on hardware.  I haven't been able to
-  track down what is causing the problem.  A write to 0x0a0040 definitely triggers a copy
-  of BG/FG tiles (along with TXT tiles and palette data) based on logic analyzer
-  gathering.  So I'm either missing some hardware initialization or there is
-  some timing weirdness with it
+None
 
 ## MAME vs Hardware
