@@ -7,32 +7,28 @@
 _start:
 		INTS_DISABLE
 
-
 		move.l	#$fffff, d0
 	.loop_delay:
 		dbra	d0, .loop_delay
 
-		move.w	#$0008, $a0000
-		move.w	#$0030, $a000a
-		move.w	#$0300, $a000c
-		move.w	#$00b9, $a000e
-
-		move.w	#$0008, $a0010
-		move.w	#$0028, $a0018
-		move.w	#$00ef, $a001a
-		move.w	#$fe60, $a001c
-		move.w	#$00ae, $a001e
-
-		move.w	#$0008, $a0020
-		move.w	#$0010, $a002a
-		move.w	#$0140, $a002c
-		move.w	#$00b9, $a002e
-
-		move.w	#$0008, $a0030
-		move.w	#$0028, $a0038
-		move.w	#$00ff, $a003a
-		move.w	#$ff70, $a003c
-		move.w	#$00ae, $a003e
+		moveq	#$0, d0
+		move.w	D0, $a0000.l
+		move.w	D0, $a0010.l
+		move.w	D0, $a0020.l
+		move.w	D0, $a0030.l
+		move.w	#$28, D0
+		move.w	#$b9, D1
+		move.w	#$28, D2
+		move.w	#$ae, D3
+		move.w	#$1c, D4
+		move.w	D0, $a000c.l
+		move.w	D1, $a000e.l
+		move.w	D2, $a001c.l
+		move.w	D3, $a001e.l
+		move.w	D0, $a002c.l
+		move.w	D1, $a002e.l
+		move.w	D2, $a003c.l
+		move.w	D3, $a003e.l
 
 		; high bit flips the screen, not sure what the others
 		; are but the screen doesnt seem to render at all without

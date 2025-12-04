@@ -49,7 +49,7 @@ value_changed_cb:
 		moveq	#$0, d0
 		move.b	r_sprite_flip_y, d0
 		lsl.b	#$1, d0
-		move.b	r_sprite_flip_x, d0
+		or.b	r_sprite_flip_x, d0
 		lsl.w	#$8, d0
 		move.b	r_sprite_offset_x, d0
 		lsl.b	#$4, d0
