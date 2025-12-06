@@ -10,14 +10,21 @@ MENU_Y_OFFSET		equ SCREEN_START_Y + 2
 	section code
 
 ; params:
-;  a0 = array of menu entries
-; returns:
-;  d0 = 0 (function ran) or 1 (menu exit)
+;  a0 = ptr to title string
+;  a1 = array of menu entries
 menu_handler:
+		move.l	a0, r_menu_title_ptr
+		move.l	a1, r_menu_list_ptr
+		clr.b	r_menu_cursor
 
-		move.l	a0, r_menu_list
-		move.l	a1, a2
+	.loop_menu:
+		RSUB	screen_init
 
+		SEEK_XY SCREEN_START_X, SCREEN_START_Y
+		move.l	r_menu_title_ptr, a0
+		RSUB	print_string
+
+		move.l	r_menu_list_ptr, a0
 		bsr	print_menu_list
 		move.b	d0, d6			; max menu entries
 		subq.b	#1, d6
@@ -67,7 +74,6 @@ menu_handler:
 	.b1_not_pressed:
 		btst	#INPUT_B2_BIT, d0
 		beq	.loop_menu_input
-		moveq	#MENU_EXIT, d0
 		rts
 
 	.update_cursor:
@@ -97,7 +103,7 @@ menu_handler:
 
 		RSUB	screen_init
 
-		move.l	r_menu_list, a1
+		move.l	r_menu_list_ptr, a1
 		move.l	d4, d0
 		mulu	#8, d0
 		add.l	d0, a1
@@ -107,14 +113,16 @@ menu_handler:
 		RSUB	print_string
 
 		move.b	r_menu_cursor, -(a7)
+		move.l	r_menu_title_ptr, -(a7)
+		move.l	r_menu_list_ptr, -(a7)
 
 		move.la	s_me_function_ptr(a1), a1
 		jsr	(a1)
 
+		move.l	(a7)+, r_menu_list_ptr
+		move.l	(a7)+, r_menu_title_ptr
 		move.b	(a7)+, r_menu_cursor
-
-		moveq	#MENU_CONTINUE, d0
-		rts
+		bra	.loop_menu
 
 
 ; params
@@ -122,8 +130,8 @@ menu_handler:
 ; returns
 ;  d0 = number of items printed
 print_menu_list:
-		moveq	#0, d4		; number of entries
 		move.l	a0, a1
+		moveq	#0, d4		; number of entries
 
 	.loop_next_entry:
 		cmp.l	#0, (a1)
@@ -148,5 +156,6 @@ print_menu_list:
 	section bss
 	align 1
 
-r_menu_list:		dcb.l 1
+r_menu_list_ptr:	dcb.l 1
+r_menu_title_ptr:	dcb.l 1
 r_menu_cursor:		dcb.b 1

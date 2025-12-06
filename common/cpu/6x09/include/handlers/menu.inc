@@ -1,6 +1,3 @@
-MENU_EXIT	equ $0
-MENU_CONTINUE	equ $1
-
 	rsreset
 s_me_function_ptr	rs.w 1
 s_me_name_ptr		rs.w 1

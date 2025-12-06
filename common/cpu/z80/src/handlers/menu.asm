@@ -10,13 +10,23 @@ MENU_Y_OFFSET		equ SCREEN_START_Y + 2
 	section code
 
 ; params:
-;  ix = address of menu struct list
-; returns:
-;  a = 0 (function ran) or 1 (menu exit)
+;  ix = ptr to title string
+;  iy = address of menu struct list
 menu_handler:
-		push	ix
+		ld	(r_menu_title_ptr), ix
+		ld	(r_menu_list_ptr), iy
+		ld	a, 0
+		ld	(r_menu_cursor), a
+
+	.loop_menu:
+		RSUB	screen_init
+
+		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
+		ld	de, (r_menu_title_ptr)
+		RSUB	print_string
+
+		ld	ix, (r_menu_list_ptr)
 		call	print_menu_list
-		pop	ix
 		dec	a		; adjust for 0 index
 		ld	(r_menu_cursor_max), a
 
@@ -68,12 +78,9 @@ menu_handler:
 
 		bit	INPUT_B2_BIT, a
 		jr	z, .loop_menu_input
-
-		ld	a, MENU_EXIT
 		ret
 
 	.update_cursor:
-
 		ld	(r_menu_cursor), a
 
 		; remove old cursor
@@ -100,7 +107,12 @@ menu_handler:
 		RSUB	screen_init
 
 		ld	a, (r_menu_cursor)
+		ld	ix, (r_menu_title_ptr)
+		ld	iy, (r_menu_list_ptr)
+
 		push	af
+		push	ix
+		push	iy
 
 		; based on the cursor number figure out
 		; and got the correct entry in menu_list
@@ -108,30 +120,33 @@ menu_handler:
 		sla	a
 		sla	a
 		ld	c, a
-		add	ix, bc
+		add	iy, bc
 
 		; menu entry string
 		SEEK_XY SCREEN_START_X, SCREEN_START_Y
-		ld	e, (ix + s_me_name_ptr)
-		ld	d, (ix + s_me_name_ptr + 1)
+		ld	e, (iy + s_me_name_ptr)
+		ld	d, (iy + s_me_name_ptr + 1)
 		RSUB	print_string
 
 		; menu entry function
-		ld	l, (ix + s_me_function_ptr)
-		ld	h, (ix + s_me_function_ptr + 1)
+		ld	l, (iy + s_me_function_ptr)
+		ld	h, (iy + s_me_function_ptr + 1)
 
 		; setup stack so we ret to after the jp
 		ld	de, .function_return
 		push	de
 		jp	(hl)
 	.function_return:
+		pop	iy
+		ld	(r_menu_list_ptr), iy
+		pop	ix
+		ld	(r_menu_title_ptr), ix
 		pop	af
 		ld	(r_menu_cursor), a
-		ld	a, MENU_CONTINUE
-		ret
+		jp	.loop_menu
 
 ; params:
-;  de = address of menu struct list
+;  ix = address of menu struct list
 print_menu_list:
 
 		ld	iy, r_print_menu_line
@@ -173,6 +188,7 @@ print_menu_list:
 
 r_print_menu_line:	dcb.b 1
 r_menu_list_ptr:	dcb.w 1
+r_menu_title_ptr:	dcb.w 1
 r_menu_cursor:		dcb.b 1
 r_menu_cursor_prev:	dcb.b 1
 r_menu_cursor_max:	dcb.b 1

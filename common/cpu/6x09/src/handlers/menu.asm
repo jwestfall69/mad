@@ -10,11 +10,21 @@ MENU_Y_OFFSET		equ SCREEN_START_Y + 2
 	section code
 
 ; params:
+;  x = ptr to title string
 ;  y = address of menu struct list
-; returns:
-;  a = 0 (function ran) or 1 (menu exit)
 menu_handler:
+		stx	r_menu_title_ptr
 		sty	r_menu_list_ptr
+		clr	r_menu_cursor
+
+	.loop_menu:
+		RSUB	screen_init
+
+		SEEK_XY SCREEN_START_X, SCREEN_START_Y
+		ldy	r_menu_title_ptr
+		RSUB	print_string
+
+		ldy	r_menu_list_ptr
 		jsr	print_menu_list
 
 		; if no entries exit back
@@ -91,7 +101,6 @@ menu_handler:
 		bra	.loop_input
 
 	.menu_exit:
-		lda	#MENU_EXIT
 		rts
 
 
@@ -114,15 +123,19 @@ menu_handler:
 		puls	y
 
 		lda	r_menu_cursor
-		pshs	a
+		ldx	r_menu_list_ptr
+		pshs	a, x
+		ldx	r_menu_title_ptr
+		pshs	x
 
 		jsr	[s_me_function_ptr, y]
 
-		puls	a
+		puls	x
+		stx	r_menu_title_ptr
+		puls	a, y
+		sty	r_menu_list_ptr
 		sta	r_menu_cursor
-
-		lda	#MENU_CONTINUE
-		rts
+		jmp	.loop_menu
 
 
 ; params:
@@ -158,6 +171,7 @@ print_menu_list:
 
 r_menu_print_line:	dcb.b 1
 r_menu_list_ptr:	dcb.w 1
+r_menu_title_ptr:	dcb.w 1
 r_menu_cursor:		dcb.b 1
 r_menu_cursor_prev:	dcb.b 1
 r_menu_cursor_max:	dcb.b 1

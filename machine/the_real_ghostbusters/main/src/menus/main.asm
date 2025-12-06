@@ -6,20 +6,10 @@
 	section code
 
 main_menu:
-		clr	r_menu_cursor
-
-	.loop_menu:
-		RSUB	screen_init
-
-		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
-		ldy	#d_str_menu_title
-		RSUB	print_string
-
+		ldx	#d_str_menu_title
 		ldy	#d_menu_list
 		jsr	menu_handler
-
-		bra	.loop_menu
-
+		bra	main_menu
 
 	section data
 
