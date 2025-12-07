@@ -1,10 +1,24 @@
 # WWF WrestleFest
+
+- [MAD Pictures](#mad-pictures)
+- [PCB Pictures](#pcb-pictures)
+- [Manual / Schematics](#manual--schematics)
+- [MAD Eproms](#mad-eproms)
+- [RAM Locations](#ram-locations)
+- [Errors/Error Codes](#errorserror-codes)
+  - [Main CPU](#main-cpu)
+  - [Sound CPU](#sound-cpu)
+- [MAD Notes](#mad-notes)
+  - [Fix Tile/Sprite RAM](#fix-tilesprite-ram)
+- [MAME vs Hardware](#mame-vs-hardware)
+
+## MAD Pictures
 ![mad wwfwfest main menu](docs/images/mad_wwfwfest_main_menu.png)
 ![mad wwfwfest video dac test](docs/images/mad_wwfwfest_video_dac_test.png)<br>
 ![mad wwfwfest fix tile viewer](docs/images/mad_wwfwfest_fix_tile_viewer.png)
 ![mad wwfwfest sprite viewer](docs/images/mad_wwfwfest_sprite_viewer.png)
 
-## PCBs
+## PCB Pictures
 <a href="docs/images/wwf_wrestlefest_pcb_top.png"><img src="docs/images/wwf_wrestlefest_pcb_top.png" width="40%"></a>
 <a href="docs/images/wwf_wrestlefest_pcb_bottom.png"><img src="docs/images/wwf_wrestlefest_pcb_bottom.png" width="40%"></a>
 <p>
@@ -15,7 +29,6 @@
 Schematics don't seem to exist.
 
 ## MAD Eproms
-
 | Diag | Eprom Type | Location(s) | Notes |
 | ---- | ---------- | ----------- | ----- |
 | Main | 27c020| 31e13-0.ic19 @ IC19<br>31e14-0.ic18 @ IC18 | Using Makefile.hardware |
