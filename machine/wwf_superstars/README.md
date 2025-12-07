@@ -1,10 +1,22 @@
 # WWF Superstars
+- [MAD Pictures](#mad-pictures)
+- [PCB Pictures](#pcb-pictures)
+- [Manual / Schematics](#manual--schematics)
+- [MAD Eproms](#mad-eproms)
+- [RAM Locations](#ram-locations)
+- [Errors/Error Codes](#errorserror-codes)
+  - [Main CPU](#main-cpu)
+  - [Sound CPU](#sound-cpu)
+- [MAD Notes](#mad-notes)
+- [MAME vs Hardware](#mame-vs-hardware)
+
+## MAD Pictures
 ![mad wwfsstar main menu](docs/images/mad_wwfsstar_main_menu.png)
 ![mad wwfsstar fg tile viewer](docs/images/mad_wwfsstar_fg_tile_viewer.png)<br>
-![mad wwfsstar bg tile viewer](docs/images/mad_wwfsstar_bg_tile_viewer.png)
+![mad wwfsstar sprite viewer](docs/images/mad_wwfsstar_sprite_viewer.png)
 ![mad wwfsstar video dac test](docs/images/mad_wwfsstar_video_dac_test.png)
 
-## PCBs
+## PCB Pictures
 CPU Board:<br>
 <a href="docs/images/wwf_superstars_cpu_pcb_top.png"><img src="docs/images/wwf_superstars_cpu_pcb_top.png" width="40%"></a>
 <a href="docs/images/wwf_superstars_cpu_pcb_bottom.png"><img src="docs/images/wwf_superstars_cpu_pcb_bottom.png" width="40%"></a>
@@ -14,12 +26,15 @@ Graphics Board:<br>
 <a href="docs/images/wwf_superstars_graphics_pcb_bottom.png"><img src="docs/images/wwf_superstars_graphics_pcb_bottom.png" width="40%"></a>
 <p>
 
-
 The CPU and graphics board are oriented such that the solder side of the boards
 face each other.
 
-## MAD Eproms
+## Manual / Schematics
+[Manual](docs/wwf_superstars_manual.pdf)
 
+Schematics don't seem to exist.
+
+## MAD Eproms
 | Diag | Eprom Type | Location(s) |
 | ---- | ---------- | ----------- |
 | Main on CPU PCB | 27c010 or 27c1001 | 24ac-0_j-1.34 @ IC34<br>24ad-0_j-1.35 @ IC35 |
@@ -101,7 +116,7 @@ are 7 bits.
 | 0x7e |    126 | 0111 1110 |  000 0000 0011 0111 1110 xxxx  | MAD ROM ADDRESS                |
 | 0x7f |    127 | 0111 1111 |  000 0000 0011 0111 1111 xxxx  | MAD ROM CRC32                  |
 
-<sup>Table last updated by gen-error-codes-markdown-table on 2025-03-26 @ 01:45 UTC</sup>
+<sup>Table last updated by gen-error-codes-markdown-table on 2025-12-07 @ 02:46 UTC</sup>
 <!-- ec_table_main_end -->
 
 ### Sound CPU
@@ -134,6 +149,9 @@ On z80 the error address is `$2000 | error_code << 7`.  Error codes on z80 are 6
 
 <sup>Table last updated by gen-error-codes-markdown-table on 2025-03-26 @ 01:45 UTC</sup>
 <!-- ec_table_sound_end -->
+
+## MAD Notes
+None
 
 ## MAME vs Hardware
 

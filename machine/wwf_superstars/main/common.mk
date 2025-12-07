@@ -25,6 +25,7 @@ OBJS = $(OBJ_DIR)/cpu/68000/src/crc32.o \
        $(OBJ_DIR)/cpu/68000/src/handlers/sound.o \
        $(OBJ_DIR)/cpu/68000/src/handlers/tile8_viewer.o \
        $(OBJ_DIR)/cpu/68000/src/handlers/tile16_viewer.o \
+       $(OBJ_DIR)/cpu/68000/src/handlers/values_edit.o \
        $(OBJ_DIR)/cpu/68000/src/tests/input.o \
        $(OBJ_DIR)/cpu/68000/src/tests/mad_rom.o \
        $(OBJ_DIR)/cpu/68000/src/tests/memory.o \
@@ -37,11 +38,12 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/screen.o \
         $(OBJ_DIR)/vector_table.o \
         $(OBJ_DIR)/version.o \
-        $(OBJ_DIR)/debug/bg_tile_viewer.o \
-        $(OBJ_DIR)/debug/fg_tile_viewer.o \
         $(OBJ_DIR)/menus/debug.o \
+        $(OBJ_DIR)/menus/graphics_viewer.o \
         $(OBJ_DIR)/menus/main.o \
         $(OBJ_DIR)/menus/memory_viewer.o \
+        $(OBJ_DIR)/menus/ram_tests.o \
+        $(OBJ_DIR)/menus/video_tests.o \
         $(OBJ_DIR)/tests/auto.o \
         $(OBJ_DIR)/tests/bg_ram.o \
         $(OBJ_DIR)/tests/fg_ram.o \
@@ -49,14 +51,29 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/tests/palette_ram.o \
         $(OBJ_DIR)/tests/sound.o \
         $(OBJ_DIR)/tests/sprite_ram.o \
-        $(OBJ_DIR)/tests/video_dac.o
+        $(OBJ_DIR)/tests/video_dac.o \
+        $(OBJ_DIR)/viewers/bg_tile.o \
+        $(OBJ_DIR)/viewers/fg_tile.o \
+        $(OBJ_DIR)/viewers/sprite.o
 
-INCS = $(wildcard include/*.inc) \
+ifneq (,$(findstring _DEBUG_HARDWARE_,$(BUILD_FLAGS)))
+OBJS += $(OBJ_DIR)/cpu/68000/src/handlers/memory_write.o \
+        $(OBJ_DIR)/debug/hardware/sprite.o \
+        $(OBJ_DIR)/menus/debug_hardware.o
+endif
+
+INCS = $(wildcard ../../../common/global/include/*.inc) \
+       $(wildcard ../../../common/global/include/*/*.inc) \
+       $(wildcard ../../../common/global/include/*/*/*.inc) \
        $(wildcard ../../../common/global/include/*.inc) \
        $(wildcard ../../../common/cpu/68000/include/*.inc) \
-       $(wildcard ../../../common/cpu/68000/include/tests/*.inc)
+       $(wildcard ../../../common/cpu/68000/include/*/*.inc) \
+       $(wildcard ../../../common/cpu/68000/include/*/*/*.inc) \
+       $(wildcard include/*.inc) \
+       $(wildcard include/*/*.inc) \
+       $(wildcard include/*/*/*.inc)
 
-$(WORK_DIR)/$(MAD_NAME).bin: include/error_codes.inc $(WORK_DIR) $(BUILD_DIR) $(OBJS)
+$(WORK_DIR)/$(MAD_NAME).bin: include/error_codes.inc $(WORK_DIR) $(BUILD_DIR) $(OBJS) ../README.md
 	$(VLINK) $(VLINK_FLAGS) -o $(WORK_DIR)/$(MAD_NAME).bin $(OBJS)
 	../../../util/rom-inject-crc-mirror -f $(WORK_DIR)/$(MAD_NAME).bin -e big -t $(ROM_SIZE)
 	../../../util/rom-byte-split $(WORK_DIR)/$(MAD_NAME).bin $(BUILD_DIR)/$(ROMA) $(BUILD_DIR)/$(ROMB)

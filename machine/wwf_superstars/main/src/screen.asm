@@ -10,11 +10,11 @@ screen_init_dsub:
 		DSUB	memory_fill_list
 
 		; text color
-		lea	PALETTE_RAM + $18, a0
+		lea	FG_PALETTE + $18, a0
 		move.w	#$0fff, (a0)
 
 		; text shadow
-		lea	PALETTE_RAM + $2, a0
+		lea	FG_PALETTE + $2, a0
 		move.w	#$0111, (a0)
 
 		; background color ($200)
