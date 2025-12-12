@@ -9,7 +9,7 @@ screen_init_dsub:
 		lea	d_memory_fill_list, a0
 		DSUB	memory_fill_list
 
-		ROMSET_PALETTE_SETUP
+		RS_SI_PALETTE_SETUP
 		; background color ($ffe)
 
 		SEEK_XY	0, 0

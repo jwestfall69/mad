@@ -1,4 +1,4 @@
-; last updated by gen-error-codes on 2025-03-21 @ 21:12 UTC
+; last updated by gen-error-codes on 2025-12-11 @ 04:00 UTC
 WORK_RAM_BASE_EC               equ $01
 EC_WORK_RAM_ADDRESS            equ $01 ; 000001
 EC_WORK_RAM_DATA               equ $02 ; 000010

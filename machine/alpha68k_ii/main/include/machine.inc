@@ -4,6 +4,7 @@ TILE_RAM			equ $100000
 TILE_RAM_SIZE			equ $1000
 TILE_RAM_ADDRESS_LINES		equ 12
 TILE_RAM_MASK			equ $ff
+TILE_PALETTE			equ PALETTE_RAM
 
 PALETTE_RAM			equ $400000
 PALETTE_RAM_MASK		equ $ffff
@@ -15,6 +16,11 @@ SPRITE_RAM			equ $200000
 SPRITE_RAM_SIZE			equ $8000
 SPRITE_RAM_ADDRESS_LINES	equ 14
 SPRITE_RAM_MASK			equ $ff
+; Sprites can access any palette in the palette ram.
+; Adding $100 so we dont accidently conflict with tile's
+; palettte.  When setting up sprites need to start at
+; palette $8.
+SPRITE_PALETTE			equ PALETTE_RAM + $100
 
 WORK_RAM			equ $040000
 WORK_RAM_SIZE			equ $1000

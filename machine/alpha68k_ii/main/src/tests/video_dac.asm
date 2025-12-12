@@ -8,7 +8,7 @@ video_dac_test:
 		RSUB	screen_init
 
 		moveq	#$2, d0
-		bsr	fg_set_bank
+		bsr	set_tile_bank
 
 		lea	d_screen_xys_list, a0
 		RSUB	print_xy_string_list
@@ -17,22 +17,22 @@ video_dac_test:
 		; Palette Layout
 		;  xxxx RRRR GGGG BBBB
 		; red palette setup
-		lea	PALETTE_RAM+PALETTE_SIZE, a0
+		lea	TILE_PALETTE + PALETTE_SIZE, a0
 		move.w	#$f00, d0
 		bsr	palette_setup_color
 
 		; green palette setup
-		lea	PALETTE_RAM+(PALETTE_SIZE*2), a0
+		lea	TILE_PALETTE + (PALETTE_SIZE * 2), a0
 		move.w	#$f0, d0
 		bsr	palette_setup_color
 
 		; blue palette setup
-		lea	PALETTE_RAM+(PALETTE_SIZE*3), a0
+		lea	TILE_PALETTE + (PALETTE_SIZE * 3), a0
 		move.w	#$f, d0
 		bsr	palette_setup_color
 
 		; combined/all palette setup
-		lea	PALETTE_RAM+(PALETTE_SIZE*4), a0
+		lea	TILE_PALETTE + (PALETTE_SIZE * 4), a0
 		move.w	#$fff, d0
 		bsr	palette_setup_color
 
@@ -55,7 +55,7 @@ video_dac_test:
 		beq	.loop_input
 
 		moveq	#0, d0
-		bsr	fg_set_bank
+		bsr	set_tile_bank
 		rts
 
 ; In full screen mode we fill the entire fg ram with a single

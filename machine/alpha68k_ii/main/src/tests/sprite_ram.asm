@@ -10,8 +10,8 @@
 ; of 3x 8bit ram chips, where the upper byte in every long is not connected.
 ;  xxxx 2222 1111 0000
 ; Its going to require custom tests/errors to support it, where we would have
-; an upper, middle and lower error codes.  For not its just checking the lower
-; byte, which covers 2 of the 3 ram chips.
+; an upper, middle and lower error codes.  For now its just checking the lower
+; byte of each word, which covers 2 of the 3 ram chips.
 auto_sprite_ram_tests:
 		lea	d_mt_data, a0
 		DSUB	memory_tests_handler
