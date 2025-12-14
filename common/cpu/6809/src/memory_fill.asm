@@ -7,22 +7,22 @@
 
 ; params:
 ;  a = byte to fill with
-;  w = size
 ;  x = start address
+;  y = size
 memory_fill_dsub:
 		WATCHDOG
 		sta	,x+
-		decw
+		leay	-1, y
 		bne	memory_fill_dsub
 		DSUB_RETURN
 
 ; params:
 ;  d = byte to fill with
-;  w = size (number of words)
 ;  x = start address
+;  y = size (number of words)
 memory_fill_word_dsub:
 		WATCHDOG
 		std	,x++
-		decw
+		leay	-1, y
 		bne	memory_fill_word_dsub
 		DSUB_RETURN

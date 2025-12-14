@@ -1,10 +1,6 @@
 ; Yamaha YM2151 FM
+	include "cpu/6809/include/common.inc"
 	include "global/include/yamaha/ym2151.inc"
-	include "cpu/6809/include/macros.inc"
-	include "cpu/6809/include/psub.inc"
-
-	include "machine.inc"
-	include "error_codes.inc"
 
 	global ym2151_busy_bit_test
 

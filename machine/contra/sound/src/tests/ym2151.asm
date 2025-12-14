@@ -6,7 +6,7 @@
 
 ym2151_tests:
 		ldx	#REG_YM2151_DATA
-		PSUB	memory_output_test
+		RSUB	memory_output_test
 		beq	.test_passed_output
 		lda	#EC_YM2151_OUTPUT
 		jmp	error_address

@@ -1,9 +1,6 @@
-	include "cpu/6809/include/macros.inc"
-	include "cpu/6809/include/psub.inc"
+	include "cpu/6809/include/common.inc"
 
-	include "machine.inc"
-
-	global memory_output_test_psub
+	global memory_output_test_dsub
 
 	section code
 
@@ -18,7 +15,7 @@
 ;  x = address
 ; returns:
 ;  a = 0 (pass), 1 (fail)
-memory_output_test_psub:
+memory_output_test_dsub:
 		ldb	#$64
 
 	.loop_next:
@@ -36,7 +33,7 @@ memory_output_test_psub:
 		bne	.loop_next
 		WATCHDOG
 		clra
-		PSUB_RETURN
+		DSUB_RETURN
 
 	.test_failed:
 		lda	#$1
