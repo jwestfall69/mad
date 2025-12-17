@@ -1,4 +1,4 @@
-	include "cpu/6309/include/common.inc"
+	include "cpu/6809/include/common.inc"
 
 	global memory_fill_dsub
 	global memory_fill_word_dsub

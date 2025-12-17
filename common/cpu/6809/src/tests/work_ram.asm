@@ -6,6 +6,10 @@
 	global work_ram_output_test_dsub
 	global work_ram_write_test_dsub
 
+	ifnd _HEADLESS_
+		global manual_work_ram_tests
+	endif
+
 	section code
 
 ; Write an incrementing value at each address line, then
@@ -33,7 +37,8 @@ work_ram_address_test_dsub:
 		rola
 
 		; add base work ram address
-		ora	#(WORK_RAM_CHIP >> 8)
+	;	ora	#(WORK_RAM_CHIP >> 8)
+		adda	#(WORK_RAM_CHIP >> 8)
 		orb	#(WORK_RAM_CHIP & $ff)
 		tfr	d, x
 		; recover addr offset
@@ -68,7 +73,8 @@ work_ram_address_test_dsub:
 		rola
 
 		; add base work ram address
-		ora	#(WORK_RAM_CHIP >> 8)
+		;ora	#(WORK_RAM_CHIP >> 8)
+		adda	#(WORK_RAM_CHIP >> 8)
 		orb	#(WORK_RAM_CHIP & $ff)
 		tfr	d, x
 		; recover addr offset
@@ -80,6 +86,19 @@ work_ram_address_test_dsub:
 		DSUB_RETURN
 
 	.test_failed:
+
+	ifnd _HEADLESS_
+		lda	, x
+		PSUB	print_error_work_ram_data
+
+		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
+		ldy	#d_str_work_ram_address
+		PSUB	print_string
+
+		lda	#EC_WORK_RAM_ADDRESS
+		PSUB	sound_play_byte
+	endif
+
 		lda	#EC_WORK_RAM_ADDRESS
 		jmp	error_address
 
@@ -88,22 +107,22 @@ work_ram_data_test_dsub:
 
 	.loop_next_pattern:
 		WATCHDOG
-		lda	,y+
+		ldb	,y+
 
 		ldx	#WORK_RAM_CHIP
 	.loop_next_write_address:
-		sta	,x+
+		stb	,x+
 		cmpx	#(WORK_RAM_CHIP + WORK_RAM_CHIP_SIZE)
 		bne	.loop_next_write_address
 
 		ldx	#WORK_RAM_CHIP
 	.loop_next_read_address:
-		cmpa	,x+
+		cmpb	,x+
 		bne	.test_failed
 		cmpx	#(WORK_RAM_CHIP + WORK_RAM_CHIP_SIZE)
 		bne	.loop_next_read_address
 
-		cmpa	#$ff	; last pattern
+		cmpb	#$ff	; last pattern
 		beq	.test_passed
 		bra	.loop_next_pattern
 
@@ -111,6 +130,19 @@ work_ram_data_test_dsub:
 		DSUB_RETURN
 
 	.test_failed:
+
+	ifnd _HEADLESS_
+		lda	-1, x
+		PSUB	print_error_work_ram_data
+
+		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
+		ldy	#d_str_work_ram_data
+		PSUB	print_string
+
+		lda	#EC_WORK_RAM_DATA
+		PSUB	sound_play_byte
+	endif
+
 		lda	#EC_WORK_RAM_DATA
 		jmp	error_address
 
@@ -140,6 +172,16 @@ work_ram_output_test_dsub:
 
 	.test_failed:
 		WATCHDOG
+
+	ifnd _HEADLESS_
+		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
+		ldy	#d_str_work_ram_output
+		PSUB	print_string
+
+		lda	#EC_WORK_RAM_OUTPUT
+		PSUB	sound_play_byte
+	endif
+
 		lda	#EC_WORK_RAM_OUTPUT
 		jmp	error_address
 
@@ -160,7 +202,7 @@ work_ram_march_test_dsub:
 
 	.loop_up_test:
 		cmpa	, x
-		bne	.test_failed
+		bne	.test_failed_up
 
 		stb	, x+
 		cmpx	#(WORK_RAM_CHIP + WORK_RAM_CHIP_SIZE)
@@ -178,8 +220,24 @@ work_ram_march_test_dsub:
 		WATCHDOG
 		DSUB_RETURN
 
+	.test_failed_up:
+		tfr	a, b
+
 	.test_failed:
+		lda	, x
+
 		WATCHDOG
+	ifnd _HEADLESS_
+		PSUB	print_error_work_ram_data
+
+		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
+		ldy	#d_str_work_ram_march
+		PSUB	print_string
+
+		lda	#EC_WORK_RAM_MARCH
+		PSUB	sound_play_byte
+	endif
+
 		lda	#EC_WORK_RAM_MARCH
 		jmp	error_address
 
@@ -199,6 +257,15 @@ work_ram_write_test_dsub:
 		cmpa	, x
 		bne	.test_passed
 
+	ifnd _HEADLESS_
+		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
+		ldy	#d_str_work_ram_write
+		PSUB	print_string
+
+		lda	#EC_WORK_RAM_OUTPUT
+		PSUB	sound_play_byte
+	endif
+
 		lda	#EC_WORK_RAM_WRITE
 		jmp	error_address
 
@@ -206,6 +273,100 @@ work_ram_write_test_dsub:
 		DSUB_RETURN
 
 
+	ifnd _HEADLESS_
+
+; NOTE: PSUB'ing print_error_work_ram_data actually makes us nest
+; too deep causing us to lose the return point for returning from
+; work_ram_xxx_test_dsub. However this doesn't matter because in
+; the case of a failed work ram test we won't be returning
+;
+; params:
+;  a = expected
+;  b = actual
+print_error_work_ram_data_dsub:
+		tfr	b, dp
+
+		; actual
+		SEEK_XY (SCREEN_START_X + 12), (SCREEN_START_Y + 3)
+		PSUB	print_hex_byte
+
+		; expected
+		tfr	dp, a
+		SEEK_XY (SCREEN_START_X + 12), (SCREEN_START_Y + 2)
+		PSUB	print_hex_byte
+
+		clra
+		tfr	a, dp
+
+		SEEK_XY SCREEN_START_X, (SCREEN_START_Y + 2)
+		ldy	#d_str_expected
+		PSUB	print_string
+
+		SEEK_XY SCREEN_START_X, (SCREEN_START_Y + 3)
+		ldy	#d_str_actual
+		PSUB	print_string
+		DSUB_RETURN
+
+
+manual_work_ram_tests:
+		SEEK_XY	0, SCREEN_START_Y
+		RSUB	print_clear_line
+
+		SEEK_XY SCREEN_START_X, SCREEN_START_Y
+		ldy	#d_str_testing_work_ram
+		RSUB	print_string
+
+		jsr	print_passes
+		jsr	print_b2_return_to_menu
+
+		ldd	#$0
+		std	R_WORK_RAM_PASSES
+
+		DSUB_MODE_PSUB
+
+	.loop_next_pass:
+		SEEK_XY	SCREEN_PASSES_VALUE_X, SCREEN_PASSES_Y
+		ldd	R_WORK_RAM_PASSES
+		PSUB	print_hex_word
+
+		PSUB	work_ram_output_test
+		PSUB	work_ram_write_test
+		PSUB	work_ram_data_test
+		PSUB	work_ram_address_test
+		PSUB	work_ram_march_test
+
+		lda	REG_INPUT
+		coma
+		bita	#INPUT_B2
+		bne	.test_exit
+
+		ldd	R_WORK_RAM_PASSES
+		addd	#$1
+		std	R_WORK_RAM_PASSES
+		bra	.loop_next_pass
+
+	.test_exit:
+		clr	r_menu_cursor
+
+		DSUB_MODE_RSUB
+
+		jmp	main_menu
+
+	endif
+
 	section data
 
 d_data_patterns:	dc.b $00, $55, $aa, $ff
+
+	ifnd _HEADLESS_
+
+; These are padded so we fully overwrite "TESTING WORK RAM"
+d_str_work_ram_address:		STRING "WORK RAM ADDRESS"
+d_str_work_ram_data:		STRING "WORK RAM DATA   "
+d_str_work_ram_march:		STRING "WORK RAM MARCH  "
+d_str_work_ram_output:		STRING "WORK RAM OUTPUT "
+d_str_work_ram_write:		STRING "WORK RAM WRITE  "
+
+d_str_testing_work_ram:		STRING "TESTING WORK RAM"
+
+	endif

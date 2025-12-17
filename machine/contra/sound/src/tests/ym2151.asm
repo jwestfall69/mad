@@ -6,7 +6,8 @@
 
 ym2151_tests:
 		ldx	#REG_YM2151_DATA
-		RSUB	memory_output_test
+		jsr	memory_output_test
+		tsta
 		beq	.test_passed_output
 		lda	#EC_YM2151_OUTPUT
 		jmp	error_address
@@ -14,6 +15,7 @@ ym2151_tests:
 	.test_passed_output:
 		ldx	#REG_YM2151_DATA
 		jsr	ym2151_busy_bit_test
+		tsta
 		beq	.test_passed_busy_bit
 		lda	#EC_YM2151_BUSY_BIT
 		jmp	error_address

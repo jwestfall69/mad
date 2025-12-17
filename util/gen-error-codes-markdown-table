@@ -130,6 +130,7 @@ def main() -> int:
 
     cfgs['6309_main']     = ErrorCodeConfig(8, 16, int("f000", 16), 4, 0, r'(EC_MASK|EC_ALL_TESTS_PASSED)')
     cfgs['68000_main']    = ErrorCodeConfig(8, 24, int("6000", 16), 5, 1, r'(EC_MASK|EC_ALL_TESTS_PASSED)')
+    cfgs['6809_main']     = ErrorCodeConfig(0, 16, int("f000", 16), 4, 0, r'(EC_MASK|EC_ALL_TESTS_PASSED)')
     cfgs['6809_sound']    = ErrorCodeConfig(0, 16, int("f000", 16), 4, 0, r'(EC_MASK)')
     cfgs['konami2_main']  = ErrorCodeConfig(8, 16, int("f000", 16), 4, 0, r'(EC_MASK|EC_ALL_TESTS_PASSED)')
     cfgs['z80_main']      = ErrorCodeConfig(8, 16, int("2000", 16), 7, 0, r'(EC_MASK|EC_ALL_TESTS_PASSED)')
