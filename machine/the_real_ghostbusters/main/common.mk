@@ -25,6 +25,7 @@ OBJS  = $(OBJ_DIR)/cpu/6x09/src/error_address.o \
         $(OBJ_DIR)/cpu/6x09/src/handlers/menu.o \
         $(OBJ_DIR)/cpu/6x09/src/handlers/sound.o \
         $(OBJ_DIR)/cpu/6x09/src/handlers/tile_8x8_viewer.o \
+        $(OBJ_DIR)/cpu/6x09/src/handlers/tile_16x16_viewer.o \
         $(OBJ_DIR)/cpu/6x09/src/handlers/values_edit.o \
         $(OBJ_DIR)/cpu/6x09/src/tests/input.o
 
@@ -32,7 +33,6 @@ OBJS += $(OBJ_DIR)/cpu/6309/src/crc32.o \
         $(OBJ_DIR)/cpu/6309/src/footer.o \
         $(OBJ_DIR)/cpu/6309/src/memory_fill.o \
         $(OBJ_DIR)/cpu/6309/src/handlers/memory_tests.o \
-        $(OBJ_DIR)/cpu/6309/src/handlers/tile_16x16_viewer.o \
         $(OBJ_DIR)/cpu/6309/src/tests/memory.o \
         $(OBJ_DIR)/cpu/6309/src/tests/mad_rom.o \
         $(OBJ_DIR)/cpu/6309/src/tests/work_ram.o

@@ -2,8 +2,10 @@
 
 	global tile_16x16_viewer_handler
 
-START_COLUMN	equ SCREEN_START_X + 1
-START_ROW	equ SCREEN_START_Y + 7
+COLUMN_START	equ SCREEN_START_X + 1
+COLUMN_END	equ COLUMN_START + 18
+ROW_START	equ SCREEN_START_Y + 7
+ROW_END		equ ROW_START + 16
 
 	section code
 
@@ -25,7 +27,7 @@ tile_16x16_viewer_handler:
 		; 0x3 = bottom right
 		clr	r_quadrant
 		std	r_tile_offset_mask
-		clrd
+		ldd	#$0
 		std	r_tile_offset
 		stx	r_seek_xy_cb
 		sty	r_draw_tile_cb
@@ -35,9 +37,9 @@ tile_16x16_viewer_handler:
 
 	.loop_redraw:
 		ldd	r_tile_offset
-		ldw	r_tile_offset_mask
 
-		andr	w, d
+		anda	r_tile_offset_mask
+		andb	r_tile_offset_mask + 1
 		std	r_tile_offset
 		std	r_current_tile
 
@@ -57,11 +59,10 @@ tile_16x16_viewer_handler:
 		std	r_current_tile
 
 	.do_print_row_header:
-		SEEK_XY	(START_COLUMN + 2), (SCREEN_START_Y + 4)
+		SEEK_XY	(COLUMN_START + 2), (SCREEN_START_Y + 4)
 		RSUB	print_string
 
-		ldf	#$8	; number or rows
-		lda	#START_ROW
+		lda	#ROW_START
 		sta	r_current_row
 
 		lda	r_quadrant
@@ -77,7 +78,7 @@ tile_16x16_viewer_handler:
 		std	r_current_tile
 
 	.loop_next_row:
-		lda	#START_COLUMN
+		lda	#COLUMN_START
 		sta	r_current_column
 
 		ldb	r_current_row
@@ -90,8 +91,6 @@ tile_16x16_viewer_handler:
 		inc	r_current_column
 		inc	r_current_column
 
-		lde	#$8	; number of columns
-
 	.loop_next_byte:
 		lda	r_current_column
 		ldb	r_current_row
@@ -100,22 +99,26 @@ tile_16x16_viewer_handler:
 		ldd	r_current_tile
 		jsr	[r_draw_tile_cb]
 
-		inc	r_current_column
-		inc	r_current_column
 		ldd	r_current_tile
 		addd	#$1
 		std	r_current_tile
 
-		dece
+		inc	r_current_column
+		inc	r_current_column
+		lda	r_current_column
+
+		cmpa	#COLUMN_END
 		bne	.loop_next_byte
 
-		inc	r_current_row
-		inc	r_current_row
 		ldd	r_current_tile	; adjust by 8 since we only printing 8 of 16 per row
 		addd	#$8
 		std	r_current_tile
 
-		decf
+		inc	r_current_row
+		inc	r_current_row
+		lda	r_current_row
+
+		cmpa	#ROW_END
 		bne	.loop_next_row
 
 	.loop_next_input:
