@@ -5,7 +5,7 @@
 	section code
 
 _start:
-		INTS_DISABLE
+		CPU_INTS_DISABLE
 
 		clr	$3840
 		lda	#$82

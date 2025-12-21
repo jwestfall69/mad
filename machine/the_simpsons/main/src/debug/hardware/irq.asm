@@ -40,7 +40,7 @@ irq_debug:
 		ldy	#d_xys_screen_list
 		jsr	print_xy_string_list
 
-		INTS_ENABLE
+		CPU_INTS_ENABLE
 
 		ldd	#FIX_TILE
 		std	r_old_highlight

@@ -23,14 +23,14 @@ interrupts_debug:
 		std	r_irq_count
 		std	r_firq_count
 
-		INTS_ENABLE
+		CPU_INTS_ENABLE
 
 		ldx	#d_mw_settings
 		jsr	memory_write_handler
 
 		clr	$2600
 
-		INTS_DISABLE
+		CPU_INTS_DISABLE
 
 		rts
 

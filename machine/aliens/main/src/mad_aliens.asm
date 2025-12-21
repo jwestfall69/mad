@@ -5,7 +5,7 @@
 	section code
 
 _start:
-		INTS_DISABLE
+		CPU_INTS_DISABLE
 
 		lda	#$11
 		sta	$7c00

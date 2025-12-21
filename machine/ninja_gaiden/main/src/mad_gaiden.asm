@@ -5,7 +5,7 @@
 	section code
 
 _start:
-		INTS_DISABLE
+		CPU_INTS_DISABLE
 
 		move.l	#$fffff, d0
 	.loop_delay:

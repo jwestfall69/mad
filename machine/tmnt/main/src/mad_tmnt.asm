@@ -5,7 +5,7 @@
 	section code
 
 _start:
-		INTS_DISABLE
+		CPU_INTS_DISABLE
 
 		WATCHDOG
 		SOUND_STOP

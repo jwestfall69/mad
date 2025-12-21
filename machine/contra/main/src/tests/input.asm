@@ -15,7 +15,7 @@ input_test:
 		; tell K007121#1 to allow interrupts to flow
 		lda	#$2
 		sta	$0007
-		INTS_ENABLE
+		CPU_INTS_ENABLE
 
 	.loop_test:
 		WATCHDOG
@@ -35,7 +35,7 @@ input_test:
 
 		lda	#$0
 		sta	$0007
-		INTS_DISABLE
+		CPU_INTS_DISABLE
 		rts
 
 	section data

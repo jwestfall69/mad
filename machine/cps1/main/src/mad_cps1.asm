@@ -5,7 +5,7 @@
 	section code
 
 _start:
-		INTS_DISABLE
+		CPU_INTS_DISABLE
 
 		move.w	#$ffc0, REGA_SCROLL1_X
 		move.w	#$0, REGA_SCROLL1_Y
@@ -18,7 +18,7 @@ _start:
 		PSUB	auto_test_dsub_handler
 
 		DSUB_MODE_RSUB
-		INTS_ENABLE
+		CPU_INTS_ENABLE
 		bsr	auto_func_tests
 
 		;moveq	#SOUND_NUM_SUCCESS, d0

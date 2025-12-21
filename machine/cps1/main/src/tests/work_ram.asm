@@ -15,7 +15,7 @@ manual_work_ram_tests:
 		jsr	print_passes
 		jsr	print_b2_return_to_menu
 
-		INTS_DISABLE
+		CPU_INTS_DISABLE
 		DSUB_MODE_PSUB
 
 		moveq	#0, d6		; passes, memory tests don't touch it
@@ -43,7 +43,7 @@ manual_work_ram_tests:
 
 	.test_exit:
 		DSUB_MODE_RSUB
-		INTS_ENABLE
+		CPU_INTS_ENABLE
 		bra	main_menu
 
 	section data

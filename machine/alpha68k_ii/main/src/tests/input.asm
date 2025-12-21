@@ -13,7 +13,7 @@ input_test:
 		clr.l	r_irq2_count
 		clr.l	r_irq3_count
 
-		INTS_ENABLE
+		CPU_INTS_ENABLE
 
 	.loop_test:
 
@@ -40,7 +40,7 @@ input_test:
 		cmp.b	#(INPUT_B2|INPUT_RIGHT), d0
 		bne	.loop_test
 
-		INTS_DISABLE
+		CPU_INTS_DISABLE
 		rts
 
 	section data

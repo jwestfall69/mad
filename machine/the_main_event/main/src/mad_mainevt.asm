@@ -5,7 +5,7 @@
 	section code
 
 _start:
-		INTS_DISABLE
+		CPU_INTS_DISABLE
 
 		ldd	#$1380
 		sta	$7c00	; reset of customs? no rendering without

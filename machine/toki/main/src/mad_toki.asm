@@ -5,7 +5,7 @@
 	section code
 
 _start:
-		INTS_DISABLE
+		CPU_INTS_DISABLE
 
 		move.l	#$fffff, d0
 	.loop_delay:
@@ -47,7 +47,7 @@ _start:
 		; enabling ints so are vblank handler can deal with triggering
 		; a screen update during the vblank.  If we do it manually
 		; during screen draw it will cause random pixel corruption.
-		INTS_ENABLE
+		CPU_INTS_ENABLE
 
 		bsr	auto_func_tests
 

@@ -17,11 +17,11 @@
 	endm
 
 
-	macro INTS_ENABLE
+	macro CPU_INTS_ENABLE
 		andcc	#$af
 	endm
 
 
-	macro INTS_DISABLE
+	macro CPU_INTS_DISABLE
 		orcc	#$50
 	endm

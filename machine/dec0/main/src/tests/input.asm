@@ -14,7 +14,7 @@ input_test:
 		clr.b	r_input_system_edge
 		clr.b	r_input_system_raw
 
-		INTS_ENABLE
+		CPU_INTS_ENABLE
 
 	.loop_test:
 
@@ -41,7 +41,7 @@ input_test:
 		cmp.b	#(INPUT_B2|INPUT_RIGHT), d0
 		bne	.loop_test
 
-		INTS_DISABLE
+		CPU_INTS_DISABLE
 		rts
 
 

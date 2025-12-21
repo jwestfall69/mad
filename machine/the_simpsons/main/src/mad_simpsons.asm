@@ -5,7 +5,7 @@
 	section code
 
 _start:
-		INTS_DISABLE
+		CPU_INTS_DISABLE
 
 		; allow some time for custom ICs to get started up
 		; before we try to adjust their registers.  This

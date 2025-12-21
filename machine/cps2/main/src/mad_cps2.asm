@@ -5,7 +5,7 @@
 	section code
 
 _start:
-		INTS_DISABLE
+		CPU_INTS_DISABLE
 
 		; doing it like this so the same compiled rom
 		; can be used to make a suicided rom or encrypted

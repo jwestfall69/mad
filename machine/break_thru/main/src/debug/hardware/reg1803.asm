@@ -13,7 +13,7 @@ reg1803_debug:
 		ldd	#FG_RAM + $400
 		std	r_old_highlight
 
-		INTS_ENABLE
+		CPU_INTS_ENABLE
 
 		ldd	#$0
 		std	r_irq_count
@@ -24,7 +24,7 @@ reg1803_debug:
 		ldx	#d_mw_settings
 		jsr	memory_write_handler
 
-		INTS_DISABLE
+		CPU_INTS_DISABLE
 
 		lda	#(CTRL2_NMI_DISABLE|CTRL2_IRQ_DISABLE)
 		sta	REG_CONTROL2
