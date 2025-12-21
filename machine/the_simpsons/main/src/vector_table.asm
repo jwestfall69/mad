@@ -15,11 +15,9 @@
 
 	section code
 
-nmi_handler:
-		rti
 irq_handler:
 		WATCHDOG
-		pshs	d
+
 		lda	#$fb
 		sta	$1d00
 
@@ -29,10 +27,7 @@ irq_handler:
 
 		lda	#$ff
 		sta	$1d00
-		puls	d
-
 		rti
-
 
 firq_handler:
 		WATCHDOG
@@ -55,6 +50,7 @@ firq_handler:
 		puls	d
 		rti
 
+nmi_handler:
 swi_handler:
 		rti
 

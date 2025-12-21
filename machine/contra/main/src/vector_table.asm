@@ -13,7 +13,6 @@
 	section code
 
 irq_handler:
-		pshs	d
 		lda	#$0
 		sta	$0007
 
@@ -23,7 +22,6 @@ irq_handler:
 
 		lda	#$2
 		sta	$0007
-		puls	d
 		rti
 
 nmi_handler:

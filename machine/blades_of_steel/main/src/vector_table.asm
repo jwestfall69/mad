@@ -15,11 +15,9 @@
 	section code
 
 irq_handler:
-		pshs	d
 		ldd	r_irq_count
 		incd
 		std	r_irq_count
-		puls	d
 		rti
 
 firq_handler:
@@ -37,11 +35,9 @@ firq_handler:
 		rti
 
 nmi_handler:
-		pshs	d
 		ldd	r_nmi_count
 		incd
 		std	r_nmi_count
-		puls	d
 		rti
 
 swi_handler:

@@ -13,11 +13,9 @@
 	section code
 
 nmi_handler:
-		pshs	d
 		ldd	r_irq_vblank_count
 		incd
 		std	r_irq_vblank_count
-		puls	d
 		rti
 
 irq_handler:
