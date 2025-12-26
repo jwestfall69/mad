@@ -22,10 +22,11 @@ https://www.mvs-scans.com/mad/mad-main.zip
 
 Support boards
 
-### Aliens
+### Aliens (aliens)
 ![Aliens](machine/aliens/docs/images/mad_aliens_main_menu.png)
 
 ### Alpha68K II based games
+![alpha68k_ii](machine/alpha68k_ii/docs/images/mad_alpha68k_ii_main_menu.png)<br>
 **Sky Solder (skysoldr)**<br>
 **Time Solder (timesold)**<br>
 
@@ -35,7 +36,7 @@ Support boards
 ### Block Hole (blockhl)
 ![blockhl](machine/block_hole/docs/images/mad_block_hole_main_menu.png)
 
-### Contra
+### Contra (contra)
 ![contra](machine/contra/docs/images/mad_contra_main_menu.png)
 
 ### CPS1
@@ -92,7 +93,7 @@ Support boards
 ### Rollergames (rollerg)
 ![rollerg](machine/rollergames/docs/images/mad_rollerg_main_menu.png)
 
-### Rush 'n Attack
+### Rush 'n Attack (rushatck)
 ![rushatck](machine/rush_n_attack/docs/images/mad_rush_n_attack_main_menu.png)
 
 ### Teenage Mutant Ninja Turtles (tmnt)
@@ -104,10 +105,13 @@ Support boards
 ### The Real Ghostbusters (ghostb)
 ![ghostb](machine/the_real_ghostbusters/docs/images/mad_the_real_ghostbusters_main_menu.png)
 
-### Toki
+### The Simpsons (simpsons)
+![simpsons](machine/the_simpsons/docs/images/mad_simpsons_main_menu.png)
+
+### Toki (toki)
 ![toki](docs/images/toki.png)
 
-### Vendetta
+### Vendetta (vendetta)
 ![vendetta](machine/vendetta/docs/images/mad_vendetta_main_menu.png)
 
 ### WWF Superstars (wwfsstar)
@@ -115,6 +119,9 @@ Support boards
 
 ### WWF Wrestlefest (wwfwfest)
 ![wwfwfest](machine/wwf_wrestlefest/docs/images/mad_wwfwfest_main_menu.png)
+
+### X-Men (xmen)
+![xmen](machine/x-men/docs/images/mad_xmen_main_menu.png)
 
 ## Building
 I've been doing most of my development in window subsystem for linux (wsl).
