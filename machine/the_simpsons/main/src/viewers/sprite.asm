@@ -171,7 +171,7 @@ d_ve_settings:
 	VE_SETTINGS value_changed_cb, loop_input_cb
 
 d_ve_list:
-	VE_ENTRY VE_TYPE_WORD, VE_INPUT_EDGE, r_sprite_num, $ffff
+	VE_ENTRY VE_TYPE_WORD, VE_INPUT_EDGE, r_sprite_num, $1ff
 	VE_ENTRY VE_TYPE_NIBBLE, VE_INPUT_EDGE, r_sprite_size, $f
 	VE_ENTRY VE_TYPE_NIBBLE, VE_INPUT_EDGE, r_sprite_aspect_ratio, $1
 	VE_ENTRY VE_TYPE_WORD, VE_INPUT_EDGE, r_sprite_zoom_x, $ffff

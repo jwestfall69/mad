@@ -1,5 +1,5 @@
 MAD_NAME=mad_simpsons
-BUILD_FLAGS=-D_CPU_KONAMI2_ -D_DEBUG_HARDWARE_
+BUILD_FLAGS=-D_CPU_KONAMI2_ -D_STALL_DELAY_ -D_DEBUG_HARDWARE_
 ROM_SIZE=131072
 BUILD_DIR=build
 OBJ_DIR=$(BUILD_DIR)/obj
@@ -68,6 +68,7 @@ ifneq (,$(findstring _DEBUG_HARDWARE_,$(BUILD_FLAGS)))
 OBJS += $(OBJ_DIR)/cpu/6x09/src/debug/hardware/watchdog_time.o \
         $(OBJ_DIR)/cpu/6x09/src/handlers/memory_write.o \
         $(OBJ_DIR)/debug/hardware/irq.o \
+        $(OBJ_DIR)/debug/hardware/k053246_zoom.o \
         $(OBJ_DIR)/debug/hardware/k053251.o \
         $(OBJ_DIR)/debug/hardware/sprite.o \
         $(OBJ_DIR)/menus/debug_hardware.o
