@@ -15,7 +15,7 @@ R_WORK_RAM_PASSES	equ FG_RAM
 
 	; we are only allowed to use d register
 	macro SOUND_BIT_DELAY
-		ldd	#$ffff
+		ldd	#$3fff
 	.\@:
 		WATCHDOG
 		cmpd	#0		; 4 cycles
