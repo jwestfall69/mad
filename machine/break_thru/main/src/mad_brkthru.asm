@@ -23,6 +23,9 @@ _start:
 		PSUB	mad_rom_address_test
 		PSUB	mad_rom_crc16_test
 
+		SEEK_XY	0, SCREEN_START_Y
+		PSUB	print_clear_line
+
 		PSUB	work_ram_output_test
 		PSUB	work_ram_write_test
 		PSUB	work_ram_data_test
