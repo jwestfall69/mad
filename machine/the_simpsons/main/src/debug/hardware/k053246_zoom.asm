@@ -8,9 +8,16 @@
 k053246_zoom_debug:
 		jsr	palette_setup
 
+		ldy	#TILE_RAM
+		ldx	#TILE_RAM_SIZE
+		lda	#$2c
+	.loop_next_address:
+		sta	,y+
+		leax	-1, x
+		bne	.loop_next_address
+
 		ldy	#d_screen_xys_list
 		jsr	print_xy_string_list
-
 
 		lda	#$5
 		sta	r_sprite_size
@@ -20,14 +27,6 @@ k053246_zoom_debug:
 		std	r_sprite_zoom_y
 
 		clr	r_sprite_aspect_ratio
-
-		ldy	#$22ce
-		ldx	#$364
-		lda	#$2c
-	.loop_next_address:
-		sta	,y+
-		leax	-1, x
-		bne	.loop_next_address
 
 		lda	#(CTRL_SPRITE_BANK | CTRL_SPRITE_RENDER)
 		sta	REG_CONTROL
