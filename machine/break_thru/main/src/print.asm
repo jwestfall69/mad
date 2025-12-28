@@ -105,13 +105,14 @@ print_clear_line_dsub:
 ; params:
 ;  a = byte
 ;  x = start location in tile ram
+;  y should not be touched, needed for work ram errors
 print_hex_byte_dsub:
 
 		; printing backwards
 		leax	1, x
-		ldy	#$2
 
-	.loop_next_nibble:
+	rept 2
+	inline
 		tfr	a, b
 		andb	#$f
 
@@ -131,9 +132,8 @@ print_hex_byte_dsub:
 		lsra
 		lsra
 		lsra
-
-		leay	-1, y
-		bne	.loop_next_nibble
+	einline
+	endr
 		DSUB_RETURN
 
 ; params:

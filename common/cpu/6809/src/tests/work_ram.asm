@@ -88,8 +88,9 @@ work_ram_address_test_dsub:
 	.test_failed:
 
 	ifnd _HEADLESS_
+		tfr	x, y
 		lda	, x
-		PSUB	print_error_work_ram_data
+		PSUB	print_error_work_ram_memory
 
 		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
 		ldy	#d_str_work_ram_address
@@ -132,8 +133,10 @@ work_ram_data_test_dsub:
 	.test_failed:
 
 	ifnd _HEADLESS_
-		lda	-1, x
-		PSUB	print_error_work_ram_data
+		leax	-1, x
+		lda	, x
+		tfr	x, y
+		PSUB	print_error_work_ram_memory
 
 		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
 		ldy	#d_str_work_ram_data
@@ -177,6 +180,9 @@ work_ram_output_test_dsub:
 		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
 		ldy	#d_str_work_ram_output
 		PSUB	print_string
+
+		SEEK_XY	0, SCREEN_B2_Y
+		PSUB	print_clear_line
 
 		lda	#EC_WORK_RAM_OUTPUT
 		PSUB	sound_play_byte
@@ -225,10 +231,11 @@ work_ram_march_test_dsub:
 
 	.test_failed:
 		lda	, x
+		tfr	x, y
 
 		WATCHDOG
 	ifnd _HEADLESS_
-		PSUB	print_error_work_ram_data
+		PSUB	print_error_work_ram_memory
 
 		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
 		ldy	#d_str_work_ram_march
@@ -262,6 +269,9 @@ work_ram_write_test_dsub:
 		ldy	#d_str_work_ram_write
 		PSUB	print_string
 
+		SEEK_XY	0, SCREEN_B2_Y
+		PSUB	print_clear_line
+
 		lda	#EC_WORK_RAM_OUTPUT
 		PSUB	sound_play_byte
 	endif
@@ -275,7 +285,7 @@ work_ram_write_test_dsub:
 
 	ifnd _HEADLESS_
 
-; NOTE: PSUB'ing print_error_work_ram_data actually makes us nest
+; NOTE: PSUB'ing print_error_work_ram_memory actually makes us nest
 ; too deep causing us to lose the return point for returning from
 ; work_ram_xxx_test_dsub. However this doesn't matter because in
 ; the case of a failed work ram test we won't be returning
@@ -283,28 +293,40 @@ work_ram_write_test_dsub:
 ; params:
 ;  a = expected
 ;  b = actual
-print_error_work_ram_data_dsub:
+print_error_work_ram_memory_dsub:
 		tfr	b, dp
 
 		; actual
-		SEEK_XY (SCREEN_START_X + 12), (SCREEN_START_Y + 3)
+		SEEK_XY (SCREEN_START_X + 12), (SCREEN_START_Y + 4)
 		PSUB	print_hex_byte
 
 		; expected
 		tfr	dp, a
-		SEEK_XY (SCREEN_START_X + 12), (SCREEN_START_Y + 2)
+		SEEK_XY (SCREEN_START_X + 12), (SCREEN_START_Y + 3)
 		PSUB	print_hex_byte
+
+		; address
+		tfr	y, d
+		SEEK_XY (SCREEN_START_X + 10), (SCREEN_START_Y + 2)
+		PSUB	print_hex_word
 
 		clra
 		tfr	a, dp
 
 		SEEK_XY SCREEN_START_X, (SCREEN_START_Y + 2)
-		ldy	#d_str_expected
+		ldy	#d_str_address
 		PSUB	print_string
 
 		SEEK_XY SCREEN_START_X, (SCREEN_START_Y + 3)
+		ldy	#d_str_expected
+		PSUB	print_string
+
+		SEEK_XY SCREEN_START_X, (SCREEN_START_Y + 4)
 		ldy	#d_str_actual
 		PSUB	print_string
+
+		SEEK_XY	0, SCREEN_B2_Y
+		PSUB	print_clear_line
 		DSUB_RETURN
 
 
