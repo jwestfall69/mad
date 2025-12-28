@@ -67,7 +67,6 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
 ifneq (,$(findstring _DEBUG_HARDWARE_,$(BUILD_FLAGS)))
 OBJS += $(OBJ_DIR)/cpu/6x09/src/debug/hardware/watchdog_time.o \
         $(OBJ_DIR)/cpu/6x09/src/handlers/memory_write.o \
-        $(OBJ_DIR)/debug/hardware/irq.o \
         $(OBJ_DIR)/debug/hardware/k053246_zoom.o \
         $(OBJ_DIR)/debug/hardware/k053251.o \
         $(OBJ_DIR)/debug/hardware/sprite.o \

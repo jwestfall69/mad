@@ -15,7 +15,7 @@ debug_hardware_menu:
 
 d_menu_list:
 	MENU_ENTRY sprite_debug, d_str_sprite_debug
-	MENU_ENTRY irq_debug, d_str_irq_debug
+	;MENU_ENTRY irq_debug, d_str_irq_debug
 	MENU_ENTRY k053246_zoom_debug, d_str_k053246_zoom_debug
 	MENU_ENTRY k053251_debug, d_str_k053251_debug
 	;MENU_ENTRY watchdog_time, d_str_watchdog_time
