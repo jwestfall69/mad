@@ -12,9 +12,6 @@
 mad_rom_address_test_dsub:
 
 	ifnd _HEADLESS_
-		SEEK_XY	0, SCREEN_START_Y
-		PSUB	print_clear_line
-
 		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
 		ldy	#d_str_testing_mad_rom_address
 		PSUB	print_string
@@ -53,9 +50,6 @@ mad_rom_address_test_dsub:
 		clra
 		tfr	a, dp
 
-		SEEK_XY	0, SCREEN_START_Y
-		PSUB	print_clear_line
-
 		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
 		ldy	#d_str_mad_rom_address
 		PSUB	print_string
@@ -78,9 +72,6 @@ mad_rom_address_test_dsub:
 mad_rom_crc16_test_dsub:
 
 	ifnd _HEADLESS_
-		SEEK_XY	0, SCREEN_START_Y
-		PSUB	print_clear_line
-
 		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
 		ldy	#d_str_testing_mad_rom_crc16
 		PSUB	print_string
@@ -135,9 +126,6 @@ mad_rom_crc16_test_dsub:
 		ldd	MAD_ROM_CRC16_ADDRESS
 		PSUB	print_hex_word
 
-		SEEK_XY	0, SCREEN_START_Y
-		PSUB	print_clear_line
-
 		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
 		ldy	#d_str_mad_rom_crc16
 		PSUB	print_string
@@ -161,10 +149,11 @@ mad_rom_crc16_test_dsub:
 
 	section data
 
-d_str_mad_rom_crc16:		STRING "MAD ROM CRC16 ERROR"
-d_str_mad_rom_address:		STRING "MAD ROM ADDRESS ERROR"
+; pad to avoid having to print_clear_line
+d_str_mad_rom_crc16:		STRING "MAD ROM CRC16 ERROR    "
+d_str_mad_rom_address:		STRING "MAD ROM ADDRESS ERROR  "
 
 d_str_testing_mad_rom_address:	STRING "TESTING MAD ROM ADDRESS"
-d_str_testing_mad_rom_crc16:	STRING "TESTING MAD ROM CRC16"
+d_str_testing_mad_rom_crc16:	STRING "TESTING MAD ROM CRC16  "
 
 	endif
