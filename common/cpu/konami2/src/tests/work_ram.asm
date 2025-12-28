@@ -162,6 +162,9 @@ work_ram_address_test_dsub:
 		ldy	#d_str_work_ram_address
 		PSUB	print_string
 
+		SEEK_XY	0, SCREEN_B2_Y
+		PSUB	print_clear_line
+
 		lda	#EC_WORK_RAM_ADDRESS
 		PSUB	sound_play_byte
 
@@ -239,6 +242,9 @@ work_ram_data_test_dsub:
 		ldy	#d_str_work_ram_data
 		PSUB	print_string
 
+		SEEK_XY	0, SCREEN_B2_Y
+		PSUB	print_clear_line
+
 		lda	#EC_WORK_RAM_DATA
 		PSUB	sound_play_byte
 
@@ -280,6 +286,9 @@ work_ram_output_test_dsub:
 		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
 		ldy	#d_str_work_ram_output
 		PSUB	print_string
+
+		SEEK_XY	0, SCREEN_B2_Y
+		PSUB	print_clear_line
 
 		lda	#EC_WORK_RAM_OUTPUT
 		PSUB	sound_play_byte
@@ -361,12 +370,12 @@ work_ram_march_test_dsub:
 		ldy	#d_str_actual
 		PSUB	print_string
 
-		SEEK_XY	0, SCREEN_START_Y
-		PSUB	print_clear_line
-
 		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
 		ldy	#d_str_work_ram_march
 		PSUB	print_string
+
+		SEEK_XY	0, SCREEN_B2_Y
+		PSUB	print_clear_line
 
 		lda	#EC_WORK_RAM_MARCH
 		PSUB	sound_play_byte
@@ -396,6 +405,9 @@ work_ram_write_test_dsub:
 		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
 		ldy	#d_str_work_ram_write
 		PSUB	print_string
+
+		SEEK_XY	0, SCREEN_B2_Y
+		PSUB	print_clear_line
 
 		lda	#EC_WORK_RAM_WRITE
 		PSUB	sound_play_byte

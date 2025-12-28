@@ -78,7 +78,7 @@ auto_work_ram_tests_dsub:
 		PSUB	print_string
 
 		lda	#EC_WORK_RAM_ADDRESS
-		bra	.do_error_code
+		lbra	.do_error_code
 
 	.test_failed_data:
 		PSUB	print_error_work_ram_memory
@@ -105,6 +105,9 @@ auto_work_ram_tests_dsub:
 		ldy	#d_str_work_ram_output
 		PSUB	print_string
 
+		SEEK_XY	0, SCREEN_B2_Y
+		PSUB	print_clear_line
+
 		lda	#EC_WORK_RAM_OUTPUT
 		bra	.do_error_code
 
@@ -112,10 +115,13 @@ auto_work_ram_tests_dsub:
 		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
 		ldy	#d_str_work_ram_write
 		PSUB	print_string
+
+		SEEK_XY	0, SCREEN_B2_Y
+		PSUB	print_clear_line
+
 		lda	#EC_WORK_RAM_WRITE
 
 	.do_error_code:
-
 		tfr	a, f		; backup error code
 		PSUB	sound_play_byte
 		tfr	f, a
@@ -156,6 +162,10 @@ print_error_work_ram_memory_dsub:
 		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 4)
 		ldy	#d_str_actual
 		PSUB	print_string
+
+		SEEK_XY	0, SCREEN_B2_Y
+		PSUB	print_clear_line
+
 		DSUB_RETURN
 
 manual_work_ram_tests:
