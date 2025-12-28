@@ -52,7 +52,7 @@ print_char_dsub:
 
 		cmpa	#'9'
 		bgt	.not_digit
-		adda 	#$30
+		adda	#$30
 
 	.not_digit:
 		sta	, x
@@ -84,6 +84,7 @@ print_hex_nibble_dsub:
 ; params:
 ;  a = byte
 ;  x = start location in tile ram
+;  b should not be touched, needed for work ram errors
 print_hex_byte_dsub:
 		; printing backwards
 		leax	1, x

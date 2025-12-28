@@ -83,8 +83,10 @@ work_ram_address_test_dsub:
 		ldy	#$1
 
 		ldx	#WORK_RAM
-		cmpb	, x+		; 0 address requires special processing
+		cmpb	, x		; 0 address requires special processing
 		bne	.test_failed
+
+		leax	1, x
 
 	.loop_next_read_address:
 		exg	b, y		; swap in counter
@@ -108,6 +110,25 @@ work_ram_address_test_dsub:
 		DSUB_RETURN
 
 	.test_failed:
+
+		; actual
+		lda	, x	; SEEK_XY will clobber x
+		SEEK_XY	(SCREEN_START_X + 12), (SCREEN_START_Y + 3)
+		PSUB	print_hex_byte
+
+		; expected
+		SEEK_XY	(SCREEN_START_X + 12), (SCREEN_START_Y + 2)
+		tfr	b, a
+		PSUB	print_hex_byte
+
+		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 2)
+		ldy	#d_str_expected
+		PSUB	print_string
+
+		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 3)
+		ldy	#d_str_actual
+		PSUB	print_string
+
 		SEEK_XY 0, SCREEN_START_Y
 		PSUB	print_clear_line
 
@@ -149,6 +170,25 @@ work_ram_data_test_dsub:
 		DSUB_RETURN
 
 	.test_failed:
+		ldb	-1, x
+
+		; expected already in a
+		SEEK_XY	(SCREEN_START_X + 12), (SCREEN_START_Y + 2)
+		PSUB	print_hex_byte
+
+		; expected
+		SEEK_XY	(SCREEN_START_X + 12), (SCREEN_START_Y + 3)
+		tfr	b, a
+		PSUB	print_hex_byte
+
+		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 2)
+		ldy	#d_str_expected
+		PSUB	print_string
+
+		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 3)
+		ldy	#d_str_actual
+		PSUB	print_string
+
 		SEEK_XY 0, SCREEN_START_Y
 		PSUB	print_clear_line
 
@@ -220,7 +260,7 @@ work_ram_march_test_dsub:
 
 	.loop_up_test:
 		cmpa	, x
-		bne	.test_failed
+		bne	.test_failed_up
 
 		stb	, x+
 		cmpx	#(WORK_RAM + WORK_RAM_SIZE)
@@ -231,15 +271,36 @@ work_ram_march_test_dsub:
 
 	.loop_down_test:
 		cmpb	, x
-		bne	.test_failed
+		bne	.test_failed_down
 		leax	-1, x
 		cmpx	#(WORK_RAM - 1)
 		bne	.loop_down_test
 		WATCHDOG
 		DSUB_RETURN
 
-	.test_failed:
+	.test_failed_up:
+		tfr	a, b
+
+	.test_failed_down:
 		WATCHDOG
+
+		; actual
+		lda	, x	; SEEK_XY will clobber x
+		SEEK_XY	(SCREEN_START_X + 12), (SCREEN_START_Y + 3)
+		PSUB	print_hex_byte
+
+		; expected
+		SEEK_XY	(SCREEN_START_X + 12), (SCREEN_START_Y + 2)
+		tfr	b, a
+		PSUB	print_hex_byte
+
+		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 2)
+		ldy	#d_str_expected
+		PSUB	print_string
+
+		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 3)
+		ldy	#d_str_actual
+		PSUB	print_string
 
 		SEEK_XY	0, SCREEN_START_Y
 		PSUB	print_clear_line
