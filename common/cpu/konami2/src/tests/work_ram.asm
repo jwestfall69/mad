@@ -1,3 +1,13 @@
+; For printing the address of work ram error we are abusing a quark
+; of the konami2 CPU in that the DP register is actually 16 bit.  We
+; are using this to tfr the error'd address to DP so that we can
+; later restore it for printing.  MAME does not implement tfr to DP
+; (nor the 16 bit wide nature of it) so a work ram error address in
+; MAME will always be 0x0000.
+;
+; Additionally the konami2 CPU doesn't support a 16 bit transfer to
+; the D register, so we have to manually do it.
+
 	include "cpu/konami2/include/common.inc"
 
 	global manual_work_ram_tests
@@ -110,22 +120,38 @@ work_ram_address_test_dsub:
 		DSUB_RETURN
 
 	.test_failed:
+		tfr	x, dp
 
 		; actual
 		lda	, x	; SEEK_XY will clobber x
-		SEEK_XY	(SCREEN_START_X + 12), (SCREEN_START_Y + 3)
+		SEEK_XY	(SCREEN_START_X + 12), (SCREEN_START_Y + 4)
 		PSUB	print_hex_byte
 
 		; expected
-		SEEK_XY	(SCREEN_START_X + 12), (SCREEN_START_Y + 2)
+		SEEK_XY	(SCREEN_START_X + 12), (SCREEN_START_Y + 3)
 		tfr	b, a
 		PSUB	print_hex_byte
 
+		tfr	dp, x
+		ldd	#$0
+	.loop_tfr_d:
+		WATCHDOG
+		addd	#$1
+		leax	-1, x
+		bne	.loop_tfr_d
+
+		SEEK_XY	(SCREEN_START_X + 10), (SCREEN_START_Y + 2)
+		PSUB	print_hex_word
+
 		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 2)
-		ldy	#d_str_expected
+		ldy	#d_str_address
 		PSUB	print_string
 
 		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 3)
+		ldy	#d_str_expected
+		PSUB	print_string
+
+		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 4)
 		ldy	#d_str_actual
 		PSUB	print_string
 
@@ -170,22 +196,39 @@ work_ram_data_test_dsub:
 		DSUB_RETURN
 
 	.test_failed:
-		ldb	-1, x
+		leax	-1, x
+		ldb	, x
+		tfr	x, dp
 
 		; expected already in a
-		SEEK_XY	(SCREEN_START_X + 12), (SCREEN_START_Y + 2)
+		SEEK_XY	(SCREEN_START_X + 12), (SCREEN_START_Y + 3)
 		PSUB	print_hex_byte
 
 		; expected
-		SEEK_XY	(SCREEN_START_X + 12), (SCREEN_START_Y + 3)
+		SEEK_XY	(SCREEN_START_X + 12), (SCREEN_START_Y + 4)
 		tfr	b, a
 		PSUB	print_hex_byte
 
+		tfr	dp, x
+		ldd	#$0
+	.loop_tfr_d:
+		WATCHDOG
+		addd	#$1
+		leax	-1, x
+		bne	.loop_tfr_d
+
+		SEEK_XY	(SCREEN_START_X + 10), (SCREEN_START_Y + 2)
+		PSUB	print_hex_word
+
 		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 2)
-		ldy	#d_str_expected
+		ldy	#d_str_address
 		PSUB	print_string
 
 		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 3)
+		ldy	#d_str_expected
+		PSUB	print_string
+
+		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 4)
 		ldy	#d_str_actual
 		PSUB	print_string
 
@@ -283,22 +326,38 @@ work_ram_march_test_dsub:
 
 	.test_failed_down:
 		WATCHDOG
+		tfr	x, dp
 
 		; actual
 		lda	, x	; SEEK_XY will clobber x
-		SEEK_XY	(SCREEN_START_X + 12), (SCREEN_START_Y + 3)
+		SEEK_XY	(SCREEN_START_X + 12), (SCREEN_START_Y + 4)
 		PSUB	print_hex_byte
 
 		; expected
-		SEEK_XY	(SCREEN_START_X + 12), (SCREEN_START_Y + 2)
+		SEEK_XY	(SCREEN_START_X + 12), (SCREEN_START_Y + 3)
 		tfr	b, a
 		PSUB	print_hex_byte
 
+		tfr	dp, x
+		ldd	#$0
+	.loop_tfr_d:
+		WATCHDOG
+		addd	#$1
+		leax	-1, x
+		bne	.loop_tfr_d
+
+		SEEK_XY	(SCREEN_START_X + 10), (SCREEN_START_Y + 2)
+		PSUB	print_hex_word
+
 		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 2)
-		ldy	#d_str_expected
+		ldy	#d_str_address
 		PSUB	print_string
 
 		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 3)
+		ldy	#d_str_expected
+		PSUB	print_string
+
+		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 4)
 		ldy	#d_str_actual
 		PSUB	print_string
 
