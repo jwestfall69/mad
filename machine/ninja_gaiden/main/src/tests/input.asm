@@ -9,7 +9,7 @@ input_test:
 		lea	d_screen_xys_list, a0
 		RSUB	print_xy_string_list
 
-		clr.l	r_irq_vblank_count
+		clr.w	r_irq5_count
 		CPU_INTS_ENABLE
 
 	.loop_test:
@@ -17,9 +17,9 @@ input_test:
 		lea	d_input_list, a0
 		jsr	print_input_list
 
-		SEEK_XY	(SCREEN_START_X + 18), (SCREEN_START_Y + 3)
-		move.l	r_irq_vblank_count, d0
-		RSUB	print_hex_3_bytes
+		SEEK_XY	(SCREEN_START_X + 19), (SCREEN_START_Y + 3)
+		move.w	r_irq5_count, d0
+		RSUB	print_hex_word
 
 		move.b	REG_INPUT, d0
 		not.b	d0
@@ -43,7 +43,7 @@ d_input_list:
 d_screen_xys_list:
 	XY_STRING (SCREEN_START_Y + 5), (SCREEN_START_Y + 2), "76543210"
 	XY_STRING (SCREEN_START_Y + 2), (SCREEN_START_Y + 3), "P1"
-	XY_STRING (SCREEN_START_Y + 14), (SCREEN_START_Y + 3), "VBI"
+	XY_STRING (SCREEN_START_Y + 14), (SCREEN_START_Y + 3), "IRQ5"
 	XY_STRING (SCREEN_START_Y + 2), (SCREEN_START_Y + 4), "P2"
 	XY_STRING SCREEN_START_Y, (SCREEN_START_Y + 5), "DSW1"
 	XY_STRING SCREEN_START_Y, (SCREEN_START_Y + 6), "DSW2"

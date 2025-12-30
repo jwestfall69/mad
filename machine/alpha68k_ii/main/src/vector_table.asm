@@ -4,7 +4,7 @@
 	global r_irq2_count
 	global r_irq3_count
 
-	section vectors, data
+	section vectors
 
 		dc.l	SP_INIT_ADDR
 		dc.l	_start
@@ -13,6 +13,10 @@
 		dc.l	irq1_handler
 		dc.l	irq2_handler
 		dc.l	irq3_handler
+		dc.l	irq4_handler
+		dc.l	irq5_handler
+		dc.l	irq6_handler
+		dc.l	irq7_handler
 
 	section code
 
@@ -29,24 +33,30 @@
 
 ; vblank
 irq1_handler:
-		addq.l	#1, r_irq1_count
+		addq.w	#1, r_irq1_count
 		tst.b	REG_IRQ1_ACK
 		rte
 
 ; scanline? by default seems to happen every 0.06 - 0.07 ms
 irq2_handler:
-		addq.l	#1, r_irq2_count
+		addq.w	#1, r_irq2_count
 		rte
 
 ; timer? by default seems to happen every ~60ms?
 irq3_handler:
-		addq.l	#1, r_irq3_count
+		addq.w	#1, r_irq3_count
 		tst.b	REG_IRQ3_ACK
+		rte
+
+irq4_handler:
+irq5_handler:
+irq6_handler:
+irq7_handler:
 		rte
 
 	section bss
 	align 1
 
-r_irq1_count:		dcb.l 1
-r_irq2_count:		dcb.l 1
-r_irq3_count:		dcb.l 1
+r_irq1_count:		dcb.w 1
+r_irq2_count:		dcb.w 1
+r_irq3_count:		dcb.w 1

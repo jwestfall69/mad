@@ -10,7 +10,7 @@ input_test:
 		jsr	print_xy_string_list
 
 		clrd
-		std	r_irq_vblank_count
+		std	r_irq_count
 
 		; tell K007121#1 to allow interrupts to flow
 		lda	#$2
@@ -21,7 +21,7 @@ input_test:
 		WATCHDOG
 
 		SEEK_XY	(SCREEN_START_X + 18), (SCREEN_START_Y + 3)
-		ldd	r_irq_vblank_count
+		ldd	r_irq_count
 		RSUB	print_hex_word
 
 		ldy	#d_input_list
@@ -52,7 +52,7 @@ d_input_list:
 d_screen_xys_list:
 	XY_STRING (SCREEN_START_X + 5), (SCREEN_START_Y + 2), "76543210"
 	XY_STRING (SCREEN_START_X + 2), (SCREEN_START_Y + 3), "P1"
-	XY_STRING (SCREEN_START_X + 14), (SCREEN_START_Y + 3), "VBI"
+	XY_STRING (SCREEN_START_X + 14), (SCREEN_START_Y + 3), "IRQ"
 	XY_STRING (SCREEN_START_X + 2), (SCREEN_START_Y + 4), "P2"
 	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 5), "DSW1"
 	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 6), "DSW2"

@@ -3,7 +3,7 @@
 	global r_irq3_count
 	global r_irq5_count
 
-	section vectors, data
+	section vectors
 
 		dc.l	SP_INIT_ADDR
 		dc.l	_start
@@ -19,13 +19,6 @@
 
 	section code
 
-irq1_handler:
-irq2_handler:
-irq4_handler:
-irq6_handler:
-irq7_handler:
-	rte
-
 irq3_handler:
 	move.b	#$0, $18fa01
 	addq.w	#$1, r_irq3_count
@@ -38,6 +31,12 @@ irq5_handler:
 	move.b	#$20, $108001
 	rte
 
+irq1_handler:
+irq2_handler:
+irq4_handler:
+irq6_handler:
+irq7_handler:
+		rte
 
 	section bss
 	align 1

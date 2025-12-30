@@ -10,7 +10,7 @@ input_test:
 		RSUB	print_xy_string_list
 
 		moveq	#0, d4		; vblank pulse counter
-		clr.l	r_irq_vblank_count
+		clr.w	r_irq6_count
 		clr.b	r_input_system_edge
 		clr.b	r_input_system_raw
 
@@ -25,16 +25,16 @@ input_test:
 
 		btst	#SYS_VBLANK_BIT, r_input_system_edge
 		beq	.no_vblank
-		addq.l	#1, d4
+		addq.w	#1, d4
 
 	.no_vblank:
-		SEEK_XY (SCREEN_START_X + 18), (SCREEN_START_Y + 4)
-		move.l	d4, d0
-		RSUB	print_hex_3_bytes
+		SEEK_XY (SCREEN_START_X + 19), (SCREEN_START_Y + 4)
+		move.w	d4, d0
+		RSUB	print_hex_word
 
-		SEEK_XY	(SCREEN_START_X + 18), (SCREEN_START_Y + 3)
-		move.l	r_irq_vblank_count, d0
-		RSUB	print_hex_3_bytes
+		SEEK_XY	(SCREEN_START_X + 19), (SCREEN_START_Y + 3)
+		move.w	r_irq6_count, d0
+		RSUB	print_hex_word
 
 		move.b	REG_INPUT, d0
 		not.b	d0
@@ -70,11 +70,12 @@ d_screen_xys_list:
 	XY_STRING (SCREEN_START_X + 5), (SCREEN_START_Y + 2), "76543210"
 	XY_STRING (SCREEN_START_X + 2), (SCREEN_START_Y + 3), "P1"
 	XY_STRING (SCREEN_START_X + 2), (SCREEN_START_Y + 4), "P2"
-	XY_STRING (SCREEN_START_X + 14), (SCREEN_START_Y + 3), "VBI"
-	XY_STRING (SCREEN_START_X + 14), (SCREEN_START_Y + 4), "VBP"
+	XY_STRING (SCREEN_START_X + 14), (SCREEN_START_Y + 3), "IRQ6"
+	XY_STRING (SCREEN_START_X + 15), (SCREEN_START_Y + 4), "VBP"
 	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 5), "DSW1"
 	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 6), "DSW2"
 	XY_STRING (SCREEN_START_X + 1), (SCREEN_START_Y + 7), "SYS"
+	XY_STRING SCREEN_START_X, (SCREEN_B2_Y - 3), "IRQ6 SHOULD EQUAL VBP"
 	XY_STRING SCREEN_START_X, SCREEN_B2_Y, "B2+RIGHT - RETURN TO MENU"
 	XY_STRING_LIST_END
 

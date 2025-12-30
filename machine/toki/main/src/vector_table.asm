@@ -2,13 +2,19 @@
 
 	global	r_sprite_copy_req
 
-	section vectors, data
+	section vectors
 
 		dc.l	SP_INIT_ADDR
 		dc.l	_start
 
-		rorg $64, $ff
+		rorg	$64, $ff
 		dc.l	irq1_handler
+		dc.l	irq2_handler
+		dc.l	irq3_handler
+		dc.l	irq4_handler
+		dc.l	irq5_handler
+		dc.l	irq6_handler
+		dc.l	irq7_handler
 
 	section code
 
@@ -38,25 +44,16 @@ irq1_handler:
 		move.b	#$0, r_sprite_copy_req
 
 	.skip_sprite_copy:
-		; debug stuff trying to figure out fg/bg tile not working on hw
-		;move.w	#$01bf, $a000c
-		;move.w	#$0010, $a000a
-
-		;move.w	#$00df, $a002c
-		;move.w	#$0000, $a002a
-
-		;move.w	#$0100, $a003c
-		;move.w	#$0010, $a003a
-		;move.w	#$c0f0, $a0050
-
-		;move.w	#$0028, $a0018
-		;move.w	#$0028, $a0038
-
-		;move.w	$c0004, d0
-		;move.w	$c0000, d0
-
 		move.w	#$c0f0, REG_SCREEN_FLIP
 		movem.l	(a7)+, d0
+		rte
+
+irq2_handler:
+irq3_handler:
+irq4_handler:
+irq5_handler:
+irq6_handler:
+irq7_handler:
 		rte
 
 	section bss

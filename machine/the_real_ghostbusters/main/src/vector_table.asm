@@ -1,4 +1,4 @@
-	global r_irq_vblank_count
+	global r_nmi_count
 
 	section vectors
 
@@ -13,9 +13,9 @@
 	section code
 
 nmi_handler:
-		ldd	r_irq_vblank_count
+		ldd	r_nmi_count
 		incd
-		std	r_irq_vblank_count
+		std	r_nmi_count
 		rti
 
 irq_handler:
@@ -25,4 +25,4 @@ swi_handler:
 
 	section bss
 
-r_irq_vblank_count:	dcb.w 1
+r_nmi_count:		dcb.w 1

@@ -1,33 +1,45 @@
 	include "cpu/68000/include/common.inc"
 
-	global r_irq_timer_count
-	global r_irq_vblank_count
+	global r_irq5_count
+	global r_irq6_count
 
-	section vectors, data
+	section vectors
 
 		dc.l	SP_INIT_ADDR
 		dc.l	_start
 
-		rorg	$74, $ff
+		rorg	$64, $ff
+		dc.l	irq1_handler
+		dc.l	irq2_handler
+		dc.l	irq3_handler
+		dc.l	irq4_handler
 		dc.l	irq5_handler
 		dc.l	irq6_handler
+		dc.l	irq7_handler
 
 	section code
 
 ; timer
 irq5_handler:
-		addq.l	#1, r_irq_timer_count
+		addq.w	#1, r_irq5_count
 		move.w	d0, REG_IRQ5_ACK
 		rte
 
 ; vblank
 irq6_handler:
-		addq.l	#1, r_irq_vblank_count
+		addq.w	#1, r_irq6_count
 		move.w	d0, REG_IRQ6_ACK
+		rte
+
+irq1_handler:
+irq2_handler:
+irq3_handler:
+irq4_handler:
+irq7_handler:
 		rte
 
 	section bss
 	align 1
 
-r_irq_timer_count:		dcb.l 1
-r_irq_vblank_count:		dcb.l 1
+r_irq5_count:		dcb.w 1
+r_irq6_count:		dcb.w 1

@@ -9,9 +9,9 @@ input_test:
 		lea	d_screen_xys_list, a0
 		RSUB	print_xy_string_list
 
-		clr.l	r_irq1_count
-		clr.l	r_irq2_count
-		clr.l	r_irq3_count
+		clr.w	r_irq1_count
+		clr.w	r_irq2_count
+		clr.w	r_irq3_count
 
 		CPU_INTS_ENABLE
 
@@ -24,16 +24,16 @@ input_test:
 		jsr	print_input_list
 
 		SEEK_XY	(SCREEN_START_X + 5), (SCREEN_START_Y + 8)
-		move.l	r_irq1_count, d0
-		RSUB	print_hex_3_bytes
+		move.w	r_irq1_count, d0
+		RSUB	print_hex_word
 
 		SEEK_XY	(SCREEN_START_X + 5), (SCREEN_START_Y + 9)
-		move.l	r_irq2_count, d0
-		RSUB	print_hex_3_bytes
+		move.w	r_irq2_count, d0
+		RSUB	print_hex_word
 
 		SEEK_XY	(SCREEN_START_X + 5), (SCREEN_START_Y + 10)
-		move.l	r_irq3_count, d0
-		RSUB	print_hex_3_bytes
+		move.w	r_irq3_count, d0
+		RSUB	print_hex_word
 
 		move.b	REG_INPUT, d0
 		not.b	d0

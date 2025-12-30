@@ -1,4 +1,4 @@
-	global r_irq_vblank_count
+	global r_irq_count
 
 	section vectors
 
@@ -16,9 +16,9 @@ irq_handler:
 		lda	#$0
 		sta	$0007
 
-		ldd	r_irq_vblank_count
+		ldd	r_irq_count
 		incd
-		std	r_irq_vblank_count
+		std	r_irq_count
 
 		lda	#$2
 		sta	$0007
@@ -31,4 +31,4 @@ swi_handler:
 
 	section bss
 
-r_irq_vblank_count:	dcb.w 1
+r_irq_count:		dcb.w 1

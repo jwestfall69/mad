@@ -10,7 +10,7 @@ input_test:
 		jsr	print_xy_string_list
 
 		clrd
-		std	r_irq_vblank_count
+		std	r_nmi_count
 		std	r_pulse_vblank_count
 		clr	r_input_dsw1_edge
 		clr	r_input_dsw1_raw
@@ -39,7 +39,7 @@ input_test:
 	.no_vblank:
 
 		SEEK_XY	(SCREEN_START_X + 18), (SCREEN_START_Y + 3)
-		ldd	r_irq_vblank_count
+		ldd	r_nmi_count
 		RSUB	print_hex_word
 
 		SEEK_XY	(SCREEN_START_X + 18), (SCREEN_START_Y + 4)
@@ -87,13 +87,13 @@ d_input_list:
 d_screen_xys_list:
 	XY_STRING (SCREEN_START_X + 5), (SCREEN_START_Y + 2), "76543210"
 	XY_STRING (SCREEN_START_X + 2), (SCREEN_START_Y + 3), "P1"
-	XY_STRING (SCREEN_START_X + 14), (SCREEN_START_Y + 3), "VBI"
+	XY_STRING (SCREEN_START_X + 14), (SCREEN_START_Y + 3), "NMI"
 	XY_STRING (SCREEN_START_X + 2), (SCREEN_START_Y + 4), "P2"
 	XY_STRING (SCREEN_START_X + 14), (SCREEN_START_Y + 4), "VBP"
 	XY_STRING (SCREEN_START_X + 2), (SCREEN_START_Y + 5), "P3"
 	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 6), "DSW1"
 	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 7), "DSW2"
-	XY_STRING SCREEN_START_X, (SCREEN_B2_Y - 3), "VBI SHOULD EQUAL VBP"
+	XY_STRING SCREEN_START_X, (SCREEN_B2_Y - 3), "NMI SHOULD EQUAL VBP"
 	XY_STRING SCREEN_START_X, SCREEN_B2_Y, "B2+RIGHT - RETURN TO MENU"
 	XY_STRING_LIST_END
 
