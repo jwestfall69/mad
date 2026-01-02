@@ -63,7 +63,7 @@ values_edit_handler:
 	.loop_next_ve_entry:
 		cmp.b	#$0, d0
 		beq	.loop_input
-		addq.l	#s_vee_struct_size, a0
+		add.l	#s_vee_struct_size, a0
 		subq.b	#$1, d0
 		bra	.loop_next_ve_entry
 
@@ -117,17 +117,24 @@ values_edit_handler:
 		lea	r_input_edge, a0
 
 	.input_setup_done:
-		move.w	s_vee_mask(a1), d0
+		move.l	s_vee_mask(a1), d0
 		move.b	s_vee_type(a1), d1
 		move.l	s_vee_address(a1), a1
 
-		cmp.b	#VE_TYPE_WORD, d1
-		beq	.type_word
-		jsr	joystick_lr_update_byte
+		cmp.b	#VE_TYPE_3_BYTES, d1
+		bne	.not_type_3_bytes
+		jsr	joystick_lr_update_long
 		bra	.check_value_change
 
-	.type_word:
+	.not_type_3_bytes:
+		cmp.b	#VE_TYPE_WORD, d1
+		bne	.not_type_word
 		jsr	joystick_lr_update_word
+		bra	.check_value_change
+
+	.not_type_word:
+		; byte/nibble both use
+		jsr	joystick_lr_update_byte
 
 	.check_value_change:
 		movem.l	(a7)+, a0
@@ -168,6 +175,8 @@ print_data:
 		move.l	s_vee_address(a0), a1
 
 		move.b	s_vee_type(a0), d0
+		cmp.b	#VE_TYPE_3_BYTES, d0
+		beq	.print_3_bytes
 		cmp.b	#VE_TYPE_WORD, d0
 		beq	.print_word
 		cmp.b	#VE_TYPE_BYTE, d0
@@ -185,6 +194,11 @@ print_data:
 	.print_word:
 		move.w	(a1), d0
 		RSUB	print_hex_word
+		bra	.print_done
+
+	.print_3_bytes:
+		move.l	(a1), d0
+		RSUB	print_hex_3_bytes
 
 	.print_done:
 		add.l	#s_vee_struct_size, a0

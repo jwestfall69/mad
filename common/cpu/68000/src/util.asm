@@ -3,6 +3,7 @@
 	global delay_dsub
 	global joystick_lr_update_byte
 	global joystick_lr_update_word
+	global joystick_lr_update_long
 	global memory_rewrite_dsub
 	global print_b2_return_to_menu
 	global print_passes
@@ -67,7 +68,7 @@ joystick_lr_update_byte:
 		clr	d0
 		rts
 
-; Looking at joystick left/right, adjust the byte in memory
+; Looking at joystick left/right, adjust the word in memory
 ; -$1 for LEFT
 ; +$1 for RIGHT
 ; If b1 is held down, then inc/dec is $10
@@ -101,6 +102,47 @@ joystick_lr_update_word:
 
 	.apply_mask_return:
 		and.w	d2, (a1)
+		moveq	#$1, d0
+		rts
+
+	.return_no_change:
+		clr	d0
+		rts
+
+; Looking at joystick left/right, adjust the long in memory
+; -$1 for LEFT
+; +$1 for RIGHT
+; If b1 is held down, then inc/dec is $100
+; Then apply the mask to the byte
+; params:
+;  d.l = mask
+;  a0 = #r_input_edge|#r_input_raw
+;  a1 = address of byte to update
+; returns:
+;  a = 0 no change, 1 = chan
+joystick_lr_update_long:
+		move.l	d0, d2
+		moveq	#$1, d1		; inc/dec amount
+
+		move.b	r_input_raw, d0
+		btst	#INPUT_B1_BIT, d0
+		beq	.b1_not_pressed
+		add.w	#$ff, d1
+
+	.b1_not_pressed:
+		move.b	(a0), d0
+		btst	#INPUT_LEFT_BIT, d0
+		beq	.left_not_pressed
+		sub.l	d1, (a1)
+		bra	.apply_mask_return
+
+	.left_not_pressed:
+		btst	#INPUT_RIGHT_BIT, d0
+		beq	.return_no_change
+		add.l	d1, (a1)
+
+	.apply_mask_return:
+		and.l	d2, (a1)
 		moveq	#$1, d0
 		rts
 

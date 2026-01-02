@@ -16,20 +16,20 @@ s_ves_struct_size	rs.b 0
 s_vee_type		rs.b 1
 s_vee_input		rs.b 1
 s_vee_address		rs.l 1
-s_vee_mask		rs.w 1
+s_vee_mask		rs.l 1
 s_vee_struct_size	rs.b 0
 
 	; struct ve_entry {
 	;  byte type;
 	;  byte input;
 	;  long address;
-	;  word mask;
+	;  long mask;
 	; }
 
 	macro VE_ENTRY
 		dc.b \1, \2
 		dc.l \3
-		dc.w \4
+		dc.l \4
 	endm
 
 	macro VE_LIST_END
@@ -39,9 +39,10 @@ s_vee_struct_size	rs.b 0
 ; The type of data at s_vee_address.  These also
 ; get used for print offsets so the data is all
 ; right aligned
-VE_TYPE_NIBBLE		equ $3
-VE_TYPE_BYTE		equ $2
-VE_TYPE_WORD		equ $0
+VE_TYPE_NIBBLE		equ $5
+VE_TYPE_BYTE		equ $4
+VE_TYPE_WORD		equ $2
+VE_TYPE_3_BYTES		equ $0
 
 ; if input comes from r_input_edge or r_input_raw
 VE_INPUT_EDGE		equ $0
