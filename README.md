@@ -112,7 +112,7 @@ Support boards
 ![simpsons](machine/the_simpsons/docs/images/mad_simpsons_main_menu.png)
 
 ### Toki (toki)
-![toki](docs/images/toki.png)
+![toki](machine/toki/docs/images/mad_toki_main_menu.png)
 
 ### Vendetta (vendetta)
 ![vendetta](machine/vendetta/docs/images/mad_vendetta_main_menu.png)
