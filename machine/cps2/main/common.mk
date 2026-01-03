@@ -30,6 +30,8 @@ OBJS = $(OBJ_DIR)/cpu/68000/src/crc32.o \
        $(OBJ_DIR)/cpu/68000/src/handlers/menu.o \
        $(OBJ_DIR)/cpu/68000/src/handlers/sound.o \
        $(OBJ_DIR)/cpu/68000/src/handlers/tile8_viewer.o \
+       $(OBJ_DIR)/cpu/68000/src/handlers/tile16_viewer.o \
+       $(OBJ_DIR)/cpu/68000/src/handlers/values_edit.o \
        $(OBJ_DIR)/cpu/68000/src/tests/input.o \
        $(OBJ_DIR)/cpu/68000/src/tests/mad_rom.o \
        $(OBJ_DIR)/cpu/68000/src/tests/memory.o
@@ -42,10 +44,12 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/screen.o \
         $(OBJ_DIR)/vector_table.o \
         $(OBJ_DIR)/version.o \
-        $(OBJ_DIR)/debug/fg_tile_viewer.o \
         $(OBJ_DIR)/menus/debug.o \
         $(OBJ_DIR)/menus/main.o \
+        $(OBJ_DIR)/menus/graphics_viewer.o \
         $(OBJ_DIR)/menus/memory_viewer.o \
+        $(OBJ_DIR)/menus/ram_tests.o \
+        $(OBJ_DIR)/menus/video_tests.o \
         $(OBJ_DIR)/tests/auto.o \
         $(OBJ_DIR)/tests/gfx_ram.o \
         $(OBJ_DIR)/tests/input.o \
@@ -53,15 +57,31 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/tests/qsound_ram.o \
         $(OBJ_DIR)/tests/sound.o \
         $(OBJ_DIR)/tests/work_ram.o \
-        $(OBJ_DIR)/tests/video_dac.o
+        $(OBJ_DIR)/tests/video_dac.o \
+        $(OBJ_DIR)/viewers/scroll2_tile.o \
+        $(OBJ_DIR)/viewers/scroll1_tile.o \
+        $(OBJ_DIR)/viewers/sprite.o \
+        $(OBJ_DIR)/viewers/tile_viewer_common.o
 
-INCS = $(wildcard include/*.inc) \
-       $(wildcard include/romset/*.inc) \
+ifneq (,$(findstring _DEBUG_HARDWARE_,$(BUILD_FLAGS)))
+OBJS += $(OBJ_DIR)/cpu/68000/src/debug/hardware/watchdog_time.o \
+        $(OBJ_DIR)/cpu/68000/src/handlers/memory_write.o \
+        $(OBJ_DIR)/debug/hardware/sprite.o \
+        $(OBJ_DIR)/menus/debug_hardware.o
+endif
+
+INCS = $(wildcard ../../../common/global/include/*.inc) \
+       $(wildcard ../../../common/global/include/*/*.inc) \
+       $(wildcard ../../../common/global/include/*/*/*.inc) \
        $(wildcard ../../../common/global/include/*.inc) \
        $(wildcard ../../../common/cpu/68000/include/*.inc) \
-       $(wildcard ../../../common/cpu/68000/include/tests/*.inc)
+       $(wildcard ../../../common/cpu/68000/include/*/*.inc) \
+       $(wildcard ../../../common/cpu/68000/include/*/*/*.inc) \
+       $(wildcard include/*.inc) \
+       $(wildcard include/*/*.inc) \
+       $(wildcard include/*/*/*.inc)
 
-$(WORK_DIR)/$(MAD_NAME).bin: include/error_codes.inc $(WORK_DIR) $(BUILD_DIR) $(OBJS)
+$(WORK_DIR)/$(MAD_NAME).bin: include/error_codes.inc $(WORK_DIR) $(BUILD_DIR) $(OBJS) ../README.md
 	$(VLINK) $(VLINK_FLAGS) -o $(WORK_DIR)/$(MAD_NAME).bin $(OBJS)
 	# suicide rom
 	$(COPY)  $(WORK_DIR)/$(MAD_NAME).bin $(WORK_DIR)/$(MAD_NAME).nokey
@@ -76,6 +96,9 @@ $(WORK_DIR)/$(MAD_NAME).bin: include/error_codes.inc $(WORK_DIR) $(BUILD_DIR) $(
 
 include/error_codes.inc: include/error_codes.cfg
 	../../../util/gen-error-codes -b 7 include/error_codes.cfg include/error_codes.inc
+
+../README.md: include/error_codes.inc ../../../common/cpu/68000/include/error_codes.inc
+	../../../util/gen-error-codes-markdown-table -i include/error_codes.inc -i ../../../common/cpu/68000/include/error_codes.inc -c 68000 -t main -m ../README.md
 
 src/version.asm:
 	../../../util/gen-version-asm-file -m CPS2 -r $(ROMSET) -i ../../../common/global/src/version.asm.in -o src/version.asm

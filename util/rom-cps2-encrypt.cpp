@@ -857,14 +857,14 @@ int main(int argc, char **argv)
 	// non-encrypted and encrypted data per mad rom's layout.
 	//  0x0000 - 0x0007 sp + entry point (encrypted)
 	//  0x0008 - 0x0079 vectors (non-encrypted)
-	//  0x0080 - 0x1fff main code (encrypted)
-	//  0x2000 - 0x5fff data (non-encrypted)
+	//  0x0080 - 0x2fff main code (encrypted)
+	//  0x3000 - 0x5fff data (non-encrypted)
 	//  0x6000 - 0x7fff error addresse code (encrypted)
 	// note: rom-inject-crc-mirror will fill in mirror/crc data at 0x7ffb
 	fwrite(enc_data, sizeof(uint16_t), 0x8 / 2, out_fd);
 	fwrite(&in_data[0x8 / 2], sizeof(uint16_t), (0x80 - 0x8) / 2, out_fd);
-	fwrite(&enc_data[0x80 / 2], sizeof(uint16_t), (0x2000 - 0x80) / 2, out_fd);
-	fwrite(&in_data[0x2000 / 2], sizeof(uint16_t), 0x4000 / 2, out_fd);
+	fwrite(&enc_data[0x80 / 2], sizeof(uint16_t), (0x3000 - 0x80) / 2, out_fd);
+	fwrite(&in_data[0x3000 / 2], sizeof(uint16_t), 0x3000 / 2, out_fd);
 	fwrite(&enc_data[0x6000 / 2], sizeof(uint16_t), 0x2000 / 2, out_fd);
 
 	fclose(out_fd);

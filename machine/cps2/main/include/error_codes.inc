@@ -1,4 +1,4 @@
-; last updated by gen-error-codes on 2025-03-21 @ 21:11 UTC
+; last updated by gen-error-codes on 2026-01-03 @ 03:18 UTC
 GFX_RAM_BASE_EC                equ $01
 EC_GFX_RAM_ADDRESS             equ $01 ; 0000001
 EC_GFX_RAM_DATA_LOWER          equ $02 ; 0000010

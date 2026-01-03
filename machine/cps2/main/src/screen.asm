@@ -8,20 +8,34 @@
 
 screen_init_dsub:
 
+		move.b	#$0, REG_OBJECT_RAM_BANK
 		lea	d_memory_fill_list, a0
 		DSUB	memory_fill_list
+		move.b	#$1, REG_OBJECT_RAM_BANK
 
 		move.w	#SCROLL1_RAM / 256, REGA_SCROLL1_RAM_BASE
 		move.w	#SCROLL2_RAM / 256, REGA_SCROLL2_RAM_BASE
 		move.w	#SCROLL3_RAM / 256, REGA_SCROLL3_RAM_BASE
 		move.w	#ROW_SCROLL_RAM / 256, REGA_ROW_SCROLL_RAM_BASE
-		move.w	#ROMSET_LAYER_CTRL, REGB_LAYER_CTRL
-		move.w	#ROMSET_PALETTE_CTRL, REGB_PALETTE_CTRL
-		move.w	#ROMSET_VIDEO_CTRL, REGA_VIDEO_CONTROL
 
-		ROMSET_PALLETE_SETUP
+		; the combination of these 2 values should enable all
+		; scroll layers and star layers
+		move.w	#$12fe, REGB_LAYER_CTRL
+		move.w	#$3e, REGA_VIDEO_CONTROL
 
+		; should cause all palette regions to get copied
+		move.w	#$3f, REGB_PALETTE_CTRL
+
+		move.w	#$ffc0, REGA_SCROLL1_X
+		move.w	#$0, REGA_SCROLL1_Y
+
+		RS_SI_PALETTE_SETUP
+
+	ifd _SCREEN_TATE_
+		SEEK_XY	3, 0
+	else
 		SEEK_XY	13, 0
+	endif
 		lea	d_str_version, a0
 		DSUB	print_string
 
@@ -52,10 +66,17 @@ screen_seek_xy_dsub:
 		SEEK_XY	0, 0
 		and.l	#$ff, d0
 		and.l	#$ff, d1
+	ifd _SCREEN_TATE_
+		lsl.l	#2, d0
+		lsl.l	#7, d1
+		adda.l	d0, a6
+		suba.l	d1, a6
+	else
 		lsl.l	#7, d0
 		lsl.l	#2, d1
 		adda.l	d0, a6
 		adda.l	d1, a6
+	endif
 		DSUB_RETURN
 
 	section data

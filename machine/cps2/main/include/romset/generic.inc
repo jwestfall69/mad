@@ -1,7 +1,3 @@
-ROMSET_LAYER_CTRL		equ $12e2
-ROMSET_VIDEO_CTRL		equ $003e
-ROMSET_PALETTE_CTRL		equ $003e
-
 CURSOR_CHAR			equ '*'
 CURSOR_CLEAR_CHAR		equ ' '
 
@@ -24,18 +20,19 @@ VD_TILE_B3_PAL_OFFSET		equ $6
 VD_TILE_BA_NUM			equ $14
 VD_TILE_BA_PAL_OFFSET		equ $8
 
-	macro ROMSET_INIT
-		move.w	#$0, $8040a0
-		move.w	#$7000, $fffff0
-		move.w	#$807d, $fffff2
-		move.w	#$0, $fffff4
-		move.w	#$0, $fffff6
-		move.w	#$0, $fffff8
-		move.w	#$0, $fffffa
+	macro WATCHDOG
+		; bogus, we just need something thats 6 bytes
+		; so error_address will work correctly
+		cmpi.l	#$7b5d94f1, d6
 	endm
 
-	macro ROMSET_PALLETE_SETUP
-		lea	PALETTE_RAM + $2, a0
+
+; screen init
+	macro RS_SI_PALETTE_SETUP
+		; we don't know what color indexes make up the font
+		; so we just doing most of them to hopefully get readable
+		; text
+		lea	SCROLL1_PALETTE + $2, a0
 		moveq	#$6, d0
 
 	.loop_next_palette_address:
@@ -46,9 +43,38 @@ VD_TILE_BA_PAL_OFFSET		equ $8
 		move.w	#PALETTE_BACKGROUND_COLOR, PALETTE_RAM + $13fe
 	endm
 
-	macro WATCHDOG
-		; bogus, we just need something thats 6 bytes
-		; so error_address will work correctly
-		cmpi.l	#$7b5d94f1, d6
+; tile viewer
+RS_TV_TILE_OFFSET_MASK	equ $ffff
+	macro RS_TV_PALETTE_DATA
+		dc.w	$fa00, $ff00, $ff67, $ffab, $f028, $f35c, $f57d, $f79e
+		dc.w	$f9bf, $f333, $f455, $f688, $f8a8, $fbce, $feff, $ffff
 	endm
 
+; sprite debug setup
+	macro RS_SD_SETUP
+		; highlight for mw
+		lea	SCROLL1_PALETTE + PALETTE_SIZE + $2, a0
+		moveq	#$6, d0
+
+	.loop_next_palette_address:
+		move.w	#$ff00, ($10, a0)
+		move.w	#$ff00, (a0)+
+		dbra	d0, .loop_next_palette_address
+		move.w	#$ff00, SCROLL1_PALETTE + PALETTE_SIZE + $1c
+
+		; init data
+		move.l	#$40f00030, r_mw_buffer
+		move.l	#$00011200, r_mw_buffer + 4
+	endm
+
+; sprite viewer
+RS_SV_SPRITE_NUM	equ $1
+RS_SV_SPRITE_NUM_MASK	equ $ffff	; ??
+RS_SV_SPRITE_POS_X	equ $f0
+RS_SV_SPRITE_POS_Y	equ $30
+RS_SV_SPRITE_SIZE_X	equ $2
+RS_SV_SPRITE_SIZE_Y	equ $1
+	macro RS_SV_PALETTE_DATA
+		dc.w	$f015, $f048, $f08f, $f851, $fc83, $fec5, $f001, $f223
+		dc.w	$f445, $f667, $f778, $f99a, $fbbc, $fdde, $ffff, $f555
+	endm

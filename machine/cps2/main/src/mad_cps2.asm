@@ -7,25 +7,37 @@
 _start:
 		CPU_INTS_DISABLE
 
-		; doing it like this so the same compiled rom
-		; can be used to make a suicided rom or encrypted
-		cmp.l	#(WORK_RAM + WORK_RAM_SIZE), $0
-		beq	.suicide
+		; Normally contents of 0x000000 in the rom is the initial
+		; value the CPU gives sp on boot.  However on an encrypted
+		; rom it will be scrambled if we try to read it.  We can use
+		; this fact to determine if we are running an encrypted or
+		; suicided rom.  Each require a different init process.
+		cmp.l	#SP_INIT_ADDR, $0
+		beq	.init_suicide
 
-		; unclear at this point if this might be required
-		; to be different depending on romset or if we
-		; could get away with them all being the same
-		ROMSET_INIT
+		; Unclear if this will work for all encrypted games.  It
+		; probably does since all games are CPS B-21 with default
+		; values
+		move.w	#$0, $8040a0
+		move.w	#$7000, $400000
+		move.w	#$807d, $400002
+		move.w	#$0, $400004
+		move.w	#$0, $400006
+		move.w	#$0, $400008
+		move.w	#$0, $40000a
 		bra	.init_done
 
-	.suicide:
-		SUICIDE_INIT
+	.init_suicide:
+		; This comes from razoola's suicided tester / phoenix roms.
+		move.w	#$0, $8040a0
+		move.w	#$7000, $fffff0
+		move.w	#$807d, $fffff2
+		move.w	#$0, $fffff4
+		move.w	#$0, $fffff6
+		move.w	#$0, $fffff8
+		move.w	#$0, $fffffa
 
 	.init_done:
-		move.w	#$ffc0, REGA_SCROLL1_X
-		move.w	#$0, REGA_SCROLL1_Y
-		move.b	#$0, REG_OBJECT_RAM_BANK
-
 		; At power up the z80 cpu is held in RESET until
 		; we send the following command to the eeprom port.
 		; If you attempt to access the shared qsound ram
@@ -40,7 +52,8 @@ _start:
 
 		PSUB	auto_test_dsub_handler
 
-		;DSUB_MODE_RSUB
+		; DSUB_MODE_RSUB uses $0 to setup sp, but on encrypted
+		; roms it will be scrambled
 		moveq	#$1c, d7
 		move.l	#SP_INIT_ADDR, sp
 

@@ -18,3 +18,6 @@ VD_NUM_BITS_PER_COLOR	equ $5		; includes all/combined
 VD_COLOR_BLOCK_WIDTH	equ $4
 VD_COLOR_BLOCK_HEIGHT	equ $3
 ; tile defines are in the romsets
+
+; palette number used by all the tile viewers
+TVC_PALETTE_NUM		equ $1

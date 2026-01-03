@@ -53,11 +53,14 @@ Support boards
 ![cps1 sf2](docs/images/cps1/sf2.png)
 
 ### CPS2 (suicided & encrypted boards)
-**1944 suicided** (1944d)<br>
-![cps2 1944](docs/images/cps2/1944d.png)
+![cps2](machine/cps2/docs/images/mad_cps2_main_menu.png)
 
-**X-Men: Children of the Atom (Asia 950105) encrypted** (xmcotaa)<br>
-![cps2 xmcotaa](docs/images/cps2/xmcotaa.png)
+**1944: The Loop Master (Euro)** (1944)<br>
+**19XX: The War Against Destiny (Euro)** (19xx)<br>
+**Dungeons & Dragons: Tower of Doom (Euro)** (ddotd)<br>
+**Vampire Savior: The Lord of Vampire (USA)** (vsavu)<br>
+**X-Men: Children of the Atom (Asia)** (xmcotaa)<br>
+**Generic Suicided Games**
 
 ### Crime Fighters (crimfght)
 ![crimfght](machine/crime_fighters/docs/images/mad_crime_fighters_main_menu.png)

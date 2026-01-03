@@ -232,22 +232,22 @@ draw_color_bit:
 ;  b = brightness value (applies to all colors)
 palette_setup:
 		; red palette setup
-		lea	PALETTE_RAM+PALETTE_SIZE, a0
+		lea	SCROLL1_PALETTE + PALETTE_SIZE, a0
 		move.w	#$f00, d0
 		bsr	palette_setup_color
 
 		; green palette setup
-		lea	PALETTE_RAM+(PALETTE_SIZE*2), a0
+		lea	SCROLL1_PALETTE + (PALETTE_SIZE * 2), a0
 		move.w	#$f0, d0
 		bsr	palette_setup_color
 
 		; blue palette setup
-		lea	PALETTE_RAM+(PALETTE_SIZE*3), a0
+		lea	SCROLL1_PALETTE + (PALETTE_SIZE * 3), a0
 		move.w	#$f, d0
 		bsr	palette_setup_color
 
 		; combined/all palette setup
-		lea	PALETTE_RAM+(PALETTE_SIZE*4), a0
+		lea	SCROLL1_PALETTE + (PALETTE_SIZE * 4), a0
 		move.w	#$fff, d0
 		bsr	palette_setup_color
 
