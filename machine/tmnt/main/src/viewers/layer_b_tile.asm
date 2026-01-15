@@ -17,7 +17,7 @@ layer_b_tile_viewer:
 		move.w	#TILE_OFFSET_MASK, d1
 		lea	layer_b_seek_xy_cb, a0
 		lea	tvc_draw_tile_cb, a1
-		bsr	tile8_viewer_handler
+		bsr	tile_8x8_viewer_handler
 		rts
 
 layer_b_seek_xy_cb:

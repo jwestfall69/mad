@@ -1,6 +1,6 @@
 	include "cpu/68000/include/common.inc"
 
-	global tile16_viewer_handler
+	global tile_16x16_viewer_handler
 
 START_COLUMN	equ SCREEN_START_X + 1
 START_ROW	equ SCREEN_START_Y + 7
@@ -16,7 +16,7 @@ START_ROW	equ SCREEN_START_Y + 7
 ;  d1 = offset mask
 ;  a0 = seek_xy function
 ;  a1 = draw_tile function
-tile16_viewer_handler:
+tile_16x16_viewer_handler:
 		; we are only able to display 64 tiles (8x8) at a time.
 		; r_quadrant is used to pick which 64 tiles to display
 		; out the 256 tiles within a given tile offset.

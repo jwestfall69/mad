@@ -29,7 +29,7 @@ OBJS = $(OBJ_DIR)/cpu/68000/src/crc32.o \
        $(OBJ_DIR)/cpu/68000/src/handlers/memory_viewer.o \
        $(OBJ_DIR)/cpu/68000/src/handlers/menu.o \
        $(OBJ_DIR)/cpu/68000/src/handlers/sound.o \
-       $(OBJ_DIR)/cpu/68000/src/handlers/tile8_viewer.o \
+       $(OBJ_DIR)/cpu/68000/src/handlers/tile_8x8_viewer.o \
        $(OBJ_DIR)/cpu/68000/src/tests/input.o \
        $(OBJ_DIR)/cpu/68000/src/tests/mad_rom.o \
        $(OBJ_DIR)/cpu/68000/src/tests/memory.o

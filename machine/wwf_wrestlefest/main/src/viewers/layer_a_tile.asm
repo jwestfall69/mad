@@ -17,7 +17,7 @@ layer_a_tile_viewer:
 		move.w	#TILE_OFFSET_MASK, d1
 		lea	layer_a_tile_seek_xy_cb, a0
 		lea	layer_a_tile_draw_tile_cb, a1
-		bsr	tile16_viewer_handler
+		bsr	tile_16x16_viewer_handler
 
 		move.w	#$0, REG_LAYER_A_SCROLL_X
 		move.w	#$0, REG_LAYER_A_SCROLL_Y

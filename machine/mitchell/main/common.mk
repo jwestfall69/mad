@@ -27,7 +27,7 @@ OBJS = $(OBJ_DIR)/cpu/z80/src/crc32.o \
        $(OBJ_DIR)/cpu/z80/src/handlers/memory_viewer.o \
        $(OBJ_DIR)/cpu/z80/src/handlers/menu.o \
        $(OBJ_DIR)/cpu/z80/src/handlers/sound.o \
-       $(OBJ_DIR)/cpu/z80/src/handlers/tile8_viewer.o \
+       $(OBJ_DIR)/cpu/z80/src/handlers/tile_8x8_viewer.o \
        $(OBJ_DIR)/cpu/z80/src/handlers/values_edit.o \
        $(OBJ_DIR)/cpu/z80/src/tests/input.o \
        $(OBJ_DIR)/cpu/z80/src/tests/mad_rom.o \

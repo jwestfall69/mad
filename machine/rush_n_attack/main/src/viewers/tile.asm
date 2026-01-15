@@ -17,7 +17,7 @@ tile_viewer:
 		ld	c, TILE_OFFSET_MASK_UPPER
 		ld	de, seek_xy_cb
 		ld	hl, draw_tile_cb
-		call	tile8_viewer_handler
+		call	tile_8x8_viewer_handler
 		ret
 
 seek_xy_cb:

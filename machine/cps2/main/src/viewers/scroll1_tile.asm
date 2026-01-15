@@ -13,7 +13,7 @@ scroll1_tile_viewer:
 		move.w	#RS_TV_TILE_OFFSET_MASK, d1
 		lea	scroll1_seek_xy_cb, a0
 		lea	tvc_draw_tile_cb, a1
-		bsr	tile8_viewer_handler
+		bsr	tile_8x8_viewer_handler
 		rts
 
 

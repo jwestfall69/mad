@@ -15,7 +15,7 @@ fix_tile_viewer:
 		move.w	#TILE_OFFSET_MASK, d1
 		lea	fix_seek_xy_cb, a0
 		lea	fix_draw_tile_cb, a1
-		bsr	tile8_viewer_handler
+		bsr	tile_8x8_viewer_handler
 		rts
 
 fix_seek_xy_cb:

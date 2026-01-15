@@ -1,6 +1,6 @@
 	include "cpu/z80/include/common.inc"
 
-	global tile8_viewer_handler
+	global tile_8x8_viewer_handler
 
 START_COLUMN	equ SCREEN_START_X
 START_ROW	equ SCREEN_START_Y + 6
@@ -12,7 +12,7 @@ START_ROW	equ SCREEN_START_Y + 6
 ;  c = offset mask upper
 ;  de = seek_xy function
 ;  hl = draw_tile function
-tile8_viewer_handler:
+tile_8x8_viewer_handler:
 		ld	a, b
 		ld	(r_tile_offset_upper), a
 		ld	a, c

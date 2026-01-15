@@ -21,7 +21,7 @@ scroll2_tile_viewer:
 		move.w	#RS_TV_TILE_OFFSET_MASK, d1
 		lea	scroll2_seek_xy_cb, a0
 		lea	tvc_draw_tile_cb, a1
-		bsr	tile16_viewer_handler
+		bsr	tile_16x16_viewer_handler
 		rts
 
 

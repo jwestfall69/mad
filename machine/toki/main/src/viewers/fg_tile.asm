@@ -26,7 +26,7 @@ fg_tile_viewer:
 		move.w	#TILE_OFFSET_MASK, d1
 		lea	fg_seek_xy_cb, a0
 		lea	fg_draw_tile_cb, a1
-		bsr	tile16_viewer_handler
+		bsr	tile_16x16_viewer_handler
 		rts
 
 ; Palette Layout

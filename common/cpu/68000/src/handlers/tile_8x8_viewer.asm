@@ -1,6 +1,6 @@
 	include "cpu/68000/include/common.inc"
 
-	global tile8_viewer_handler
+	global tile_8x8_viewer_handler
 
 START_COLUMN	equ SCREEN_START_X
 START_ROW	equ SCREEN_START_Y + 6
@@ -12,7 +12,7 @@ START_ROW	equ SCREEN_START_Y + 6
 ;  d1 = offset mask
 ;  a0 = seek_xy function
 ;  a1 = draw_tile function
-tile8_viewer_handler:
+tile_8x8_viewer_handler:
 		move.w	d0, (r_tile_offset)
 		move.w	d1, (r_tile_offset_mask)
 		move.l	a0, (r_seek_xy_cb)
