@@ -93,6 +93,9 @@ Support boards
 ### Ninja Gaiden (gaiden)
 ![gaiden](machine/ninja_gaiden/docs/images/mad_gaiden_main_menu.png)
 
+### MX5000 / Flak Attack (mx5000)
+![gaiden](machine/mx5000/docs/images/mad_mx5000_main_menu.png)
+
 ### Rollergames (rollerg)
 ![rollerg](machine/rollergames/docs/images/mad_rollerg_main_menu.png)
 
