@@ -166,9 +166,9 @@ print_error_work_ram_memory_dsub:
 		exx
 
 		; address value
-		SEEK_XY	(SCREEN_START_X + 10), (SCREEN_START_Y + 2)
 		ld	b, h
 		ld	c, l
+		SEEK_XY	(SCREEN_START_X + 10), (SCREEN_START_Y + 2)
 		PSUB	print_hex_word
 
 		; restore
