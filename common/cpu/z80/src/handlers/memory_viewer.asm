@@ -14,7 +14,9 @@
 memory_viewer_handler:
 		ld	(r_read_memory_cb), iy
 
-		RSUB	screen_init
+		SEEK_XY	0, SCREEN_START_Y
+		RSUB	print_clear_line
+
 		ld	de, d_screen_xys_list
 		call	print_xy_string_list
 

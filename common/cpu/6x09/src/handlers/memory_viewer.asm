@@ -13,8 +13,11 @@
 ;  function should write a long worth of data at y
 memory_viewer_handler:
 		sty	r_read_memory_cb
+
 		pshs	x
-		RSUB	screen_init
+
+		SEEK_XY	0, SCREEN_START_Y
+		RSUB	print_clear_line
 
 		ldy	#d_screen_xys_list
 		jsr	print_xy_string_list

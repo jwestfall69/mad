@@ -15,10 +15,12 @@
 ;  function should write a long worth of data in d0
 memory_viewer_handler:
 		movem.l	a0-a1, -(a7)
-		RSUB	screen_init
 
 		clr.b	r_read_mode
 		clr.b	r_debug_memory
+
+		SEEK_XY	0, SCREEN_START_Y
+		RSUB	print_clear_line
 
 		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
 		lea	d_str_memory_viewer, a0
