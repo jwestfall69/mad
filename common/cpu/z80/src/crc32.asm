@@ -36,13 +36,12 @@ crc32_dsub:
 		ld	e, a
 
 	.loop_inner:
-		WATCHDOG
 		srl	h
 		rr	l
 		rr	d
 		rr	e
 		jr	nc, .loop_inner_inner
-		ld 	a, e
+		ld	a, e
 		xor	$20
 		ld	e, a
 		ld	a, d
@@ -56,7 +55,6 @@ crc32_dsub:
 		ld	h, a
 
 	.loop_inner_inner:
-		WATCHDOG
 		djnz	.loop_inner
 		exx
 		dec	de
@@ -77,4 +75,3 @@ crc32_dsub:
 		cpl
 		ld	d, a
 		DSUB_RETURN
-
