@@ -22,6 +22,9 @@ https://www.mvs-scans.com/mad/mad-main.zip
 
 Support boards
 
+### 1943 (1943)
+![1943](machine/1943/docs/images/mad_1943_main_menu.png)
+
 ### Aliens (aliens)
 ![Aliens](machine/aliens/docs/images/mad_aliens_main_menu.png)
 
