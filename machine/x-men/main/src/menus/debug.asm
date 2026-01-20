@@ -16,11 +16,11 @@ debug_menu:
 
 d_menu_list:
 	ifd _DEBUG_HARDWARE_
-		MENU_ENTRY debug_hardware_menu, d_str_debug_hardware
+		MENU_ENTRY debug_hardware_menu, d_str_debug_hardware, ME_FLAG_SKIP_SCREEN_INIT
 	endif
-	MENU_ENTRY ec_dupe_check, d_str_ec_dupe_check
-	MENU_ENTRY error_address_test, d_str_error_address_test
-	MENU_ENTRY mad_git_hash, d_str_mad_git_hash
+	MENU_ENTRY ec_dupe_check, d_str_ec_dupe_check, ME_FLAG_NONE
+	MENU_ENTRY error_address_test, d_str_error_address_test, ME_FLAG_NONE
+	MENU_ENTRY mad_git_hash, d_str_mad_git_hash, ME_FLAG_NONE
 	MENU_LIST_END
 
 d_str_menu_title:		STRING "DEBUG MENU"

@@ -15,10 +15,10 @@ ram_tests_menu:
 	align 1
 
 d_menu_list:
-	MENU_ENTRY manual_gfx_ram_tests, d_str_gfx_ram_test
-	MENU_ENTRY manual_object_ram_tests, d_str_object_ram_test
-	MENU_ENTRY manual_qsound_ram_tests, d_str_qsound_ram_test
-	MENU_ENTRY manual_work_ram_tests, d_str_work_ram_test
+	MENU_ENTRY manual_gfx_ram_tests, d_str_gfx_ram_test, ME_FLAG_NONE
+	MENU_ENTRY manual_object_ram_tests, d_str_object_ram_test, ME_FLAG_NONE
+	MENU_ENTRY manual_qsound_ram_tests, d_str_qsound_ram_test, ME_FLAG_NONE
+	MENU_ENTRY manual_work_ram_tests, d_str_work_ram_test, ME_FLAG_NONE
 	MENU_LIST_END
 
 d_str_menu_title:		STRING "RAM TESTS"

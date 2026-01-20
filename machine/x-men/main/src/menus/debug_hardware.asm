@@ -15,9 +15,9 @@ debug_hardware_menu:
 	align 1
 
 d_menu_list:
-	MENU_ENTRY irq_debug, d_str_irq_debug
-	MENU_ENTRY sprite_debug, d_str_sprite_debug
-	MENU_ENTRY watchdog_time, d_str_watchdog_time
+	MENU_ENTRY irq_debug, d_str_irq_debug, ME_FLAG_NONE
+	MENU_ENTRY sprite_debug, d_str_sprite_debug, ME_FLAG_NONE
+	MENU_ENTRY watchdog_time, d_str_watchdog_time, ME_FLAG_NONE
 	MENU_LIST_END
 
 d_str_menu_title:		STRING "DEBUG HARDWARE MENU"

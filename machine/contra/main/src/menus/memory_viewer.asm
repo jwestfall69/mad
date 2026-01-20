@@ -63,17 +63,17 @@ view_memory:
 	section data
 
 d_menu_list:
-	MENU_ENTRY view_k007121_10e_sprite_ram, d_str_k007121_10e_sprite
-	MENU_ENTRY view_k007121_10e_tile_a_ram, d_str_k007121_10e_tile_a
-	MENU_ENTRY view_k007121_10e_tile_b_ram, d_str_k007121_10e_tile_b
-	MENU_ENTRY view_k007121_18e_sprite_ram, d_str_k007121_18e_sprite
-	MENU_ENTRY view_k007121_18e_tile_a_ram, d_str_k007121_18e_tile_a
-	MENU_ENTRY view_k007121_18e_tile_b_ram, d_str_k007121_18e_tile_b
-	MENU_ENTRY view_mmio_input, d_str_mmio_input
-	MENU_ENTRY view_palette_ram, d_str_palette_ram
-	MENU_ENTRY view_rom_space, d_str_rom_space
-	MENU_ENTRY view_rom_bank_space, d_str_rom_bank_space
-	MENU_ENTRY view_work_ram, d_str_work_ram
+	MENU_ENTRY view_k007121_10e_sprite_ram, d_str_k007121_10e_sprite, ME_FLAG_NONE
+	MENU_ENTRY view_k007121_10e_tile_a_ram, d_str_k007121_10e_tile_a, ME_FLAG_NONE
+	MENU_ENTRY view_k007121_10e_tile_b_ram, d_str_k007121_10e_tile_b, ME_FLAG_NONE
+	MENU_ENTRY view_k007121_18e_sprite_ram, d_str_k007121_18e_sprite, ME_FLAG_NONE
+	MENU_ENTRY view_k007121_18e_tile_a_ram, d_str_k007121_18e_tile_a, ME_FLAG_NONE
+	MENU_ENTRY view_k007121_18e_tile_b_ram, d_str_k007121_18e_tile_b, ME_FLAG_NONE
+	MENU_ENTRY view_mmio_input, d_str_mmio_input, ME_FLAG_NONE
+	MENU_ENTRY view_palette_ram, d_str_palette_ram, ME_FLAG_NONE
+	MENU_ENTRY view_rom_space, d_str_rom_space, ME_FLAG_NONE
+	MENU_ENTRY view_rom_bank_space, d_str_rom_bank_space, ME_FLAG_NONE
+	MENU_ENTRY view_work_ram, d_str_work_ram, ME_FLAG_NONE
 	MENU_LIST_END
 
 d_str_menu_title:		STRING "MEMORY VIEWER MENU"

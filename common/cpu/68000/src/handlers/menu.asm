@@ -100,14 +100,18 @@ menu_handler:
 	.menu_entry_run:
 
 		move.b	d4, r_menu_cursor
-
-		RSUB	screen_init
-
 		move.l	r_menu_list_ptr, a1
 		move.l	d4, d0
-		mulu	#8, d0
+		mulu	#s_me_struct_size, d0
 		add.l	d0, a1
 
+		btst	#ME_FLAG_SKIP_SCREEN_INIT_BIT, s_me_flags(a1)
+		bne	.skip_screen_init
+		movem.l	a1, -(a7)
+		RSUB	screen_init
+		movem.l (a7)+, a1
+
+	.skip_screen_init:
 		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
 		move.l	s_me_name_ptr(a1), a0
 		RSUB	print_string
@@ -145,7 +149,7 @@ print_menu_list:
 		move.l	s_me_name_ptr(a1), a0
 		RSUB	print_string
 
-		addq.l	#s_me_struct_size, a1
+		add.l	#s_me_struct_size, a1
 		addq.b	#1, d4
 		bra	.loop_next_entry
 

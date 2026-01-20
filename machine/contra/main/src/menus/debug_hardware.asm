@@ -14,16 +14,16 @@ debug_hardware_menu:
 	section data
 
 d_menu_list:
-	MENU_ENTRY sprite_debug, d_str_sprite_debug
-	MENU_ENTRY sprite_draw_order, d_str_sprite_draw_order
-	MENU_ENTRY sprite_max_8x8, d_str_sprite_max_8x8
-	MENU_ENTRY sprite_max_8x16, d_str_sprite_max_8x16
-	MENU_ENTRY sprite_max_16x8, d_str_sprite_max_16x8
-	MENU_ENTRY sprite_max_16x16, d_str_sprite_max_16x16
-	MENU_ENTRY sprite_max_32x32, d_str_sprite_max_32x32
-	MENU_ENTRY sprite_max_column, d_str_sprite_max_column
-	MENU_ENTRY sprite_max_row, d_str_sprite_max_row
-	MENU_ENTRY watchdog_time, d_str_watchdog_time
+	MENU_ENTRY sprite_debug, d_str_sprite_debug, ME_FLAG_NONE
+	MENU_ENTRY sprite_draw_order, d_str_sprite_draw_order, ME_FLAG_NONE
+	MENU_ENTRY sprite_max_8x8, d_str_sprite_max_8x8, ME_FLAG_NONE
+	MENU_ENTRY sprite_max_8x16, d_str_sprite_max_8x16, ME_FLAG_NONE
+	MENU_ENTRY sprite_max_16x8, d_str_sprite_max_16x8, ME_FLAG_NONE
+	MENU_ENTRY sprite_max_16x16, d_str_sprite_max_16x16, ME_FLAG_NONE
+	MENU_ENTRY sprite_max_32x32, d_str_sprite_max_32x32, ME_FLAG_NONE
+	MENU_ENTRY sprite_max_column, d_str_sprite_max_column, ME_FLAG_NONE
+	MENU_ENTRY sprite_max_row, d_str_sprite_max_row, ME_FLAG_NONE
+	MENU_ENTRY watchdog_time, d_str_watchdog_time, ME_FLAG_NONE
 	MENU_LIST_END
 
 d_str_menu_title:		STRING "DEBUG HARDWARE MENU"

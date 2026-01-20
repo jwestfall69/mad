@@ -15,13 +15,13 @@ main_menu:
 	align 1
 
 d_menu_list:
-	MENU_ENTRY graphics_viewer_menu, d_str_graphics_viewer
-	MENU_ENTRY input_test, d_str_input_test
-	MENU_ENTRY memory_viewer_menu, d_str_memory_viewer
-	MENU_ENTRY ram_tests_menu, d_str_ram_tests
-	MENU_ENTRY sound_test, d_str_sound_test
-	MENU_ENTRY video_tests_menu, d_str_video_tests
-	MENU_ENTRY debug_menu, d_str_debug_menu
+	MENU_ENTRY graphics_viewer_menu, d_str_graphics_viewer, ME_FLAG_SKIP_SCREEN_INIT
+	MENU_ENTRY input_test, d_str_input_test, ME_FLAG_NONE
+	MENU_ENTRY memory_viewer_menu, d_str_memory_viewer, ME_FLAG_SKIP_SCREEN_INIT
+	MENU_ENTRY ram_tests_menu, d_str_ram_tests, ME_FLAG_SKIP_SCREEN_INIT
+	MENU_ENTRY sound_test, d_str_sound_test, ME_FLAG_NONE
+	MENU_ENTRY video_tests_menu, d_str_video_tests, ME_FLAG_SKIP_SCREEN_INIT
+	MENU_ENTRY debug_menu, d_str_debug_menu, ME_FLAG_SKIP_SCREEN_INIT
 	MENU_LIST_END
 
 d_str_menu_title:		STRING "MAIN MENU"

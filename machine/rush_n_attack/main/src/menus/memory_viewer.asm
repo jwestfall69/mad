@@ -38,11 +38,11 @@ view_memory:
 	section data
 
 d_menu_list:
-	MENU_ENTRY view_mmio_space, d_str_mmio_space
-	MENU_ENTRY view_rom_space, d_str_rom_space
-	MENU_ENTRY view_sprite_ram, d_str_sprite_ram
-	MENU_ENTRY view_tile_ram, d_str_tile_ram
-	MENU_ENTRY view_work_ram, d_str_work_ram
+	MENU_ENTRY view_mmio_space, d_str_mmio_space, ME_FLAG_NONE
+	MENU_ENTRY view_rom_space, d_str_rom_space, ME_FLAG_NONE
+	MENU_ENTRY view_sprite_ram, d_str_sprite_ram, ME_FLAG_NONE
+	MENU_ENTRY view_tile_ram, d_str_tile_ram, ME_FLAG_NONE
+	MENU_ENTRY view_work_ram, d_str_work_ram, ME_FLAG_NONE
 	MENU_LIST_END
 
 d_str_menu_title:	STRING "MEMORY VIEWER MENU"

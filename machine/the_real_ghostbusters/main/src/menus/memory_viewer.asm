@@ -47,13 +47,13 @@ view_memory:
 	section data
 
 d_menu_list:
-	MENU_ENTRY view_bac06_ram, d_str_bac06_ram
-	MENU_ENTRY view_mmio_input, d_str_mmio_input
-	MENU_ENTRY view_rom_space, d_str_rom_space
-	MENU_ENTRY view_rom_bank_space, d_str_rom_bank_space
-	MENU_ENTRY view_sprite_ram, d_str_sprite_ram
-	MENU_ENTRY view_video_ram, d_str_video_ram
-	MENU_ENTRY view_work_ram, d_str_work_ram
+	MENU_ENTRY view_bac06_ram, d_str_bac06_ram, ME_FLAG_NONE
+	MENU_ENTRY view_mmio_input, d_str_mmio_input, ME_FLAG_NONE
+	MENU_ENTRY view_rom_space, d_str_rom_space, ME_FLAG_NONE
+	MENU_ENTRY view_rom_bank_space, d_str_rom_bank_space, ME_FLAG_NONE
+	MENU_ENTRY view_sprite_ram, d_str_sprite_ram, ME_FLAG_NONE
+	MENU_ENTRY view_video_ram, d_str_video_ram, ME_FLAG_NONE
+	MENU_ENTRY view_work_ram, d_str_work_ram, ME_FLAG_NONE
 	MENU_LIST_END
 
 d_str_menu_title:	STRING "MEMORY VIEWER MENU"

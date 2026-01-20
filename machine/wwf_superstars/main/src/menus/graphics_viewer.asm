@@ -15,9 +15,9 @@ graphics_viewer_menu:
 	align 1
 
 d_menu_list:
-	MENU_ENTRY bg_tile_viewer, d_str_bg_tile
-	MENU_ENTRY fg_tile_viewer, d_str_fg_tile
-	MENU_ENTRY sprite_viewer, d_str_sprite_viewer
+	MENU_ENTRY bg_tile_viewer, d_str_bg_tile, ME_FLAG_NONE
+	MENU_ENTRY fg_tile_viewer, d_str_fg_tile, ME_FLAG_NONE
+	MENU_ENTRY sprite_viewer, d_str_sprite_viewer, ME_FLAG_NONE
 	MENU_LIST_END
 
 d_str_menu_title:		STRING "GRAPHICS VIEWER"

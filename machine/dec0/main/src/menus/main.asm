@@ -15,18 +15,18 @@ main_menu:
 	align 1
 
 d_menu_list:
-	MENU_ENTRY manual_palette_ram_tests, d_str_palette_ram_test
-	MENU_ENTRY manual_palette_ext_ram_tests, d_str_palette_ext_ram_test
-	MENU_ENTRY manual_sprite_ram_tests, d_str_sprite_ram_test
-	MENU_ENTRY manual_tile1_ram_tests, d_str_tile1_ram_test
-	MENU_ENTRY manual_tile2_ram_tests, d_str_tile2_ram_test
-	MENU_ENTRY manual_tile3_ram_tests, d_str_tile3_ram_test
-	MENU_ENTRY manual_work_ram_tests, d_str_work_ram_test
-	MENU_ENTRY input_test, d_str_input_test
-	MENU_ENTRY memory_viewer_menu, d_str_memory_viewer
-	MENU_ENTRY sound_test, d_str_sound_test
-	MENU_ENTRY video_dac_test, d_str_video_dac_test
-	MENU_ENTRY debug_menu, d_str_debug_menu
+	MENU_ENTRY manual_palette_ram_tests, d_str_palette_ram_test, ME_FLAG_NONE
+	MENU_ENTRY manual_palette_ext_ram_tests, d_str_palette_ext_ram_test, ME_FLAG_NONE
+	MENU_ENTRY manual_sprite_ram_tests, d_str_sprite_ram_test, ME_FLAG_NONE
+	MENU_ENTRY manual_tile1_ram_tests, d_str_tile1_ram_test, ME_FLAG_NONE
+	MENU_ENTRY manual_tile2_ram_tests, d_str_tile2_ram_test, ME_FLAG_NONE
+	MENU_ENTRY manual_tile3_ram_tests, d_str_tile3_ram_test, ME_FLAG_NONE
+	MENU_ENTRY manual_work_ram_tests, d_str_work_ram_test, ME_FLAG_NONE
+	MENU_ENTRY input_test, d_str_input_test, ME_FLAG_NONE
+	MENU_ENTRY memory_viewer_menu, d_str_memory_viewer, ME_FLAG_SKIP_SCREEN_INIT
+	MENU_ENTRY sound_test, d_str_sound_test, ME_FLAG_NONE
+	MENU_ENTRY video_dac_test, d_str_video_dac_test, ME_FLAG_SKIP_SCREEN_INIT
+	MENU_ENTRY debug_menu, d_str_debug_menu, ME_FLAG_NONE
 	MENU_LIST_END
 
 d_str_menu_title:		STRING "MAIN MENU"

@@ -15,7 +15,7 @@ video_tests_menu:
 	align 1
 
 d_menu_list:
-	MENU_ENTRY video_dac_test, d_str_video_dac
+	MENU_ENTRY video_dac_test, d_str_video_dac, ME_FLAG_SKIP_SCREEN_INIT
 	MENU_LIST_END
 
 d_str_menu_title:		STRING "VIDEO TESTS"

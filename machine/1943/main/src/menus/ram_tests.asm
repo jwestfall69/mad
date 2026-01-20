@@ -14,8 +14,8 @@ ram_tests_menu:
 	section data
 
 d_menu_list:
-	MENU_ENTRY manual_tile_ram_tests, d_str_tile_ram_tests
-	MENU_ENTRY manual_work_ram_tests, d_str_work_ram_tests
+	MENU_ENTRY manual_tile_ram_tests, d_str_tile_ram_tests, ME_FLAG_NONE
+	MENU_ENTRY manual_work_ram_tests, d_str_work_ram_tests, ME_FLAG_NONE
 	MENU_LIST_END
 
 d_str_menu_title:		STRING "RAM TESTS MENU"

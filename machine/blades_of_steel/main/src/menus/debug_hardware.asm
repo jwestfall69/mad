@@ -14,11 +14,11 @@ debug_hardware_menu:
 	section data
 
 d_menu_list:
-	MENU_ENTRY k051733_collision_debug, d_str_k051733_collision_debug
-	MENU_ENTRY k051733_math_debug, d_str_k051733_math_debug
-	MENU_ENTRY k051733_rand_debug, d_str_k051733_rand_debug
-	MENU_ENTRY sprite_debug, d_str_sprite_debug
-	MENU_ENTRY watchdog_time, d_str_watchdog_time
+	MENU_ENTRY k051733_collision_debug, d_str_k051733_collision_debug, ME_FLAG_NONE
+	MENU_ENTRY k051733_math_debug, d_str_k051733_math_debug, ME_FLAG_NONE
+	MENU_ENTRY k051733_rand_debug, d_str_k051733_rand_debug, ME_FLAG_NONE
+	MENU_ENTRY sprite_debug, d_str_sprite_debug, ME_FLAG_NONE
+	MENU_ENTRY watchdog_time, d_str_watchdog_time, ME_FLAG_NONE
 	MENU_LIST_END
 
 d_str_menu_title:		STRING "DEBUG HARDWARE MENU"

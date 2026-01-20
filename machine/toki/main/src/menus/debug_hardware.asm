@@ -15,13 +15,13 @@ debug_hardware_menu:
 	align 1
 
 d_menu_list:
-	MENU_ENTRY a0000_debug, d_str_a0000_debug
-	MENU_ENTRY a0010_debug, d_str_a0010_debug
-	MENU_ENTRY a0020_debug, d_str_a0020_debug
-	MENU_ENTRY a0030_debug, d_str_a0030_debug
-	MENU_ENTRY a0040_debug, d_str_a0040_debug
-	MENU_ENTRY a0050_debug, d_str_a0050_debug
-	MENU_ENTRY sprite_debug, d_str_sprite_debug
+	MENU_ENTRY a0000_debug, d_str_a0000_debug, ME_FLAG_NONE
+	MENU_ENTRY a0010_debug, d_str_a0010_debug, ME_FLAG_NONE
+	MENU_ENTRY a0020_debug, d_str_a0020_debug, ME_FLAG_NONE
+	MENU_ENTRY a0030_debug, d_str_a0030_debug, ME_FLAG_NONE
+	MENU_ENTRY a0040_debug, d_str_a0040_debug, ME_FLAG_NONE
+	MENU_ENTRY a0050_debug, d_str_a0050_debug, ME_FLAG_NONE
+	MENU_ENTRY sprite_debug, d_str_sprite_debug, ME_FLAG_NONE
 	MENU_LIST_END
 
 d_str_menu_title:		STRING "DEBUG HARDWARE MENU"

@@ -15,12 +15,12 @@ debug_hardware_menu:
 	align 1
 
 d_menu_list:
-	MENU_ENTRY bg_offset_debug, d_str_bg_offset_debug
-	MENU_ENTRY fg_offset_debug, d_str_fg_offset_debug
-	MENU_ENTRY sprite_debug, d_str_sprite_debug
-	MENU_ENTRY txt_offset_debug, d_str_txt_offset_debug
-	MENU_ENTRY unknown_regs_debug, d_str_unknown_regs_debug
-	MENU_ENTRY watchdog_time, d_str_watchdog_time
+	MENU_ENTRY bg_offset_debug, d_str_bg_offset_debug, ME_FLAG_NONE
+	MENU_ENTRY fg_offset_debug, d_str_fg_offset_debug, ME_FLAG_NONE
+	MENU_ENTRY sprite_debug, d_str_sprite_debug, ME_FLAG_NONE
+	MENU_ENTRY txt_offset_debug, d_str_txt_offset_debug, ME_FLAG_NONE
+	MENU_ENTRY unknown_regs_debug, d_str_unknown_regs_debug, ME_FLAG_NONE
+	MENU_ENTRY watchdog_time, d_str_watchdog_time, ME_FLAG_NONE
 	MENU_LIST_END
 
 d_str_menu_title:		STRING "DEBUG HARDWARE MENU"

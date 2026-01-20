@@ -14,8 +14,8 @@ graphics_viewer_menu:
 	section data
 
 d_menu_list:
-	MENU_ENTRY tile_viewer, d_str_tile_viewer
-	MENU_ENTRY sprite_viewer, d_str_sprite_viewer
+	MENU_ENTRY tile_viewer, d_str_tile_viewer, ME_FLAG_NONE
+	MENU_ENTRY sprite_viewer, d_str_sprite_viewer, ME_FLAG_NONE
 	MENU_LIST_END
 
 

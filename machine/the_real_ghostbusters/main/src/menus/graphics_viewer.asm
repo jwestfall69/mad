@@ -14,9 +14,9 @@ graphics_viewer_menu:
 	section data
 
 d_menu_list:
-	MENU_ENTRY fix_tile_viewer, d_str_fix_tile
-	MENU_ENTRY bac06_tile_viewer, d_str_bac06_tile
-	MENU_ENTRY sprite_viewer, d_str_sprite_viewer
+	MENU_ENTRY fix_tile_viewer, d_str_fix_tile, ME_FLAG_NONE
+	MENU_ENTRY bac06_tile_viewer, d_str_bac06_tile, ME_FLAG_NONE
+	MENU_ENTRY sprite_viewer, d_str_sprite_viewer, ME_FLAG_NONE
 	MENU_LIST_END
 
 d_str_menu_title:		STRING "GRAPHICS VIEWER"

@@ -104,8 +104,6 @@ menu_handler:
 		jr	.loop_menu_input
 
 	.menu_entry_run:
-		RSUB	screen_init
-
 		ld	a, (r_menu_cursor)
 		ld	ix, (r_menu_title_ptr)
 		ld	iy, (r_menu_list_ptr)
@@ -116,12 +114,22 @@ menu_handler:
 
 		; based on the cursor number figure out
 		; and got the correct entry in menu_list
-		ld	b, 0
+		ld	b, a
 		sla	a
 		sla	a
+		add	b
+		ld	b, $0
 		ld	c, a
 		add	iy, bc
 
+		ld	a, (iy + s_me_flags)
+		bit	ME_FLAG_SKIP_SCREEN_INIT_BIT, a
+		jr	nz, .skip_screen_init
+		push	iy
+		RSUB	screen_init
+		pop	iy
+
+	.skip_screen_init:
 		; menu entry string
 		SEEK_XY SCREEN_START_X, SCREEN_START_Y
 		ld	e, (iy + s_me_name_ptr)

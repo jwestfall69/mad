@@ -51,14 +51,14 @@ view_memory:
 	align 1
 
 d_menu_list:
-	MENU_ENTRY view_bg_ram, d_str_bg_ram
-	MENU_ENTRY view_fg_ram, d_str_fg_ram
-	MENU_ENTRY view_mmio_input, d_str_mmio_input
-	MENU_ENTRY view_palette_ram, d_str_palette_ram
-	MENU_ENTRY view_rom_space, d_str_rom_space
-	MENU_ENTRY view_sprite_ram, d_str_sprite_ram
-	MENU_ENTRY view_txt_ram, d_str_txt_ram
-	MENU_ENTRY view_work_ram, d_str_work_ram
+	MENU_ENTRY view_bg_ram, d_str_bg_ram, ME_FLAG_NONE
+	MENU_ENTRY view_fg_ram, d_str_fg_ram, ME_FLAG_NONE
+	MENU_ENTRY view_mmio_input, d_str_mmio_input, ME_FLAG_NONE
+	MENU_ENTRY view_palette_ram, d_str_palette_ram, ME_FLAG_NONE
+	MENU_ENTRY view_rom_space, d_str_rom_space, ME_FLAG_NONE
+	MENU_ENTRY view_sprite_ram, d_str_sprite_ram, ME_FLAG_NONE
+	MENU_ENTRY view_txt_ram, d_str_txt_ram, ME_FLAG_NONE
+	MENU_ENTRY view_work_ram, d_str_work_ram, ME_FLAG_NONE
 	MENU_LIST_END
 
 d_str_menu_title:		STRING "MEMORY VIEWER MENU"

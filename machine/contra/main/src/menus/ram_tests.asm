@@ -14,10 +14,10 @@ ram_tests_menu:
 	section data
 
 d_menu_list:
-	MENU_ENTRY manual_k007121_10e_ram_tests, d_str_k007121_10e_ram
-	MENU_ENTRY manual_k007121_18e_ram_tests, d_str_k007121_18e_ram
-	MENU_ENTRY manual_palette_ram_tests, d_str_palette_ram
-	MENU_ENTRY manual_work_ram_tests, d_str_work_ram
+	MENU_ENTRY manual_k007121_10e_ram_tests, d_str_k007121_10e_ram, ME_FLAG_NONE
+	MENU_ENTRY manual_k007121_18e_ram_tests, d_str_k007121_18e_ram, ME_FLAG_NONE
+	MENU_ENTRY manual_palette_ram_tests, d_str_palette_ram, ME_FLAG_NONE
+	MENU_ENTRY manual_work_ram_tests, d_str_work_ram, ME_FLAG_NONE
 	MENU_LIST_END
 
 d_str_menu_title:		STRING "RAM TESTS"

@@ -14,8 +14,8 @@ debug_hardware_menu:
 	section data
 
 d_menu_list:
-	MENU_ENTRY reg1803_debug, d_str_reg1803_debug
-	MENU_ENTRY sprite_debug, d_str_sprite_debug
+	MENU_ENTRY reg1803_debug, d_str_reg1803_debug, ME_FLAG_NONE
+	MENU_ENTRY sprite_debug, d_str_sprite_debug, ME_FLAG_NONE
 	MENU_LIST_END
 
 d_str_menu_title:		STRING "DEBUG HARDWARE MENU"

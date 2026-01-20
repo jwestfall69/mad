@@ -105,17 +105,24 @@ menu_handler:
 
 
 	.run_menu_entry:
-		RSUB	screen_init
-
 		; convert into the offset into the menu list array
 		lda	r_menu_cursor
 		lsla
 		lsla
+		adda	r_menu_cursor
 
 		; goto menu entry
 		ldy	r_menu_list_ptr
 		leay	a, y
 
+		lda	s_me_flags, y
+		bita	#ME_FLAG_SKIP_SCREEN_INIT
+		bne	.skip_screen_init
+		pshs	y
+		RSUB	screen_init
+		puls	y
+
+	.skip_screen_init:
 		pshs	y
 		SEEK_XY SCREEN_START_X, SCREEN_START_Y
 		ldy	s_me_name_ptr, y

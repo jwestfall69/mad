@@ -14,10 +14,10 @@ graphics_viewer_menu:
 	section data
 
 d_menu_list:
-	MENU_ENTRY k007121_10e_sprite_viewer, d_str_k007121_10e_sprite
-	MENU_ENTRY k007121_10e_tile_viewer, d_str_k007121_10e_tile
-	MENU_ENTRY k007121_18e_sprite_viewer, d_str_k007121_18e_sprite
-	MENU_ENTRY k007121_18e_tile_viewer, d_str_k007121_18e_tile
+	MENU_ENTRY k007121_10e_sprite_viewer, d_str_k007121_10e_sprite, ME_FLAG_NONE
+	MENU_ENTRY k007121_10e_tile_viewer, d_str_k007121_10e_tile, ME_FLAG_NONE
+	MENU_ENTRY k007121_18e_sprite_viewer, d_str_k007121_18e_sprite, ME_FLAG_NONE
+	MENU_ENTRY k007121_18e_tile_viewer, d_str_k007121_18e_tile, ME_FLAG_NONE
 	MENU_LIST_END
 
 d_str_menu_title:		STRING "GRAPHICS VIEWER"

@@ -15,10 +15,10 @@ graphics_viewer_menu:
 	align 1
 
 d_menu_list:
-	MENU_ENTRY scroll1_tile_viewer, d_str_scroll1_tile
-	MENU_ENTRY scroll2_tile_viewer, d_str_scroll2_tile
-	;MENU_ENTRY scroll3_tile_viewer, d_str_scroll3_tile
-	MENU_ENTRY sprite_viewer, d_str_sprite_viewer
+	MENU_ENTRY scroll1_tile_viewer, d_str_scroll1_tile, ME_FLAG_NONE
+	MENU_ENTRY scroll2_tile_viewer, d_str_scroll2_tile, ME_FLAG_NONE
+	;MENU_ENTRY scroll3_tile_viewer, d_str_scroll3_tile, ME_FLAG_NONE
+	MENU_ENTRY sprite_viewer, d_str_sprite_viewer, ME_FLAG_NONE
 	MENU_LIST_END
 
 d_str_menu_title:		STRING "GRAPHICS VIEWER"

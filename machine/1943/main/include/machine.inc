@@ -45,6 +45,7 @@ CHAR_COLON			equ $2c
 
 
 	macro WATCHDOG
+;		ld	($c806), a
 	endm
 
 	; Sound commands are sent through a latch, but the main CPU
