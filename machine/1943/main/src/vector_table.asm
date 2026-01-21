@@ -24,8 +24,8 @@ irq_handler:
 		inc	hl
 		ld	(r_irq_count), hl
 
-		ld	a, ($c000)
-		and	$08
+		ld	a, (REG_INPUT_SYS)
+		bit	SYS_VBLANK_BIT, a
 		jp	z, .not_vblank
 
 		ld	(REG_SPRITE_COPY_REQUEST), a
