@@ -78,6 +78,9 @@ Support boards
 **Hippodrome** (hippodrm)<br>
 ![dec0 hippodrm](docs/images/dec0/hippodrm.png)
 
+**Hyper Dyne Side Arms** (sidearms)<br>
+![sidearms](machine/sidearms/docs/images/mad_sidearms_main_menu.png)
+
 **Robocop** (robocop)<br>
 ![dec0 robocop](docs/images/dec0/robocop.png)
 
