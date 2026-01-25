@@ -95,7 +95,4 @@ The game's palette comes from proms and are unchangeable.
 The static palette makes it impossible to do this test.
 
 ## MAME vs Hardware
-MAD will watchdog on MAME.  1943 hardware doesn't have a watchdog.  MAME
-currently has a watchdog setup at $c806, but this address is actually used to
-request a sprite dma transfer.  They will hopefully fix this shortly, if not I
-will make a MAME specific build.
+Nothing that required a MAME specific build
