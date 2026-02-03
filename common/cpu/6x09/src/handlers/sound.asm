@@ -6,8 +6,12 @@
 
 ; params:
 ;  a = start value
+;  x = sound play function
+;  y = sound stop function
 sound_test_handler:
 		sta	r_sound_num
+		stx	r_sound_play_cb
+		sty	r_sound_stop_cb
 
 	.loop_test:
 		SEEK_XY	(SCREEN_START_X + 12), (SCREEN_START_Y + 6)
@@ -21,13 +25,13 @@ sound_test_handler:
 		bita	#INPUT_B1
 		beq	.b1_not_pressed
 		lda	r_sound_num
-		SOUND_PLAY
+		jsr	[r_sound_play_cb]
 		bra	.loop_test
 
 	.b1_not_pressed:
 		bita	#INPUT_B2
 		beq	.b2_not_pressed
-		SOUND_STOP
+		jsr	[r_sound_stop_cb]
 		rts
 
 	.b2_not_pressed:
@@ -40,3 +44,5 @@ sound_test_handler:
 	section bss
 
 r_sound_num:		dcb.b 1
+r_sound_play_cb:	dcb.w 1
+r_sound_stop_cb:	dcb.w 1

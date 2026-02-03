@@ -10,7 +10,17 @@ sound_test:
 		jsr	print_b2_return_to_menu
 
 		moveq	#$47, d0
+		lea	sound_play_cb, a0
+		lea	sound_stop_cb, a1
 		jsr	sound_test_handler
+		rts
+
+sound_play_cb:
+		SOUND_PLAY
+		rts
+
+sound_stop_cb:
+		SOUND_STOP
 		rts
 
 	section data

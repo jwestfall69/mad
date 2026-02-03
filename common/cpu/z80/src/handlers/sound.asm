@@ -6,11 +6,15 @@
 
 ; params:
 ;  a = start value
-; b = mask
+;  b = mask
+; ix = play sound function
+; iy = stop sound function
 sound_test_handler:
 		ld	(r_sound_num), a
 		ld	a, b
 		ld	(r_mask), a
+		ld	(r_sound_play_cb), ix
+		ld	(r_sound_stop_cb), iy
 
 	.loop_test:
 		SEEK_XY	(SCREEN_START_X + 12), (SCREEN_START_Y + 6)
@@ -24,14 +28,23 @@ sound_test_handler:
 
 		bit	INPUT_B1_BIT, a
 		jr	z, .b1_not_pressed
+
+		ld	hl, (r_sound_play_cb)
+		ld	de, .loop_test
+		push	de
 		ld	a, (r_sound_num)
-		SOUND_PLAY
-		jr	.loop_test
+		jp	(hl)
 
 	.b1_not_pressed:
 		bit	INPUT_B2_BIT, a
 		jr	z, .b2_not_pressed
-		SOUND_STOP
+
+		ld	hl, (r_sound_stop_cb)
+		ld	de, .sound_stop_return
+		push	de
+		jp	(hl)
+
+	.sound_stop_return:
 		ret
 
 	.b2_not_pressed:
@@ -45,3 +58,5 @@ sound_test_handler:
 
 r_sound_num:		dcb.b 1
 r_mask:			dcb.b 1
+r_sound_play_cb:	dcb.w 1
+r_sound_stop_cb:	dcb.w 1

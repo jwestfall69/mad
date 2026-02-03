@@ -10,7 +10,17 @@ sound_test:
 		jsr	print_b2_return_to_menu
 
 		lda	#$20
+		ldx	#sound_play_cb
+		ldy	#sound_stop_cb
 		jsr	sound_test_handler
+		rts
+
+sound_play_cb:
+		SOUND_PLAY
+		rts
+
+sound_stop_cb:
+		SOUND_STOP
 		rts
 
 	section data

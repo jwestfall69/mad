@@ -6,9 +6,12 @@
 
 ; params:
 ;  d0 = start value
+;  a0 = sound play function
+;  a1 = sound stop function
 sound_test_handler:
 		move.w	d0, d4
-		movea.l	a0, a1
+		move.l	a0, (r_sound_play_cb)
+		move.l	a1, (r_sound_stop_cb)
 
 	.update_byte:
 		SEEK_XY	(SCREEN_START_X + 12), (SCREEN_START_Y + 6)
@@ -48,12 +51,20 @@ sound_test_handler:
 		btst	#INPUT_B1_BIT, d0
 		beq	.b1_not_pressed
 		move.w	d4, d0
-		SOUND_PLAY
+		move.l	(r_sound_play_cb), a0
+		jsr	(a0)
 		bra	.loop_input
 
 	.b1_not_pressed:
 		btst	#INPUT_B2_BIT, d0
 		beq	.loop_input
 
-		SOUND_STOP
+		move.l	(r_sound_stop_cb), a0
+		jsr	(a0)
 		rts
+
+	section bss
+	align 1
+
+r_sound_play_cb:	dcb.l 1
+r_sound_stop_cb:	dcb.l 1
