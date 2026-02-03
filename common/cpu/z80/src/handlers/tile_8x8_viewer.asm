@@ -10,15 +10,15 @@ START_ROW	equ SCREEN_START_Y + 6
 ; params:
 ;  b = tile offset upper
 ;  c = offset mask upper
-;  de = seek_xy function
-;  hl = draw_tile function
+;  ix = seek_xy function
+;  iy = draw_tile function
 tile_8x8_viewer_handler:
 		ld	a, b
 		ld	(r_tile_offset_upper), a
 		ld	a, c
 		ld	(r_tile_offset_upper_mask), a
-		ld	(r_seek_xy_cb), de
-		ld	(r_draw_tile_cb), hl
+		ld	(r_seek_xy_cb), ix
+		ld	(r_draw_tile_cb), iy
 
 		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 2)
 		ld	de, d_str_offset

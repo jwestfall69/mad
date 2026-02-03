@@ -12,15 +12,15 @@ ROW_END		equ ROW_START + 16
 ; params:
 ;  b = tile offset upper
 ;  c = offset mask upper
-;  de = seek_xy function
-;  hl = draw_tile function
+;  ix = seek_xy function
+;  iy = draw_tile function
 tile_16x16_viewer_handler:
 		ld	a, b
 		ld	(r_tile_offset_upper), a
 		ld	a, c
 		ld	(r_tile_offset_upper_mask), a
-		ld	(r_seek_xy_cb), de
-		ld	(r_draw_tile_cb), hl
+		ld	(r_seek_xy_cb), ix
+		ld	(r_draw_tile_cb), iy
 
 		ld	a, $0
 		ld	(r_quadrant), a
