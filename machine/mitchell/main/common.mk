@@ -23,13 +23,13 @@ OBJS = $(OBJ_DIR)/cpu/z80/src/crc32.o \
        $(OBJ_DIR)/cpu/z80/src/debug/mad_git_hash.o \
        $(OBJ_DIR)/cpu/z80/src/handlers/auto_test.o \
        $(OBJ_DIR)/cpu/z80/src/handlers/error.o \
+       $(OBJ_DIR)/cpu/z80/src/handlers/input_test.o \
        $(OBJ_DIR)/cpu/z80/src/handlers/memory_tests.o \
        $(OBJ_DIR)/cpu/z80/src/handlers/memory_viewer.o \
        $(OBJ_DIR)/cpu/z80/src/handlers/menu.o \
        $(OBJ_DIR)/cpu/z80/src/handlers/sound_test.o \
        $(OBJ_DIR)/cpu/z80/src/handlers/tile_8x8_viewer.o \
        $(OBJ_DIR)/cpu/z80/src/handlers/values_edit.o \
-       $(OBJ_DIR)/cpu/z80/src/tests/input.o \
        $(OBJ_DIR)/cpu/z80/src/tests/mad_rom.o \
        $(OBJ_DIR)/cpu/z80/src/tests/memory.o \
        $(OBJ_DIR)/cpu/z80/src/tests/work_ram.o

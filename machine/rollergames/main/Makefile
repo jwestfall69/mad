@@ -21,12 +21,12 @@ OBJS  = $(OBJ_DIR)/cpu/6x09/src/input_update.o \
         $(OBJ_DIR)/cpu/6x09/src/debug/mad_git_hash.o \
         $(OBJ_DIR)/cpu/6x09/src/handlers/auto_test.o \
         $(OBJ_DIR)/cpu/6x09/src/handlers/error.o \
+        $(OBJ_DIR)/cpu/6x09/src/handlers/input_test.o \
         $(OBJ_DIR)/cpu/6x09/src/handlers/memory_viewer.o \
         $(OBJ_DIR)/cpu/6x09/src/handlers/menu.o \
         $(OBJ_DIR)/cpu/6x09/src/handlers/sound_test.o \
         $(OBJ_DIR)/cpu/6x09/src/handlers/tile_8x8_viewer.o \
-        $(OBJ_DIR)/cpu/6x09/src/handlers/values_edit.o \
-        $(OBJ_DIR)/cpu/6x09/src/tests/input.o
+        $(OBJ_DIR)/cpu/6x09/src/handlers/values_edit.o
 
 OBJS += $(OBJ_DIR)/cpu/konami2/src/footer.o \
         $(OBJ_DIR)/cpu/konami2/src/handlers/memory_tests.o \

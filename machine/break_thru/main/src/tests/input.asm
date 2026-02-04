@@ -1,5 +1,5 @@
 	include "cpu/6809/include/common.inc"
-	include "cpu/6x09/include/tests/input.inc"
+	include "cpu/6x09/include/handlers/input_test.inc"
 
 	global input_test
 
@@ -22,10 +22,18 @@ input_test:
 		sta	REG_CONTROL2
 		sta	r_reg_control2_saved
 
-	.loop_test:
-		ldy	#d_input_list
-		jsr	print_input_list
+		ldx	#d_input_test_list
+		ldy	#loop_cb
+		jsr	input_test_handler
 
+		CPU_INTS_DISABLE
+
+		lda	#(CTRL2_NMI_DISABLE|CTRL2_IRQ_DISABLE)
+		sta	REG_CONTROL2
+		sta	r_reg_control2_saved
+		rts
+
+loop_cb:
 		jsr	input_p2_update
 		lda	r_input_p2_edge
 		bita	#INPUT_P2_VBLANK
@@ -48,20 +56,6 @@ input_test:
 		SEEK_XY	(SCREEN_START_X + 18), (SCREEN_START_Y + 5)
 		ldd	r_nmi_count
 		RSUB	print_hex_word
-
-
-
-		lda	REG_INPUT
-		coma
-		anda	#(INPUT_B2 | INPUT_RIGHT)
-		cmpa	#(INPUT_B2 | INPUT_RIGHT)
-		bne	.loop_test
-
-		CPU_INTS_DISABLE
-
-		lda	#(CTRL2_NMI_DISABLE|CTRL2_IRQ_DISABLE)
-		sta	REG_CONTROL2
-		sta	r_reg_control2_saved
 		rts
 
 input_p2_update:
@@ -77,24 +71,24 @@ input_p2_update:
 
 	section data
 
-d_input_list:
-	INPUT_ENTRY (SCREEN_START_Y + 3), REG_INPUT_P1
-	INPUT_ENTRY (SCREEN_START_Y + 4), REG_INPUT_P2
-	INPUT_ENTRY (SCREEN_START_Y + 5), REG_INPUT_DSW1
-	INPUT_ENTRY (SCREEN_START_Y + 6), REG_INPUT_DSW2
-	INPUT_LIST_END
+d_input_test_list:
+	INPUT_TEST_ENTRY REG_INPUT_P1
+	INPUT_TEST_ENTRY REG_INPUT_P2
+	INPUT_TEST_ENTRY REG_INPUT_DSW1
+	INPUT_TEST_ENTRY REG_INPUT_DSW2
+	INPUT_TEST_LIST_END
 
 d_screen_xys_list:
-	XY_STRING (SCREEN_START_X + 5), (SCREEN_START_Y + 2), "76543210"
 	XY_STRING (SCREEN_START_X + 2), (SCREEN_START_Y + 3), "P1"
-	XY_STRING (SCREEN_START_X + 14), (SCREEN_START_Y + 3), "VBP"
 	XY_STRING (SCREEN_START_X + 2), (SCREEN_START_Y + 4), "P2"
+	XY_STRING (SCREEN_START_X + 0), (SCREEN_START_Y + 5), "DSW1"
+	XY_STRING (SCREEN_START_X + 0), (SCREEN_START_Y + 6), "DSW2"
+
+	XY_STRING (SCREEN_START_X + 14), (SCREEN_START_Y + 3), "VBP"
 	XY_STRING (SCREEN_START_X + 14), (SCREEN_START_Y + 4), "IRQ"
-	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 5), "DSW1"
 	XY_STRING (SCREEN_START_X + 14), (SCREEN_START_Y + 5), "NMI"
-	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 6), "DSW2"
+
 	XY_STRING SCREEN_START_X, (SCREEN_B2_Y - 3), "VBP SHOULD EQUAL NMI"
-	XY_STRING SCREEN_START_X, SCREEN_B2_Y, "B2 RIGHT - RETURN TO MENU"
 	XY_STRING_LIST_END
 
 	section bss
