@@ -5,9 +5,9 @@
 	section code
 
 sound_test:
-		ldy	#d_screen_xys_list
-		jsr	print_xy_string_list
-		jsr	print_b2_return_to_menu
+		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 14)
+		ldy	#d_str_fm_sounds
+		RSUB	print_string
 
 		lda	#$50
 		ldx	#sound_play_cb
@@ -25,8 +25,5 @@ sound_stop_cb:
 
 	section data
 
-d_screen_xys_list:
-	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 6), <"SOUND NUM", CHAR_COLON>
-	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 14), "FM SOUNDS STARTS AT 80"
-	XY_STRING SCREEN_START_X, SCREEN_B1_Y, "B1 - PLAY SOUND"
-	XY_STRING_LIST_END
+d_str_fm_sounds:
+	STRING	"FM SOUNDS STARTS AT 80"

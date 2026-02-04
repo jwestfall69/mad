@@ -32,7 +32,7 @@ OBJS = $(OBJ_DIR)/cpu/68000/src/crc32.o \
        $(OBJ_DIR)/cpu/68000/src/handlers/memory_tests.o \
        $(OBJ_DIR)/cpu/68000/src/handlers/memory_byte_tests.o \
        $(OBJ_DIR)/cpu/68000/src/handlers/memory_viewer.o \
-       $(OBJ_DIR)/cpu/68000/src/handlers/sound.o \
+       $(OBJ_DIR)/cpu/68000/src/handlers/sound_test.o \
        $(OBJ_DIR)/cpu/68000/src/handlers/tile_8x8_viewer.o \
        $(OBJ_DIR)/cpu/68000/src/handlers/values_edit.o \
        $(OBJ_DIR)/cpu/68000/src/tests/input.o \

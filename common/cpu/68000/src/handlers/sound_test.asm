@@ -13,6 +13,10 @@ sound_test_handler:
 		move.l	a0, (r_sound_play_cb)
 		move.l	a1, (r_sound_stop_cb)
 
+		lea	d_screen_xys_list, a0
+		RSUB	print_xy_string_list
+		jsr	print_b2_return_to_menu
+
 	.update_byte:
 		SEEK_XY	(SCREEN_START_X + 12), (SCREEN_START_Y + 6)
 		move.w	d4, d0
@@ -62,6 +66,14 @@ sound_test_handler:
 		move.l	(r_sound_stop_cb), a0
 		jsr	(a0)
 		rts
+
+	section data
+	align 1
+
+d_screen_xys_list:
+	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 6), <"SOUND NUM", CHAR_COLON>
+	XY_STRING SCREEN_START_X, SCREEN_B1_Y, "B1 - PLAY SOUND"
+	XY_STRING_LIST_END
 
 	section bss
 	align 1
