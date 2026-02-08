@@ -1,0 +1,7 @@
+ROMSET=trojan
+BUILD_FLAGS=-D_CPU_Z80_ -D_ROMSET_TROJAN_ -D_DEBUG_HARDWARE_
+BUILD_DIR=build/$(ROMSET)/hardware
+ROM_SIZE=32768
+ROM=tb_04.10n
+
+include common.mk

@@ -1,0 +1,36 @@
+	ifd _SCREEN_TATE_
+
+; visible tile area
+SCREEN_NUM_COLUMNS		equ 30
+SCREEN_NUM_ROWS			equ 32
+
+; total tile area
+SCREEN_TILES_PER_COLUMN		equ 32
+SCREEN_TILES_PER_ROW		equ 32
+
+SCREEN_BYTES_PER_TILE		equ 1
+SCREEN_BYTES_PER_ROW		equ (SCREEN_BYTES_PER_TILE * SCREEN_TILES_PER_ROW)
+
+	macro	SEEK_XY
+		ld	hl, FIX_TILE + ($3f - (\2 * SCREEN_BYTES_PER_TILE)) + (\1 * SCREEN_BYTES_PER_ROW)
+	endm
+
+	else
+
+
+; visible tile area
+SCREEN_NUM_COLUMNS		equ 32
+SCREEN_NUM_ROWS			equ 30
+
+; total tile area
+SCREEN_TILES_PER_COLUMN		equ 32
+SCREEN_TILES_PER_ROW		equ 32
+
+SCREEN_BYTES_PER_TILE		equ 1
+SCREEN_BYTES_PER_ROW		equ (SCREEN_BYTES_PER_TILE * SCREEN_TILES_PER_ROW)
+
+	macro	SEEK_XY
+		ld	hl, FIX_TILE + $20 + (\1 * SCREEN_BYTES_PER_TILE) + (\2 * SCREEN_BYTES_PER_ROW)
+	endm
+
+	endif
