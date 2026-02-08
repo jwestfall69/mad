@@ -5,7 +5,6 @@
 	global r_nmi_copy_src
 	global r_nmi_copy_dst
 	global r_nmi_copy_size
-	global r_derp
 
 	section vectors
 
@@ -28,9 +27,6 @@ irq_handler:
 		ld	hl, (r_irq_count)
 		inc	hl
 		ld	(r_irq_count), hl
-
-		ld	a, $ff
-		ld	($f809), a
 
 		pop	hl
 		pop	af
@@ -95,5 +91,3 @@ r_nmi_count:		dcb.w 1
 r_nmi_copy_src:		dcb.w 1
 r_nmi_copy_dst:		dcb.w 1
 r_nmi_copy_size:	dcb.b 1
-
-r_derp:			dcb.b 1
