@@ -44,7 +44,7 @@ values_edit_handler:
 		RSUB	screen_seek_xy
 
 		lda	#CURSOR_CLEAR_CHAR
-		RSUB	print_char
+		RSUB	print_byte
 
 		; draw new cursor
 		lda	#CURSOR_X_OFFSET
@@ -53,7 +53,7 @@ values_edit_handler:
 		RSUB	screen_seek_xy
 
 		lda	#CURSOR_CHAR
-		RSUB	print_char
+		RSUB	print_byte
 
 		lda	r_cursor
 		sta	r_cursor_prev

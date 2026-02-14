@@ -145,7 +145,7 @@ memory_dump:
 		RSUB	screen_seek_xy
 
 		ld	c, (ix + 0)
-		RSUB	print_char
+		RSUB	print_byte
 
 		; 2st char
 		ld	b, SCREEN_START_X + 18
@@ -153,7 +153,7 @@ memory_dump:
 		RSUB	screen_seek_xy
 
 		ld	c, (ix + 1)
-		RSUB	print_char
+		RSUB	print_byte
 
 		; 3st char
 		ld	b, SCREEN_START_X + 19
@@ -161,7 +161,7 @@ memory_dump:
 		RSUB	screen_seek_xy
 
 		ld	c, (ix + 2)
-		RSUB	print_char
+		RSUB	print_byte
 
 		; 4st char
 		ld	b, SCREEN_START_X + 20
@@ -169,7 +169,7 @@ memory_dump:
 		RSUB	screen_seek_xy
 
 		ld	c, (ix + 3)
-		RSUB	print_char
+		RSUB	print_byte
 
 		ld	hl, (r_dump_address)
 		ld	bc, 4

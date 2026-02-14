@@ -47,6 +47,7 @@ print_byte_dsub:
 		and.l	#$ff, d0
 		move.l	d0, (a6)
 		DSUB_RETURN
+
 ; params:
 ;  d0 = char
 ;  a6 = address in fg ram to print at

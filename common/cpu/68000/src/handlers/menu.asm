@@ -84,7 +84,7 @@ menu_handler:
 		RSUB	screen_seek_xy
 
 		move.b	#CURSOR_CLEAR_CHAR, d0
-		RSUB	print_char
+		RSUB	print_byte
 
 		; draw new
 		moveq	#MENU_X_OFFSET, d0
@@ -93,7 +93,7 @@ menu_handler:
 		RSUB	screen_seek_xy
 
 		move.b	#CURSOR_CHAR, d0
-		RSUB	print_char
+		RSUB	print_byte
 
 		bra	.loop_menu_input
 

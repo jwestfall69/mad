@@ -45,7 +45,7 @@ print_bits_byte_dsub:
 		dbra	d2, .loop_next_bit
 		DSUB_RETURN
 ; params:
-;  d0 = char or byte
+;  d0 = byte/char
 ;  a6 = address in fg ram to start printing at
 print_byte_dsub:
 print_char_dsub:

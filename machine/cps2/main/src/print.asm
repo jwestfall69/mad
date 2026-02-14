@@ -50,7 +50,7 @@ print_bits_byte_dsub:
 		DSUB_RETURN
 
 ; params:
-;  d0 = char or byte
+;  d0 = byte/char
 ;  a6 = address in fg ram to start printing at
 print_byte_dsub:
 print_char_dsub:
@@ -58,6 +58,7 @@ print_char_dsub:
 		move.w	d0, (a6)
 		move.w	#0, (2, a6)
 		DSUB_RETURN
+
 ; params:
 ;  d0 = char
 ;  d1 = number of times

@@ -91,7 +91,7 @@ menu_handler:
 		RSUB	screen_seek_xy
 
 		ld	c, CURSOR_CLEAR_CHAR
-		RSUB	print_char
+		RSUB	print_byte
 
 		; draw new cursor
 		ld	b, MENU_X_OFFSET
@@ -100,7 +100,7 @@ menu_handler:
 		ld	c, a
 		RSUB	screen_seek_xy
 		ld	c, CURSOR_CHAR
-		RSUB	print_char
+		RSUB	print_byte
 		jr	.loop_menu_input
 
 	.menu_entry_run:

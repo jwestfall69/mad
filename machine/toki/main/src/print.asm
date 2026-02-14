@@ -41,7 +41,7 @@ print_bits_byte_dsub:
 		bra	screen_update_dsub
 
 ; params:
-;  d0 = char
+;  d0 = byte/char
 ;  a6 = address in fg ram to start printing at
 print_byte_dsub:
 print_char_dsub:

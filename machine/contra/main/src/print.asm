@@ -35,7 +35,7 @@ print_bits_byte_dsub:
 		DSUB_RETURN
 
 ; params:
-;  a = raw byte
+;  a = byte
 ;  x = location in tile ram
 print_byte_dsub:
 		sta	,x

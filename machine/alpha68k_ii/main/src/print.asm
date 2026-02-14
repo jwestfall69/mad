@@ -45,7 +45,7 @@ print_bits_byte_dsub:
 		DSUB_RETURN
 
 ; params:
-;  d0 = char
+;  d0 = byte
 ;  a6 = address in tile ram to start printing at
 print_byte_dsub:
 print_char_dsub:

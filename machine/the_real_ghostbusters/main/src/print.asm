@@ -36,10 +36,8 @@ print_bits_byte_dsub:
 		bne	.loop_next_nibble
 		DSUB_RETURN
 
-
-
 ; params:
-;  a = raw byte
+;  a = byte
 ;  x = location in tile ram
 print_byte_dsub:
 		clr	,x+

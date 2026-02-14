@@ -54,7 +54,7 @@ values_edit_handler:
 		RSUB	screen_seek_xy
 
 		ld	c, CURSOR_CLEAR_CHAR
-		RSUB	print_char
+		RSUB	print_byte
 
 		; draw new cursor
 		ld	b, CURSOR_X_OFFSET
@@ -63,7 +63,7 @@ values_edit_handler:
 		ld	c, a
 		RSUB	screen_seek_xy
 		ld	c, CURSOR_CHAR
-		RSUB	print_char
+		RSUB	print_byte
 
 		; seek to the correct ve_entry based on the r_cursor
 		ld	ix, (r_ve_list)

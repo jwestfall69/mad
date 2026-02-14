@@ -88,7 +88,7 @@ menu_handler:
 		RSUB	screen_seek_xy
 
 		lda	#CURSOR_CLEAR_CHAR
-		RSUB	print_char
+		RSUB	print_byte
 
 		; draw new cursor
 		lda	#MENU_X_OFFSET
@@ -97,7 +97,7 @@ menu_handler:
 		RSUB	screen_seek_xy
 
 		lda	#CURSOR_CHAR
-		RSUB	print_char
+		RSUB	print_byte
 		bra	.loop_input
 
 	.menu_exit:

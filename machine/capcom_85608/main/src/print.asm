@@ -1,7 +1,7 @@
 	include "cpu/z80/include/common.inc"
 
 	global print_bits_byte_dsub
-	;global print_byte_dsub
+	global print_byte_dsub
 	global print_char_dsub
 	global print_char_repeat_dsub
 	global print_clear_line_dsub
@@ -48,8 +48,9 @@ print_bits_byte_dsub:
 		DSUB_RETURN
 
 ; parms:
-;  c = char
+;  c = byte/char
 ;  hl = location in video ram
+print_byte_dsub:
 print_char_dsub:
 		exx
 

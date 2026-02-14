@@ -42,7 +42,7 @@ print_bits_byte_dsub:
 		DSUB_RETURN
 
 ; params:
-;  d0 = char or byte
+;  d0 = byte/char
 ;  a6 = address in fg ram to start printing at
 print_char_dsub:
 		sub.b	#$30, d0
