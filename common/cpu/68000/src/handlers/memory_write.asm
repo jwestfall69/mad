@@ -3,8 +3,8 @@
 
 	global memory_write_handler
 
-START_COLUMN	equ SCREEN_START_X
-START_ROW	equ SCREEN_START_Y + 4
+COLUMN_START	equ SCREEN_START_X
+ROW_START	equ SCREEN_START_Y + 4
 
 	section code
 
@@ -43,9 +43,9 @@ memory_write_handler:
 		jsr	print_data
 
 	.loop_redraw_active:
-		move.b	#START_COLUMN + 7, d0
+		move.b	#COLUMN_START + 7, d0
 		sub.b	r_active_bit, d0
-		move.b	#START_ROW, d1
+		move.b	#ROW_START, d1
 		add.b	r_active_byte, d1
 
 		RSUB	screen_seek_xy
@@ -139,16 +139,16 @@ print_data:
 		moveq	#$0, d5
 		move.b	r_num_bytes, d5
 	.print_next_byte:
-		moveq	#START_COLUMN, d0
-		moveq	#START_ROW, d1
+		moveq	#COLUMN_START, d0
+		moveq	#ROW_START, d1
 		add.b	d5, d1
 		RSUB	screen_seek_xy
 
 		move.b	(a1, d5), d0
 		RSUB	print_bits_byte
 
-		moveq	#START_COLUMN + 10, d0
-		moveq	#START_ROW, d1
+		moveq	#COLUMN_START + 10, d0
+		moveq	#ROW_START, d1
 		add.b	d5, d1
 		RSUB	screen_seek_xy
 

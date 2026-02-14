@@ -3,8 +3,8 @@
 
 	global memory_write_handler
 
-START_COLUMN	equ SCREEN_START_X
-START_ROW	equ SCREEN_START_Y + 4
+COLUMN_START	equ SCREEN_START_X
+ROW_START	equ SCREEN_START_Y + 4
 
 	section code
 
@@ -49,12 +49,12 @@ memory_write_handler:
 	.loop_redraw_active:
 		ld	a, (r_active_bit)
 		ld	b, a
-		ld	a, START_COLUMN + 7
+		ld	a, COLUMN_START + 7
 		sub	b
 		ld	b, a
 
 		ld	a, (r_active_byte)
-		add	a, START_ROW
+		add	a, ROW_START
 		ld	c, a
 		RSUB	screen_seek_xy
 
@@ -191,18 +191,18 @@ print_data:
 		add	iy, bc
 
 	.print_next_byte:
-		ld	b, START_COLUMN
+		ld	b, COLUMN_START
 		ld	a, (r_scratch)
-		add	a, START_ROW
+		add	a, ROW_START
 		ld	c, a
 		RSUB	screen_seek_xy
 
 		ld	c, (iy)
 		RSUB	print_bits_byte
 
-		ld	b, START_COLUMN + 10
+		ld	b, COLUMN_START + 10
 		ld	a, (r_scratch)
-		add	a, START_ROW
+		add	a, ROW_START
 		ld	c, a
 		RSUB	screen_seek_xy
 

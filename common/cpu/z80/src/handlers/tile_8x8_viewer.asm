@@ -2,8 +2,8 @@
 
 	global tile_8x8_viewer_handler
 
-START_COLUMN	equ SCREEN_START_X
-START_ROW	equ SCREEN_START_Y + 6
+COLUMN_START	equ SCREEN_START_X
+ROW_START	equ SCREEN_START_Y + 6
 
 	section code
 
@@ -25,7 +25,7 @@ tile_8x8_viewer_handler:
 		RSUB	print_string
 		call	print_b2_return_to_menu
 
-		SEEK_XY	(START_COLUMN + 2), (SCREEN_START_Y + 4)
+		SEEK_XY	(COLUMN_START + 2), (SCREEN_START_Y + 4)
 		ld	de, d_str_0f
 		RSUB	print_string
 
@@ -45,12 +45,12 @@ tile_8x8_viewer_handler:
 		SEEK_XY	(SCREEN_START_X + 8), (SCREEN_START_Y + 2)
 		RSUB	print_hex_word
 
-		ld	a, START_ROW
+		ld	a, ROW_START
 		ld	(r_current_row), a
 
 		ld	ix, d_str_0f
 	.loop_next_row:
-		ld	a, START_COLUMN
+		ld	a, COLUMN_START
 		ld	(r_current_column), a
 
 		; seek/print row header
@@ -98,13 +98,13 @@ tile_8x8_viewer_handler:
 		ld	a, (r_current_column)
 		inc	a
 		ld	(r_current_column), a
-		cp	START_COLUMN + $12
+		cp	COLUMN_START + $12
 		jr	nz, .loop_next_byte
 
 		ld	a, (r_current_row)
 		inc	a
 		ld	(r_current_row), a
-		cp	START_ROW + $10
+		cp	ROW_START + $10
 		jr	nz, .loop_next_row
 
 	.loop_next_input:

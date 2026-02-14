@@ -2,8 +2,8 @@
 
 	global tile_8x8_viewer_handler
 
-START_COLUMN	equ SCREEN_START_X
-START_ROW	equ SCREEN_START_Y + 6
+COLUMN_START	equ SCREEN_START_X
+ROW_START	equ SCREEN_START_Y + 6
 
 	section code
 
@@ -23,7 +23,7 @@ tile_8x8_viewer_handler:
 		RSUB	print_string
 		jsr	print_b2_return_to_menu
 
-		SEEK_XY	(START_COLUMN + 2), (SCREEN_START_Y + 4)
+		SEEK_XY	(COLUMN_START + 2), (SCREEN_START_Y + 4)
 		lea	d_str_0f, a0
 		RSUB	print_string
 
@@ -34,12 +34,12 @@ tile_8x8_viewer_handler:
 		move.w	d6, (r_tile_offset)
 
 		moveq	#15, d5			; number of rows - 1
-		moveq	#START_ROW, d2		; current row number
+		moveq	#ROW_START, d2		; current row number
 
 		lea	d_str_0f, a1
 
 	.loop_next_row:
-		moveq	#START_COLUMN, d3	; reset with each row
+		moveq	#COLUMN_START, d3	; reset with each row
 
 		move.l	d3, d0
 		move.l	d2, d1

@@ -5,8 +5,8 @@
 
 	section code
 
-DATA_START_COLUMN	equ SCREEN_START_X + 15
-DATA_START_ROW		equ SCREEN_START_Y + 2
+DATA_COLUMN_START	equ SCREEN_START_X + 15
+DATA_ROW_START		equ SCREEN_START_Y + 2
 
 CURSOR_X_OFFSET		equ SCREEN_START_X - 1
 CURSOR_Y_OFFSET		equ SCREEN_START_Y + 2
@@ -154,7 +154,7 @@ get_ve_entry_count:
 		rts
 
 print_data:
-		lda	#DATA_START_ROW
+		lda	#DATA_ROW_START
 		sta	r_y_offset
 		ldy	r_ve_list
 
@@ -163,7 +163,7 @@ print_data:
 		cmpa	#$ff		; end of list byte
 		beq	.list_end
 
-		adda	#DATA_START_COLUMN
+		adda	#DATA_COLUMN_START
 		ldb	r_y_offset
 		RSUB	screen_seek_xy
 

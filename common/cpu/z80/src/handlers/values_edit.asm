@@ -5,8 +5,8 @@
 
 	section code
 
-DATA_START_COLUMN	equ SCREEN_START_X + 15
-DATA_START_ROW		equ SCREEN_START_Y + 2
+DATA_COLUMN_START	equ SCREEN_START_X + 15
+DATA_ROW_START		equ SCREEN_START_Y + 2
 
 CURSOR_X_OFFSET		equ SCREEN_START_X - 1
 CURSOR_Y_OFFSET		equ SCREEN_START_Y + 2
@@ -183,7 +183,7 @@ get_ve_entry_count:
 		ret
 
 print_data:
-		ld	a, DATA_START_ROW
+		ld	a, DATA_ROW_START
 		ld	(r_y_offset), a
 		ld	ix, (r_ve_list)
 
@@ -192,7 +192,7 @@ print_data:
 		cp	$ff		; end of list byte
 		jr	z, .list_end
 
-		add	a, DATA_START_COLUMN
+		add	a, DATA_COLUMN_START
 		ld	b, a
 		ld	a, (r_y_offset)
 		ld	c, a

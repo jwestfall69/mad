@@ -2,8 +2,8 @@
 
 	global tile_16x16_viewer_handler
 
-START_COLUMN	equ SCREEN_START_X + 1
-START_ROW	equ SCREEN_START_Y + 7
+COLUMN_START	equ SCREEN_START_X + 1
+ROW_START	equ SCREEN_START_Y + 7
 
 	section code
 
@@ -50,11 +50,11 @@ tile_16x16_viewer_handler:
 		addq.l	#$8, d6
 
 	.do_print_row_header:
-		SEEK_XY	(START_COLUMN + 3), (SCREEN_START_Y + 4)
+		SEEK_XY	(COLUMN_START + 3), (SCREEN_START_Y + 4)
 		RSUB	print_string
 
 		moveq	#7, d5			; number of rows - 1
-		moveq	#START_ROW, d2		; current row number
+		moveq	#ROW_START, d2		; current row number
 
 		btst	#1, r_quadrant
 		bne	.column_8f		; bottom
@@ -66,7 +66,7 @@ tile_16x16_viewer_handler:
 		add.l	#$80, d6
 
 	.loop_next_row:
-		moveq	#START_COLUMN, d3	; reset with each row
+		moveq	#COLUMN_START, d3	; reset with each row
 
 		move.l	d3, d0
 		move.l	d2, d1
