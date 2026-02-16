@@ -23,9 +23,9 @@
 <p>
 
 ## Manual / Schematics
-[Manual](docs/mx5000_manual.pdf)
-
-Schematics don't seem to exist.
+[Manual](docs/mx5000_manual.pdf)<br>
+[Manual JP](docs/mx5000_manual_jp.pdf)<br>
+[Schematics](docs/mx5000_schematics.pdf)
 
 ## MAD Eproms
 | Diag | Eprom Type | Location | Notes |
