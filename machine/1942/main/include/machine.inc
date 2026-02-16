@@ -1,6 +1,9 @@
 ROM_START			equ $0
 ROM_SIZE			equ $8000
 
+; bg ram chip is $800 in size, but A10
+; is tied to GND. This causes a mirror
+; of $d800-$dbff at $dc00-$dfff
 BG_TILE_RAM			equ $d800
 BG_TILE_RAM_SIZE		equ $400
 BG_TILE_RAM_ADDRESS_LINES	equ 10

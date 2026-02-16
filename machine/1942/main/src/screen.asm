@@ -18,13 +18,13 @@ screen_init_dsub:
 		ld	c, $19
 		NSUB	memory_fill
 
-		ld	hl, $d800
+		ld	hl, BG_TILE_RAM
 		ld	c, $f8
-		NSUB	bg_derp
+		NSUB	bg_tile_fill
 
-		ld	hl, $d810
+		ld	hl, BG_TILE_RAM + $10
 		ld	c, $80
-		NSUB	bg_derp
+		NSUB	bg_tile_fill
 
 		SEEK_XY	3, 0
 		ld	de, d_str_version
@@ -64,9 +64,13 @@ screen_seek_xy_dsub:
 		add	hl, bc
 		DSUB_RETURN
 
-; hl = start address
-; c = byte
-bg_derp_dsub:
+; bg tile ram has a weird layout. For every 32 bytes it has
+; 16 bytes of tile numbers, then 16 bytes of tile attributes.
+; This fill function will fill every other 16 bytes.
+; params:
+;  hl = start address
+;  c = byte
+bg_tile_fill_dsub:
 		exx
 
 		ld	e, c
