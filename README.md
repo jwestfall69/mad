@@ -21,6 +21,8 @@ You can grab the latest compiled version here
 https://www.mvs-scans.com/mad/mad-main.zip
 
 Support boards
+### 1942 (1942)
+![1942](machine/1942/docs/images/mad_1942_main_menu.png)
 
 ### 1943 (1943)
 ![1943](machine/1943/docs/images/mad_1943_main_menu.png)
