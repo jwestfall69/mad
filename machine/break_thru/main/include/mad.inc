@@ -15,19 +15,5 @@ R_WORK_RAM_PASSES	equ FG_RAM
 
 	; we are only allowed to use d register
 	macro SOUND_BIT_DELAY
-		ldd	#$3fff
-	.\@:
-		WATCHDOG
-		cmpd	#0		; 4 cycles
-		cmpd	#0		; 4 cycles
-		cmpd	#0		; 4 cycles
-		cmpd	#0		; 4 cycles
-		cmpd	#0		; 4 cycles
-		cmpd	#0		; 4 cycles
-		cmpd	#0		; 4 cycles
-		cmpd	#0		; 4 cycles
-		cmpd	#0		; 4 cycles
-		cmpd	#0		; 4 cycles
-		subd	#$1
-		bne	.\@		; 2 cycles
+		DELAY	#$3fff
 	endm

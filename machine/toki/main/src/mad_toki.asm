@@ -6,10 +6,7 @@
 
 _start:
 		CPU_INTS_DISABLE
-
-		move.l	#$fffff, d0
-	.loop_delay:
-		dbra	d0, .loop_delay
+		DELAY	#$ffff
 
 		moveq	#$0, d0
 		move.w	D0, $a0000.l

@@ -6,10 +6,7 @@
 
 _start:
 		WATCHDOG
-		ldd	#$fff
-	.loop:
-		subd	#$1
-		bne	.loop
+		DELAY	#$1ff
 
 		clra
 		sta	$0007

@@ -7,7 +7,7 @@
 _start:
 		di
 		im 1
-		SOUND_BIT_DELAY
+		DELAY	$ffff
 
 		ld	a, CTRL_RS_BASE|CTRL_NMI_DISABLE|CTRL_SND_RESET_ON
 		ld	(REG_CONTROL), a

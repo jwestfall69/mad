@@ -15,18 +15,5 @@ R_WORK_RAM_PASSES	equ TILE_RAM
 
 	; we are only allowed to use a/de registers
 	macro SOUND_BIT_DELAY
-		ld	de, $ffff
-	.\@:
-		cp	$0		; 7 cycles
-		cp	$0		; 7 cycles
-		cp	$0		; 7 cycles
-		cp	$0		; 7 cycles
-		cp	$0		; 7 cycles
-		cp	$0		; 7 cycles
-		cp	$0		; 7 cycles
-		cp	$0		; 7 cycles
-		dec	de		; 6 cycles
-		ld	a, e		; 4 cycles
-		or	d		; 4 cycles
-		jr	nz, .\@		; 12? cycles
+		DELAY	$ffff
 	endm

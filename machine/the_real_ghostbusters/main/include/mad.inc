@@ -15,21 +15,7 @@ R_WORK_RAM_PASSES	equ VIDEO_RAM
 
 	; we are only allowed to use d register
 	macro SOUND_BIT_DELAY
-		ldd	#$ffff
-	.\@:
-		WATCHDOG
-		cmpd	#0		; 4 cycles
-		cmpd	#0		; 4 cycles
-		cmpd	#0		; 4 cycles
-		cmpd	#0		; 4 cycles
-		cmpd	#0		; 4 cycles
-		cmpd	#0		; 4 cycles
-		cmpd	#0		; 4 cycles
-		cmpd	#0		; 4 cycles
-		cmpd	#0		; 4 cycles
-		cmpd	#0		; 4 cycles
-		subd	#$1
-		bne	.\@		; 2 cycles
+		DELAY	#$ffff
 	endm
 
 ; video dac

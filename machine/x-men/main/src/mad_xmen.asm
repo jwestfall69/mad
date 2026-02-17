@@ -12,10 +12,7 @@ _start:
 		; allow some time for custom ICs to get started up
 		; before we try to adjust their registers.  This
 		; fixes issues with sprite ICs not working right.
-		move.w	#$ffff, d0
-	.startup_delay:
-		tst.b	d0
-		dbra	d0, .startup_delay
+		DELAY	#$fff
 
 		move.b	#$50, $18f801
 		moveq	#$0, d0
@@ -73,6 +70,7 @@ _start:
 
 		moveq	#$33, d1
 	.volume_up:
+		WATCHDOG
 		move.b	#$1, $108047
 
 		; game code normally loops waiting for the

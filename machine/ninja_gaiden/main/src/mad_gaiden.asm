@@ -6,10 +6,7 @@
 
 _start:
 		CPU_INTS_DISABLE
-
-		move.l	#$fffff, d0
-	.loop_delay:
-		dbra	d0, .loop_delay
+		DELAY	#$ffff
 
 	ifd _SCREEN_FLIP_
 		; hardware init / screen flipped

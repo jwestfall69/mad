@@ -7,7 +7,7 @@
 _start:
 		di
 		im 1
-		SOUND_BIT_DELAY
+		DELAY	$ffff
 
 		ld	hl, $0
 		ld	($d800), hl

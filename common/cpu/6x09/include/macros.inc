@@ -1,3 +1,22 @@
+	; raw delay without using any function/dsub.
+	macro DELAY
+		ldd	\1
+	.\@:
+		WATCHDOG
+		cmpd	#0		; 4 cycles
+		cmpd	#0		; 4 cycles
+		cmpd	#0		; 4 cycles
+		cmpd	#0		; 4 cycles
+		cmpd	#0		; 4 cycles
+		cmpd	#0		; 4 cycles
+		cmpd	#0		; 4 cycles
+		cmpd	#0		; 4 cycles
+		cmpd	#0		; 4 cycles
+		cmpd	#0		; 4 cycles
+		subd	#$1
+		bne	.\@		; 2 cycles
+	endm
+
 	macro STALL
 	.\@:
 		WATCHDOG
@@ -15,7 +34,6 @@
 	endif
 		jmp	.\@
 	endm
-
 
 	macro CPU_INTS_ENABLE
 		andcc	#$af

@@ -16,19 +16,5 @@ R_WORK_RAM_PASSES	equ $0
 
 	; we are only allowed to use a/de registers
 	macro SOUND_BIT_DELAY
-		ld	de, $3fff
-	.\@:
-		WATCHDOG
-		cp	$0		; 7 cycles
-		cp	$0		; 7 cycles
-		cp	$0		; 7 cycles
-		cp	$0		; 7 cycles
-		cp	$0		; 7 cycles
-		cp	$0		; 7 cycles
-		cp	$0		; 7 cycles
-		cp	$0		; 7 cycles
-		dec	de		; 6 cycles
-		ld	a, e		; 4 cycles
-		or	d		; 4 cycles
-		jr	nz, .\@		; 12? cycles
+		DELAY	$3fff
 	endm

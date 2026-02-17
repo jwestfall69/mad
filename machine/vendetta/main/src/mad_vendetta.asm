@@ -10,10 +10,7 @@ _start:
 		; allow some time for custom ICs to get started up
 		; before we try to adjust their registers.  This
 		; fixes issues with sprite ICs not working right.
-		ldx	#$8000
-	.startup_delay:
-		leax	-1, x
-		bne	.startup_delay
+		DELAY	#$fff
 
 		lda	#$11
 		sta	$7c00

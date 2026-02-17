@@ -1,5 +1,20 @@
+	; raw delay without using any function/dsub.
+	macro DELAY
+		move.l	\1, d0
+	.\@:
+		WATCHDOG
+		cmp.l	#$1, d0
+		cmp.l	#$1, d0
+		cmp.l	#$1, d0
+		cmp.l	#$1, d0
+		cmp.l	#$1, d0
+		cmp.l	#$1, d0
+		subq.l	#$1, d0
+		bne	.\@
+	endm
+
 	macro STALL
-.\@
+	.\@:
 		WATCHDOG
 	ifd _STALL_DELAY_
 		move.l	#$1fff, d0

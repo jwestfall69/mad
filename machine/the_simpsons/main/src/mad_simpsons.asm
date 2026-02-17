@@ -10,11 +10,7 @@ _start:
 		; allow some time for custom ICs to get started up
 		; before we try to adjust their registers.  This
 		; fixes issues with sprite ICs not working right.
-		clra
-	.startup_delay:
-		inca
-		bne	.startup_delay
-
+		DELAY	#$fff
 
 		lda	#$13
 		sta	$7c00
