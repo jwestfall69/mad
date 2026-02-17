@@ -1,5 +1,4 @@
 	include "cpu/68000/include/common.inc"
-	include "cpu/68000/include/tests/input.inc"
 
 	global input_test
 
