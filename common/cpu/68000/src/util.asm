@@ -4,6 +4,7 @@
 	global joystick_lr_update_byte
 	global joystick_lr_update_word
 	global joystick_lr_update_long
+	global memory_copy
 	global memory_rewrite_dsub
 	global print_b2_return_to_menu
 	global print_passes
@@ -150,6 +151,18 @@ joystick_lr_update_long:
 		clr	d0
 		rts
 
+
+; params:
+;  a0 = src address
+;  a1 = dst address
+;  d0 = # of words to copy
+memory_copy:
+		subq.w	#$1, d0
+
+	.loop_next_word:
+		move.w	(a0)+, (a1)+
+		dbra	d0, .loop_next_word
+		rts
 
 ; writes a region of memory (mainly just used to force
 ; mame to consider the memorry dirty, causing it to update
