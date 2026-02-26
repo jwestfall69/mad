@@ -31,7 +31,12 @@ while on the solder side its VCC.
 The CPU and Graphics PCB have their solder sides facing each other.
 
 ### Original
-on the way
+<a href="docs/images/original/1942_cpu_pcb_top.png"><img src="docs/images/original/1942_cpu_pcb_top.png" width="40%"></a>
+<a href="docs/images/original/1942_cpu_pcb_bottom.png"><img src="docs/images/original/1942_cpu_pcb_bottom.png" width="40%"></a>
+<p>
+<a href="docs/images/original/1942_graphics_pcb_top.png"><img src="docs/images/original/1942_graphics_pcb_top.png" width="40%"></a>
+<a href="docs/images/original/1942_graphics_pcb_bottom.png"><img src="docs/images/original/1942_graphics_pcb_bottom.png" width="40%"></a>
+<p>
 
 ### Factory Conversion (from Vulgus)
 <a href="docs/images/conversion/1942_conversion_cpu_pcb_top.png"><img src="docs/images/conversion/1942_conversion_cpu_pcb_top.png" width="40%"></a>
