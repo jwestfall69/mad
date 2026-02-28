@@ -93,7 +93,7 @@ memory_viewer_handler:
 		lea	d_str_read_mode_word, a0
 
 	.print_read_mode:
-		SEEK_XY	(SCREEN_START_X + 5), (SCREEN_START_Y + 1)
+		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 1)
 		RSUB	print_string
 		movem.l	(a7)+, a0
 
