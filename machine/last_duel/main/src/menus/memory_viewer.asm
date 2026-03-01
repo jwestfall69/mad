@@ -1,0 +1,74 @@
+	include "cpu/68000/include/common.inc"
+	include "cpu/68000/include/handlers/menu.inc"
+
+	global memory_viewer_menu
+
+	section code
+
+memory_viewer_menu:
+		lea	d_str_menu_title, a0
+		lea	d_menu_list, a1
+		jsr	menu_handler
+		rts
+
+view_bg_tile_ram:
+		lea	BG_TILE_RAM, a0
+		bra	view_memory
+
+view_fg_tile_ram:
+		lea	FG_TILE_RAM, a0
+		bra	view_memory
+
+view_fix_tile_ram:
+		lea	FIX_TILE_RAM, a0
+		bra	view_memory
+
+view_mmio_input:
+		lea	$fc4000, a0
+		bra	view_memory
+
+view_palette_ram:
+		lea	PALETTE_RAM, a0
+		bra	view_memory
+
+view_rom_space:
+		lea	$0, a0
+		bra	view_memory
+
+view_sprite_ram:
+		lea	SPRITE_RAM, a0
+		bra	view_memory
+
+view_work_ram:
+		lea	WORK_RAM, a0
+
+view_memory:
+		lea	$0, a1			; no callback
+		jsr	memory_viewer_handler
+		rts
+
+	section data
+	align 1
+
+d_menu_list:
+	MENU_ENTRY view_bg_tile_ram, d_str_bg_tile_ram, ME_FLAG_NONE
+	MENU_ENTRY view_fg_tile_ram, d_str_fg_tile_ram, ME_FLAG_NONE
+	MENU_ENTRY view_fix_tile_ram, d_str_fix_tile_ram, ME_FLAG_NONE
+	MENU_ENTRY view_mmio_input, d_str_mmio_input, ME_FLAG_NONE
+	MENU_ENTRY view_palette_ram, d_str_palette_ram, ME_FLAG_NONE
+	MENU_ENTRY view_rom_space, d_str_rom_space, ME_FLAG_NONE
+	MENU_ENTRY view_sprite_ram, d_str_sprite_ram, ME_FLAG_NONE
+	MENU_ENTRY view_work_ram, d_str_work_ram, ME_FLAG_NONE
+	MENU_LIST_END
+
+d_str_menu_title:		STRING "MEMORY VIEWER MENU"
+
+d_str_bg_tile_ram:		STRING "BG TILE RAM"
+d_str_fg_tile_ram:		STRING "FG TILE RAM"
+d_str_fix_tile_ram:		STRING "FIX TILE RAM"
+d_str_mmio_input:		STRING "MMIO INPUT"
+d_str_palette_ram:		STRING "PALETTE RAM"
+d_str_rom_space:		STRING "ROM SPACE"
+d_str_sprite_ram:		STRING "SPRITE RAM"
+d_str_work_ram:			STRING "WORK RAM"
+

@@ -1,0 +1,14 @@
+; visible tile area
+SCREEN_NUM_COLUMNS		equ 30
+SCREEN_NUM_ROWS			equ 48
+
+; total tile area
+SCREEN_TILES_PER_COLUMN		equ 48 ; ??
+SCREEN_TILES_PER_ROW		equ 64
+
+SCREEN_BYTES_PER_TILE		equ 2
+SCREEN_BYTES_PER_ROW		equ (SCREEN_BYTES_PER_TILE * SCREEN_TILES_PER_ROW)
+
+		macro SEEK_XY
+			lea	(FIX_TILE_RAM + $ee + (\1 * SCREEN_BYTES_PER_ROW) - (\2 * SCREEN_BYTES_PER_TILE)), a6
+		endm
