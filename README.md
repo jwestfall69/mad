@@ -98,6 +98,9 @@ Support boards
 ### Last Duel (lastduel)
 ![lastduel](machine/last_duel/docs/images/mad_lastduel_main_menu.png)
 
+### Legendary Wings (lwings)
+![lwings](machine/legendary_wings/docs/images/mad_lwings_main_menu.png)
+
 ### Mitchell based games
 ![mitchell](machine/mitchell/docs/images/mad_mitchell_main_menu.png)<br>
 **Mahjong Gakuen 2 Gakuen-chou no Fukushuu (mgakeun2)**<br>
