@@ -15,7 +15,6 @@
 ![mad lastduel main menu](docs/images/mad_lastduel_main_menu.png)
 ![mad lastduel fix tile viewer](docs/images/mad_lastduel_fix_tile_viewer.png)
 ![mad lastduel sprite viewer](docs/images/mad_lastduel_sprite_viewer.png)
-![mad lastduel video dac test](docs/images/mad_lastduel_video_dac_test.png)
 
 ## PCB Pictures
 CPU Board:<br>
@@ -36,10 +35,10 @@ face each other.
 Schematics don't seem to exist.
 
 ## MAD Eproms
-| Diag | Eprom Type | Location(s) |
-| ---- | ---------- | ----------- |
-| Main on CPU PCB | 27c301 | ldu_05b.12k @ 12K on CPU PCB<br>ldu_06b.13k @ 13K on CPU PCB |
-| Sound on CPU PCB | 27c512 | 16H on CPU PCB |
+| Diag | Eprom Type | Location(s) | Notes |
+| ---- | ---------- | ----------- | ----- |
+| Main on CPU PCB | 27c301 | ldu_05b.12k @ 12K on CPU PCB<br>ldu_06b.13k @ 13K on CPU PCB | |
+| Sound on CPU PCB | 27c512 | 16H on CPU PCB | No MAD ROM exists yet |
 
 ## RAM Locations
 | RAM | Location | Type |
