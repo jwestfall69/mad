@@ -63,9 +63,12 @@ an MCU underneath the 85H001.
 | BG Tile RAM | 9B on Graphics Board | TMM2016P-1 (2k x 8bit) |
 | FM Sound RAM | Inside 85H001 on CPU Board | ??? (2k x 8bit) |
 | Fix Tile RAM | 8H on CPU Board | D4016C-2 (2k x 8bit) |
+| Palette RAM | 3D/4D/5D on CPU Board | HM6148 (1k x 4bit) |
 | Work/Sprite RAM | 9N on CPU Board | D4364C-15L (8k x 8bit) |
 
 The ADPCM Sound CPU does not have any RAM.
+
+Palette RAM is not readable by the CPU, so its impossible to test.
 
 There are 3 additional TMM2016P-1 (2k x 8bit) and 2 CXK5808-50 (1k x 8bit) RAM
 chips on the graphics board which are not accessible by the CPU.

@@ -106,6 +106,7 @@ loop_cb:
 d_mw_settings:		MW_SETTINGS 4, r_mw_buffer, highlight_cb, write_memory_cb, loop_cb
 d_str_last_written:	STRING "LAST WRITTEN"
 
+; highlight palette colors
 d_palette_data:
 	dc.b	$00, $f0, $00, $00
 

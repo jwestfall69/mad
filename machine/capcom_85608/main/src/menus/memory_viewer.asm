@@ -11,6 +11,10 @@ memory_viewer_menu:
 		call	menu_handler
 		ret
 
+view_bg_ram:
+		ld	ix, BG_TILE
+		jr	view_memory
+
 view_rom_space:
 		ld	ix, $0
 		jr	view_memory
@@ -37,6 +41,7 @@ view_memory:
 	section data
 
 d_menu_list:
+	MENU_ENTRY view_bg_ram, d_str_bg_ram, ME_FLAG_NONE
 	MENU_ENTRY view_rom_space, d_str_rom_space, ME_FLAG_NONE
 	MENU_ENTRY view_sprite_ram, d_str_sprite_ram, ME_FLAG_NONE
 	MENU_ENTRY view_fix_tile_ram, d_str_fix_tile_ram, ME_FLAG_NONE
@@ -44,8 +49,9 @@ d_menu_list:
 	MENU_ENTRY view_work_ram, d_str_work_ram, ME_FLAG_NONE
 	MENU_LIST_END
 
-d_str_menu_title:	STRING "MEMORY VIEWER MENU"
+d_str_menu_title:		STRING "MEMORY VIEWER MENU"
 
+d_str_bg_ram:			STRING "BG RAM"
 d_str_rom_space:		STRING "ROM SPACE"
 d_str_sprite_ram:		STRING "SPRITE RAM"
 d_str_fix_tile_ram:		STRING "FIX TILE RAM"
