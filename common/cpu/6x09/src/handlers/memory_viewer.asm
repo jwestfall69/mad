@@ -4,6 +4,9 @@
 
 	section code
 
+ROW_START	equ SCREEN_START_Y + 3
+ROW_END		equ SCREEN_NUM_ROWS - 4
+PAGE_UPDOWN	equ 4 * (ROW_END - ROW_START)
 ; params:
 ;  x = start address
 ;  y = read_memory_cb or #$0000 to use default memory read
@@ -18,6 +21,8 @@ memory_viewer_handler:
 
 		SEEK_XY	0, SCREEN_START_Y
 		RSUB	print_clear_line
+
+		clr	r_debug_memory
 
 		ldy	#d_screen_xys_list
 		jsr	print_xy_string_list
@@ -46,22 +51,35 @@ memory_viewer_handler:
 	.down_not_pressed:
 		bita	#INPUT_LEFT
 		beq	.left_not_pressed
-		leax	-$50, x
+		leax	-PAGE_UPDOWN, x
 		bra	.loop_next_input
 
 	.left_not_pressed:
 		bita	#INPUT_RIGHT
 		beq	.right_not_pressed
-		leax	$50, x
+		leax	PAGE_UPDOWN, x
 		bra	.loop_next_input
 
 	.right_not_pressed:
+
+	ifd _DEBUG_MEMORY_
+		bita	#INPUT_B1
+		beq	.b1_not_pressed
+
+		lda	r_debug_memory
+		sta	, x
+		sta	1, x
+		sta	2, x
+		sta	3, x
+		inca
+		sta	r_debug_memory
+
+	.b1_not_pressed:
+	endif
 		bita	#INPUT_B2
 		beq	.loop_next_input
 		rts
 
-ROW_START	equ SCREEN_START_Y + 3
-ROW_END		equ ROW_START + 20
 ; params:
 ;  x = start address
 memory_dump:
@@ -159,11 +177,19 @@ d_screen_xys_list:
 	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 2), "ADDR"
 	XY_STRING (SCREEN_START_X + 8), (SCREEN_START_Y + 2), "DATA"
 	XY_STRING (SCREEN_START_X + 17), (SCREEN_START_Y + 2), "CHAR"
+	ifd _DEBUG_MEMORY_
+		XY_STRING SCREEN_START_X, (SCREEN_B1_Y - 1), "JOY - NAVIGATE"
+		XY_STRING SCREEN_START_X, SCREEN_B1_Y, "B1  - WRITE MEMORY"
+	else
+		XY_STRING SCREEN_START_X, SCREEN_B1_Y, "JOY - NAVIGATE"
+	endif
+	XY_STRING SCREEN_START_X, SCREEN_B2_Y, "B2  - RETURN TO MENU"
 	XY_STRING_LIST_END
 
 	section bss
 
 r_read_memory_cb:	dcb.w 1
+r_debug_memory:		dcb.b 1
 r_dump_address:		dcb.w 1
 r_dump_data:		dcb.w 2
 r_dump_row:		dcb.b 1

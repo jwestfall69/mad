@@ -4,6 +4,10 @@
 
 	section code
 
+ROW_START	equ SCREEN_START_Y + 3
+ROW_END		equ SCREEN_NUM_ROWS - 5
+PAGE_UPDOWN	equ 4 * (ROW_END - ROW_START)
+
 ; params:
 ;  a0 = start memory location
 ;  a1 = read_memory_cb or #$0000 to use default memory read
@@ -19,20 +23,8 @@ memory_viewer_handler:
 		clr.b	r_read_mode
 		clr.b	r_debug_memory
 
-		SEEK_XY	0, SCREEN_START_Y
-		RSUB	print_clear_line
-
-		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
-		lea	d_str_memory_viewer, a0
-		RSUB	print_string
-
-		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 1)
-		lea	d_str_read_mode_word, a0
-		RSUB	print_string
-
-		SEEK_XY (SCREEN_START_X + 5), (SCREEN_START_Y + 1)
-		lea	d_str_read_mode, a0
-		RSUB	print_string
+		lea	d_screen_xys_list, a0
+		RSUB	print_xy_string_list
 
 		movem.l	(a7)+, a0-a1
 
@@ -56,13 +48,13 @@ memory_viewer_handler:
 	.down_not_pressed:
 		btst	#INPUT_LEFT_BIT, d0
 		beq	.left_not_pressed
-		suba.l	#$50, a0
+		suba.l	#PAGE_UPDOWN, a0
 		bra	.loop_next_input
 
 	.left_not_pressed:
 		btst	#INPUT_RIGHT_BIT, d0
 		beq	.right_not_pressed
-		adda.l	#$50, a0
+		adda.l	#PAGE_UPDOWN, a0
 		bra	.loop_next_input
 
 	.right_not_pressed:
@@ -77,7 +69,7 @@ memory_viewer_handler:
 		move.b	d0, (3, a0)
 		addq.b	#$1, d0
 		move.b	d0, r_debug_memory
-	endif
+	else
 
 		movem.l	a0, -(a7)
 		move.b	r_read_mode, d0
@@ -93,9 +85,10 @@ memory_viewer_handler:
 		lea	d_str_read_mode_word, a0
 
 	.print_read_mode:
-		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 1)
+		SEEK_XY	(SCREEN_START_X + 5), (SCREEN_START_Y + 1)
 		RSUB	print_string
 		movem.l	(a7)+, a0
+	endif
 
 	.b1_not_pressed:
 		btst	#INPUT_B2_BIT, d0
@@ -103,8 +96,6 @@ memory_viewer_handler:
 
 		rts
 
-ROW_START	equ SCREEN_START_Y + 3
-ROW_END		equ ROW_START + 20
 ; params:
 ;  a0 = start adddress
 ;  a1 = read_memory_cb or #$0000 to use default memory read
@@ -200,8 +191,22 @@ memory_dump:
 	section data
 	align 1
 
-d_str_memory_viewer:		STRING "MEMORY VIEWER"
-d_str_read_mode:		STRING "READ"
+
+d_screen_xys_list:
+	XY_STRING SCREEN_START_X, SCREEN_START_Y, "MEMORY VIEWER"
+	XY_STRING SCREEN_START_X, (SCREEN_START_Y + 1), "READ WORD"
+	XY_STRING (SCREEN_START_X + 1), (SCREEN_START_Y + 2), "ADDR"
+	XY_STRING (SCREEN_START_X + 10), (SCREEN_START_Y + 2), "DATA"
+	XY_STRING (SCREEN_START_X + 19), (SCREEN_START_Y + 2), "CHAR"
+	XY_STRING SCREEN_START_X, (SCREEN_B1_Y - 1), "JOY - NAVIGATE"
+	ifd _DEBUG_MEMORY_
+		XY_STRING SCREEN_START_X, SCREEN_B1_Y, "B1  - WRITE MEMORY"
+	else
+		XY_STRING SCREEN_START_X, SCREEN_B1_Y, "B1  - BYTE OR WORD READ"
+	endif
+	XY_STRING SCREEN_START_X, SCREEN_B2_Y, "B2  - RETURN TO MENU"
+	XY_STRING_LIST_END
+
 d_str_read_mode_byte:		STRING "BYTE"
 d_str_read_mode_word:		STRING "WORD"
 
