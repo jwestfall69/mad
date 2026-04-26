@@ -17,8 +17,7 @@ input_update:
 		jsr	delay
 
 		ldb	r_input_raw
-		lda	REG_INPUT
-		coma
+		GET_INPUT
 		sta	r_input_raw
 
 		eorb	(r_input_raw)

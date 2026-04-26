@@ -1,4 +1,9 @@
 ; input register and mappings
+	macro GET_INPUT
+		lda	REG_INPUT
+		coma
+	endm
+
 REG_INPUT		equ REG_INPUT_P1
 
 INPUT_UP_BIT		equ $3

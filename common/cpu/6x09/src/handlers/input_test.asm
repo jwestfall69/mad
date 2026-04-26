@@ -27,8 +27,7 @@ input_test_handler:
 
 		; avoid input_update because it calls delay
 		; which causes problems with vbp counters
-		lda	REG_INPUT
-		coma
+		GET_INPUT
 
 		anda	#(INPUT_B2|INPUT_RIGHT)
 		cmpa	#(INPUT_B2|INPUT_RIGHT)

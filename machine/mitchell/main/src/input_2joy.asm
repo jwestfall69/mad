@@ -54,4 +54,5 @@ get_input:
 		and	$f0
 		or	b
 		pop	bc
+		cpl
 		ret

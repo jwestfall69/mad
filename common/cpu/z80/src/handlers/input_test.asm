@@ -32,7 +32,6 @@ input_test_handler:
 		; avoid input_update because it calls delay
 		; which causes problems with vbp counters
 		GET_INPUT
-		xor	$ff
 
 		and	a, INPUT_B2 | INPUT_RIGHT
 		cp	a, INPUT_B2 | INPUT_RIGHT
@@ -63,7 +62,6 @@ print_input_list:
 
 		GET_INPUT_MISC
 
-		xor	$ff
 		ld	c, a
 		RSUB	print_bits_byte
 

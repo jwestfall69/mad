@@ -1,10 +1,12 @@
 ; input register and mappings
 	macro GET_INPUT
 		ld	a, (REG_INPUT)
+		cpl
 	endm
 
 	macro GET_INPUT_MISC
 		ld	a, (de)
+		cpl
 	endm
 
 REG_INPUT		equ REG_INPUT_P1

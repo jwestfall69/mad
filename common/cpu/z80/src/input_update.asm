@@ -21,7 +21,6 @@ input_update:
 
 		GET_INPUT
 
-		xor	$ff
 		ld	b, a
 		ld	a, (r_input_raw)
 		xor	b
@@ -41,6 +40,7 @@ check_button_press_dsub:
 		GET_INPUT
 
 		and	b
+		cp	b
 		jr	z, .pressed
 
 		ld	a, 0
@@ -60,6 +60,7 @@ wait_button_press:
 		GET_INPUT
 
 		and	b
+		cp	b
 		jr	z, .pressed
 
 		push	bc
@@ -80,6 +81,7 @@ wait_button_release:
 		GET_INPUT
 
 		and	b
+		cp	b
 		jr	nz, .released
 
 		push	bc

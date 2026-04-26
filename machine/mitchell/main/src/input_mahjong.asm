@@ -88,7 +88,9 @@ get_input:
 	.d_not_pressed:
 		ld	a, b
 		pop	bc
-		cpl
+		; note not doing cpl here like all other get_inputs because
+		; we are setting the bits for pressed inputs, which is what
+		; the consumer of GET_INPUT is expecting in a
 		ret
 
 ; params:
@@ -107,4 +109,5 @@ get_input_misc:
 
 	.skip_com_select:
 		in	a, (c)
+		cpl
 		ret

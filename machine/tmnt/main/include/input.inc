@@ -1,4 +1,9 @@
 ; input register and mappings
+	macro GET_INPUT
+		move.b	REG_INPUT, d0
+		not.b	d0
+	endm
+
 REG_INPUT		equ REG_INPUT_P1
 
 INPUT_UP_BIT		equ $2

@@ -6,6 +6,7 @@
 	macro GET_INPUT_MISC
 		ld	c, e
 		in	a, (c)
+		cpl
 	endm
 
 INPUT_UP_BIT		equ $7

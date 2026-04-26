@@ -16,8 +16,8 @@ input_update:
 		move.l	#$1fff, d0
 		RSUB	delay
 
-		move.b	REG_INPUT, d0
-		not.b	d0
+		GET_INPUT
+
 		move.b	r_input_raw, d1
 		eor.b	d0, d1
 		and.b	d0, d1

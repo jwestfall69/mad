@@ -1,11 +1,13 @@
 ; input io and mappings
 	macro GET_INPUT
 		in	a, (IO_INPUT)
+		cpl
 	endm
 
 	macro GET_INPUT_MISC
 		ld	c, e
 		in	a, (c)
+		cpl
 	endm
 
 IO_INPUT		equ IO_INPUT_P1

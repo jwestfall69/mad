@@ -28,8 +28,7 @@ input_test_handler:
 
 		; avoid input_update because it calls delay
 		; which causes problems with vbp counters
-		move.b	REG_INPUT, d0
-		not.b	d0
+		GET_INPUT
 
 		cmp.b	#(INPUT_B2|INPUT_RIGHT), d0
 		bne	.loop_input_test
