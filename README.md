@@ -41,6 +41,10 @@ Support boards
 ### Block Hole (blockhl)
 ![blockhl](machine/block_hole/docs/images/mad_block_hole_main_menu.png)
 
+
+### Boot Camp (bootcamp)
+![bootcamp](machine/boot_camp/docs/images/mad_boot_camp_main_menu.png)
+
 ### Capcom 85608 Board
 ![capcom 85608](machine/capcom_85608/docs/images/mad_85608_main_menu.png)
 
