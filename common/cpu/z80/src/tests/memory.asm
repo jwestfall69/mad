@@ -270,6 +270,9 @@ memory_output_test_dsub:
 ; returns:
 ;  Z = 0 (error), 1 = (pass)
 ;  a = 0 (pass), 1 = (fail)
+;  hl = error address
+;  b = expected
+;  c = actual
 memory_write_test_dsub:
 		exx
 
@@ -289,6 +292,10 @@ memory_write_test_dsub:
 		DSUB_RETURN
 
 	.test_failed:
+		ld	c, a
+		ld	a, b
+		xor	$ff
+		ld	b, a
 		xor	a
 		inc	a
 		DSUB_RETURN
