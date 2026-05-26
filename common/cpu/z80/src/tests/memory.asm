@@ -284,6 +284,10 @@ memory_write_test_dsub:
 		ld	b, a
 		xor	$ff
 		ld	(hl), a
+		nop
+		nop
+		nop
+		nop
 		ld	a, (hl)
 		cp	b
 		jr	z, .test_failed
