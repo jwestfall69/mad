@@ -34,8 +34,9 @@ watchdog_time:
 	; pressed it to select the this menu item
 	.loop_wait_b1_release:
 		WATCHDOG
-		move.b	REG_INPUT, d0
-		not.b	d0
+
+		GET_INPUT
+
 		btst	#INPUT_B1_BIT, d0
 		bne	.loop_wait_b1_release
 
@@ -48,8 +49,8 @@ watchdog_time:
 		WATCHDOG
 		WATCHDOG
 		WATCHDOG
-		move.b	REG_INPUT, d0
-		not.b	d0
+
+		GET_INPUT
 
 		btst	#INPUT_B1_BIT, d0
 		beq	.b1_not_pressed

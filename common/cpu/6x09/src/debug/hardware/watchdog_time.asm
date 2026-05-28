@@ -34,8 +34,9 @@ watchdog_time:
 	; pressed it to select the this menu item
 	.loop_wait_b1_release:
 		WATCHDOG
-		lda	REG_INPUT
-		coma
+
+		GET_INPUT
+
 		bita	#INPUT_B1
 		bne	.loop_wait_b1_release
 
@@ -48,8 +49,8 @@ watchdog_time:
 		WATCHDOG
 		WATCHDOG
 		WATCHDOG
-		lda	REG_INPUT
-		coma
+
+		GET_INPUT
 
 		bita	#INPUT_B1
 		beq	.b1_not_pressed

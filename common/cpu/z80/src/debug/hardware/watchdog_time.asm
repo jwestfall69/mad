@@ -35,13 +35,8 @@ watchdog_time:
 	.loop_wait_b1_release:
 		WATCHDOG
 
-	ifd _INPUT_IO_
-		ld	a, (IO_INPUT)
-	else
-		ld	a, (REG_INPUT)
-	endif
+		GET_INPUT
 
-		xor	$ff
 		bit	INPUT_B1_BIT, a
 		jr	nz, .loop_wait_b1_release
 
@@ -55,13 +50,8 @@ watchdog_time:
 		WATCHDOG
 		WATCHDOG
 
-	ifd _INPUT_IO_
-		ld	a, (IO_INPUT)
-	else
-		ld	a, (REG_INPUT)
-	endif
+		GET_INPUT
 
-		xor	$ff
 		bit	INPUT_B1_BIT, a
 		jr	z, .b1_not_pressed
 		jr	.run_test
