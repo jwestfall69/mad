@@ -1,0 +1,60 @@
+	include "cpu/z80/include/common.inc"
+	include "cpu/z80/include/handlers/input_test.inc"
+
+	global input_test
+
+	section code
+
+input_test:
+		ld	de, d_screen_xys_list
+		call	print_xy_string_list
+
+		ld	hl, 0
+		ld	(r_irq_count), hl
+
+		ei
+
+		ld	ix, d_input_test_list
+		ld	iy, loop_cb
+		call	input_test_handler
+
+		di
+		ret
+
+loop_cb:
+		SEEK_XY (SCREEN_START_X + 18), (SCREEN_START_Y + 3)
+		ld	bc, (r_irq_count)
+		RSUB	print_hex_word
+		ret
+
+	section data
+
+d_input_test_list:
+	INPUT_TEST_ENTRY REG_INPUT_P1_JOY
+	INPUT_TEST_ENTRY REG_INPUT_P1_BUTTONS
+	INPUT_TEST_ENTRY REG_INPUT_P2_JOY
+	INPUT_TEST_ENTRY REG_INPUT_P2_BUTTONS
+	INPUT_TEST_ENTRY REG_INPUT_DSW1_L
+	INPUT_TEST_ENTRY REG_INPUT_DSW1_H
+	INPUT_TEST_ENTRY REG_INPUT_DSW2_L
+	INPUT_TEST_ENTRY REG_INPUT_DSW2_H
+	INPUT_TEST_ENTRY REG_INPUT_SYS1
+	INPUT_TEST_ENTRY REG_INPUT_SYS2
+	INPUT_TEST_ENTRY REG_INPUT_SYS3
+	INPUT_TEST_LIST_END
+
+d_screen_xys_list:
+	XY_STRING (SCREEN_START_X + 1), (SCREEN_START_Y + 3), "P1J"
+	XY_STRING (SCREEN_START_X + 1), (SCREEN_START_Y + 4), "P1B"
+	XY_STRING (SCREEN_START_X + 1), (SCREEN_START_Y + 5), "P2B"
+	XY_STRING (SCREEN_START_X + 1), (SCREEN_START_Y + 6), "P2J"
+	XY_STRING (SCREEN_START_X - 1), (SCREEN_START_Y + 7), "DSW1L"
+	XY_STRING (SCREEN_START_X - 1), (SCREEN_START_Y + 8), "DSW1H"
+	XY_STRING (SCREEN_START_X - 1), (SCREEN_START_Y + 9), "DSW2L"
+	XY_STRING (SCREEN_START_X - 1), (SCREEN_START_Y + 10), "DSW2H"
+	XY_STRING (SCREEN_START_X + 0), (SCREEN_START_Y + 11), "SYS1"
+	XY_STRING (SCREEN_START_X + 0), (SCREEN_START_Y + 12), "SYS2"
+	XY_STRING (SCREEN_START_X + 0), (SCREEN_START_Y + 13), "SYS3"
+
+	XY_STRING (SCREEN_START_X + 14), (SCREEN_START_Y + 3), "IRQ"
+	XY_STRING_LIST_END

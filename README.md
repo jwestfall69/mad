@@ -129,6 +129,9 @@ Support boards
 ### Rush 'n Attack (rushatck)
 ![rushatck](machine/rush_n_attack/docs/images/mad_rush_n_attack_main_menu.png)
 
+### Rygar (rygar)
+![rygar](machine/rygar/docs/images/mad_rygar_main_menu.png)
+
 ### Teenage Mutant Ninja Turtles (tmnt)
 ![tmnt](machine/tmnt/docs/images/mad_tmnt_main_menu.png)
 
