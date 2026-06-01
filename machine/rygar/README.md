@@ -43,9 +43,15 @@ The CPU and Graphics PCB have their solder sides facing each other.
 | BG Tile RAM | 6T on Graphics Board | D4016C-3 (2k x 8bit) |
 | FG Tile RAM | 6A on Graphics Board | D4016C-3 (2k x 8bit) |
 | Fix Tile RAM | 7L on CPU Board | D4016C-3 (2k x 8bit) |
+| Palette RAM (Even Addresses, Low Nibble, Blue) | 7A on CPU Board | MBM2148L-55 (1k x 4bit) |
+| Palette RAM (Odd Addresses, Low Nibble, Green) | 7C on CPU Board | MBM2148L-55 (1k x 4bit) |
+| Palette RAM (Odd Addresses, High Nibble, Red) | 7B on CPU Board | MBM2148L-55 (1k x 4bit) |
 | Sound RAM | 4E on CPU Board | D4016C-3 (2k x 8bit) |
 | Sprite RAM | 3B on Graphics Board | D4016C-3 (2k x 8bit) |
 | Work RAM | 10E on CPU Board | HM6264LP-16 (8k x 8bit) |
+
+Palette RAM consists of 3x 4bit RAM chips.  The high nibble on even addresses
+is not mapped to any RAM chip and will always return $f when read.
 
 ## Errors/Error Codes
 MAD for the main CPU is expecting the game's original sound rom to be there
