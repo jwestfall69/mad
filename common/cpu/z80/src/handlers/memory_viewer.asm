@@ -67,6 +67,7 @@ memory_viewer_handler:
 	ifd _DEBUG_MEMORY_
 		bit	INPUT_B1_BIT, a
 		jr	z, .b1_not_pressed
+		ld	b, a
 		ld	a, (r_debug_memory)
 
 		ld	(ix), a
@@ -75,6 +76,7 @@ memory_viewer_handler:
 		ld	(ix + 3), a
 		add	a, $1
 		ld	(r_debug_memory), a
+		ld	a, b
 
 	.b1_not_pressed:
 	endif

@@ -66,13 +66,13 @@ memory_viewer_handler:
 		bita	#INPUT_B1
 		beq	.b1_not_pressed
 
-		lda	r_debug_memory
-		sta	, x
-		sta	1, x
-		sta	2, x
-		sta	3, x
-		inca
-		sta	r_debug_memory
+		ldb	r_debug_memory
+		stb	, x
+		stb	1, x
+		stb	2, x
+		stb	3, x
+		incb
+		stb	r_debug_memory
 
 	.b1_not_pressed:
 	endif
