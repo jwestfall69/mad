@@ -51,6 +51,9 @@ Support boards
 **Avengers (avengers)**<br>
 **Trojan (trojan)**
 
+### Commando (commando)
+![commando](machine/commando/docs/images/mad_commando_main_menu.png)
+
 ### Contra (contra)
 ![contra](machine/contra/docs/images/mad_contra_main_menu.png)
 
