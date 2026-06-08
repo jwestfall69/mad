@@ -81,7 +81,7 @@ INCS = $(wildcard ../../../common/global/include/*.inc) \
        $(wildcard include/*/*.inc) \
        $(wildcard include/*/*/*.inc)
 
-$(WORK_DIR)/$(MAD_NAME).bin: include/error_codes.inc $(WORK_DIR) $(BUILD_DIR) $(OBJS) ../README.md
+$(WORK_DIR)/$(MAD_NAME).bin: include/error_codes.inc $(WORK_DIR) $(BUILD_DIR) $(OBJS) ../README.md util/mad-cps2-encrypt
 	$(VLINK) $(VLINK_FLAGS) -o $(WORK_DIR)/$(MAD_NAME).bin $(OBJS)
 	# suicide rom
 	$(COPY)  $(WORK_DIR)/$(MAD_NAME).bin $(WORK_DIR)/$(MAD_NAME).nokey
@@ -89,13 +89,16 @@ $(WORK_DIR)/$(MAD_NAME).bin: include/error_codes.inc $(WORK_DIR) $(BUILD_DIR) $(
 	$(DD) if=$(WORK_DIR)/$(MAD_NAME).nokey of=$(BUILD_DIR)/suicide-$(ROM) conv=swab
 	# encrypted rom
 	$(DD) if=$(WORK_DIR)/$(MAD_NAME).bin of=$(WORK_DIR)/$(MAD_NAME).bin.swab conv=swab
-	../../../util/rom-cps2-encrypt -k keys/$(KEY_FILE) -i $(WORK_DIR)/$(MAD_NAME).bin.swab -o $(WORK_DIR)/$(MAD_NAME).bin.swab.enc
+	./util/build/mad-cps2-encrypt -k keys/$(KEY_FILE) -i $(WORK_DIR)/$(MAD_NAME).bin.swab -o $(WORK_DIR)/$(MAD_NAME).bin.swab.enc
 	$(DD) if=$(WORK_DIR)/$(MAD_NAME).bin.swab.enc of=$(WORK_DIR)/$(MAD_NAME).enc conv=swab
 	../../../util/rom-inject-crc-mirror -f $(WORK_DIR)/$(MAD_NAME).enc -e big -t $(ROM_SIZE)
 	$(DD) if=$(WORK_DIR)/$(MAD_NAME).enc of=$(BUILD_DIR)/encrypted-$(ROM) conv=swab
 
 include/error_codes.inc: include/error_codes.cfg
 	../../../util/gen-error-codes -b 7 include/error_codes.cfg include/error_codes.inc
+
+util/mad-cps2-encrypt:
+	make -C util
 
 ../README.md: include/error_codes.inc ../../../common/cpu/68000/include/error_codes.inc
 	../../../util/gen-error-codes-markdown-table -i include/error_codes.inc -i ../../../common/cpu/68000/include/error_codes.inc -c 68000 -t main -m ../README.md
