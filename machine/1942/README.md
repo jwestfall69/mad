@@ -119,7 +119,7 @@ The sound CPU is a z80.  No MAD rom exists yet for the sound CPU.
 ## MAD Notes
 
 ### Sprite garbage on boot
-During boot there will be random garbage in sprite ram.  It only possible to
+During boot there will be random garbage in sprite ram.  Its only possible to
 write to sprite ram during a vblank, but we won't know when there is a vblank
 until we can enable irqs (rst10).  This can't be done until after we have tested
 work ram.

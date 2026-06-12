@@ -57,11 +57,11 @@ NEED SCANS
 
 #### 93646B-6
 <a href="docs/images/b_boards/cps2_b_board_93646B-6_pcb_top.png"><img src="docs/images/b_boards/cps2_b_board_93646B-6_pcb_top.png" width="40%"></a>
-<a href="docs/images/b_boards/cps2_b_board_93646B-6_pcb_top.png"><img src="docs/images/b_boards/cps2_b_board_93646B-6_pcb_top.png" width="40%"></a>
+<a href="docs/images/b_boards/cps2_b_board_93646B-6_pcb_bottom.png"><img src="docs/images/b_boards/cps2_b_board_93646B-6_pcb_bottom.png" width="40%"></a>
 
 #### 93646B-7
-<a href="docs/images/b_boards/cps2_b_board_93646B-7_cb_top.png"><img src="docs/images/b_boards/cps2_b_board_93646B-7_pcb_top.png" width="40%"></a>
-<a href="docs/images/b_boards/cps2_b_board_93646B-7pcb_top.png"><img src="docs/images/b_boards/cps2_b_board_93646B-7_pcb_top.png" width="40%"></a>
+<a href="docs/images/b_boards/cps2_b_board_93646B-7_pcb_top.png"><img src="docs/images/b_boards/cps2_b_board_93646B-7_pcb_top.png" width="40%"></a>
+<a href="docs/images/b_boards/cps2_b_board_93646B-7_pcb_bottom.png"><img src="docs/images/b_boards/cps2_b_board_93646B-7_pcb_bottom.png" width="40%"></a>
 
 
 ## MAD Eprom
