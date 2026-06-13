@@ -153,6 +153,9 @@ Support boards
 ### Vendetta (vendetta)
 ![vendetta](machine/vendetta/docs/images/mad_vendetta_main_menu.png)
 
+### Vulgus (vulgus)
+![vulgus](machine/vulgus/docs/images/mad_vulgus_main_menu.png)
+
 ### WWF Superstars (wwfsstar)
 ![wwfsstar](machine/wwf_superstars/docs/images/mad_wwfsstar_main_menu.png)
 
