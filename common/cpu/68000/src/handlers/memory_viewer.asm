@@ -62,6 +62,7 @@ memory_viewer_handler:
 		beq	.b1_not_pressed
 
 	ifd _DEBUG_MEMORY_
+		movem.l	d0, -(a7)
 		move.b	r_debug_memory, d0
 		move.b	d0, (a0)
 		move.b	d0, (1, a0)
@@ -69,9 +70,10 @@ memory_viewer_handler:
 		move.b	d0, (3, a0)
 		addq.b	#$1, d0
 		move.b	d0, r_debug_memory
+		movem.l	(a7)+, d0
 	else
 
-		movem.l	a0, -(a7)
+		movem.l	a0-d0, -(a7)
 		move.b	r_read_mode, d0
 		add.b	#$1, d0
 		and.b	#$1, d0
@@ -87,7 +89,7 @@ memory_viewer_handler:
 	.print_read_mode:
 		SEEK_XY	(SCREEN_START_X + 5), (SCREEN_START_Y + 1)
 		RSUB	print_string
-		movem.l	(a7)+, a0
+		movem.l	(a7)+, a0-d0
 	endif
 
 	.b1_not_pressed:
