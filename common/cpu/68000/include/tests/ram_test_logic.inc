@@ -56,11 +56,13 @@ manual_\1_ram_tests:
 		move.l	d6, d0
 		RSUB	print_hex_long
 
-		btst	#INPUT_B2_BIT, REG_INPUT
-		beq	.test_exit
+		GET_INPUT
 
-		btst	#INPUT_B1_BIT, REG_INPUT
-		beq	.test_pause
+		btst	#INPUT_B2_BIT, d0
+		bne	.test_exit
+
+		btst	#INPUT_B1_BIT, d0
+		bne	.test_pause
 		bra	.loop_next_pass
 
 	.test_failed:

@@ -222,17 +222,21 @@ sound_play_byte_dsub:
 ; params:
 ;  d0 = input bit to wait on
 wait_button_press_dsub:
+		move.b	d0, d1
+	.loop_check_input:
 		WATCHDOG
-		btst	d0, REG_INPUT
-		beq	.pressed
+
+		GET_INPUT
+		btst	d1, d0
+		bne	.pressed
 
 		; doing our own delay to avoid nesting
 		; to deep
-		move.l	#$1ff, d1
+		move.l	#$1ff, d0
 	.loop_delay:
-		subq.l	#$1, d1
+		subq.l	#$1, d0
 		bne	.loop_delay
-		bra	wait_button_press_dsub
+		bra	.loop_check_input
 
 	.pressed:
 		DSUB_RETURN
@@ -241,17 +245,22 @@ wait_button_press_dsub:
 ; params:
 ;  d0 = input bit to wait on
 wait_button_release_dsub:
+		move.b	d0, d1
+
+	.loop_check_input:
 		WATCHDOG
-		btst	d0, REG_INPUT
-		bne	.released
+
+		GET_INPUT
+		btst	d1, d0
+		beq	.released
 
 		; doing our own delay to avoid nesting
 		; to deep
-		move.l	#$1ff, d1
+		move.l	#$1ff, d0
 	.loop_delay:
-		subq.l	#$1, d1
+		subq.l	#$1, d0
 		bne	.loop_delay
-		bra	wait_button_release_dsub
+		bra	.loop_check_input
 
 	.released:
 		DSUB_RETURN

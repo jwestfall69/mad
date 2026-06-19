@@ -18,7 +18,6 @@ manual_work_ram_tests:
 		jsr	print_b2_return_to_menu
 
 		moveq	#0, d6		; passes, memory tests don't touch it
-		DSUB_MODE_PSUB
 
 	.loop_next_pass:
 		WATCHDOG
@@ -27,12 +26,18 @@ manual_work_ram_tests:
 		move.l	d6, d0
 		PSUB	print_hex_long
 
+		DSUB_MODE_PSUB
+
 		PSUB	auto_work_ram_tests
 		tst.b	d0
 		bne	.test_failed
 
-		btst	#INPUT_B2_BIT, REG_INPUT
-		beq	.test_exit
+		DSUB_MODE_RSUB
+
+		GET_INPUT
+
+		btst	#INPUT_B2_BIT, d0
+		bne	.test_exit
 
 		addq.l	#1, d6
 
@@ -43,7 +48,6 @@ manual_work_ram_tests:
 		STALL
 
 	.test_exit:
-		DSUB_MODE_RSUB
 		clr.b	r_menu_cursor
 		bra	main_menu
 
