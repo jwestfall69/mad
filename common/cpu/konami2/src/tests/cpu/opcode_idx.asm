@@ -78,11 +78,11 @@ run_opcode_test:
 		lda	r_opcode
 		sta	r_opcode_code
 
-		SEEK_XY	 (SCREEN_START_X + 24), (SCREEN_START_Y + 11)
+		SEEK_XY	(SCREEN_START_X + 24), (SCREEN_START_Y + 11)
 		ldd	r_opcode_code
 		RSUB	print_hex_word
 
-		SEEK_XY	 (SCREEN_START_X + 29), (SCREEN_START_Y + 11)
+		SEEK_XY	(SCREEN_START_X + 29), (SCREEN_START_Y + 11)
 		ldd	r_opcode_code+2
 		RSUB	print_hex_word
 
@@ -93,7 +93,7 @@ run_opcode_test:
 		lda	#$bb
 		pshs	a
 		puls	dp
-		lda 	#$12
+		lda	#$12
 		ldb	#$23
 		ldx	#$3344
 		ldy	#$5566
@@ -107,7 +107,7 @@ run_opcode_test:
 		; Stack may have changed, backup and re-init.
 		; This is going to screw up whatever cc was
 		sts	r_stack
-		lds	#(WORK_RAM_START + WORK_RAM_SIZE)
+		lds	#(WORK_RAM + WORK_RAM_SIZE)
 
 		pshs	cc
 		pshs	dp

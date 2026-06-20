@@ -1,11 +1,34 @@
+; This test is looking at
+;
+;	leax r, X
+;
+; On a standard 6809 r can be A, B or D registers.  However the konami2
+; CPU also supports r being X, Y, S, and U registers.  This test allows
+; validating this.
+;
+; What should be seen is this
+;
+; 08 a0 = leax A, X
+; 08 a1 = leax B, X
+; 08 a2 = leax X, X
+; 08 a3 = leax Y, X
+; 08 a4 = CPU crash
+; 08 a5 = leax U, X
+; 08 a6 = leax S, X
+; 08 a7 = leax D, X
+;
+; note a value above a7 will result in indirect addressing and will
+; just diplay junk in X.  ie: 08 aa = leax [X, X]
+
 	include "cpu/konami2/include/common.inc"
 
-	global	opcode_inh_test
+	global	opcode_08_test
 
 	section code
 
-opcode_inh_test:
-		clr	r_opcode
+opcode_08_test:
+		lda	#$a0
+		sta	r_oparg
 
 		ldy	#d_xys_screen_list
 		jsr	print_xy_string_list
@@ -23,8 +46,8 @@ opcode_inh_test:
 opcode_test_return:
 
 	.draw_opcode:
-		SEEK_XY	(SCREEN_START_X + 7), (SCREEN_START_Y + 8)
-		lda	r_opcode
+		SEEK_XY	(SCREEN_START_X + 10), (SCREEN_START_Y + 8)
+		lda	r_oparg
 		RSUB	print_hex_byte
 
 	.loop_input:
@@ -34,33 +57,33 @@ opcode_test_return:
 
 		bita	#INPUT_UP
 		beq	.up_not_pressed
-		lda	r_opcode
+		lda	r_oparg
 		inca
-		sta	r_opcode
+		sta	r_oparg
 		bra	.draw_opcode
 	.up_not_pressed:
 
 		bita	#INPUT_DOWN
 		beq	.down_not_pressed
-		lda	r_opcode
+		lda	r_oparg
 		deca
-		sta	r_opcode
+		sta	r_oparg
 		bra	.draw_opcode
 	.down_not_pressed:
 
 		bita	#INPUT_RIGHT
 		beq	.right_not_pressed
-		lda	r_opcode
+		lda	r_oparg
 		adda	#$10
-		sta	r_opcode
+		sta	r_oparg
 		bra	.draw_opcode
 	.right_not_pressed:
 
 		bita	#INPUT_LEFT
 		beq	.left_not_pressed
-		lda	r_opcode
+		lda	r_oparg
 		suba	#$10
-		sta	r_opcode
+		sta	r_oparg
 		bra	.draw_opcode
 	.left_not_pressed:
 
@@ -75,19 +98,20 @@ opcode_test_return:
 
 run_opcode_test:
 
-		lda	r_opcode
-		sta	r_opcode_code
+		lda	r_oparg
+		sta	r_opcode_code + 1
 
 		SEEK_XY	(SCREEN_START_X + 24), (SCREEN_START_Y + 11)
-		RSUB	print_hex_byte
+		ldd	r_opcode_code
+		RSUB	print_hex_word
 
 		; init values
 		lda	#$bb
 		pshs	a
 		puls	dp
-		lda	#$11
-		ldb	#$22
-		ldx	#$3344
+		lda	#$81
+		ldb	#$91
+		ldx	#$0102
 		ldy	#$5566
 		ldu	#$7788
 		lds	#$99aa
@@ -157,14 +181,14 @@ run_opcode_test:
 
 	section data
 
-d_opcode_code:	dc.w $00ae, $a807, opcode_return ; <opcode inh>, nop, jmp opcode_return
+d_opcode_code:	dc.w $0800, $a807, opcode_return ; leax <oparg>, jmp opcode_return
 
 d_xys_screen_list:
 		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 2), "BEFORE VALUES"
-		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 3), " A   11  X 3344   S 99AA"
-		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 4), " B   22  Y 5566  DP   BB"
-		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 5), " D 1122  U 7788  CC   ??"
-		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 8), "OPCODE"
+		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 3), " A   81  X 0102   S 99AA"
+		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 4), " B   91  Y 5566  DP   BB"
+		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 5), " D 8191  U 7788  CC   ??"
+		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 8), "OPCODE 08"
 		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 11), "AFTER VALUES FOR OPCODE"
 		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 12), " A       X        S"
 		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 13), " B       Y       DP"
@@ -176,6 +200,6 @@ d_xys_screen_list:
 
 	section bss
 
-r_opcode:	dcb.b	1
+r_oparg:	dcb.b	1
 r_opcode_code:	dcb.b	6
 r_stack:	dcb.w	1

@@ -14,7 +14,6 @@ main_menu:
 	section data
 
 d_menu_list:
-;	MENU_ENTRY cpu_tests_menu, d_str_cpu_tests, ME_FLAG_SKIP_SCREEN_INIT
 	MENU_ENTRY graphics_viewer_menu, d_str_graphics_viewer, ME_FLAG_SKIP_SCREEN_INIT
 	MENU_ENTRY input_test, d_str_input_test, ME_FLAG_NONE
 	MENU_ENTRY memory_viewer_menu, d_str_memory_viewer, ME_FLAG_SKIP_SCREEN_INIT
@@ -27,7 +26,6 @@ d_menu_list:
 
 d_str_menu_title:		STRING "MAIN MENU"
 
-;d_str_cpu_tests:		STRING "CPU TESTS"
 d_str_debug:			STRING "DEBUG"
 d_str_graphics_viewer:		STRING "GRAPHICS VIEWER"
 d_str_input_test:		STRING "INPUT TEST"

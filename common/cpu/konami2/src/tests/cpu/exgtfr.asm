@@ -96,7 +96,6 @@ exgtfr_test_return:
 
 
 run_exg_test:
-
 		; built the oparg and store in the exg test code in ram
 		lda	r_dst_reg
 		asla
@@ -106,7 +105,7 @@ run_exg_test:
 		ora	r_src_reg
 		sta	r_exg_code + 1
 
-		SEEK_XY	 (SCREEN_START_X + 24), (SCREEN_START_Y + 11)
+		SEEK_XY	(SCREEN_START_X + 24), (SCREEN_START_Y + 11)
 		ldd	r_exg_code
 		RSUB	print_hex_word
 
@@ -114,7 +113,7 @@ run_exg_test:
 		lda	#$bb
 		pshs	a
 		puls	dp
-		lda 	#$11
+		lda	#$11
 		ldb	#$22
 		ldx	#$3344
 		ldy	#$5566
@@ -128,7 +127,7 @@ run_exg_test:
 		; Stack may have changed, backup and re-init.
 		; This is going to screw up whatever cc was
 		sts	r_stack
-		lds	#(WORK_RAM_START + WORK_RAM_SIZE)
+		lds	#(WORK_RAM + WORK_RAM_SIZE)
 
 		pshs	cc
 		pshs	dp
@@ -199,7 +198,7 @@ run_tfr_test:
 
 		sta	r_tfr_code + 1
 
-		SEEK_XY	 (SCREEN_START_X + 24), (SCREEN_START_Y + 16)
+		SEEK_XY	(SCREEN_START_X + 24), (SCREEN_START_Y + 16)
 		ldd	r_tfr_code
 		RSUB	print_hex_word
 
@@ -208,7 +207,7 @@ run_tfr_test:
 		lda	#$bb
 		pshs	a
 		puls	dp
-		lda 	#$11
+		lda	#$11
 		ldb	#$22
 		ldx	#$3344
 		ldy	#$5566
@@ -222,7 +221,7 @@ run_tfr_test:
 		; Stack may have changed, backup and re-init.
 		; This is going to screw up whatever cc was
 		sts	r_stack
-		lds	#(WORK_RAM_START + WORK_RAM_SIZE)
+		lds	#(WORK_RAM + WORK_RAM_SIZE)
 
 		pshs	cc
 		pshs	dp

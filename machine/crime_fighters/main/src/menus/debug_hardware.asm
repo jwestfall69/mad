@@ -14,11 +14,36 @@ debug_hardware_menu:
 	section data
 
 d_menu_list:
+;	Konami2 CPU Tests
+;	Do to mad rom space contraints its not possible to enable all
+;	these.  Enabled/disabled tests below will also need to be
+;	enabled/disabled in the Makefile
+;
+;	MENU_ENTRY bmove_test, d_str_bmove_test, ME_FLAG_NONE
+;	MENU_ENTRY bset_test, d_str_bset_test, ME_FLAG_NONE
+;	MENU_ENTRY bsetw_test, d_str_bsetw_test, ME_FLAG_NONE
+;	MENU_ENTRY exgtfr_test, d_str_exgtfr_test, ME_FLAG_NONE
+;	MENU_ENTRY move_test, d_str_move_test, ME_FLAG_NONE
+	MENU_ENTRY opcode_08_test, d_str_opcode_08_test, ME_FLAG_NONE
+;	MENU_ENTRY opcode_idx_test, d_str_opcode_idx_test, ME_FLAG_NONE
+;	MENU_ENTRY opcode_inh_test, d_str_opcode_inh_test, ME_FLAG_NONE
+;	MENU_ENTRY opcode_imm_test, d_str_opcode_imm_test, ME_FLAG_NONE
+
 	MENU_ENTRY sprite_debug, d_str_sprite_debug, ME_FLAG_NONE
 	MENU_ENTRY watchdog_time, d_str_watchdog_time, ME_FLAG_NONE
 	MENU_LIST_END
 
 d_str_menu_title:		STRING "DEBUG HARDWARE MENU"
+
+d_str_bmove_test:		STRING "BMOVE TEST"
+d_str_bset_test:		STRING "BSET TEST"
+d_str_bsetw_test:		STRING "BSETW TEST"
+d_str_exgtfr_test:		STRING "EXGTFR TEST"
+d_str_move_test:		STRING "MOVE TEST"
+d_str_opcode_08_test:		STRING "OPCODE 08 TEST"
+d_str_opcode_idx_test:		STRING "OPCODE IDX TEST"
+d_str_opcode_inh_test:		STRING "OPCODE INH TEST"
+d_str_opcode_imm_test:		STRING "OPCODE IMM TEST"
 
 d_str_sprite_debug:		STRING "SPRITE DEBUG"
 d_str_watchdog_time:		STRING "WATCHDOG TIME"

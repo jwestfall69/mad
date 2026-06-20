@@ -69,7 +69,24 @@ OBJS += $(OBJ_DIR)/cpu/6x09/src/debug/hardware/watchdog_time.o \
         $(OBJ_DIR)/cpu/6x09/src/handlers/memory_write.o \
         $(OBJ_DIR)/debug/hardware/sprite.o \
         $(OBJ_DIR)/menus/debug_hardware.o
+
+# Konami2 CPU tests
+# Do to mad rom space contraints its not possible to enable all
+# these.  Enabled/disabled tests below will also need to be
+# enabled/disabled in src/menus/debug_hardware.asm
+#
+#OBJS += $(OBJ_DIR)/cpu/konami2/src/tests/cpu/bmove.o
+#OBJS += $(OBJ_DIR)/cpu/konami2/src/tests/cpu/bset.o
+#OBJS += $(OBJ_DIR)/cpu/konami2/src/tests/cpu/bsetw.o
+#OBJS += $(OBJ_DIR)/cpu/konami2/src/tests/cpu/exgtfr.o
+#OBJS += $(OBJ_DIR)/cpu/konami2/src/tests/cpu/move.o
+OBJS += $(OBJ_DIR)/cpu/konami2/src/tests/cpu/opcode_08.o
+#OBJS += $(OBJ_DIR)/cpu/konami2/src/tests/cpu/opcode_idx.o
+#OBJS += $(OBJ_DIR)/cpu/konami2/src/tests/cpu/opcode_imm.o
+#OBJS += $(OBJ_DIR)/cpu/konami2/src/tests/cpu/opcode_inh.o
+
 endif
+
 
 INCS = $(wildcard ../../../common/global/include/*.inc) \
        $(wildcard ../../../common/global/include/*/*.inc) \
