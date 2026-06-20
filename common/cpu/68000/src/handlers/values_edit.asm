@@ -44,7 +44,7 @@ values_edit_handler:
 		RSUB	screen_seek_xy
 
 		move.b	#CURSOR_CLEAR_CHAR, d0
-		RSUB	print_char
+		RSUB	print_byte
 
 		; draw new
 		moveq	#CURSOR_X_OFFSET, d0
@@ -53,7 +53,7 @@ values_edit_handler:
 		RSUB	screen_seek_xy
 
 		move.b	#CURSOR_CHAR, d0
-		RSUB	print_char
+		RSUB	print_byte
 
 		move.b	r_cursor, r_cursor_prev
 
