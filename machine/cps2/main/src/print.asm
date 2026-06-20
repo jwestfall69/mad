@@ -130,7 +130,7 @@ print_hex_dsub:
 		and.b	d0, d2
 		cmp.b	#$a, d2
 		blt	.is_digit
-		add.b	#('A' - $a), d2
+		add.b	#'A' - $a, d2
 		bra	.do_print
 
 	.is_digit:
