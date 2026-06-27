@@ -49,6 +49,7 @@ highlight_cb:
 
 write_memory_cb:
 		lea	r_mw_buffer, a0
+		lea	SPRITE_RAM + $800, a1
 		moveq	#$7, d3
 		move.b	#SCREEN_START_X, d5
 
