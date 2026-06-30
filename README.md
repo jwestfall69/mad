@@ -35,6 +35,9 @@ Support boards
 **Sky Solder (skysoldr)**<br>
 **Time Solder (timesold)**<br>
 
+### Bionic Commando (bionicc)
+![bionicc](machine/bionic_commando/docs/images/mad_bionic_commando_main_menu.png)
+
 ### Blades of Steel (bladestl)
 ![bladestl](machine/blades_of_steel/docs/images/mad_blades_of_steel_main_menu.png)
 
