@@ -132,6 +132,10 @@ Support boards
 ### Rollergames (rollerg)
 ![rollerg](machine/rollergames/docs/images/mad_rollerg_main_menu.png)
 
+### Rush and Crash (rushcrsh)
+![rushcrsh](machine/rush_and_crash/docs/images/mad_rush_and_crash_main_menu.png)
+
+
 ### Rush 'n Attack (rushatck)
 ![rushatck](machine/rush_n_attack/docs/images/mad_rush_n_attack_main_menu.png)
 

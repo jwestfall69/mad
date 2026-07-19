@@ -1,0 +1,11 @@
+- "scroll ram test" in the game rom is actually testing the background ram
+   and not the scroll registers
+- 0x0000 to 0x3fff is read/write
+- fg ram is write only (0xff on read)
+- palette ram needs to be written to vblank
+- palette ram is write only (dead input on read)
+  0x7000 to 0x8fff is write only (dead input on read)
+
+- 0x4000 to 0x400f is mirror between 0x4000 and 0x4ffff
+  0x4000 to 0x4007 is dead input
+  0x400f is dead input

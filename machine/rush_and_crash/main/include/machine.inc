@@ -1,0 +1,77 @@
+ROM_SIZE			equ $4000
+ROM_START			equ $c000
+
+BG_TILE_RAM			equ $2000
+BG_TILE_RAM_SIZE		equ $2000
+BG_TILE_RAM_ADDRESS_LINES	equ 13
+BG_TILE_PALETTE			equ PALETTE_RAM + $100
+BG_TILE_PALETTE_SIZE		equ $20
+
+REG_BG_TILE_SCROLL_X		equ $400a
+REG_BG_TILE_SCROLL_Y		equ $400c
+
+FG_TILE_RAM			equ $5000
+FG_TILE_RAM_SIZE		equ $2000
+FG_TILE_RAM_ADDRESS_LINES	equ 13
+FG_TILE_PALETTE			equ PALETTE_RAM + $380
+FG_TILE_PALETTE_SIZE		equ $8
+
+SPRITE_RAM			equ $1e00
+SPRITE_RAM_SIZE			equ $200
+SPRITE_PALETTE			equ PALETTE_RAM + $200
+SPRITE_PALETTE_SIZE		equ $20
+
+PALETTE_RAM			equ $7000
+PALETTE_RAM_SIZE		equ $400
+
+WORK_RAM			equ $0000
+WORK_RAM_SIZE			equ $1000
+
+WORK_RAM_CHIP			equ $0000
+WORK_RAM_CHIP_SIZE		equ $2000
+WORK_RAM_CHIP_ADDRESS_LINES	equ 13
+
+REG_BANK			equ $4008
+REG_CONTROL			equ $4009
+REG_SOUND			equ $400e
+
+REG_INPUT_P1			equ $4009
+REG_INPUT_P2			equ $400a
+REG_INPUT_DSW1			equ $400b
+REG_INPUT_DSW2			equ $400c
+REG_INPUT_SYS			equ $4008
+
+CHAR_COLON			equ $20
+
+	macro	WATCHDOG
+	endm
+
+	macro	SOUND_PLAY
+		tfr	d, y
+
+		lda	#$00
+		sta	REG_SOUND
+
+		DELAY	#$1ff
+
+
+		lda	#$fe
+		sta	REG_SOUND
+
+		DELAY	#$1ff
+
+		tfr	y, d
+		sta	REG_SOUND
+
+	endm
+
+	macro	SOUND_STOP
+		lda	#$00
+		sta	REG_SOUND
+
+		DELAY	#$1ff
+
+		lda	#$fe
+		sta	REG_SOUND
+	endm
+
