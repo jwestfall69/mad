@@ -1,15 +1,15 @@
 # MAD - Multiple Arcade Diagnostic
-**IMPORTANT**: This is an experiment at this point.  There maybe
+**IMPORTANT**: This is an experiment at this point.  There may be
 large changes as I get things figured out.
 
-Having created a couple different diagnostic roms/bios for arcade boards I
+Having created a couple different diagnostic ROMs/BIOS for arcade boards, I
 wanted to look into making it easier/faster to write new ones.  The idea behind
 this project is to have a framework that contains all of the common code that
 exists between diag roms from different boards.  Stuff like ram tests, menu
 systems, memory viewer, displaying player/dsw inputs, sending a byte to the
 sound latch, etc.
 
-In general adding a new board entails understanding how to initialize the
+In general, adding a new board entails understanding how to initialize the
 hardware, figuring out how to print to the screen (including palette setup),
 then just hooking up the common tests (ram, io, sound, etc).  MAD has already
 helped me track down issues in my toki (bad joystick inputs) and wwfsstar
@@ -30,7 +30,7 @@ Support boards
 ### Aliens (aliens)
 ![Aliens](machine/aliens/docs/images/mad_aliens_main_menu.png)
 
-### Alpha68K II based games
+### Alpha68K II-based games
 ![alpha68k_ii](machine/alpha68k_ii/docs/images/mad_alpha68k_ii_main_menu.png)<br>
 **Sky Solder (skysoldr)**<br>
 **Time Solder (timesold)**<br>
@@ -78,7 +78,7 @@ Support boards
 
 **1944: The Loop Master (Euro)** (1944)<br>
 **19XX: The War Against Destiny (Euro)** (19xx)<br>
-**Dungeons & Dragons: Tower of Doom (Euro)** (ddotd)<br>
+**Dungeons & Dragons: Tower of Doom (Euro)** (ddtod)<br>
 **Vampire Savior: The Lord of Vampire (USA)** (vsavu)<br>
 **X-Men: Children of the Atom (Asia)** (xmcotaa)<br>
 **Generic Suicided Games**
@@ -86,7 +86,7 @@ Support boards
 ### Crime Fighters (crimfght)
 ![crimfght](machine/crime_fighters/docs/images/mad_crime_fighters_main_menu.png)
 
-### dec0 based games
+### dec0-based games
 **Bad Dudes vs. Dragonninja** (baddudes)<br>
 ![dec0 baddudes](docs/images/dec0/baddudes.png)
 
@@ -114,9 +114,9 @@ Support boards
 ### Legendary Wings (lwings)
 ![lwings](machine/legendary_wings/docs/images/mad_lwings_main_menu.png)
 
-### Mitchell based games
+### Mitchell-based games
 ![mitchell](machine/mitchell/docs/images/mad_mitchell_main_menu.png)<br>
-**Mahjong Gakuen 2 Gakuen-chou no Fukushuu (mgakeun2)**<br>
+**Mahjong Gakuen 2 Gakuen-chou no Fukushuu (mgakuen2)**<br>
 **Pang/Buster Bros**<br>
 **Poker Ladies**<br>
 **Quiz Sangokushi**<br>
@@ -169,20 +169,20 @@ Support boards
 ![xmen](machine/x-men/docs/images/mad_xmen_main_menu.png)
 
 ## Building
-I've been doing most of my development in window subsystem for linux (wsl).
-This makes it easy to compile, test in mame, and then burn to an eprom for
+I've been doing most of my development in Windows Subsystem for Linux (WSL).
+This makes it easy to compile, test in MAME, and then burn to an EPROM for
 testing on hardware.
 
-I'm using debian wsl.  You will want to `apt-get install build-essential` to get gcc/make.
+I'm using Debian WSL.  You will want to `apt-get install build-essential` to get gcc/make.
 
-vasm and vlink are need to for compiling the m68k source code, which are available here
+vasm and vlink are needed for compiling the m68k source code, which are available here
 
 http://sun.hasenbraten.de/vasm/<br>
 http://sun.hasenbraten.de/vlink/
 
-The version of vasm needs to be >= 2.0c.  For vasm you will need the
-vasm6809_mot, vasmm68k_mot and vasmz80_mot variants. If you are building vasm
-from source, you can build it with the following commands from where ever you
+The vasm version needs to be >= 2.0c.  For vasm, you will need the
+vasm6809_mot, vasmm68k_mot, and vasmz80_mot variants. If you are building vasm
+from source, you can build it with the following commands from wherever you
 decompressed vasm.tar.gz.
 
 ```
@@ -194,7 +194,7 @@ $ make CPU=z80 SYNTAX=mot
 Copy the resulting vasm6809_mot, vasmm68k_mot and vasmz80_mot (and vlink, when
 you get that compiled) so they are within your $PATH (ie: /usr/local/bin/)
 
-The top level `Makefile` should be able to build everything.
+The top-level `Makefile` should be able to build everything.
 
 ```
 jwestfall@DESKTOP-7LADK23:/mnt/c/Users/jwestfall/Desktop/mad$ make
@@ -226,12 +226,12 @@ vasm6809_mot -konami2 -Fvobj -spaces -chklabels -Iinclude -I../../../common -wfa
 ...
 ```
 
-If you are want to mess with a specific machine/board you can run the `Makefile`
-under `machine/<machine>`.  Each machine will have a `main` directory which will
-be MAD for the main CPU.  Some machines will have a `sound` directory which will
+If you want to mess with a specific machine/board, you can run the `Makefile`
+under `machine/<machine>`.  Each machine will have a `main` directory, which will
+be MAD for the main CPU.  Some machines will have a `sound` directory, which will
 be MAD for the sound CPU.
 
-Once compiled the roms will be located under
-`machine/<machine>/(main|sound)/build` directory.  In some cases there will be
+Once compiled, the ROMs will be located under
+`machine/<machine>/(main|sound)/build` directory.  In some cases, there will be
 separate builds for MAME and hardware.  This will be because MAME is doing
-something different from hardware and it warrents having the different builds.
+something different from hardware, and it warrants having the different builds.
