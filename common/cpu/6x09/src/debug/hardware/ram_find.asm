@@ -23,7 +23,7 @@ ram_find:
 		jsr	print_xy_string_list
 		jsr	print_b2_return_to_menu
 
-		SEEK_XY	(SCREEN_START_X + 8), (SCREEN_START_Y + 3)
+		SEEK_XY	(SCREEN_START_X + 11), (SCREEN_START_Y + 3)
 		ldd	r_addr
 		RSUB	print_hex_word
 
