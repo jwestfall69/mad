@@ -26,6 +26,10 @@ _start:
 		SEEK_XY	0, SCREEN_START_Y
 		PSUB	print_clear_line
 
+		SEEK_XY	SCREEN_START_X, SCREEN_START_Y
+		ldy	#d_str_testing_work_ram
+		PSUB	print_string
+
 		PSUB	work_ram_output_test
 		PSUB	work_ram_write_test
 		PSUB	work_ram_data_test
