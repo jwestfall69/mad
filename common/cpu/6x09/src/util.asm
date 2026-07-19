@@ -292,7 +292,7 @@ sound_play_byte_dsub:
 		tfr	y, b
 
 		leax	-1, x
-		bne	.loop_next_bit
+		lbne	.loop_next_bit
 		DSUB_RETURN
 
 ; stall until the passed button is pressed
