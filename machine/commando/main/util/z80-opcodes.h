@@ -12,7 +12,7 @@ int8_t z80_oparg_size_main[256] = {
    0, // 05            dec	b
    1, // 06 nn         ld	b, nn
    0, // 07            rlca
-   0, // 08            ex	af, af’
+   0, // 08            ex	af, af'
    0, // 09            add	hl, bc
    0, // 0a            ld	a, (bc)
    0, // 0b            dec	bc
