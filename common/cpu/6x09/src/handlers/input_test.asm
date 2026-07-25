@@ -59,6 +59,7 @@ print_input_list:
 	.list_end:
 		rts
 
+	section data
 
 d_screen_xys_list:
 	XY_STRING (SCREEN_START_X + 5), (SCREEN_START_Y + 2), "76543210"
