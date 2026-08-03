@@ -129,8 +129,6 @@ memory_write_handler:
 	.do_exit:
 		rts
 
-	section data
-
 print_data:
 		ldy	r_mw_settings
 		ldy	s_mw_buffer_ptr, y
