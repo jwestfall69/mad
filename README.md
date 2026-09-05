@@ -108,6 +108,9 @@ Support boards
 ### F1 Dream (f1dream)
 ![f1dream](machine/f1_dream/docs/images/mad_f1dream_main_menu.png)
 
+### Finalizer (finalizr)
+![finalizr](machine/finalizer/docs/images/mad_finalizer_main_menu.png)
+
 ### Last Duel (lastduel)
 ![lastduel](machine/last_duel/docs/images/mad_lastduel_main_menu.png)
 

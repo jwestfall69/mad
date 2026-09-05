@@ -1,0 +1,19 @@
+- nmi and irq's need to be ack'd.  This is done by disabling each in the
+  corresponding irq/nmi handlers, then re-enabling before rti.
+
+- bit 2 of flipscreen is firq.  The game enables it on the 005885 chip, but
+has it masked on the cpu.  the firq pin the cpu pulses a vblank/2
+
+- the board or 005885 will sometimes have weirdness around writing to the
+005885 registers if done via direct page.  I was using dp when ack'ing
+irq/nmi. It would work as expected for 2-3 seconds, then the irq/nmi pins
+on the cpu would become stuck low and my could would be stuck in the nmi
+handler.  Forcing to 16bit addressing fixed the wierdness.
+
+- bit 7 of 0x0810 (SYSTEM) is always low for me and doesn't act as a 
+vblank pulse.  I didn't see any indication that there was a vblank
+pulse on any of the unknown bits of SYSTEM or DSW3.
+
+- address 0x0000 is scrolly
+
+- bit 2 of 0x0003 (videoctrl_w) when set puts the 2nd tile 
