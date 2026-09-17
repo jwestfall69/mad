@@ -111,6 +111,9 @@ Support boards
 ### Finalizer (finalizr)
 ![finalizr](machine/finalizer/docs/images/mad_finalizer_main_menu.png)
 
+### Jail Break (jailbrek)
+![jailbrek](machine/jail_break/docs/images/mad_jail_break_main_menu.png)
+
 ### Last Duel (lastduel)
 ![lastduel](machine/last_duel/docs/images/mad_lastduel_main_menu.png)
 

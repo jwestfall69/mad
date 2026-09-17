@@ -1,0 +1,8 @@
+- 0x2403 bit 0 tile banking
+- 0x2403 bit 1 tile banking
+- 0x2403 bit 2 sprite banking
+- 0x2403 bit 3 flip/flop where sprite data get read from (unset = 0x1000, set = 0x1100)
+- 0x2403 bit 4 seems to be another bit for palette/color selection, but only applies to tiles
+- 0x2403 bit 5 ??
+- 0x2403 bit 6 when unset, sprites disappear (could be another sprite bank bit?)
+- 0x2403 bit 7 when set, masks off the left/right most 8 pixel columns of the screen
