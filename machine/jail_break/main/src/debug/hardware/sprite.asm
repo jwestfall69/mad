@@ -45,7 +45,11 @@ highlight_cb:
 write_memory_cb:
 		lda	r_mw_buffer
 		sta	SPRITE_RAM
+
+		inca
 		sta	SPRITE_RAM + $100
+		deca
+
 		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 15)
 		RSUB	print_hex_byte
 
@@ -57,7 +61,11 @@ write_memory_cb:
 
 		lda	r_mw_buffer + 2
 		sta	SPRITE_RAM + 2
+
+		adda	#$10
 		sta	SPRITE_RAM + $100 + 2
+		suba	#$10
+
 		SEEK_XY	(SCREEN_START_X + 6), (SCREEN_START_Y + 15)
 		RSUB	print_hex_byte
 
