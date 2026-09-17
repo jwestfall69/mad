@@ -51,12 +51,25 @@ Error codes play through the m58715 IC.
 
 ### Main CPU
 <a name="main-cpu"></a>
-The main CPU is a 6809 CPU.  If an error is encountered during tests, MAD will
-print the error to the screen, play the beep code, then jump to the error
-address
+he main CPU is a Konami1 CPU (6809 based CPU). If an error is encountered
+during tests, MAD will print the error to the screen, play the beep code, then
+jump to the error address
 
-On 6809 CPU the error address is `$f000 | error_code << 4`.  Error codes on the
-6809 CPU are are 6 bits.  The games does not have a watchdog.
+On Konami2 the error address is `$f000 | error_code << 4`. Error codes on the
+Konami2 CPU are are 6 bits. Aliens however has a watchdog address that must be
+written to periodically or the game will reset.
+
+```
+watchdog address: $0818 = 0000 1000 0001 1000
+error address:    $f000 = 1111 00EE EEEE 0000
+  E = error code
+```
+The watchdog address is in conflict with the error address. However instead of
+doing a loop to self instruction at the error address, MAD instead does a delay
+loop so it stays within the error address range 99.9% of the time and 0.1% of
+the time it will ping the watchdog. This is enough for the error addresses to
+still be viable to use with a logic probe. It just means address lines not be
+100% high or low, but 99% of the time.
 
 <!-- ec_table_main_start -->
 | Hex  | Number |     Error Address (A15..A0)    |           Error Text           |

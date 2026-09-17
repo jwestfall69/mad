@@ -17,7 +17,7 @@ ram_find_k005885_tile_a:
 		jmp	ram_find
 
 ram_find_k005885_tile_b:
-		ldx	#K005885_TILE_A
+		ldx	#K005885_TILE_B
 		jmp	ram_find
 
 ram_find_k005885_sprite:
