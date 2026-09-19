@@ -1,4 +1,4 @@
-# Finalizer: Super Transformation
+# Jail Break
 - [MAD Pictures](#mad-pictures)
 - [PCB Pictures](#pcb-pictures)
 - [Manual / Schematics](#manual-schematics)
@@ -14,49 +14,62 @@
 
 <a name="mad-pictures"></a>
 ## MAD Pictures
-![mad finalizer main menu](docs/images/mad_finalizer_main_menu.png)
-![mad finalizer fg tile viewer](docs/images/mad_finalizer_tile_viewer.png)
-![mad finalizer sprite viewer](docs/images/mad_finalizer_sprite_viewer.png)
+![mad jail break main menu](docs/images/mad_jail_break_main_menu.png)
+![mad jail break fg tile viewer](docs/images/mad_jail_break_tile_viewer.png)<br>
+![mad jail break sprite viewer](docs/images/mad_jail_break_sprite_viewer.png)
+![mad jail break debug hardware](docs/images/mad_jail_break_debug_hardware.png)
 
 <a name="pcb-pictures"></a>
 ## PCB Pictures
-<a href="docs/images/finalizer_pcb_top.png"><img src="docs/images/finalizer_pcb_top.png" width="40%"></a>
-<a href="docs/images/finalizer_pcb_bottom.png"><img src="docs/images/finalizer_pcb_bottom.png" width="40%"></a>
+<a href="docs/images/jail_break_pcb_top.png"><img src="docs/images/jail_break_pcb_top.png" width="40%"></a>
+<a href="docs/images/jail_break_pcb_bottom.png"><img src="docs/images/jail_break_pcb_bottom.png" width="40%"></a>
 
 <a name="manual-schematics"></a>
 ## Manual / Schematics
-[Manual](docs/finalizer_manual.pdf)
-
-Schematics don't seem to exist.
+[Manual](docs/jail_break_manual.pdf)<br>
+[Schematics](docs/jail_break_schematicsl.pdf)
 
 <a name="mad-eproms"></a>
 ## MAD Eproms
 | Diag | Eprom Type | Location | Notes |
 | ---- | ---------- | ----------- | ----- |
-| Main | 27c128 | 523k03.13c @ 13C | |
+| Main | 27c128 | 507p02.9d @ 9D | |
 
 <a name="ram-locations"></a>
 ## RAM Locations
 | RAM | Location | Type | Notes |
 | -------- | :------- | ----- | ----- |
-| RAM | 13E | TMM2064-10 (8k x 8bit) | |
+| RAM | 11E | MB8464-15L (8k x 8bit) | |
 
-All work/sprite/tile data is within that single SRAM chip.  There are 2x
-TMM41464-12 (64k x 4 bit) DRAM chips that are not accessible by the CPU and
-probably line buffers used by th 005885 custom chip.
+All work/sprite/tile data is within that single SRAM chip.  There are 4x
+M5M4416P-15 (16k x 4 bit) DRAM chips that are not accessible by the CPU and
+probably line buffers used by th 005849 custom chip.
 
 <a name="errorserror-codes"></a>
 ## Errors/Error Codes
-Error codes play through the m58715 IC.
+Error codes play through the VLM5030 IC.
 
 ### Main CPU
 <a name="main-cpu"></a>
-The main CPU is a 6809 CPU.  If an error is encountered during tests, MAD will
-print the error to the screen, play the beep code, then jump to the error
-address
+The main CPU is a Konami1 CPU (6809 based CPU). If an error is encountered
+during tests, MAD will print the error to the screen, play the beep code, then
+jump to the error address
 
-On 6809 CPU the error address is `$f000 | error_code << 4`.  Error codes on the
-6809 CPU are are 6 bits.  The games does not have a watchdog.
+On Konami2 the error address is `$f000 | error_code << 4`. Error codes on the
+Konami2 CPU are are 6 bits. Aliens however has a watchdog address that must be
+written to periodically or the game will reset.
+
+```
+watchdog address: $3300 = 0011 0011 0000 1000
+error address:    $f000 = 1111 00EE EEEE 0000
+  E = error code
+```
+The watchdog address is in conflict with the error address. However instead of
+doing a loop to self instruction at the error address, MAD instead does a delay
+loop so it stays within the error address range 99.9% of the time and 0.1% of
+the time it will ping the watchdog. This is enough for the error addresses to
+still be viable to use with a logic probe. It just means address lines not be
+100% high or low, but 99% of the time.
 
 <!-- ec_table_main_start -->
 | Hex  | Number |     Error Address (A15..A0)    |           Error Text           |
@@ -86,8 +99,7 @@ sounds.
 ## MAD Notes
 <a name="mad-notes"></a>
 ### Static palette colors
-The game's palette comes from proms and are unchangeable.  This is why the text
-has the red shadow.
+The game's palette comes from proms and are unchangeable.
 
 <a name="no-video-dac-test"></a>
 ### No Video DAC Test
@@ -95,6 +107,4 @@ The static palette makes it impossible to do this test.
 
 <a name="no-video-dac-test"></a>
 ## MAME vs Hardware
-Nothing to warrant different builds.  But mad has tests that test different
-parts of the hardware that are not used by the game or implemented in mame.
-This includes tile scroll in the y direction and firq test.
+Nothing to warrant different builds.
