@@ -7,7 +7,7 @@
 ; params:
 ;  a = error code
 ; The z80 uses A0 to A6 for memory refreshing so they will always
-; be pusling.  This leaves us with 6 useable address lines (A7 to A12)
+; be pulsing.  This leaves us with 6 useable address lines (A7 to A12)
 ; to communicate the error code to the user.
 error_address:
 		; jump address is ERROR_ADDRESS_BASE | (a << 7)

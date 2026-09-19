@@ -56,7 +56,7 @@ during tests, MAD will print the error to the screen, play the beep code, then
 jump to the error address
 
 On Konami2 the error address is `$f000 | error_code << 4`. Error codes on the
-Konami2 CPU are are 6 bits. Aliens however has a watchdog address that must be
+Konami2 CPU are are 6 bits. Finalizer however has a watchdog address that must be
 written to periodically or the game will reset.
 
 ```
@@ -101,7 +101,7 @@ has the red shadow.
 ### No Video DAC Test
 The static palette makes it impossible to do this test.
 
-<a name="no-video-dac-test"></a>
+<a name="mame-vs-hardware"></a>
 ## MAME vs Hardware
 Nothing to warrant different builds.  But mad has tests that test different
 parts of the hardware that are not used by the game or implemented in mame.

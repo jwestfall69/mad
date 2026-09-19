@@ -49,14 +49,14 @@ probably line buffers used by th 005849 custom chip.
 ## Errors/Error Codes
 Error codes play through the VLM5030 IC.
 
-### Main CPU
 <a name="main-cpu"></a>
+### Main CPU
 The main CPU is a Konami1 CPU (6809 based CPU). If an error is encountered
 during tests, MAD will print the error to the screen, play the beep code, then
 jump to the error address
 
 On Konami2 the error address is `$f000 | error_code << 4`. Error codes on the
-Konami2 CPU are are 6 bits. Aliens however has a watchdog address that must be
+Konami2 CPU are are 6 bits. Jail Break however has a watchdog address that must be
 written to periodically or the game will reset.
 
 ```
@@ -105,6 +105,6 @@ The game's palette comes from proms and are unchangeable.
 ### No Video DAC Test
 The static palette makes it impossible to do this test.
 
-<a name="no-video-dac-test"></a>
+<a name="mame-vs-hardware"></a>
 ## MAME vs Hardware
 Nothing to warrant different builds.
