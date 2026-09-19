@@ -9,12 +9,35 @@ input_test:
 		ld	de, d_screen_xys_list
 		call	print_xy_string_list
 
+		ld	hl, $0
+		ld	(r_irq_count), hl
+		ld	(r_nmi_count), hl
+
+		ld	a, CTRL_FIRQ_ENABLE|CTRL_IRQ_ENABLE|CTRL_NMI_ENABLE
+		ld	(r_reg_control_saved), a
+		ld	(REG_CONTROL), a
+
+		ei
+
 		ld	ix, d_input_test_list
 		ld	iy, loop_cb
 		call	input_test_handler
-		ret
 
+		ld	a, CTRL_FIRQ_DISABLE|CTRL_IRQ_DISABLE|CTRL_NMI_DISABLE
+		ld	(r_reg_control_saved), a
+		ld	(REG_CONTROL), a
+
+		di
+
+		ret
 loop_cb:
+		SEEK_XY	(SCREEN_START_X + 18), (SCREEN_START_Y + 3)
+		ld	bc, (r_irq_count)
+		RSUB	print_hex_word
+
+		SEEK_XY	(SCREEN_START_X + 18), (SCREEN_START_Y + 4)
+		ld	bc, (r_nmi_count)
+		RSUB	print_hex_word
 		ret
 
 	section data
@@ -35,4 +58,7 @@ d_screen_xys_list:
 	XY_STRING (SCREEN_START_X + 0), (SCREEN_START_Y + 6), "DSW2"
 	XY_STRING (SCREEN_START_X + 0), (SCREEN_START_Y + 7), "DSW2"
 	XY_STRING (SCREEN_START_X + 1), (SCREEN_START_Y + 8), "SYS"
+
+	XY_STRING (SCREEN_START_X + 14), (SCREEN_START_Y + 3), "IRQ"
+	XY_STRING (SCREEN_START_X + 14), (SCREEN_START_Y + 4), "NMI"
 	XY_STRING_LIST_END

@@ -5,6 +5,7 @@
 	ifnd _HEADLESS_
 
 	global manual_work_ram_tests
+	global d_str_testing_work_ram
 
 	endif
 

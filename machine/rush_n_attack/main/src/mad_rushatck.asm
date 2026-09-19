@@ -13,7 +13,7 @@ _start:
 		ld	a, $0
 		ld	($e044), a
 		ld	($f000), a
-		ld	a, $82
+		ld	a, $42
 		ld	($e043), a
 
 		; tell the sn76489 to be quiet
@@ -41,6 +41,6 @@ _start:
 
 		DSUB_MODE_RSUB
 
-		;call	auto_func_tests
+		call	auto_func_tests
 
 		jp	main_menu

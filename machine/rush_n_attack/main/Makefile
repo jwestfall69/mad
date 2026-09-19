@@ -1,6 +1,7 @@
 MAD_NAME=mad_rushatck
-BUILD_FLAGS=-D_CPU_Z80_ -D_SOUND_TONE_ -D_DEBUG_HARDWARE_
+BUILD_FLAGS=-D_CPU_Z80_ -D_SOUND_TONE_ -D_DEBUG_HARDWARE_ -D_DEBUG_MEMORY_
 ROM_SIZE=16384
+ROM_TYPE=27c128
 BUILD_DIR=build
 OBJ_DIR=$(BUILD_DIR)/obj
 WORK_DIR=$(BUILD_DIR)/work
@@ -48,7 +49,11 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
         $(OBJ_DIR)/menus/graphics_viewer.o \
         $(OBJ_DIR)/menus/main.o \
         $(OBJ_DIR)/menus/memory_viewer.o \
+        $(OBJ_DIR)/menus/ram_tests.o \
+        $(OBJ_DIR)/tests/auto.o \
         $(OBJ_DIR)/tests/input.o \
+        $(OBJ_DIR)/tests/main_ram.o \
+        $(OBJ_DIR)/tests/scroll_ram.o \
         $(OBJ_DIR)/tests/sound.o \
         $(OBJ_DIR)/viewers/sprite.o \
         $(OBJ_DIR)/viewers/tile.o
@@ -57,7 +62,9 @@ OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
 ifneq (,$(findstring _DEBUG_HARDWARE_,$(BUILD_FLAGS)))
 OBJS += $(OBJ_DIR)/cpu/z80/src/debug/hardware/watchdog_time.o \
         $(OBJ_DIR)/cpu/z80/src/handlers/memory_write.o \
+        $(OBJ_DIR)/debug/hardware/k005849_reg.o \
         $(OBJ_DIR)/debug/hardware/sprite.o \
+        $(OBJ_DIR)/debug/hardware/tile.o \
         $(OBJ_DIR)/menus/debug_hardware.o
 endif
 
@@ -72,14 +79,16 @@ INCS = $(wildcard ../../../common/global/include/*.inc) \
        $(wildcard include/*/*.inc) \
        $(wildcard include/*/*/*.inc)
 
-$(WORK_DIR)/$(MAD_NAME).bin: include/error_codes.inc $(WORK_DIR) $(BUILD_DIR) $(OBJS)
+$(WORK_DIR)/$(MAD_NAME).bin: include/error_codes.inc $(WORK_DIR) $(BUILD_DIR) $(OBJS) ../README.md
 	$(VLINK) $(VLINK_FLAGS) -o $(WORK_DIR)/$(MAD_NAME).bin $(OBJS)
 	../../../util/rom-inject-crc-mirror -f $(WORK_DIR)/$(MAD_NAME).bin -e little -t $(ROM_SIZE)
-	#$(DD) if=$(WORK_DIR)/$(MAD_NAME).bin of=$(BUILD_DIR)/$(ROM)
-	cat $(WORK_DIR)/$(MAD_NAME).bin $(WORK_DIR)/$(MAD_NAME).bin > $(BUILD_DIR)/$(ROM)
+	$(DD) if=$(WORK_DIR)/$(MAD_NAME).bin of=$(BUILD_DIR)/$(ROM)
 
 include/error_codes.inc: include/error_codes.cfg
 	../../../util/gen-error-codes -b 6 include/error_codes.cfg include/error_codes.inc
+
+../README.md: include/error_codes.inc ../../../common/cpu/z80/include/error_codes.inc
+	../../../util/gen-error-codes-markdown-table -i include/error_codes.inc -i ../../../common/cpu/z80/include/error_codes.inc -c z80 -t main -b 6000 -m ../README.md
 
 src/version.asm:
 	../../../util/gen-version-asm-file -m RUSHATCK -i ../../../common/global/src/version.asm.in -o src/version.asm
@@ -96,6 +105,9 @@ $(WORK_DIR):
 	$(MKDIR) -p $(WORK_DIR)
 
 .PHONY: src/version.asm
+
+onerom: $(WORK_DIR)/$(MAD_NAME).bin
+	onerom program --plugin usb --slot file=$(BUILD_DIR)/$(ROM),type=$(ROM_TYPE)
 
 clean:
 	rm -fr $(BUILD_DIR)

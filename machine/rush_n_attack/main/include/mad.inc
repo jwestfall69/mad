@@ -12,7 +12,7 @@ SOUND_NUM_BIT_ONE	equ $ff	; high tone
 ; ram on the machine it also means we have no ram location to
 ; store the passes either.  So just setting this to $0, which
 ; is the start of rom.
-R_WORK_RAM_PASSES	equ $0
+R_WORK_RAM_PASSES	equ SCROLL_RAM
 
 	; we are only allowed to use a/de registers
 	macro SOUND_BIT_DELAY

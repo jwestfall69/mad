@@ -43,7 +43,7 @@ sprite_viewer:
 ; *   2  | xxxxxxxx | x pos
 ; *   3  | xxxxxxxx | y pos
 value_changed_cb:
-		ld	ix, SPRITE_RAM + $100
+		ld	ix, SPRITE_RAM
 
 		ld	bc, (r_sprite_num)
 		ld	(ix), c

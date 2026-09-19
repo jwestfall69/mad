@@ -1,11 +1,20 @@
 	include "cpu/z80/include/common.inc"
 
 	global screen_init_dsub
+	global screen_init_no_scroll_clear_dsub
 	global screen_seek_xy_dsub
 
 	section code
 
 screen_init_dsub:
+		exx
+		ld	hl, SCROLL_RAM
+		ld	de, SCROLL_RAM_SIZE * 2
+		ld	c, $0
+		NSUB	memory_fill
+		exx
+
+screen_init_no_scroll_clear_dsub:
 		exx
 
 		ld	hl, TILE_ATTR_RAM
@@ -27,7 +36,7 @@ screen_init_dsub:
 		ld	de, d_str_version
 		NSUB	print_string
 
-		SEEK_XY	0, 1
+		SEEK_XY	0, 2
 		ld	c, $3b
 		ld	b, SCREEN_NUM_COLUMNS
 		NSUB	print_char_repeat
