@@ -27,7 +27,7 @@
 <a name="manual-schematics"></a>
 ## Manual / Schematics
 [Manual](docs/jail_break_manual.pdf)<br>
-[Schematics](docs/jail_break_schematicsl.pdf)
+[Schematics](docs/jail_break_schematics.pdf)
 
 <a name="mad-eproms"></a>
 ## MAD Eproms
