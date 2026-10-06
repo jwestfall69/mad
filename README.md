@@ -120,6 +120,9 @@ Support boards
 ### Legendary Wings (lwings)
 ![lwings](machine/legendary_wings/docs/images/mad_lwings_main_menu.png)
 
+### Missing In Action (mia)
+![lwings](machine/missing_in_action/docs/images/mad_missing_in_action_main_menu.png)
+
 ### Mitchell-based games
 ![mitchell](machine/mitchell/docs/images/mad_mitchell_main_menu.png)<br>
 **Mahjong Gakuen 2 Gakuen-chou no Fukushuu (mgakuen2)**<br>
