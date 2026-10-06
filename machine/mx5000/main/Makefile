@@ -4,7 +4,7 @@ BUILD_FLAGS=-D_CPU_6309_ -D_SCREEN_TATE_ -D_DEBUG_HARDWARE_
 BUILD_DIR=build
 OBJ_DIR=$(BUILD_DIR)/obj
 WORK_DIR=$(BUILD_DIR)/work
-ROM=669_r01.16c
+ROM=669_u01.16c
 
 VASM = vasm6809_mot
 VASM_FLAGS = -Fvobj -6309 -spaces -chklabels -Iinclude -I../../../common -wfail -quiet

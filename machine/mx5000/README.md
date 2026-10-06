@@ -30,7 +30,7 @@
 ## MAD Eproms
 | Diag | Eprom Type | Location | Notes |
 | ---- | ---------- | ----------- | ----- |
-| Main | 27c512 | 669_r01.16c @ 17C | |
+| Main | 27c512 | 669_u01.16c @ 17C | |
 | Sound | 27c256 | 16B | No MAD ROM exists yet |
 
 ## RAM Locations
