@@ -16,7 +16,6 @@ smc_palette_setup:
 		PSUB	memory_fill_word
 		rts
 
-
 ; params:
 ;  x = address of smc_entry struct
 smc_draw_sprites:
@@ -74,7 +73,7 @@ smc_draw_sprites:
 		adda	s_smc_y_inc, x
 		sta	r_y_pos
 		dece
-		bne 	.loop_next_row
+		bne	.loop_next_row
 		rts
 
 	section bss

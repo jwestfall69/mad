@@ -51,8 +51,6 @@ write_memory_cb:
 		move.w	d0, SPRITE_RAM + $1006
 		SEEK_XY	(SCREEN_START_X + 8), (SCREEN_START_Y + 19)
 		RSUB	print_hex_word
-		rts
-
 loop_cb:
 		rts
 

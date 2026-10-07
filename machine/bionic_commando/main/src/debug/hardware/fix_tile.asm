@@ -54,8 +54,6 @@ write_memory_cb:
 		move.b	d0, ($801, a1)
 		SEEK_XY	(SCREEN_START_X + 10), (SCREEN_START_Y + 17)
 		RSUB	print_hex_byte
-		rts
-
 loop_cb:
 		rts
 

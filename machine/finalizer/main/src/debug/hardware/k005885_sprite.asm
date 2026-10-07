@@ -6,10 +6,6 @@
 	section code
 
 k005885_sprite_debug:
-		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 13)
-		ldy	#d_str_last_written
-		RSUB	print_string
-
 		ldd	#K005885_TILE_A
 		std	r_old_highlight
 
@@ -40,40 +36,14 @@ highlight_cb:
 		rts
 
 write_memory_cb:
-		lda	r_mw_buffer
-		sta	K005885_SPRITE
-		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 15)
-		RSUB	print_hex_byte
-
-		lda	r_mw_buffer + 1
-		sta	K005885_SPRITE + 1
-		SEEK_XY	(SCREEN_START_X + 3), (SCREEN_START_Y + 15)
-		RSUB	print_hex_byte
-
-		lda	r_mw_buffer + 2
-		sta	K005885_SPRITE + 2
-		SEEK_XY	(SCREEN_START_X + 6), (SCREEN_START_Y + 15)
-		RSUB	print_hex_byte
-
-		lda	r_mw_buffer + 3
-		sta	K005885_SPRITE + 3
-		SEEK_XY	(SCREEN_START_X + 9), (SCREEN_START_Y + 15)
-		RSUB	print_hex_byte
-
-		lda	r_mw_buffer + 4
-		sta	K005885_SPRITE + 4
-		SEEK_XY	(SCREEN_START_X + 12), (SCREEN_START_Y + 15)
-		RSUB	print_hex_byte
-		rts
-
+		ldx	#K005885_SPRITE
+		jsr	memory_write_generic_write
 loop_cb:
 		rts
-
 
 	section data
 
 d_mw_settings:		MW_SETTINGS 5, r_mw_buffer, highlight_cb, write_memory_cb, loop_cb
-d_str_last_written:	STRING "LAST WRITTEN"
 
 	section bss
 

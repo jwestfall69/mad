@@ -19,7 +19,6 @@
 ;  - write register addr
 ;  - read reg6 and print
 k051733_rand_debug:
-
 		; highlight color
 		ldd	#$001f
 		std	LAYER_A_TILE_PALETTE + $18
@@ -55,7 +54,6 @@ highlight_cb:
 		stx	r_old_highlight
 		rts
 
-
 write_memory_cb:
 		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 15)
 		lda	r_mw_buffer
@@ -76,19 +74,14 @@ write_memory_cb:
 		lda	K051733_BASE + $6
 		RSUB	print_hex_byte
 
-
 		puls	y
 		lda	#$0
 		sta	, y
 		SEEK_XY	(SCREEN_START_X + 11), (SCREEN_START_Y + 15)
 		lda	K051733_BASE + $6
 		RSUB	print_hex_byte
-		rts
-
-
 loop_cb:
 		rts
-
 
 	section data
 

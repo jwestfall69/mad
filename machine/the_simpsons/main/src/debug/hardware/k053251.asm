@@ -6,7 +6,6 @@
 	section code
 
 k053251_debug:
-
 		ldd	#$0
 		std	r_irq_count
 		std	r_firq_count
@@ -63,7 +62,6 @@ k053251_debug:
 ; we are also on the hook for clearing out the
 ; previous highlight
 highlight_cb:
-
 		ldy	r_old_highlight
 		clr	-$2000, y
 
@@ -168,14 +166,8 @@ write_memory_cb:
 		RSUB	print_hex_byte
 		lda	r_mw_buffer + 15
 		sta	$1fbf
-
-
-
-		rts
-
 loop_cb:
 		rts
-
 
 	section data
 

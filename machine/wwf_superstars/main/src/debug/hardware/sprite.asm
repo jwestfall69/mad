@@ -60,8 +60,6 @@ write_memory_cb:
 		addq.l	#$2, a1
 		addq.b	#$1, d5
 		dbra	d3, .loop_next_byte
-		rts
-
 loop_cb:
 		rts
 
@@ -69,7 +67,6 @@ loop_cb:
 	align 1
 
 d_mw_settings:		MW_SETTINGS 5, r_mw_buffer, highlight_cb, write_memory_cb, loop_cb
-d_str_last_written:	STRING "LAST WRITTEN"
 
 	section bss
 	align 1

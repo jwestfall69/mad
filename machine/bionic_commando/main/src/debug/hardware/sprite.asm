@@ -8,10 +8,6 @@
 sprite_debug:
 		jsr	sprite_viewer_palette_setup
 
-		SEEK_XY SCREEN_START_X, (SCREEN_START_Y + 14)
-		lea	d_str_last_written, a0
-		RSUB	print_string
-
 		move.w	#$0014, r_mw_buffer
 		move.w	#$0000, r_mw_buffer + 2
 		move.w	#$0060, r_mw_buffer + 4
@@ -48,28 +44,9 @@ highlight_cb:
 		rts
 
 write_memory_cb:
-		lea	r_mw_buffer, a0
-		lea	SPRITE_RAM + $800, a1
-		moveq	#$7, d3
-		move.b	#SCREEN_START_X, d5
-
-	.loop_next_byte:
-		move.b	(a0)+, d4
-		move.b	d4, (a1)+
-
-		move.b	d5, d0
-		move.b	#SCREEN_START_Y + 16, d1
-		RSUB	screen_seek_xy
-
-		move.b	d4, d0
-		RSUB	print_hex_byte
-
-		addq.b	#$3, d5
-		dbra	d3, .loop_next_byte
-
+		lea	SPRITE_RAM + $800, a0
+		jsr	memory_write_generic_write
 		move.b	#$1, r_sprite_dma_req
-		rts
-
 loop_cb:
 		rts
 
@@ -77,7 +54,6 @@ loop_cb:
 	align 1
 
 d_mw_settings:		MW_SETTINGS 8, r_mw_buffer, highlight_cb, write_memory_cb, loop_cb
-d_str_last_written:	STRING "LAST WRITTEN"
 
 d_palette_data:
 			dc.w	$0000, $f00f, $0000, $0000

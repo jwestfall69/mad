@@ -105,8 +105,6 @@ value_changed_cb:
 
 		lda	#CTRL_SPRITE_RENDER
 		sta	REG_CONTROL
-		rts
-
 loop_input_cb:
 		rts
 

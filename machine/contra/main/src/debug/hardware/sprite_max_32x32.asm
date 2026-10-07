@@ -13,7 +13,6 @@ sprite_max_32x32:
 
 		lda	#INPUT_B2
 		jsr	wait_button_press
-
 		rts
 
 	section data

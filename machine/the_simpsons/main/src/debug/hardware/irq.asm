@@ -6,7 +6,6 @@
 	section code
 
 irq_debug:
-
 		ldd	#$0
 		std	r_irq_count
 		std	r_firq_count
@@ -63,7 +62,6 @@ irq_debug:
 ; we are also on the hook for clearing out the
 ; previous highlight
 highlight_cb:
-
 		ldy	r_old_highlight
 		clr	-$2000, y
 
@@ -143,7 +141,6 @@ loop_cb:
 		ldd	r_firq_count
 		RSUB	print_hex_word
 		rts
-
 
 	section data
 

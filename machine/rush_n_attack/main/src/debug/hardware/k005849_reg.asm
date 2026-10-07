@@ -9,7 +9,6 @@ k005849_reg_debug:
 		ld	de, d_screen_xys_list
 		call	print_xy_string_list
 
-
 		ld	hl, $0
 		ld	(r_irq_count), hl
 		ld	(r_nmi_count), hl

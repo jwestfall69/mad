@@ -80,7 +80,6 @@ write_memory_cb:
 		SEEK_XY	(SCREEN_START_X + 5), (SCREEN_START_Y + 18)
 		lda	K051733_BASE + $7
 		RSUB	print_hex_byte
-
 loop_cb:
 		rts
 

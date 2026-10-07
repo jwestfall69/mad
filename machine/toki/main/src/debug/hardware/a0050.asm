@@ -49,7 +49,6 @@ highlight_cb:
 		rts
 
 write_memory_cb:
-
 		move.l	r_mw_buffer, $a0050
 		move.l	r_mw_buffer + 4, $a0054
 		move.l	r_mw_buffer + 8, $a0058
@@ -66,8 +65,6 @@ write_memory_cb:
 		RSUB	print_hex_byte
 		addq.b	#$1, d4
 		dbra	d5, .loop_next_byte
-		rts
-
 loop_cb:
 		rts
 

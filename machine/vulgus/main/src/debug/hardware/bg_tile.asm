@@ -48,8 +48,6 @@ write_memory_cb:
 		SEEK_XY	(SCREEN_START_X + 3), (SCREEN_START_Y + 15)
 		ld	c, a
 		RSUB	print_hex_byte
-		ret
-
 loop_cb:
 		ret
 

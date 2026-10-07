@@ -8,11 +8,6 @@
 HIGHLIGHT_PALETTE_NUM	equ $1
 
 sprite_debug:
-
-		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 13)
-		ld	de, d_str_last_written
-		RSUB	print_string
-
 		call	sprite_viewer_palette_setup
 
 		ld	hl, FIX_TILE_ATTR
@@ -33,10 +28,12 @@ sprite_debug:
 
 		ld	ix, d_mw_settings
 		call	memory_write_handler
-
 		ret
 
-; hl = location in video ram
+; params:
+;  hl = location in video ram
+; we are also on the hook for clearing out the
+; previous highlight
 highlight_cb:
 		ld	iy, (r_old_highlight)
 		ld	(iy), $0
@@ -48,49 +45,16 @@ highlight_cb:
 		ret
 
 write_memory_cb:
-		ld	iy, r_mw_buffer
-		ld	a, SCREEN_START_X
-		ld	(r_x_offset), a
-		ld	b, $8
-	.loop_next_byte_print:
-		push	bc
-		ld	a, (r_x_offset)
-		ld	b, a
-		add	a, $3
-		ld	(r_x_offset), a
-		ld	c, SCREEN_START_Y + 15
-		RSUB	screen_seek_xy
-
-		ld	a, (iy)
-		ld	c, a
-		RSUB	print_hex_byte
-		inc	ix
-		inc	iy
-		pop	bc
-		djnz	.loop_next_byte_print
-
-		ld	iy, r_mw_buffer
 		ld	ix, SPRITE_RAM
-
-		ld	b, $8
-	.loop_next_byte_sprite:
-		ld	a, (iy)
-		ld	(ix), a
-		inc	ix
-		inc	iy
-		djnz	.loop_next_byte_sprite
-		ret
-
+		call	memory_write_generic_write
 loop_cb:
 		ret
 
 	section data
 
 d_mw_settings:		MW_SETTINGS 8, r_mw_buffer, highlight_cb, write_memory_cb, loop_cb
-d_str_last_written:	STRING "LAST WRITTEN"
 
 	section bss
 
 r_mw_buffer:		dcb.b 8
 r_old_highlight:	dcb.w 1
-r_x_offset:		dcb.b 1

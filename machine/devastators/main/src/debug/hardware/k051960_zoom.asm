@@ -75,8 +75,6 @@ write_memory_cb:
 		sta	, x+
 		decb
 		bne	.loop_next_sprite_address
-		rts
-
 loop_cb:
 		rts
 
@@ -118,7 +116,6 @@ d_sprite_data:
 d_palette_data:
 	dc.b	$00, $00, $00, $00, $31, $08, $39, $4a, $45, $ad, $5a, $52, $73, $18, $77, $bd
 	dc.b	$67, $39, $4e, $73, $35, $ad, $25, $29, $00, $1c, $ff, $ff, $66, $b5, $3d, $ef
-;	dc.b	$67, $39, $4e, $73, $35, $ad, $25, $29, $00, $1c, $00, $0f, $66, $b5, $3d, $ef
 
 	section bss
 

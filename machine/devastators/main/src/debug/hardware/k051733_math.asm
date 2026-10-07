@@ -83,7 +83,6 @@ write_memory_cb:
 loop_cb:
 		rts
 
-
 	section data
 
 d_mw_settings:		MW_SETTINGS 6, r_mw_buffer, highlight_cb, write_memory_cb, loop_cb

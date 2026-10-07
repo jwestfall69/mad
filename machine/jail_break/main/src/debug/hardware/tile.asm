@@ -54,11 +54,8 @@ write_memory_cb:
 		sta	$2043
 		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 17)
 		RSUB	print_hex_byte
-		rts
-
 loop_cb:
 		rts
-
 
 	section data
 

@@ -64,8 +64,6 @@ write_memory_cb:
 		beq	.skip_sprite_copy_request
 		move.w	#$0, REG_SPRITE_COPY_REQUEST
 	.skip_sprite_copy_request:
-		rts
-
 loop_cb:
 		rts
 
@@ -73,7 +71,6 @@ loop_cb:
 	align 1
 
 d_mw_settings:		MW_SETTINGS 5, r_mw_buffer, highlight_cb, write_memory_cb, loop_cb
-d_str_last_written:	STRING "LAST WRITTEN"
 
 	section bss
 	align 1

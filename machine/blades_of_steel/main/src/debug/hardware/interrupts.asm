@@ -6,7 +6,6 @@
 	section code
 
 interrupts_debug:
-
 		ldd	#$1f
 		std	LAYER_A_TILE_PALETTE + $18
 
@@ -39,7 +38,6 @@ interrupts_debug:
 ; we are also on the hook for clearing out the
 ; previous highlight
 highlight_cb:
-
 		ldy	r_old_highlight
 		lda	, y
 		anda	#$1
@@ -87,9 +85,7 @@ loop_cb:
 		SEEK_XY	(SCREEN_START_X + 6), (SCREEN_START_Y + 18)
 		ldd	r_irq_count
 		RSUB	print_hex_word
-
 		rts
-
 
 	section data
 

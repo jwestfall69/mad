@@ -55,8 +55,6 @@ write_memory_cb:
 		RSUB	print_hex_byte
 		addq.b	#$1, d4
 		dbra	d5, .loop_next_byte
-		rts
-
 loop_cb:
 		rts
 

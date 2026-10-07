@@ -6,10 +6,6 @@
 	section code
 
 sprite_debug:
-		SEEK_XY	SCREEN_START_X, (SCREEN_START_Y + 13)
-		ldy	#d_str_last_written
-		RSUB	print_string
-
 		ldd	#FIX_TILE
 		std	r_old_highlight
 
@@ -33,7 +29,6 @@ sprite_debug:
 ; we are also on the hook for clearing out the
 ; previous highlight
 highlight_cb:
-
 		ldy	r_old_highlight
 		clr	, y
 
@@ -44,46 +39,17 @@ highlight_cb:
 
 write_memory_cb:
 		ldx	#SPRITE_RAM
-		ldy	#r_mw_buffer
-		lda	#$4
-		sta	r_scratch
-		lda	#SCREEN_START_X
-		sta	r_x_offset
-
-	.loop_next_word:
-		pshs	x
-		lda	r_x_offset
-		ldb	#SCREEN_START_Y + 15
-		RSUB	screen_seek_xy
-
-		ldd	, y++
-		pshs	d
-		RSUB	print_hex_word
-		puls	d
-
-		puls	x
-		std	, x++
-
-		lda	r_x_offset
-		adda	#$5
-		sta	r_x_offset
-		dec	r_scratch
-		bne	.loop_next_word
+		jsr	memory_write_generic_write
 
 		RSUB	sprite_trigger_copy
-		rts
-
 loop_cb:
 		rts
-
 
 	section data
 
 d_mw_settings:		MW_SETTINGS 8, r_mw_buffer, highlight_cb, write_memory_cb, loop_cb
-d_str_last_written:	STRING "LAST WRITTEN"
 
 	section bss
 
 r_mw_buffer:		dcb.b 8
 r_old_highlight:	dcb.w 1
-r_x_offset:		dcb.b 1

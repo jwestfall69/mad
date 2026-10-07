@@ -62,8 +62,6 @@ write_memory_cb:
 		beq	.no_sprite_copy_req
 		move.b	#$1, r_sprite_copy_req
 	.no_sprite_copy_req:
-		rts
-
 loop_cb:
 		rts
 

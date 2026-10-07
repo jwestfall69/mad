@@ -55,23 +55,21 @@ highlight_cb:
 		rts
 
 write_memory_cb:
+		ldx	#REG_CONTROL2
+		jsr	memory_write_generic_write
+
 		lda	r_mw_buffer
 		sta	r_reg_control2_saved
-		sta	REG_CONTROL2
-
-		SEEK_XY	(SCREEN_START_X + 14), (SCREEN_START_Y + 13)
-		RSUB	print_hex_byte
 		rts
 
 loop_cb:
-		SEEK_XY	(SCREEN_START_X + 6), (SCREEN_START_Y + 14)
+		SEEK_XY	(SCREEN_START_X + 6), (SCREEN_START_Y + 10)
 		ldd	r_irq_count
 		RSUB	print_hex_word
 
-		SEEK_XY	(SCREEN_START_X + 6), (SCREEN_START_Y + 15)
+		SEEK_XY	(SCREEN_START_X + 6), (SCREEN_START_Y + 11)
 		ldd	r_nmi_count
 		RSUB	print_hex_word
-
 		rts
 
 	section data
@@ -79,9 +77,8 @@ loop_cb:
 d_mw_settings:		MW_SETTINGS 1, r_mw_buffer, highlight_cb, write_memory_cb, loop_cb
 
 d_screen_xys_list:
-		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 13), "LAST WRITTEN"
-		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 14), "IRQ"
-		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 15), "NMI"
+		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 10), "IRQ"
+		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 11), "NMI"
 		XY_STRING_LIST_END
 
 	section bss

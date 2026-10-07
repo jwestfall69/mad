@@ -52,40 +52,13 @@ highlight_cb:
 		rts
 
 write_memory_cb:
-
-		lda	#$5
-		sta	r_scratch
-		lda	#SCREEN_START_X
-		sta	r_x_offset
-
 		ldx	#$0
-		ldy	#r_mw_buffer
-	.loop_next_byte:
-		pshs	x
-		lda	r_x_offset
-		ldb	#(SCREEN_START_Y + 15)
-		RSUB	screen_seek_xy
-
-		lda	,y+
-		pshs	a,y
-		RSUB	print_hex_byte
-		puls	y,a
-		puls	x
-
-		sta	,x+
-
-		lda	r_x_offset
-		adda	#$3
-		sta	r_x_offset
-		dec	r_scratch
-		bne	.loop_next_byte
-
+		jsr	memory_write_generic_write
 		lda	r_mw_buffer + 4
 		sta	r_reg_control_saved
 		rts
 
 loop_cb:
-
 		SEEK_XY	(SCREEN_START_X + 6), (SCREEN_START_Y + 17)
 		ldd	r_firq_count
 		RSUB	print_hex_word
@@ -97,7 +70,6 @@ loop_cb:
 		SEEK_XY	(SCREEN_START_X + 6), (SCREEN_START_Y + 19)
 		ldd	r_nmi_count
 		RSUB	print_hex_word
-
 		rts
 
 	section data
@@ -105,7 +77,6 @@ loop_cb:
 d_mw_settings:		MW_SETTINGS 5, r_mw_buffer, highlight_cb, write_memory_cb, loop_cb
 
 d_screen_xys_list:
-		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 13), "LAST WRITTEN"
 		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 17), "FIRQ"
 		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 18), "IRQ"
 		XY_STRING SCREEN_START_X, (SCREEN_START_Y + 19), "NMI"
@@ -115,4 +86,3 @@ d_screen_xys_list:
 
 r_mw_buffer:		dcb.b 5
 r_old_highlight:	dcb.w 1
-r_x_offset:		dcb.b 1

@@ -48,7 +48,6 @@ highlight_cb:
 		rts
 
 write_memory_cb:
-
 		move.w	r_mw_buffer, d0
 		move.w	d0, $7a200
 		SEEK_XY	(SCREEN_START_X + 8), (SCREEN_START_Y + 16)
@@ -73,8 +72,6 @@ write_memory_cb:
 		move.w	d0, $7a210
 		SEEK_XY	(SCREEN_START_X + 8), (SCREEN_START_Y + 20)
 		RSUB	print_hex_word
-		rts
-
 loop_cb:
 		rts
 

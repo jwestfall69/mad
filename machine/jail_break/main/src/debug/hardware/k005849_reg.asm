@@ -103,7 +103,6 @@ loop_cb:
 		SEEK_XY	(SCREEN_START_X + 6), (SCREEN_START_Y + 19)
 		ldd	r_nmi_count
 		RSUB	print_hex_word
-
 		rts
 
 	section data

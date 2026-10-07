@@ -42,7 +42,6 @@ sprite_debug:
 		std	12, x
 		std	14, x
 
-
 		ldx	#d_mw_settings
 		jsr	memory_write_handler
 		rts
@@ -52,7 +51,6 @@ sprite_debug:
 ; we are also on the hook for clearing out the
 ; previous highlight
 highlight_cb:
-
 		ldy	r_old_highlight
 		clr	-$2000, y
 
@@ -112,16 +110,12 @@ write_memory_cb:
 
 		lda	#CTRL_SPRITE_RENDER
 		sta	REG_CONTROL
-		rts
-
 loop_cb:
 		rts
-
 
 	section data
 
 d_mw_settings:		MW_SETTINGS 16, r_mw_buffer, highlight_cb, write_memory_cb, loop_cb
-d_str_last_written:	STRING "LAST WRITTEN"
 
 	section bss
 

@@ -12,10 +12,6 @@ sprite_debug:
 		; advantage of it triggering a palette dma copy
 		jsr	sprite_viewer_palette_setup
 
-		SEEK_XY SCREEN_START_X, (SCREEN_START_Y + 14)
-		lea	d_str_last_written, a0
-		RSUB	print_string
-
 		move.l	#SCROLL1_RAM, r_old_highlight
 
 		lea	d_mw_settings, a0
@@ -36,28 +32,12 @@ highlight_cb:
 		rts
 
 write_memory_cb:
-		lea	r_mw_buffer, a0
-		lea	OBJECT_RAM, a1
-		moveq	#$7, d3
-		move.b	#SCREEN_START_X, d5
-
 		move.b	#$0, REG_OBJECT_RAM_BANK
-	.loop_next_byte:
-		move.b	(a0)+, d4
-		move.b	d4, (a1)+
 
-		move.b	d5, d0
-		move.b	#SCREEN_START_Y + 16, d1
-		RSUB	screen_seek_xy
+		lea	OBJECT_RAM, a0
+		jsr	memory_write_generic_write
 
-		move.b	d4, d0
-		RSUB	print_hex_byte
-
-		addq.b	#$3, d5
-		dbra	d3, .loop_next_byte
 		move.b	#$1, REG_OBJECT_RAM_BANK
-		rts
-
 loop_cb:
 		rts
 
@@ -65,7 +45,6 @@ loop_cb:
 	align 1
 
 d_mw_settings:		MW_SETTINGS 8, r_mw_buffer, highlight_cb, write_memory_cb, loop_cb
-d_str_last_written:	STRING "LAST WRITTEN"
 
 	section bss
 	align 1

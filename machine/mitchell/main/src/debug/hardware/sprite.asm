@@ -37,10 +37,11 @@ sprite_debug:
 		ld	(ix + 3), $f0
 
 		ei
+
 		ld	ix, d_mw_settings
 		call	memory_write_handler
-		di
 
+		di
 		ret
 
 ; hl = location in video ram
@@ -99,15 +100,12 @@ write_memory_cb:
 
 		ld	a, VIDEO_BANK_TILE
 		out	(IO_VIDEO_BANK), a
-		ret
-
 loop_cb:
 		ret
 
 	section data
 
 d_mw_settings:		MW_SETTINGS 4, r_mw_buffer, highlight_cb, write_memory_cb, loop_cb
-d_str_last_written:	STRING "LAST WRITTEN"
 
 	section bss
 

@@ -61,8 +61,6 @@ write_memory_cb:
 		dbra	d3, .loop_next_byte
 
 		move.w	#$0, REG_SPRITE_COPY
-		rts
-
 loop_cb:
 		rts
 
@@ -70,7 +68,6 @@ loop_cb:
 	align 1
 
 d_mw_settings:		MW_SETTINGS 8, r_mw_buffer, highlight_cb, write_memory_cb, loop_cb
-d_str_last_written:	STRING "LAST WRITTEN"
 
 	section bss
 	align 1

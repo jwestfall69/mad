@@ -1,7 +1,9 @@
 	include "cpu/6x09/include/common.inc"
 	include "cpu/6x09/include/handlers/memory_write.inc"
 
+	global memory_write_generic_write
 	global memory_write_handler
+	global d_str_last_written
 
 COLUMN_START	equ SCREEN_START_X
 ROW_START	equ SCREEN_START_Y + 4
@@ -162,6 +164,63 @@ print_data:
 		bpl	.print_next_byte
 		rts
 
+; params:
+;  a = number of bytes to write
+;  x = dest address
+memory_write_generic_write:
+		ldy	r_mw_settings
+		ldy	s_mw_buffer_ptr, y
+
+		lda	r_num_bytes
+		inca
+		sta	r_scratch
+
+		adda	#ROW_START + 1
+		sta	r_y_offset
+
+		lda	#SCREEN_START_X
+		sta	r_x_offset
+
+		pshs	x, y
+
+		; try and find a better home for this.  Can't put it in the
+		; main handler since custom write callbacks might want it in
+		; a different location on screen
+		ldb	r_y_offset
+		RSUB	screen_seek_xy
+
+		ldy	#d_str_last_written
+		RSUB	print_string
+
+		puls	y, x
+
+		lda	r_y_offset
+		adda	#$2
+		sta	r_y_offset
+
+	.loop_next_byte:
+		pshs	x
+
+		lda	r_x_offset
+		ldb	r_y_offset
+		RSUB	screen_seek_xy
+
+		lda	, y+
+		pshs	a, y
+		RSUB	print_hex_byte
+		puls	y, a
+
+		puls	x
+		sta	, x+
+
+		lda	r_x_offset
+		adda	#$3
+		sta	r_x_offset
+
+		dec	r_scratch
+		bne	.loop_next_byte
+		rts
+
 	section data
 
 d_screen_xys_list:
@@ -172,7 +231,8 @@ d_screen_xys_list:
 	XY_STRING SCREEN_START_X, (SCREEN_B2_Y + 1), "EXIT  HOLD R B2"
 	XY_STRING_LIST_END
 
-d_xor_table:	dc.b $01, $02, $04, $08, $10, $20, $40, $80
+d_str_last_written:	STRING "LAST WRITTEN"
+d_xor_table:		dc.b $01, $02, $04, $08, $10, $20, $40, $80
 
 	section bss
 
@@ -180,3 +240,6 @@ r_mw_settings:		dcb.w 1
 r_num_bytes:		dcb.b 1
 r_active_bit:		dcb.b 1
 r_active_byte:		dcb.b 1
+
+r_x_offset:		dcb.b 1
+r_y_offset:		dcb.b 1

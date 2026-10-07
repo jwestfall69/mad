@@ -1,7 +1,9 @@
 	include "cpu/z80/include/common.inc"
 	include "cpu/z80/include/handlers/memory_write.inc"
 
+	global memory_write_generic_write
 	global memory_write_handler
+	global d_str_last_written
 
 COLUMN_START	equ SCREEN_START_X
 ROW_START	equ SCREEN_START_Y + 4
@@ -177,10 +179,8 @@ memory_write_handler:
 		pop	ix
 		jp	.loop_input
 
-
 	.do_exit:
 		ret
-
 
 print_data:
 		ld	iy, (r_mw_buffer)
@@ -218,6 +218,54 @@ print_data:
 		jp	p, .print_next_byte
 		ret
 
+; params:
+;  ix = dest address
+memory_write_generic_write:
+		ld	iy, (r_mw_buffer)
+
+		ld	a, SCREEN_START_X
+		ld	(r_x_offset), a
+		ld	b, a
+
+		ld	a, (r_num_bytes)
+		add	a, ROW_START + 2
+		ld	(r_y_offset), a
+		ld	c, a
+		RSUB	screen_seek_xy
+
+		ld	de, d_str_last_written
+		RSUB	print_string
+
+		ld	a, (r_y_offset)
+		add	a, $2
+		ld	(r_y_offset), a
+
+		ld	a, (r_num_bytes)
+		inc	a
+		ld	b, a
+
+	.loop_next_byte:
+		push	bc
+		ld	a, (r_x_offset)
+		ld	b, a
+		add	a, $3
+		ld	(r_x_offset), a
+		ld	a, (r_y_offset)
+		ld	c, a
+		RSUB	screen_seek_xy
+
+		ld	a, (iy)
+		ld	(ix), a
+		ld	c, a
+		RSUB	print_hex_byte
+		inc	iy
+		inc	ix
+
+		pop	bc
+		djnz	.loop_next_byte
+
+		ret
+
 	section data
 
 d_screen_xys_list:
@@ -228,7 +276,8 @@ d_screen_xys_list:
 	XY_STRING SCREEN_START_X, (SCREEN_B2_Y + 1), "EXIT  HOLD R B2"
 	XY_STRING_LIST_END
 
-d_xor_table:	dc.b $01, $02, $04, $08, $10, $20, $40, $80
+d_str_last_written:	STRING "LAST WRITTEN"
+d_xor_table:		dc.b $01, $02, $04, $08, $10, $20, $40, $80
 
 	section bss
 
@@ -236,3 +285,6 @@ r_mw_buffer:		dcb.w 1
 r_num_bytes:		dcb.b 1
 r_active_bit:		dcb.b 1
 r_active_byte:		dcb.b 1
+
+r_x_offset:		dcb.b 1
+r_y_offset:		dcb.b 1
