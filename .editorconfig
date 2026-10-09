@@ -1,0 +1,6 @@
+root = true
+
+# get forgejo/github to display files correctly
+[*.{asm,inc,ld}]
+indent_style = tab
+tab_width = 8
