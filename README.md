@@ -41,6 +41,9 @@ Support boards
 ### Blades of Steel (bladestl)
 ![bladestl](machine/blades_of_steel/docs/images/mad_blades_of_steel_main_menu.png)
 
+### Black Tiger (blktiger)
+![blktiger](machine/black_tiger/docs/images/mad_black_tiger_main_menu.png)
+
 ### Block Hole (blockhl)
 ![blockhl](machine/block_hole/docs/images/mad_block_hole_main_menu.png)
 
