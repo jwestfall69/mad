@@ -14,73 +14,75 @@ VLINK_FLAGS = -brawbin1 -T$(MAD_NAME).ld
 MKDIR = mkdir
 DD = dd
 
-OBJS  = $(OBJ_DIR)/cpu/6x09/src/header.o \
-        $(OBJ_DIR)/cpu/6x09/src/input_update.o \
-        $(OBJ_DIR)/cpu/6x09/src/print_error.o \
-        $(OBJ_DIR)/cpu/6x09/src/util.o \
-        $(OBJ_DIR)/cpu/6x09/src/xy_string.o \
-        $(OBJ_DIR)/cpu/6x09/src/debug/error_address_test.o \
-        $(OBJ_DIR)/cpu/6x09/src/debug/mad_git_hash.o \
-        $(OBJ_DIR)/cpu/6x09/src/handlers/auto_test.o \
-        $(OBJ_DIR)/cpu/6x09/src/handlers/error.o \
-        $(OBJ_DIR)/cpu/6x09/src/handlers/input_test.o \
-        $(OBJ_DIR)/cpu/6x09/src/handlers/memory_viewer.o \
-        $(OBJ_DIR)/cpu/6x09/src/handlers/menu.o \
-        $(OBJ_DIR)/cpu/6x09/src/handlers/sound_test.o \
-        $(OBJ_DIR)/cpu/6x09/src/handlers/tile_8x8_viewer.o \
-        $(OBJ_DIR)/cpu/6x09/src/handlers/values_edit.o
+# global includes/code
+INCS += $(wildcard ../../../common/global/include/*.inc)
+INCS += $(wildcard ../../../common/global/include/*/*.inc)
+INCS += $(wildcard ../../../common/global/include/*/*/*.inc)
+INCS += $(wildcard ../../../common/global/include/*.inc)
+INCS += $(wildcard ../../../common/cpu/6x09/include/*.inc)
+INCS += $(wildcard ../../../common/cpu/6x09/include/*/*.inc)
+INCS += $(wildcard ../../../common/cpu/6x09/include/*/*/*.inc)
+INCS += $(wildcard ../../../common/cpu/6809/include/*.inc)
+INCS += $(wildcard ../../../common/cpu/6809/include/*/*.inc)
+INCS += $(wildcard ../../../common/cpu/6809/include/*/*/*.inc)
 
-OBJS += $(OBJ_DIR)/cpu/6809/src/footer.o \
-        $(OBJ_DIR)/cpu/6809/src/memory_fill.o \
-        $(OBJ_DIR)/cpu/6809/src/handlers/memory_tests.o \
-        $(OBJ_DIR)/cpu/6809/src/tests/mad_rom.o \
-        $(OBJ_DIR)/cpu/6809/src/tests/memory.o \
-        $(OBJ_DIR)/cpu/6809/src/tests/work_ram.o
+OBJS += $(OBJ_DIR)/cpu/6x09/src/header.o
+OBJS += $(OBJ_DIR)/cpu/6x09/src/input_update.o
+OBJS += $(OBJ_DIR)/cpu/6x09/src/print_error.o
+OBJS += $(OBJ_DIR)/cpu/6x09/src/util.o
+OBJS += $(OBJ_DIR)/cpu/6x09/src/xy_string.o
+OBJS += $(OBJ_DIR)/cpu/6x09/src/debug/error_address_test.o
+OBJS += $(OBJ_DIR)/cpu/6x09/src/debug/mad_git_hash.o
+OBJS += $(OBJ_DIR)/cpu/6x09/src/handlers/auto_test.o
+OBJS += $(OBJ_DIR)/cpu/6x09/src/handlers/error.o
+OBJS += $(OBJ_DIR)/cpu/6x09/src/handlers/input_test.o
+OBJS += $(OBJ_DIR)/cpu/6x09/src/handlers/memory_viewer.o
+OBJS += $(OBJ_DIR)/cpu/6x09/src/handlers/menu.o
+OBJS += $(OBJ_DIR)/cpu/6x09/src/handlers/sound_test.o
+OBJS += $(OBJ_DIR)/cpu/6x09/src/handlers/tile_8x8_viewer.o
+OBJS += $(OBJ_DIR)/cpu/6x09/src/handlers/values_edit.o
 
-OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
-        $(OBJ_DIR)/error_address.o \
-        $(OBJ_DIR)/errors.o \
-        $(OBJ_DIR)/print.o \
-        $(OBJ_DIR)/screen.o \
-        $(OBJ_DIR)/vector_table.o \
-        $(OBJ_DIR)/version.o \
-        $(OBJ_DIR)/menus/debug.o \
-        $(OBJ_DIR)/menus/graphics_viewer.o \
-        $(OBJ_DIR)/menus/main.o \
-        $(OBJ_DIR)/menus/memory_viewer.o \
-        $(OBJ_DIR)/menus/ram_tests.o \
-        $(OBJ_DIR)/tests/auto.o \
-        $(OBJ_DIR)/tests/input.o \
-        $(OBJ_DIR)/tests/scroll_ram.o \
-        $(OBJ_DIR)/tests/main_ram.o \
-        $(OBJ_DIR)/tests/sound_sn76489a.o \
-        $(OBJ_DIR)/tests/sound_vlm5030.o \
-        $(OBJ_DIR)/viewers/tile.o \
-        $(OBJ_DIR)/viewers/sprite.o
+OBJS += $(OBJ_DIR)/cpu/6809/src/footer.o
+OBJS += $(OBJ_DIR)/cpu/6809/src/memory_fill.o
+OBJS += $(OBJ_DIR)/cpu/6809/src/handlers/memory_tests.o
+OBJS += $(OBJ_DIR)/cpu/6809/src/tests/mad_rom.o
+OBJS += $(OBJ_DIR)/cpu/6809/src/tests/memory.o
+OBJS += $(OBJ_DIR)/cpu/6809/src/tests/work_ram.o
 
+# machine specific includes/code
+INCS += $(wildcard include/*.inc)
+INCS += $(wildcard include/*/*.inc)
+INCS += $(wildcard include/*/*/*.inc)
+
+OBJS += $(OBJ_DIR)/$(MAD_NAME).o
+OBJS += $(OBJ_DIR)/error_address.o
+OBJS += $(OBJ_DIR)/errors.o
+OBJS += $(OBJ_DIR)/print.o
+OBJS += $(OBJ_DIR)/screen.o
+OBJS += $(OBJ_DIR)/vector_table.o
+OBJS += $(OBJ_DIR)/version.o
+OBJS += $(OBJ_DIR)/menus/debug.o
+OBJS += $(OBJ_DIR)/menus/graphics_viewer.o
+OBJS += $(OBJ_DIR)/menus/main.o
+OBJS += $(OBJ_DIR)/menus/memory_viewer.o
+OBJS += $(OBJ_DIR)/menus/ram_tests.o
+OBJS += $(OBJ_DIR)/tests/auto.o
+OBJS += $(OBJ_DIR)/tests/input.o
+OBJS += $(OBJ_DIR)/tests/scroll_ram.o
+OBJS += $(OBJ_DIR)/tests/main_ram.o
+OBJS += $(OBJ_DIR)/tests/sound_sn76489a.o
+OBJS += $(OBJ_DIR)/tests/sound_vlm5030.o
+OBJS += $(OBJ_DIR)/viewers/tile.o
+OBJS += $(OBJ_DIR)/viewers/sprite.o
 
 ifneq (,$(findstring _DEBUG_HARDWARE_,$(BUILD_FLAGS)))
-OBJS += $(OBJ_DIR)/cpu/6x09/src/debug/hardware/ram_find.o \
-        $(OBJ_DIR)/cpu/6x09/src/handlers/memory_write.o \
-        $(OBJ_DIR)/debug/hardware/k005849_reg.o \
-        $(OBJ_DIR)/debug/hardware/sprite.o \
-        $(OBJ_DIR)/debug/hardware/tile.o \
-        $(OBJ_DIR)/menus/debug_hardware.o
+OBJS += $(OBJ_DIR)/cpu/6x09/src/debug/hardware/ram_find.o
+OBJS += $(OBJ_DIR)/cpu/6x09/src/handlers/memory_write.o
+OBJS += $(OBJ_DIR)/debug/hardware/k005849_reg.o
+OBJS += $(OBJ_DIR)/debug/hardware/sprite.o
+OBJS += $(OBJ_DIR)/debug/hardware/tile.o
+OBJS += $(OBJ_DIR)/menus/debug_hardware.o
 endif
-
-INCS = $(wildcard ../../../common/global/include/*.inc) \
-       $(wildcard ../../../common/global/include/*/*.inc) \
-       $(wildcard ../../../common/global/include/*/*/*.inc) \
-       $(wildcard ../../../common/global/include/*.inc) \
-       $(wildcard ../../../common/cpu/6x09/include/*.inc) \
-       $(wildcard ../../../common/cpu/6x09/include/*/*.inc) \
-       $(wildcard ../../../common/cpu/6x09/include/*/*/*.inc) \
-       $(wildcard ../../../common/cpu/6809/include/*.inc) \
-       $(wildcard ../../../common/cpu/6809/include/*/*.inc) \
-       $(wildcard ../../../common/cpu/6809/include/*/*/*.inc) \
-       $(wildcard include/*.inc) \
-       $(wildcard include/*/*.inc) \
-       $(wildcard include/*/*/*.inc)
 
 $(WORK_DIR)/$(MAD_NAME).bin: include/error_codes.inc $(WORK_DIR) $(BUILD_DIR) $(OBJS) ../README.md
 	$(VLINK) $(VLINK_FLAGS) -o $(WORK_DIR)/$(MAD_NAME).bin $(OBJS)

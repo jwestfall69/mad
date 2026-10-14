@@ -10,81 +10,83 @@ VLINK_FLAGS = -brawbin1 -T$(MAD_NAME).ld
 MKDIR = mkdir
 DD = dd
 
-OBJS = $(OBJ_DIR)/cpu/68000/src/crc32.o \
-       $(OBJ_DIR)/cpu/68000/src/dsub.o \
-       $(OBJ_DIR)/cpu/68000/src/footer.o \
-       $(OBJ_DIR)/cpu/68000/src/input_update.o \
-       $(OBJ_DIR)/cpu/68000/src/memory_fill.o \
-       $(OBJ_DIR)/cpu/68000/src/print_error.o \
-       $(OBJ_DIR)/cpu/68000/src/util.o \
-       $(OBJ_DIR)/cpu/68000/src/xy_string.o \
-       $(OBJ_DIR)/cpu/68000/src/debug/ec_dupe_check.o \
-       $(OBJ_DIR)/cpu/68000/src/debug/error_address_test.o \
-       $(OBJ_DIR)/cpu/68000/src/debug/mad_git_hash.o \
-       $(OBJ_DIR)/cpu/68000/src/handlers/auto_test.o \
-       $(OBJ_DIR)/cpu/68000/src/handlers/error.o \
-       $(OBJ_DIR)/cpu/68000/src/handlers/input_test.o \
-       $(OBJ_DIR)/cpu/68000/src/handlers/menu.o \
-       $(OBJ_DIR)/cpu/68000/src/handlers/memory_tests.o \
-       $(OBJ_DIR)/cpu/68000/src/handlers/memory_viewer.o \
-       $(OBJ_DIR)/cpu/68000/src/handlers/sound_test.o \
-       $(OBJ_DIR)/cpu/68000/src/handlers/tile_8x8_viewer.o \
-       $(OBJ_DIR)/cpu/68000/src/handlers/tile_16x16_viewer.o \
-       $(OBJ_DIR)/cpu/68000/src/handlers/values_edit.o \
-       $(OBJ_DIR)/cpu/68000/src/tests/mad_rom.o \
-       $(OBJ_DIR)/cpu/68000/src/tests/memory.o \
-       $(OBJ_DIR)/cpu/68000/src/tests/work_ram.o
+# global includes/code
+INCS += $(wildcard ../../../common/global/include/*.inc)
+INCS += $(wildcard ../../../common/global/include/*/*.inc)
+INCS += $(wildcard ../../../common/global/include/*/*/*.inc)
+INCS += $(wildcard ../../../common/global/include/*.inc)
+INCS += $(wildcard ../../../common/cpu/68000/include/*.inc)
+INCS += $(wildcard ../../../common/cpu/68000/include/*/*.inc)
+INCS += $(wildcard ../../../common/cpu/68000/include/*/*/*.inc)
 
-# code from this machine
-OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
-        $(OBJ_DIR)/error_address.o \
-        $(OBJ_DIR)/errors.o \
-        $(OBJ_DIR)/print.o \
-        $(OBJ_DIR)/screen.o \
-        $(OBJ_DIR)/vector_table.o \
-        $(OBJ_DIR)/version.o \
-        $(OBJ_DIR)/handlers/memory_tests_no_march.o \
-        $(OBJ_DIR)/menus/debug.o \
-        $(OBJ_DIR)/menus/graphics_viewer.o \
-        $(OBJ_DIR)/menus/main.o \
-        $(OBJ_DIR)/menus/memory_viewer.o \
-        $(OBJ_DIR)/menus/ram_tests.o \
-        $(OBJ_DIR)/menus/video_tests.o \
-        $(OBJ_DIR)/tests/auto.o \
-        $(OBJ_DIR)/tests/bg_ram.o \
-        $(OBJ_DIR)/tests/fg_ram.o \
-        $(OBJ_DIR)/tests/input.o \
-        $(OBJ_DIR)/tests/palette_ram.o \
-        $(OBJ_DIR)/tests/sound.o \
-        $(OBJ_DIR)/tests/sprite_ram.o \
-        $(OBJ_DIR)/tests/txt_ram.o \
-        $(OBJ_DIR)/tests/video_dac.o \
-        $(OBJ_DIR)/viewers/fg_tile.o \
-        $(OBJ_DIR)/viewers/bg_tile.o \
-        $(OBJ_DIR)/viewers/sprite.o \
-        $(OBJ_DIR)/viewers/txt_tile.o
+OBJS += $(OBJ_DIR)/cpu/68000/src/crc32.o
+OBJS += $(OBJ_DIR)/cpu/68000/src/dsub.o
+OBJS += $(OBJ_DIR)/cpu/68000/src/footer.o
+OBJS += $(OBJ_DIR)/cpu/68000/src/input_update.o
+OBJS += $(OBJ_DIR)/cpu/68000/src/memory_fill.o
+OBJS += $(OBJ_DIR)/cpu/68000/src/print_error.o
+OBJS += $(OBJ_DIR)/cpu/68000/src/util.o
+OBJS += $(OBJ_DIR)/cpu/68000/src/xy_string.o
+OBJS += $(OBJ_DIR)/cpu/68000/src/debug/ec_dupe_check.o
+OBJS += $(OBJ_DIR)/cpu/68000/src/debug/error_address_test.o
+OBJS += $(OBJ_DIR)/cpu/68000/src/debug/mad_git_hash.o
+OBJS += $(OBJ_DIR)/cpu/68000/src/handlers/auto_test.o
+OBJS += $(OBJ_DIR)/cpu/68000/src/handlers/error.o
+OBJS += $(OBJ_DIR)/cpu/68000/src/handlers/input_test.o
+OBJS += $(OBJ_DIR)/cpu/68000/src/handlers/menu.o
+OBJS += $(OBJ_DIR)/cpu/68000/src/handlers/memory_tests.o
+OBJS += $(OBJ_DIR)/cpu/68000/src/handlers/memory_viewer.o
+OBJS += $(OBJ_DIR)/cpu/68000/src/handlers/sound_test.o
+OBJS += $(OBJ_DIR)/cpu/68000/src/handlers/tile_8x8_viewer.o
+OBJS += $(OBJ_DIR)/cpu/68000/src/handlers/tile_16x16_viewer.o
+OBJS += $(OBJ_DIR)/cpu/68000/src/handlers/values_edit.o
+OBJS += $(OBJ_DIR)/cpu/68000/src/tests/mad_rom.o
+OBJS += $(OBJ_DIR)/cpu/68000/src/tests/memory.o
+OBJS += $(OBJ_DIR)/cpu/68000/src/tests/work_ram.o
+
+# machine specific includes/code
+INCS += $(wildcard include/*.inc)
+INCS += $(wildcard include/*/*.inc)
+INCS += $(wildcard include/*/*/*.inc)
+
+OBJS += $(OBJ_DIR)/$(MAD_NAME).o
+OBJS += $(OBJ_DIR)/error_address.o
+OBJS += $(OBJ_DIR)/errors.o
+OBJS += $(OBJ_DIR)/print.o
+OBJS += $(OBJ_DIR)/screen.o
+OBJS += $(OBJ_DIR)/vector_table.o
+OBJS += $(OBJ_DIR)/version.o
+OBJS += $(OBJ_DIR)/handlers/memory_tests_no_march.o
+OBJS += $(OBJ_DIR)/menus/debug.o
+OBJS += $(OBJ_DIR)/menus/graphics_viewer.o
+OBJS += $(OBJ_DIR)/menus/main.o
+OBJS += $(OBJ_DIR)/menus/memory_viewer.o
+OBJS += $(OBJ_DIR)/menus/ram_tests.o
+OBJS += $(OBJ_DIR)/menus/video_tests.o
+OBJS += $(OBJ_DIR)/tests/auto.o
+OBJS += $(OBJ_DIR)/tests/bg_ram.o
+OBJS += $(OBJ_DIR)/tests/fg_ram.o
+OBJS += $(OBJ_DIR)/tests/input.o
+OBJS += $(OBJ_DIR)/tests/palette_ram.o
+OBJS += $(OBJ_DIR)/tests/sound.o
+OBJS += $(OBJ_DIR)/tests/sprite_ram.o
+OBJS += $(OBJ_DIR)/tests/txt_ram.o
+OBJS += $(OBJ_DIR)/tests/video_dac.o
+OBJS += $(OBJ_DIR)/viewers/fg_tile.o
+OBJS += $(OBJ_DIR)/viewers/bg_tile.o
+OBJS += $(OBJ_DIR)/viewers/sprite.o
+OBJS += $(OBJ_DIR)/viewers/txt_tile.o
 
 ifneq (,$(findstring _DEBUG_HARDWARE_,$(BUILD_FLAGS)))
-OBJS += $(OBJ_DIR)/cpu/68000/src/debug/hardware/watchdog_time.o \
-        $(OBJ_DIR)/cpu/68000/src/handlers/memory_write.o \
-        $(OBJ_DIR)/debug/hardware/bg_offset.o \
-        $(OBJ_DIR)/debug/hardware/fg_offset.o \
-        $(OBJ_DIR)/debug/hardware/sprite.o \
-        $(OBJ_DIR)/debug/hardware/txt_offset.o \
-        $(OBJ_DIR)/debug/hardware/unknown_regs.o \
-        $(OBJ_DIR)/menus/debug_hardware.o
+OBJS += $(OBJ_DIR)/cpu/68000/src/debug/hardware/watchdog_time.o
+OBJS += $(OBJ_DIR)/cpu/68000/src/handlers/memory_write.o
+OBJS += $(OBJ_DIR)/debug/hardware/bg_offset.o
+OBJS += $(OBJ_DIR)/debug/hardware/fg_offset.o
+OBJS += $(OBJ_DIR)/debug/hardware/sprite.o
+OBJS += $(OBJ_DIR)/debug/hardware/txt_offset.o
+OBJS += $(OBJ_DIR)/debug/hardware/unknown_regs.o
+OBJS += $(OBJ_DIR)/menus/debug_hardware.o
 endif
-
-INCS = $(wildcard ../../../common/global/include/*.inc) \
-       $(wildcard ../../../common/global/include/*/*.inc) \
-       $(wildcard ../../../common/global/include/*/*/*.inc) \
-       $(wildcard ../../../common/global/include/*.inc) \
-       $(wildcard ../../../common/cpu/68000/include/*.inc) \
-       $(wildcard ../../../common/cpu/68000/include/*/*.inc) \
-       $(wildcard ../../../common/cpu/68000/include/*/*/*.inc) \
-       $(wildcard include/*.inc) \
-       $(wildcard include/*/*.inc) \
-       $(wildcard include/*/*/*.inc)
 
 $(WORK_DIR)/$(MAD_NAME).bin: include/error_codes.inc $(WORK_DIR) $(BUILD_DIR) $(OBJS) ../README.md
 	$(VLINK) $(VLINK_FLAGS) -o $(WORK_DIR)/$(MAD_NAME).bin $(OBJS)

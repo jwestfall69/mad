@@ -13,24 +13,26 @@ VLINK_FLAGS = -brawbin1 -T$(MAD_NAME).ld
 MKDIR = mkdir
 DD = dd
 
-OBJS = $(OBJ_DIR)/cpu/6809/src/error_address.o \
-       $(OBJ_DIR)/cpu/6809/src/footer.o \
-       $(OBJ_DIR)/cpu/6809/src/tests/mad_rom.o \
-       $(OBJ_DIR)/cpu/6809/src/tests/memory.o \
-       $(OBJ_DIR)/cpu/6809/src/tests/work_ram.o \
-       $(OBJ_DIR)/cpu/6809/src/tests/yamaha/ym2151.o
+# global includes/code
+INCS += $(wildcard ../../../common/global/include/*.inc)
+INCS += $(wildcard ../../../common/cpu/6809/include/*.inc)
+INCS += $(wildcard ../../../common/cpu/6809/include/tests/*.inc)
+INCS += $(wildcard ../../../common/cpu/6809/include/tests/*/*.inc)
 
-# code from this machine
-OBJS += $(OBJ_DIR)/$(MAD_NAME).o \
-        $(OBJ_DIR)/vector_table.o \
-        $(OBJ_DIR)/version.o \
-        $(OBJ_DIR)/tests/ym2151.o
+OBJS += $(OBJ_DIR)/cpu/6809/src/error_address.o
+OBJS += $(OBJ_DIR)/cpu/6809/src/footer.o
+OBJS += $(OBJ_DIR)/cpu/6809/src/tests/mad_rom.o
+OBJS += $(OBJ_DIR)/cpu/6809/src/tests/memory.o
+OBJS += $(OBJ_DIR)/cpu/6809/src/tests/work_ram.o
+OBJS += $(OBJ_DIR)/cpu/6809/src/tests/yamaha/ym2151.o
 
-INCS = $(wildcard include/*.inc) \
-       $(wildcard ../../../common/global/include/*.inc) \
-       $(wildcard ../../../common/cpu/6809/include/*.inc) \
-       $(wildcard ../../../common/cpu/6809/include/tests/*.inc) \
-       $(wildcard ../../../common/cpu/6809/include/tests/*/*.inc)
+# machine specific includes/code
+INCS += $(wildcard include/*.inc)
+
+OBJS += $(OBJ_DIR)/$(MAD_NAME).o
+OBJS += $(OBJ_DIR)/vector_table.o
+OBJS += $(OBJ_DIR)/version.o
+OBJS += $(OBJ_DIR)/tests/ym2151.o
 
 $(WORK_DIR)/$(MAD_NAME).bin: include/error_codes.inc $(WORK_DIR) $(BUILD_DIR) $(OBJS) ../README.md
 	$(VLINK) $(VLINK_FLAGS) -o $(WORK_DIR)/$(MAD_NAME).bin $(OBJS)
