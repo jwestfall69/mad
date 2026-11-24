@@ -1,0 +1,4 @@
+- $0e0000 = irq1 ack
+- $0e8000 = ??
+- board doesn't have watchdog
+- on the 68000 IPL1 and IPL2 pins are tied to the BERR pin

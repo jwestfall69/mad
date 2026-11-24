@@ -153,6 +153,10 @@ Support boards
 ### Rygar (rygar)
 ![rygar](machine/rygar/docs/images/mad_rygar_main_menu.png)
 
+### SNK68-based games
+![snk68](machine/snk68/docs/images/mad_snk68_main_menu.png)<br>
+**Ikari III (ikari3)**<br>
+
 ### Teenage Mutant Ninja Turtles (tmnt)
 ![tmnt](machine/tmnt/docs/images/mad_tmnt_main_menu.png)
 
